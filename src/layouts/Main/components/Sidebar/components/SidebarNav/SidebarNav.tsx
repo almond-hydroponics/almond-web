@@ -93,7 +93,7 @@ const SidebarNav = ({ onClose, handleContactModal }: Props): JSX.Element => {
 			<Box paddingX={2} paddingBottom={2}>
 				<Box>
 					<NavItem
-						title={'Landings'}
+						title={''}
 						items={pages}
 						handleContactModal={handleContactModal}
 					/>
@@ -127,7 +127,7 @@ const SidebarNav = ({ onClose, handleContactModal }: Props): JSX.Element => {
 					>
 						Legal
 					</Typography>
-					<Typography variant={'caption'} fontSize={10} fontWeight={300}>
+					<Typography variant={'caption'} fontWeight={300}>
 						v1.01.123
 					</Typography>
 				</Stack>

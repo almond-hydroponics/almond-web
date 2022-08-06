@@ -2,10 +2,8 @@ import { KeyboardArrowUpRounded } from '@mui/icons-material';
 import {
 	AppBar,
 	Box,
-	Divider,
 	Fab,
 	Slide,
-	Toolbar,
 	Zoom,
 	useScrollTrigger,
 } from '@mui/material';
@@ -147,19 +145,24 @@ const Main = ({
 	);
 
 	return (
-		<Box>
+		<>
 			<AppBar
 				position={'sticky'}
 				sx={{
 					top: 0,
-					backgroundColor: trigger ? theme.palette.background.paper : bgcolor,
+					backgroundColor: trigger ? 'hsla(0,0%,100%,.8)' : bgcolor,
+					backdropFilter: trigger ? 'blur(15px)' : 'none',
 					borderBottom: trigger
 						? `1px solid ${alpha(theme.palette.divider, 0.1)}`
 						: 'none',
 				}}
 				elevation={0}
 			>
-				<Container paddingY={1}>
+				<Container
+					maxWidth={1}
+					paddingY={{ xs: 2, md: 1 }}
+					paddingX={{ xs: 1, md: 4 }}
+				>
 					<Topbar
 						onSidebarOpen={handleSidebarOpen}
 						handleContactModal={handleContactModal}
@@ -174,20 +177,25 @@ const Main = ({
 				open={open}
 				variant="temporary"
 			/>
-			<main>
-				{children}
-				<Divider />
-			</main>
+			<main>{children}</main>
 			{renderContactModal()}
 			<ScrollTop>
 				<Fab color="secondary" size="small" aria-label="scroll back to top">
 					<KeyboardArrowUpRounded />
 				</Fab>
 			</ScrollTop>
-			<Container paddingY={4}>
+			<Container
+				maxWidth={1}
+				paddingX={4}
+				paddingY={8}
+				sx={{
+					backgroundColor: 'common.black',
+					color: 'common.white',
+				}}
+			>
 				<Footer />
 			</Container>
-		</Box>
+		</>
 	);
 };
 

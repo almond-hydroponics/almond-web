@@ -1,8 +1,8 @@
 import SnackBar from '@components/atoms/SnackBar';
 import { ErrorBoundary } from '@components/molecules/ErrorBoundary';
 import { ComponentProvider } from '@context/ComponentContext';
-import useDarkMode from '@hooks/useDarkMode';
 import { OurStore } from '@lib/store';
+import { PaletteMode } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import Paper from '@mui/material/Paper';
 import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles';
@@ -14,14 +14,17 @@ import getTheme from 'theme';
 
 import ErrorBoundaryPage from '../views/ErrorBoundaryPage';
 
+export const ColorModeContext = createContext({
+	toggleColorMode: () => {},
+});
+
 interface Props {
 	children: ReactNode;
 }
 
 const Page = ({ children }: Props): JSX.Element => {
+	const [mode, setMode] = useState<'light' | 'dark'>('light');
 	const { data: session } = useSession();
-
-	const snack = useSelector((store: OurStore) => store.snack);
 
 	useEffect(() => {
 		// Remove the server-side injected CSS.
@@ -38,26 +41,36 @@ const Page = ({ children }: Props): JSX.Element => {
 		});
 	}, []);
 
-	const [themeMode, themeToggler, mountedComponent] = useDarkMode();
+	const colorMode = useMemo(
+		() => ({
+			toggleColorMode: () => {
+				setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+			},
+		}),
+		[]
+	);
 
-	useEffect(() => {
-		AOS.refresh();
-	}, [mountedComponent, themeMode]);
+	const theme = useMemo(() => getTheme(mode as PaletteMode), [mode]);
+	const snack = useSelector((store: OurStore) => store.snack);
 
 	return (
-		<ThemeProvider theme={getTheme(themeMode, themeToggler)}>
-			<ErrorBoundary
-				FallbackComponent={ErrorBoundaryPage}
-				onReset={() => window.location.replace('/')}
-			>
-				<ComponentProvider>
-					{/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-					<CssBaseline />
-					<Paper elevation={0}>{children}</Paper>
-					<SnackBar snack={snack} />
-				</ComponentProvider>
-			</ErrorBoundary>
-		</ThemeProvider>
+		<StyledEngineProvider injectFirst>
+			<ColorModeContext.Provider value={colorMode}>
+				<ThemeProvider theme={theme}>
+					<ErrorBoundary
+						FallbackComponent={ErrorBoundaryPage}
+						onReset={() => window.location.replace('/')}
+					>
+						<ComponentProvider>
+							{/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+							<CssBaseline />
+							<Paper elevation={0}>{children}</Paper>
+							<SnackBar snack={snack} />
+						</ComponentProvider>
+					</ErrorBoundary>
+				</ThemeProvider>
+			</ColorModeContext.Provider>
+		</StyledEngineProvider>
 	);
 };
 

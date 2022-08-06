@@ -15,6 +15,14 @@ body {
 	height: 100%;
 }
 
+.main {
+	border-bottom-left-radius: 40px;
+	border-bottom-right-radius: 40px;
+	display: flex;
+	flex-direction: column;
+	transition: background-color 0.45s ease;
+}
+
 a {
 	text-decoration: none;
 }
@@ -49,24 +57,29 @@ a {
 	width: 100%;
 	max-width: 500px;
 }
+
 .highcharts-data-table caption {
 	padding: 1em 0;
 	font-size: 1.2em;
 	color: #555;
 }
+
 .highcharts-data-table th {
 	font-weight: 600;
 	padding: 0.5em;
 }
+
 .highcharts-data-table td,
 .highcharts-data-table th,
 .highcharts-data-table caption {
 	padding: 0.5em;
 }
+
 .highcharts-data-table thead tr,
 .highcharts-data-table tr:nth-child(even) {
 	background: #f8f8f8;
 }
+
 .highcharts-data-table tr:hover {
 	background: #f1f7ff;
 }

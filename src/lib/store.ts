@@ -30,7 +30,7 @@ const rootReducer = (
 	return combinedReducers(state, action);
 };
 
-const makeStore = (preloadedState?: PreloadedState<RootState>) =>
+export const makeStore = (preloadedState?: PreloadedState<RootState>) =>
 	configureStore({
 		// @ts-expect-error
 		reducer: rootReducer,

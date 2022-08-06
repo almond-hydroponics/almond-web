@@ -89,8 +89,8 @@ const NavItem = ({ items, handleContactModal }: Props): JSX.Element => {
 								<Link href={p.href} passHref>
 									<Button
 										sx={{
-											fontWeight: 500,
-											fontSize: 16,
+											fontWeight: 400,
+											fontSize: 22,
 											color:
 												activeLink === p.href ? 'primary' : 'text.primary',
 											textDecoration: 'none',
@@ -113,8 +113,8 @@ const NavItem = ({ items, handleContactModal }: Props): JSX.Element => {
 			<Box marginBottom={2} marginTop={0}>
 				<Button
 					sx={{
-						fontWeight: 500,
-						fontSize: 16,
+						fontWeight: 400,
+						fontSize: 22,
 						color: 'text.primary',
 						textDecoration: 'none',
 						'&:hover': {

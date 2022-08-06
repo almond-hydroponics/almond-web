@@ -87,16 +87,16 @@ const Hero = (): JSX.Element => {
 	const isAuthed = authService.isAuthenticated();
 
 	const LeftSide = () => (
-		<Box>
+		<>
 			<Box marginBottom={2}>
-				<Typography variant="h3" color="text.primary" sx={{ fontWeight: 700 }}>
+				<Typography variant="h2" color="text.primary" sx={{ fontWeight: 600 }}>
 					Grow your food{' '}
 				</Typography>
 				<Typography
 					color={'primary'}
 					component={'span'}
-					variant="h3"
-					sx={{ fontWeight: 700 }}
+					variant="h2"
+					sx={{ fontWeight: 600 }}
 				>
 					healthy.
 				</Typography>
@@ -124,7 +124,7 @@ const Hero = (): JSX.Element => {
 					{isAuthed ? 'Go to dashboard' : 'Visit our store'}
 				</Button>
 			</Link>
-		</Box>
+		</>
 	);
 
 	const RightSide = (): JSX.Element => {
@@ -164,7 +164,7 @@ const Hero = (): JSX.Element => {
 				overflow: 'hidden',
 			}}
 		>
-			<Container paddingX={0} paddingY={0} maxWidth={{ sm: 1, md: 1236 }}>
+			<Container paddingX={0} paddingY={0}>
 				<Box
 					display={'flex'}
 					flexDirection={{ xs: 'column', md: 'row' }}

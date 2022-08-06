@@ -46,11 +46,11 @@ const Logo = ({
 				{displayText && (
 					<Typography
 						variant="h5"
-						// color="textPrimary"
+						color="textPrimary"
 						style={{
 							fontWeight: 600,
 							fontSize: '1.45rem',
-							color: colorInvert ? 'common.white' : 'text.primary',
+							// color: colorInvert ? 'common.white' : 'common.black',
 						}}
 					>
 						almond

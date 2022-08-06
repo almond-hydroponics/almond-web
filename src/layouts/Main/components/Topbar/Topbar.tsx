@@ -1,13 +1,11 @@
 // components
-import { DarkModeToggler } from '@components/atoms';
 import Logo from '@components/atoms/Logo';
 import Modal from '@components/atoms/Modal';
 import CustomAvatar from '@components/molecules/CustomAvatar';
 import {
-	AccountCircleOutlined,
 	AccountCircleTwoTone,
 	ArrowBack,
-	ShortTextRounded,
+	DragHandleRounded,
 } from '@mui/icons-material';
 import { Box, Button, Stack, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
@@ -42,38 +40,25 @@ const Topbar = ({
 	const handleAuthByEmail = () => setAuthByEmail((prevState) => !prevState);
 
 	const renderAuthButtons = () => (
-		<>
-			<Box marginLeft={3}>
-				{!!session ? (
-					<CustomAvatar />
-				) : (
-					<Button
-						variant="outlined"
-						color="primary"
-						size="small"
-						onClick={handleAuthModal}
-						startIcon={
-							<AccountCircleOutlined
-								sx={{
-									color: colorInvert ? 'common.white' : 'primary.dark',
-									'&:hover': {
-										color: colorInvert ? 'common.white' : 'primary.dark',
-									},
-								}}
-							/>
-						}
-						sx={{
-							color: linkColor,
-							'&:hover': {
-								color: colorInvert ? 'common.white' : 'primary.dark',
-							},
-						}}
-					>
-						Account
-					</Button>
-				)}
-			</Box>
-		</>
+		<Box marginLeft={3} sx={{ display: { xs: 'none', md: 'flex' } }}>
+			{!!session ? (
+				<CustomAvatar />
+			) : (
+				<Button
+					variant="text"
+					color="primary"
+					onClick={handleAuthModal}
+					sx={{
+						color: linkColor,
+						'&:hover': {
+							color: colorInvert ? 'common.white' : 'primary.dark',
+						},
+					}}
+				>
+					Login
+				</Button>
+			)}
+		</Box>
 	);
 
 	const renderModalHeader = (): JSX.Element => (
@@ -119,11 +104,10 @@ const Topbar = ({
 			alignItems={'center'}
 			width={1}
 		>
-			<Box sx={{ display: { xs: 'flex', md: 'none' } }} alignItems={'center'}>
-				<Logo />
+			<Box sx={{ display: { xs: 'flex' } }} alignItems={'center'}>
+				<Logo displayText />
 			</Box>
 			<Box sx={{ display: { xs: 'none', md: 'flex' } }} alignItems={'center'}>
-				<Logo />
 				<Box marginLeft={3}>
 					<Link href="/resources" passHref>
 						<Button
@@ -188,33 +172,13 @@ const Topbar = ({
 				</Box>
 			</Box>
 
-			<Box sx={{ display: { xs: 'none', md: 'flex' } }} alignItems={'center'}>
-				<Box marginLeft={3}>
-					<DarkModeToggler
-						moonColor={
-							colorInvert
-								? theme.palette.common.white
-								: theme.palette.secondary.main
-						}
-						sunColor={
-							colorInvert
-								? theme.palette.common.white
-								: theme.palette.secondary.main
-						}
-					/>
-				</Box>
-				{renderAuthButtons()}
-			</Box>
+			{renderAuthButtons()}
 
 			<Box sx={{ display: { xs: 'flex', md: 'none' } }} alignItems={'center'}>
-				<DarkModeToggler
-					moonColor={theme.palette.secondary.main}
-					sunColor={theme.palette.primary.main}
-				/>
 				<Button
 					onClick={() => onSidebarOpen()}
 					aria-label="Menu"
-					variant={'outlined'}
+					variant={'text'}
 					size={'small'}
 					sx={{
 						color: linkColor,
@@ -223,15 +187,14 @@ const Topbar = ({
 						},
 						borderRadius: 1,
 						minWidth: 'auto',
-						// padding: 1,
+						padding: 0,
 						marginLeft: 2,
 						// borderColor: alpha(theme.palette.divider, 0.2),
 					}}
 				>
-					<ShortTextRounded fontSize={'small'} />
+					<DragHandleRounded fontSize={'medium'} />
 				</Button>
 			</Box>
-			{renderAuthModal()}
 		</Box>
 	);
 };
