@@ -1,4 +1,3 @@
-import { BookmarkAddOutlined } from '@mui/icons-material';
 import {
 	Box,
 	Button,
@@ -10,7 +9,6 @@ import {
 	Typography,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import dayjs from '@utils/dayjsTime';
 import Link from 'next/link';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
@@ -29,11 +27,16 @@ const MostViewedArticles = ({ posts }): JSX.Element => {
 			<Grid container spacing={4}>
 				{posts.map((post, i) => {
 					const {
-						frontMatter: { title, description, thumbnailUrl, date, tags },
+						frontMatter: {
+							title,
+							description,
+							thumbnailUrl,
+							date,
+							tags,
+							author,
+						},
 						slug,
 					} = post;
-
-					const fullName = 'Anonymous';
 					// const formattedDate = dayjs(date).fromNow();
 					const tag = tags[0];
 
@@ -110,7 +113,7 @@ const MostViewedArticles = ({ posts }): JSX.Element => {
 													color={'text.secondary'}
 													// component={'i'}
 												>
-													{fullName} - {date}
+													{author} - {date}
 												</Typography>
 												<Chip
 													component={'a'}

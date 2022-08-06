@@ -1,6 +1,4 @@
-import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
-import ListItemText from '@mui/material/ListItemText';
 import { alpha } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import Container from 'components/Container';
@@ -33,10 +31,9 @@ const Hero = ({
 			data-jarallax
 			data-speed="0.2"
 			position={'relative'}
-			minHeight={{ xs: 400, sm: 500, md: 600 }}
+			minHeight={{ xs: 200, sm: 300, md: 350 }}
+			maxHeight={400}
 			display={'flex'}
-			marginTop={-13}
-			paddingTop={13}
 			alignItems={'center'}
 			id="almond__item--js-scroll"
 		>

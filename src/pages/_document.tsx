@@ -18,15 +18,17 @@ const cspHashOf = (text: crypto.BinaryLike): string => {
 
 export default class MyDocument extends Document {
 	render(): JSX.Element {
-		let csp = `style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src fonts.gstatic.com 'self' data:; default-src 'self'; script-src 'unsafe-eval' 'self' ${cspHashOf(
-			NextScript.getInlineScriptSource(this.props)
-		)}`;
-
-		if (process.env.NODE_ENV === 'production') {
-			csp = `style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src fonts.gstatic.com 'self' data:; default-src 'self'; connect-src 'self' vitals.vercel-insights.com; script-src 'unsafe-eval' 'self' ${cspHashOf(
-				NextScript.getInlineScriptSource(this.props)
-			)}`;
-		}
+		const csp = `
+		  default-src 'self';
+		  script-src 'self'${
+				process.env.NODE_ENV === 'production'
+					? `${cspHashOf(NextScript.getInlineScriptSource(this.props))}`
+					: " 'unsafe-eval'"
+			};
+		  connect-src 'self' vitals.vercel-insights.com;
+		  style-src 'self' 'unsafe-inline';
+		  font-src 'self';  
+		`;
 
 		return (
 			<Html lang="en">
@@ -39,7 +41,10 @@ export default class MyDocument extends Document {
 						content="default"
 					/>
 					<meta name="apple-mobile-web-app-title" content={APP_NAME} />
-					<meta httpEquiv="Content-Security-Policy" content={csp} />
+					<meta
+						httpEquiv="Content-Security-Policy"
+						content={csp.replace(/\s{2,}/g, ' ').trim()}
+					/>
 					<meta name="theme-color" content="#ffffff" />
 					<meta name="description" content={APP_DESCRIPTION} />
 					<meta
@@ -51,6 +56,7 @@ export default class MyDocument extends Document {
 						name="msapplication-TileImage"
 						content="/ms-icon-144x144.png"
 					/>
+					<meta name="referrer" content={'strict-origin'} />
 
 					<meta property="og:locale" content="en_US" />
 					<meta property="og:type" content="website" />
@@ -58,7 +64,7 @@ export default class MyDocument extends Document {
 						property="og:image"
 						content="/icons/android-icon-192x192.png"
 					/>
-					<meta property="og:title" content="dt-edge" />
+					<meta property="og:title" content="Almond Hydroponics" />
 					<meta property="og:description" content="Almond." />
 					<meta property="og:url" content="https://almondhydroponics.com/" />
 
@@ -132,19 +138,6 @@ export default class MyDocument extends Document {
 						type="image/png"
 						sizes="16x16"
 						href="/favicon-16x16.png"
-					/>
-
-					<link rel="preconnect" href="https://fonts.gstatic.com" />
-					<link
-						href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@100;200;300;400;500;700;900&display=swap"
-						rel="stylesheet"
-					/>
-					<link
-						rel="preload"
-						href="/fonts/CircularStd-Book.ttf"
-						as="font"
-						type="font/ttf"
-						crossOrigin="anonymous"
 					/>
 					{/* Inject MUI styles first to match with to prepend: true configuration. */}
 					{(this.props as any).emotionStyleTags}

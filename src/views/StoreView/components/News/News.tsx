@@ -6,27 +6,15 @@ import CardMedia from '@mui/material/CardMedia';
 import { alpha, useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import fancyId from '@utils/fancyId';
+import Link from 'next/link';
 import Slider from 'react-slick';
 
-const mock = [
-	{
-		newsTitle:
-			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-		avatar: 'https://assets.maccarianagency.com/backgrounds/img5.jpg',
-	},
-	{
-		newsTitle:
-			'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-		avatar: 'https://assets.maccarianagency.com/backgrounds/img6.jpg',
-	},
-	{
-		newsTitle:
-			'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-		avatar: 'https://assets.maccarianagency.com/backgrounds/img7.jpg',
-	},
-];
+interface Props {
+	posts: any;
+}
 
-const LatestNews = (): JSX.Element => {
+const LatestNews = ({ posts }: Props): JSX.Element => {
 	const theme = useTheme();
 	const isMd = useMediaQuery(theme.breakpoints.up('md'), {
 		defaultMatches: true,
@@ -35,12 +23,12 @@ const LatestNews = (): JSX.Element => {
 	const sliderOpts = {
 		dots: !isMd,
 		infinite: true,
-		speed: 1000,
+		speed: 2000,
 		slidesToShow: 1,
 		slidesToScroll: 1,
 		arrows: isMd,
 		autoplay: true,
-		autoplaySpeed: 4000,
+		autoplaySpeed: 7000,
 		pauseOnHover: true,
 	};
 
@@ -126,76 +114,95 @@ const LatestNews = (): JSX.Element => {
 					}}
 				>
 					<Slider {...sliderOpts}>
-						{mock.map((item, i) => (
-							<Box key={i}>
-								<Card
-									sx={{
-										display: 'flex',
-										flexDirection: { xs: 'column', md: 'row' },
-										boxShadow: 0,
-										background: 'transparent',
-									}}
-								>
-									<CardMedia
-										image={item.avatar}
-										sx={{
-											height: 300,
-											width: '100%',
-											maxWidth: 400,
-											borderRadius: 4,
-											margin: { xs: '0 auto', md: 'none' },
-										}}
-									/>
-									<CardContent
+						{posts.map((post) => {
+							const {
+								frontMatter: {
+									title,
+									description,
+									thumbnailUrl,
+									date,
+									tags,
+									author,
+								},
+								slug,
+							} = post;
+
+							return (
+								<Box key={fancyId()}>
+									<Card
 										sx={{
 											display: 'flex',
-											alignItems: 'center',
-											marginLeft: { sx: 0, md: 2 },
+											flexDirection: { xs: 'column', md: 'row' },
+											boxShadow: 0,
+											background: 'transparent',
 										}}
 									>
-										<Box>
-											<Typography
-												color="text.primary"
-												variant={'h6'}
-												sx={{
-													textAlign: { xs: 'center', md: 'left' },
-												}}
-											>
-												{item.newsTitle}
-											</Typography>
-											<Box
-												marginTop={2}
-												display={'flex'}
-												justifyContent={{ xs: 'center', md: 'flex-start' }}
-											>
-												<Button
-													endIcon={
-														<Box
-															component={'svg'}
-															xmlns="http://www.w3.org/2000/svg"
-															fill="none"
-															viewBox="0 0 24 24"
-															stroke="currentColor"
-															width={24}
-															height={24}
-														>
-															<path
-																strokeLinecap="round"
-																strokeLinejoin="round"
-																strokeWidth={2}
-																d="M17 8l4 4m0 0l-4 4m4-4H3"
-															/>
-														</Box>
-													}
+										<CardMedia
+											image={thumbnailUrl}
+											sx={{
+												height: 300,
+												width: '100%',
+												maxWidth: 400,
+												borderRadius: 4,
+												margin: { xs: '0 auto', md: 'none' },
+											}}
+										/>
+										<CardContent
+											sx={{
+												display: 'flex',
+												alignItems: 'center',
+												marginLeft: { sx: 0, md: 2 },
+											}}
+										>
+											<Box>
+												<Typography
+													color="text.primary"
+													variant={'h6'}
+													sx={{
+														textAlign: { xs: 'center', md: 'left' },
+													}}
 												>
-													Read More
-												</Button>
+													{title}
+												</Typography>
+												<Typography color="text.secondary">
+													{description}
+												</Typography>
+												<Box
+													marginTop={2}
+													display={'flex'}
+													justifyContent={{ xs: 'center', md: 'flex-start' }}
+												>
+													<Link href={`/blog/${slug}`}>
+														<Button
+															endIcon={
+																<Box
+																	component={'svg'}
+																	xmlns="http://www.w3.org/2000/svg"
+																	fill="none"
+																	viewBox="0 0 24 24"
+																	stroke="currentColor"
+																	width={24}
+																	height={24}
+																>
+																	<path
+																		strokeLinecap="round"
+																		strokeLinejoin="round"
+																		strokeWidth={2}
+																		d="M17 8l4 4m0 0l-4 4m4-4H3"
+																	/>
+																</Box>
+															}
+														>
+															Read More
+														</Button>
+													</Link>
+												</Box>
 											</Box>
-										</Box>
-									</CardContent>
-								</Card>
-							</Box>
-						))}
+										</CardContent>
+									</Card>
+								</Box>
+							);
+						})}
 					</Slider>
 				</Box>
 			</Box>

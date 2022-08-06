@@ -42,7 +42,7 @@ const App = ({
 					name="viewport"
 					content="width=device-width, initial-scale=1, shrink-to-fit=no"
 				/>
-				<title>almond | growing your plants smart</title>
+				<title>Almond | growing your plants smart</title>
 			</Head>
 			<SessionProvider session={pageProps.session}>
 				<DefaultSeo

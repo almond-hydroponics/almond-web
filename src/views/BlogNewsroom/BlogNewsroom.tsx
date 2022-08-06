@@ -1,5 +1,5 @@
 import Box from '@mui/material/Box';
-import { alpha, useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import Container from 'components/Container';
 import Main from 'layouts/Main';
 
@@ -9,8 +9,32 @@ export default function BlogNewsroom({ posts }) {
 	const theme = useTheme();
 
 	return (
-		<Main colorInvert={true}>
-			<Hero />
+		<Main>
+			<Box
+				sx={{
+					position: 'relative',
+					backgroundImage: 'url("/img/hydroponics.webp")',
+					backgroundSize: 'cover',
+					backgroundPosition: 'center',
+					'&:after': {
+						position: 'absolute',
+						content: '" "',
+						width: '100%',
+						height: '100%',
+						top: 0,
+						right: 0,
+						bottom: 0,
+						left: 0,
+						zIndex: 1,
+						background: '#161c2d',
+						opacity: 0.6,
+					},
+				}}
+			>
+				<Box position={'relative'} zIndex={3}>
+					<Hero />
+				</Box>
+			</Box>
 			<Container maxWidth={{ sm: 720, md: 960 }}>
 				<MostViewedArticles posts={posts} />
 			</Container>

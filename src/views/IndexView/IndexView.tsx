@@ -10,9 +10,10 @@ import { Features, Hero, Places, Services } from './components';
 
 interface Props {
 	csrfToken: string;
+	posts: any;
 }
 
-const IndexView = ({ csrfToken }: Props): JSX.Element => {
+const IndexView = ({ csrfToken, posts }: Props): JSX.Element => {
 	const theme = useTheme();
 	const { setCsrfToken } = useContext(ComponentContext);
 
@@ -26,24 +27,24 @@ const IndexView = ({ csrfToken }: Props): JSX.Element => {
 		<Main>
 			<Box
 				bgcolor={'alternate.main'}
-				// sx={{
-				// 	position: 'relative',
-				// 	'&::after': {
-				// 		position: 'absolute',
-				// 		content: '""',
-				// 		width: '30%',
-				// 		zIndex: 1,
-				// 		top: 0,
-				// 		left: '5%',
-				// 		height: '100%',
-				// 		backgroundSize: '16px 16px',
-				// 		backgroundImage: `radial-gradient(${alpha(
-				// 			theme.palette.primary.dark,
-				// 			0.4
-				// 		)} 20%, transparent 20%)`,
-				// 		opacity: 0.2,
-				// 	},
-				// }}
+				sx={{
+					position: 'relative',
+					'&::after': {
+						position: 'absolute',
+						content: '""',
+						width: '30%',
+						zIndex: 1,
+						top: 0,
+						left: '5%',
+						height: '100%',
+						backgroundSize: '16px 16px',
+						backgroundImage: `radial-gradient(${alpha(
+							theme.palette.primary.dark,
+							0.4
+						)} 20%, transparent 20%)`,
+						opacity: 0.2,
+					},
+				}}
 			>
 				<Box position={'relative'} zIndex={3}>
 					<Hero />
@@ -77,7 +78,7 @@ const IndexView = ({ csrfToken }: Props): JSX.Element => {
 			{/*</Container>*/}
 			<Box>
 				<Container>
-					<News />
+					<News posts={posts} />
 				</Container>
 			</Box>
 		</Main>
