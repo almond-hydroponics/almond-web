@@ -23,7 +23,7 @@ export default class MyDocument extends Document {
 		)}`;
 
 		if (process.env.NODE_ENV === 'production') {
-			csp = `style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src fonts.gstatic.com 'self' data:; default-src 'self'; script-src 'unsafe-eval' 'self' ${cspHashOf(
+			csp = `style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src fonts.gstatic.com 'self' data:; default-src 'self'; connect-src 'self' vitals.vercel-insights.com; script-src 'unsafe-eval' 'self' ${cspHashOf(
 				NextScript.getInlineScriptSource(this.props)
 			)}`;
 		}
@@ -39,7 +39,7 @@ export default class MyDocument extends Document {
 						content="default"
 					/>
 					<meta name="apple-mobile-web-app-title" content={APP_NAME} />
-					{/*<meta httpEquiv="Content-Security-Policy" content={csp} />*/}
+					<meta httpEquiv="Content-Security-Policy" content={csp} />
 					<meta name="theme-color" content="#ffffff" />
 					<meta name="description" content={APP_DESCRIPTION} />
 					<meta

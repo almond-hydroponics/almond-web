@@ -2,6 +2,9 @@
 const path = require('path');
 const withPWA = require('next-pwa');
 const runtimeCaching = require('next-pwa/cache');
+
+const isDevelopment = () => process.env.NODE_ENV === 'development';
+
 const securityHeaders = [
 	{
 		key: 'X-Content-Type-Options',
@@ -31,8 +34,9 @@ module.exports = withPWA({
 	reactStrictMode: true,
 	pwa: {
 		dest: 'public',
-		disable: process.env.NODE_ENV === 'development',
+		disable: isDevelopment(),
 		runtimeCaching,
+		buildExcludes: [/middleware-manifest.json$/],
 		// fallbacks: {
 		//   image: '/static/images/fallback.png',
 		// }
