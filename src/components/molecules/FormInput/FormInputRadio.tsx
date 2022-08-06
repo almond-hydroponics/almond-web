@@ -5,9 +5,10 @@ import {
 	Radio,
 	RadioGroup,
 } from '@mui/material';
-import { Controller } from 'react-hook-form';
-import { FormInputProps } from './FormInputProps';
 import fancyId from '@utils/fancyId';
+import { Controller } from 'react-hook-form';
+
+import { FormInputProps } from './FormInputProps';
 
 const options = [
 	{

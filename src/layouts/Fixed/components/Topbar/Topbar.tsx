@@ -1,9 +1,9 @@
+import { DarkModeToggler } from '@components/atoms';
+import MenuIcon from '@mui/icons-material/Menu';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import { alpha, useTheme } from '@mui/material/styles';
-import MenuIcon from '@mui/icons-material/Menu';
-import { DarkModeToggler } from '@components/atoms';
 
 interface Props {
 	// eslint-disable-next-line @typescript-eslint/ban-types

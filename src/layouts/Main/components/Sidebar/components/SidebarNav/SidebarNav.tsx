@@ -1,19 +1,19 @@
-import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
-
-import NavItem from './components/NavItem';
-import pages from '../../../../../navigation';
-import { useRouter } from 'next/router';
-import authService from '@utils/auth';
-import Modal from '../../../../../../components/atoms/Modal';
-import { Form } from '../../../Topbar/components';
-import { useState } from 'react';
 import Container from '@components/Container';
-import { Stack, Typography } from '@mui/material';
 import { AccountCircleTwoTone, ArrowBack } from '@mui/icons-material';
+import CloseIcon from '@mui/icons-material/Close';
+import { Stack, Typography } from '@mui/material';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import authService from '@utils/auth';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+
+import Modal from '../../../../../../components/atoms/Modal';
+import pages from '../../../../../navigation';
+import { Form } from '../../../Topbar/components';
+import NavItem from './components/NavItem';
 
 interface Props {
 	// eslint-disable-next-line @typescript-eslint/ban-types

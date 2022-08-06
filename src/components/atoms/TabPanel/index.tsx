@@ -1,6 +1,6 @@
-import { Box } from '@mui/material';
 // interfaces
 import { TabPanelProps } from '@components/atoms/TabPanel/interfaces';
+import { Box } from '@mui/material';
 
 const TabPanel = ({
 	children,

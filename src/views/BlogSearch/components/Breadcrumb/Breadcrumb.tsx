@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
-import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
+import Typography from '@mui/material/Typography';
 
 const mock = [
 	{

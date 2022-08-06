@@ -1,14 +1,14 @@
-import { useState } from 'react';
-import * as React from 'react';
-import { alpha, useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
-import AppBar from '@mui/material/AppBar';
-
+import { alpha, useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import Container from 'components/Container';
-import { Topbar, Sidebar, Footer } from './components';
+import { useState } from 'react';
+import * as React from 'react';
+
 import pages from '../navigation--docs';
+import { Footer, Sidebar, Topbar } from './components';
 
 interface Props {
 	children: React.ReactNode;

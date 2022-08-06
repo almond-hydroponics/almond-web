@@ -1,12 +1,12 @@
+import FacebookIcon from '@mui/icons-material/Facebook';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import Avatar from '@mui/material/Avatar';
 /* eslint-disable react/no-unescaped-entities */
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import InstagramIcon from '@mui/icons-material/Instagram';
+import Typography from '@mui/material/Typography';
 
 const Content = ({ content, avatar, fullName, date }): JSX.Element => {
 	return (

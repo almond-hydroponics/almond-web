@@ -1,5 +1,6 @@
-import Drawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+
 import { SidebarNav } from './components';
 
 interface Props {

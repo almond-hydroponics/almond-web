@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
 import { FormLabel, Slider } from '@mui/material';
+import { useEffect, useState } from 'react';
 import { Controller } from 'react-hook-form';
+
 import { FormInputProps } from './FormInputProps';
 
 const FormInputSlider = ({

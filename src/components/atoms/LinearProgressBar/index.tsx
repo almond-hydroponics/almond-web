@@ -1,7 +1,7 @@
-// import react library
-import { useEffect, useState } from 'react';
 import { LinearProgress } from '@mui/material';
 import { styled } from '@mui/material/styles';
+// import react library
+import { useEffect, useState } from 'react';
 
 interface Props {
 	delay?: number;

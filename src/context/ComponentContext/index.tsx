@@ -1,4 +1,5 @@
-import { useState, createContext, SyntheticEvent, MouseEvent } from 'react';
+import { MouseEvent, SyntheticEvent, createContext, useState } from 'react';
+
 import { ComponentContextProps, ComponentContextState } from './interfaces';
 
 const selectedIndex = JSON.parse(

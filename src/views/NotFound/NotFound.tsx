@@ -1,12 +1,12 @@
-import { useTheme } from '@mui/material/styles';
-import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-import Main from 'layouts/Main';
+import Link from '@mui/material/Link';
+import { useTheme } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import Container from 'components/Container';
+import Main from 'layouts/Main';
 
 const NotFound = (): JSX.Element => {
 	const theme = useTheme();

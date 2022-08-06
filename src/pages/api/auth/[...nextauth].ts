@@ -1,9 +1,10 @@
+import { ApolloClient, InMemoryCache } from '@apollo/client';
+import environment from '@lib/environment';
+import axios from 'axios';
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
-import axios from 'axios';
-import environment from '@lib/environment';
-import { ApolloClient, InMemoryCache } from '@apollo/client';
+
 import { LoginDocument } from '../../../generated/graphql';
 
 interface AuthResponse {

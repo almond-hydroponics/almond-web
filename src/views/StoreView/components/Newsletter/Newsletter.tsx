@@ -1,11 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import FormControl from '@mui/material/FormControl';
-import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
+import OutlinedInput from '@mui/material/OutlinedInput';
 import { useTheme } from '@mui/material/styles';
-
+import Typography from '@mui/material/Typography';
 import Container from 'components/Container';
 
 const Newsletter = (): JSX.Element => {

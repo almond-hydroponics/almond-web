@@ -1,21 +1,21 @@
+import useFormState from '@hooks/useFormState';
+import { LoadingButton } from '@mui/lab';
 /* eslint-disable react/no-unescaped-entities */
 // @formatter:off
 import {
+	Avatar,
 	Box,
-	Grid,
-	TextField,
 	Divider,
-	Typography,
+	Grid,
 	ListItem,
 	ListItemAvatar,
-	Avatar,
+	TextField,
+	Typography,
 } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import useFormState from '@hooks/useFormState';
-import validate from 'validate.js';
-import { LoadingButton } from '@mui/lab';
 import { useTheme } from '@mui/material/styles';
 import fancyId from '@utils/fancyId';
+import { useDispatch, useSelector } from 'react-redux';
+import validate from 'validate.js';
 
 interface Props {
 	handleContactModal: () => void;

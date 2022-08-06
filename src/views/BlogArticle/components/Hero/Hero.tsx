@@ -1,11 +1,10 @@
-import { useEffect } from 'react';
-import { alpha } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
-
+import Box from '@mui/material/Box';
+import ListItemText from '@mui/material/ListItemText';
+import { alpha } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 import Container from 'components/Container';
+import { useEffect } from 'react';
 
 const Hero = ({
 	avatar,

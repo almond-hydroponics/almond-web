@@ -1,10 +1,10 @@
-import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-
-import Main from 'layouts/Main';
 import Container from 'components/Container';
+import Main from 'layouts/Main';
+
 import { ContactCard, Content } from './components';
 
 const CompanyTerms = (): JSX.Element => {

@@ -1,7 +1,8 @@
-// third-party libraries
-import Cookies from 'js-cookie';
 // helpers
 import authService from '@utils/auth';
+// third-party libraries
+import Cookies from 'js-cookie';
+
 import { token } from '../testHelpers';
 
 describe('AuthService object', () => {

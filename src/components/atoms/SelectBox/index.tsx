@@ -1,20 +1,20 @@
-import { useState, MouseEvent } from 'react';
-import {
-	MenuItem,
-	Menu,
-	Button,
-	Stack,
-	Divider,
-	ButtonBase,
-	Typography,
-} from '@mui/material';
+import { SelectBoxProps } from '@components/atoms/SelectBox/interfaces';
 import {
 	ArrowDropDownTwoTone,
 	ArrowDropUpTwoTone,
 	DateRangeTwoTone,
 } from '@mui/icons-material';
-import { SelectBoxProps } from '@components/atoms/SelectBox/interfaces';
+import {
+	Button,
+	ButtonBase,
+	Divider,
+	Menu,
+	MenuItem,
+	Stack,
+	Typography,
+} from '@mui/material';
 import fancyId from '@utils/fancyId';
+import { MouseEvent, useState } from 'react';
 
 const SelectBox = ({
 	title,

@@ -1,9 +1,9 @@
-import fetch from 'isomorphic-unfetch';
 import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
-import { onError } from 'apollo-link-error';
 import { WebSocketLink } from '@apollo/client/link/ws';
-import { SubscriptionClient } from 'subscriptions-transport-ws';
 import environment from '@lib/environment';
+import { onError } from 'apollo-link-error';
+import fetch from 'isomorphic-unfetch';
+import { SubscriptionClient } from 'subscriptions-transport-ws';
 
 let accessToken;
 

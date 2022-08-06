@@ -1,17 +1,18 @@
-import { useState, useEffect, createContext, useMemo, ReactNode } from 'react';
-import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
-import CssBaseline from '@mui/material/CssBaseline';
-import getTheme from 'theme';
-import AOS from 'aos';
-import { ComponentProvider } from '@context/ComponentContext';
-import ErrorBoundaryPage from '../views/ErrorBoundaryPage';
-import { ErrorBoundary } from '@components/molecules/ErrorBoundary';
-import { useSelector } from 'react-redux';
 import SnackBar from '@components/atoms/SnackBar';
-import { OurStore } from '@lib/store';
-import { useSession } from 'next-auth/react';
+import { ErrorBoundary } from '@components/molecules/ErrorBoundary';
+import { ComponentProvider } from '@context/ComponentContext';
 import useDarkMode from '@hooks/useDarkMode';
+import { OurStore } from '@lib/store';
+import CssBaseline from '@mui/material/CssBaseline';
+import Paper from '@mui/material/Paper';
+import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles';
+import AOS from 'aos';
+import { useSession } from 'next-auth/react';
+import { ReactNode, createContext, useEffect, useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
+import getTheme from 'theme';
+
+import ErrorBoundaryPage from '../views/ErrorBoundaryPage';
 
 interface Props {
 	children: ReactNode;

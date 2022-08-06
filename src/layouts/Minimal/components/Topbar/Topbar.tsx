@@ -1,11 +1,11 @@
-import Link from 'next/link';
-import Box from '@mui/material/Box';
-import { useTheme } from '@mui/material/styles';
+import CustomAvatar from '@components/molecules/CustomAvatar';
 // components
 import { ArrowBackRounded } from '@mui/icons-material';
-import { useRouter } from 'next/router';
 import { IconButton, Typography } from '@mui/material';
-import CustomAvatar from '@components/molecules/CustomAvatar';
+import Box from '@mui/material/Box';
+import { useTheme } from '@mui/material/styles';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const Topbar = (): JSX.Element => {
 	const router = useRouter();

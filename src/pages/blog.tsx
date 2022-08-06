@@ -1,8 +1,9 @@
 import fs from 'fs';
 import path from 'path';
+
 import matter from 'gray-matter';
-import BlogNewsroom from 'views/BlogNewsroom';
 import { GetStaticProps } from 'next';
+import BlogNewsroom from 'views/BlogNewsroom';
 
 export default function BlogNewsroomPage({ posts }): JSX.Element {
 	return <BlogNewsroom posts={posts} />;

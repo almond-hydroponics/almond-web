@@ -1,11 +1,12 @@
 import { Box, Typography } from '@mui/material';
-import SyntaxHighlighter from 'react-syntax-highlighter';
 import { useTheme } from '@mui/material/styles';
-import Main from 'layouts/Main';
-import Container from 'components/Container';
-import { MDXRemote } from 'next-mdx-remote';
-import { Content, FooterNewsletter, Hero, SimilarStories } from './components';
 import dayjs from '@utils/dayjsTime';
+import Container from 'components/Container';
+import Main from 'layouts/Main';
+import { MDXRemote } from 'next-mdx-remote';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+
+import { Content, FooterNewsletter, Hero, SimilarStories } from './components';
 
 const components = { Typography };
 

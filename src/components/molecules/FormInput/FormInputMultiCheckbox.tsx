@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react';
 import {
 	Checkbox,
 	FormControl,
 	FormControlLabel,
 	FormLabel,
 } from '@mui/material';
+import { useEffect, useState } from 'react';
 import { Controller } from 'react-hook-form';
+
 import { FormInputProps } from './FormInputProps';
 
 const FormInputMultiCheckbox = ({

@@ -1,6 +1,7 @@
-import { Controller } from 'react-hook-form';
-import { FormInputProps } from './FormInputProps';
 import { InputAdornment, TextField } from '@mui/material';
+import { Controller } from 'react-hook-form';
+
+import { FormInputProps } from './FormInputProps';
 
 interface IconProps {
 	[x: string]: any;

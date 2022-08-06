@@ -1,13 +1,13 @@
-import { Avatar, Menu, MenuItem, ListItemIcon, Tooltip } from '@mui/material';
-import { useRouter } from 'next/router';
-import { useSession, signOut } from 'next-auth/react';
-import fancyId from '@utils/fancyId';
-import { useState, MouseEvent, useContext } from 'react';
-import { Help, Logout, Mood, OpenInNew, Settings } from '@mui/icons-material';
-import { useDispatch } from 'react-redux';
-import { UserContext } from '@context/UserContext';
-import { useTheme } from '@mui/material/styles';
 import { ComponentContext } from '@context/ComponentContext';
+import { UserContext } from '@context/UserContext';
+import { Help, Logout, Mood, OpenInNew, Settings } from '@mui/icons-material';
+import { Avatar, ListItemIcon, Menu, MenuItem, Tooltip } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import fancyId from '@utils/fancyId';
+import { signOut, useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
+import { MouseEvent, useContext, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 interface Props {
 	hasMultipleRoles?: boolean;

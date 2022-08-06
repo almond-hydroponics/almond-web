@@ -1,13 +1,13 @@
-import { useTheme } from '@mui/material/styles';
+import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
+import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
-import Avatar from '@mui/material/Avatar';
+import { useTheme } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 
 const mock = [
 	{

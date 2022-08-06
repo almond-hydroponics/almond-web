@@ -1,13 +1,14 @@
 import {
 	AnyAction,
+	PreloadedState,
+	ThunkAction,
 	combineReducers,
 	configureStore,
-	ThunkAction,
-	PreloadedState,
 } from '@reduxjs/toolkit';
-import { createWrapper, HYDRATE } from 'next-redux-wrapper';
-import { Action } from 'redux';
+import { HYDRATE, createWrapper } from 'next-redux-wrapper';
 import { useDispatch } from 'react-redux';
+import { Action } from 'redux';
+
 import { snackSlice } from './slices/snack';
 
 const combinedReducers = combineReducers({

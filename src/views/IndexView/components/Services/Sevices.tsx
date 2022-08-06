@@ -1,9 +1,9 @@
+import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 /* eslint-disable react/no-unescaped-entities */
 import { alpha, useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Avatar from '@mui/material/Avatar';
-import Grid from '@mui/material/Grid';
 
 const mock = [
 	{

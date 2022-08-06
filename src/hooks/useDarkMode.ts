@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
 import { PaletteMode } from '@mui/material';
+import { useEffect, useState } from 'react';
 
 const useDarkMode = (): [PaletteMode, () => void, boolean] => {
 	const [themeMode, setTheme] = useState<PaletteMode>('light');

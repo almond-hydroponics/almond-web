@@ -1,8 +1,8 @@
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
-
-import Main from 'layouts/Main';
 import Container from 'components/Container';
+import Main from 'layouts/Main';
+
 import { Breadcrumb, Newsletter, Result } from './components';
 
 const BlogSearch = (): JSX.Element => {

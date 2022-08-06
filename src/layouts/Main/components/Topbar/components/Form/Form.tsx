@@ -1,7 +1,10 @@
-/* eslint-disable react/no-unescaped-entities */
-import { Box, Button, Grid, InputAdornment } from '@mui/material';
-import { useContext, useState } from 'react';
+import { useQuery } from '@apollo/client';
 import { GoogleIcon } from '@components/atoms';
+import { FormInputText } from '@components/molecules';
+import { ComponentContext } from '@context/ComponentContext';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { displaySnackMessage } from '@lib/slices/snack';
+import { AppDispatch } from '@lib/store';
 import {
 	AlternateEmailTwoTone,
 	EmailRounded,
@@ -9,18 +12,16 @@ import {
 	VisibilityOff,
 } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
-import { signIn, SignInResponse } from 'next-auth/react';
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { FormInputText } from '@components/molecules';
-import { useForm } from 'react-hook-form';
-import { ComponentContext } from '@context/ComponentContext';
-import { AppDispatch } from '@lib/store';
-import { useDispatch } from 'react-redux';
-import { displaySnackMessage } from '@lib/slices/snack';
-import { useQuery } from '@apollo/client';
-import { GetGoogleAuthUrlDocument } from '../../../../../../generated/graphql';
+/* eslint-disable react/no-unescaped-entities */
+import { Box, Button, Grid, InputAdornment } from '@mui/material';
+import { SignInResponse, signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import { useContext, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import * as yup from 'yup';
+
+import { GetGoogleAuthUrlDocument } from '../../../../../../generated/graphql';
 
 interface Props {
 	handleAuthModal: () => void;

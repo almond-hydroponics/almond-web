@@ -1,8 +1,9 @@
-import { CSSProperties } from 'react';
-import { PaletteMode, responsiveFontSizes, Theme } from '@mui/material';
+import { PaletteMode, Theme, responsiveFontSizes } from '@mui/material';
 import { ComponentsOverrides, createTheme } from '@mui/material/styles';
-import shadows from './shadows';
+import { CSSProperties } from 'react';
+
 import { dark, light } from './palette';
+import shadows from './shadows';
 
 const getTheme = (mode: PaletteMode, themeToggler: () => void): Theme =>
 	responsiveFontSizes(

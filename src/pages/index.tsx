@@ -1,6 +1,6 @@
-import IndexView from 'views/IndexView';
 import { GetServerSideProps } from 'next';
 import { getCsrfToken } from 'next-auth/react';
+import IndexView from 'views/IndexView';
 
 const IndexPage = ({ csrfToken }): JSX.Element => {
 	return <IndexView csrfToken={csrfToken} />;

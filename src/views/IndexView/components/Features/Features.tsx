@@ -1,15 +1,10 @@
-/* eslint-disable react/no-unescaped-entities */
-import { useState } from 'react';
-import CountUp from 'react-countup';
-import VisibilitySensor from 'react-visibility-sensor';
-import { useTheme } from '@mui/material/styles';
-// import Card from '@mui/material/Card';
-// import CardMedia from '@mui/material/CardMedia';
-import Box from '@mui/material/Box';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import fancyId from '@utils/fancyId';
+import {
+	ApiRounded,
+	CalendarToday,
+	Dry,
+	EmojiNature,
+	Fastfood,
+} from '@mui/icons-material';
 import {
 	Timeline,
 	TimelineConnector,
@@ -19,13 +14,18 @@ import {
 	TimelineOppositeContent,
 	TimelineSeparator,
 } from '@mui/lab';
-import {
-	ApiRounded,
-	CalendarToday,
-	Dry,
-	EmojiNature,
-	Fastfood,
-} from '@mui/icons-material';
+// import Card from '@mui/material/Card';
+// import CardMedia from '@mui/material/CardMedia';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import { useTheme } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import fancyId from '@utils/fancyId';
+/* eslint-disable react/no-unescaped-entities */
+import { useState } from 'react';
+import CountUp from 'react-countup';
+import VisibilitySensor from 'react-visibility-sensor';
 
 const mock = [
 	{

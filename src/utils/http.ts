@@ -1,8 +1,8 @@
+// helpers
+import authService from '@utils/auth';
 // third-party libraries
 import axios from 'axios';
 import { setupCache } from 'axios-cache-adapter';
-// helpers
-import authService from '@utils/auth';
 
 const cacheAdapter = setupCache({
 	maxAge: 15 * 60 * 1000,

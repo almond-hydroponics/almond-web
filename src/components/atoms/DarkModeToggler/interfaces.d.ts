@@ -1,5 +1,5 @@
-import { HTMLAttributes, CSSProperties } from 'react';
 import { defaultProperties } from '@components/atoms/DarkModeToggler/DarkModeToggler';
+import { CSSProperties, HTMLAttributes } from 'react';
 
 type SVGProps = Omit<HTMLAttributes<HTMLOrSVGElement>, 'onChange'>;
 export interface DarkModeTogglerProps extends SVGProps {

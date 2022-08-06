@@ -1,27 +1,27 @@
+import { KeyboardArrowUpRounded } from '@mui/icons-material';
 import {
-	ReactElement,
-	ReactNode,
-	MouseEvent,
-	useState,
-	cloneElement,
-} from 'react';
-import { alpha, useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import {
-	Slide,
-	Box,
-	Toolbar,
-	useScrollTrigger,
 	AppBar,
+	Box,
 	Divider,
 	Fab,
+	Slide,
+	Toolbar,
 	Zoom,
+	useScrollTrigger,
 } from '@mui/material';
-
+import { alpha, useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import Container from 'components/Container';
-import { Topbar, Sidebar, Footer } from './components';
-import { KeyboardArrowUpRounded } from '@mui/icons-material';
+import {
+	MouseEvent,
+	ReactElement,
+	ReactNode,
+	cloneElement,
+	useState,
+} from 'react';
+
 import Modal from '../../components/atoms/Modal';
+import { Footer, Sidebar, Topbar } from './components';
 import { ContactForm } from './components/Topbar/components';
 
 interface Props {

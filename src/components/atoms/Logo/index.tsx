@@ -1,7 +1,7 @@
-import { useRouter } from 'next/router';
 import { Stack, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
+import { useRouter } from 'next/router';
 
 const darkLogo = '/logo.png';
 const logo = '/logo.png';

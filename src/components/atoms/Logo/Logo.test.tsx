@@ -1,10 +1,11 @@
+import { ThemeProvider } from '@mui/material/styles';
 // react library
 import { screen } from '@testing-library/react';
 import renderer from 'react-test-renderer';
+
+import getTheme from '../../../theme';
 // components
 import Logo from './index';
-import { ThemeProvider } from '@mui/material/styles';
-import getTheme from '../../../theme';
 
 describe.skip('Logo component', () => {
 	it('should render correctly', () => {

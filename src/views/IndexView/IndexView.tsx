@@ -1,11 +1,12 @@
-import { alpha, useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Main from 'layouts/Main';
-import Container from 'components/Container';
-import { Features, Services, Hero, Places } from './components';
-import { News } from '../StoreView/components';
-import { useContext, useEffect } from 'react';
 import { ComponentContext } from '@context/ComponentContext';
+import Box from '@mui/material/Box';
+import { alpha, useTheme } from '@mui/material/styles';
+import Container from 'components/Container';
+import Main from 'layouts/Main';
+import { useContext, useEffect } from 'react';
+
+import { News } from '../StoreView/components';
+import { Features, Hero, Places, Services } from './components';
 
 interface Props {
 	csrfToken: string;

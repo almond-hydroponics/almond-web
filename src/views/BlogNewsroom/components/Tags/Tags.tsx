@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Chip from '@mui/material/Chip';
+import Typography from '@mui/material/Typography';
 
 const mock = [
 	'UX',

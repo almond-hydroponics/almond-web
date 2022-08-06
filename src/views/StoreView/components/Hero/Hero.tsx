@@ -1,11 +1,11 @@
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import { colors } from '@mui/material';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import { colors } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const Hero = (): JSX.Element => {
 	const theme = useTheme();

@@ -1,11 +1,12 @@
-import { GetStaticPaths, GetStaticProps } from 'next';
 import fs from 'fs';
 import path from 'path';
+
 import matter from 'gray-matter';
-import { useRouter } from 'next/router';
-import ErrorPage from 'next/error';
-import BlogArticle from 'views/BlogArticle';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import { serialize } from 'next-mdx-remote/serialize';
+import ErrorPage from 'next/error';
+import { useRouter } from 'next/router';
+import BlogArticle from 'views/BlogArticle';
 
 export default function BlogArticlePage({
 	frontMatter,

@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
-import { useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Link from 'next/link';
-import Typography from '@mui/material/Typography';
 import Logo from '@components/atoms/Logo';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import { useTheme } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 import fancyId from '@utils/fancyId';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 interface Props {
 	title?: string;

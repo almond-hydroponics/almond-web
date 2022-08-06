@@ -1,11 +1,10 @@
 // react libraries
 import { createStore } from 'redux';
 
-// components
-import { SnackBar } from './index';
-
 // helpers
 import { renderWithRedux } from '../../../testHelpers';
+// components
+import { SnackBar } from './index';
 
 describe('The SnackBar components', () => {
 	const SAMPLE_SNACK_MESSAGE = 'Time schedule created successfully.';

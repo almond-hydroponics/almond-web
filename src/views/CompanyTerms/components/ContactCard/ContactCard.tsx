@@ -1,7 +1,7 @@
-import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
+import { useTheme } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 
 const ContactCard = (): JSX.Element => {
 	const theme = useTheme();

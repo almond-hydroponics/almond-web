@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
 import { useTheme } from '@mui/material/styles';
+import { ReactNode } from 'react';
 
 interface DividerWithTextProps {
 	children: string | ReactNode;

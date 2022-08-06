@@ -1,12 +1,13 @@
-// react libraries
-import { useEffect, useContext } from 'react';
-// third-party libraries
-import { useTheme } from '@mui/material/styles';
+import { ComponentContext } from '@context/ComponentContext';
 import { Snackbar, useMediaQuery } from '@mui/material';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
+// third-party libraries
+import { useTheme } from '@mui/material/styles';
+// react libraries
+import { useContext, useEffect } from 'react';
+
 // interfaces
 import { SnackMessageProps } from './interfaces';
-import { ComponentContext } from '@context/ComponentContext';
 
 export const SnackBar = ({ snack }: SnackMessageProps): JSX.Element => {
 	const componentContext = useContext(ComponentContext);

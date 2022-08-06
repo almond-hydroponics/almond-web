@@ -1,7 +1,7 @@
-// react libraries
-import ReactGA from 'react-ga';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+// react libraries
+import ReactGA from 'react-ga';
 
 const TRACKING_ID = process.env.NEXT_GOOGLE_TRACKING_ID as string;
 

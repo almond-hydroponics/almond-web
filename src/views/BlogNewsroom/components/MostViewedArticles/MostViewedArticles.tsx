@@ -1,18 +1,18 @@
-import Link from 'next/link';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import { useTheme } from '@mui/material/styles';
+import { BookmarkAddOutlined } from '@mui/icons-material';
 import {
 	Box,
-	Typography,
+	Button,
 	Card,
 	CardContent,
-	Grid,
 	Chip,
+	Grid,
 	Stack,
-	Button,
+	Typography,
 } from '@mui/material';
-import { BookmarkAddOutlined } from '@mui/icons-material';
+import { useTheme } from '@mui/material/styles';
 import dayjs from '@utils/dayjsTime';
+import Link from 'next/link';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const MostViewedArticles = ({ posts }): JSX.Element => {
 	const theme = useTheme();

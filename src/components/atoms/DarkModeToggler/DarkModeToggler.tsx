@@ -1,6 +1,7 @@
-import { DarkModeTogglerProps } from './interfaces';
-import { alpha, useTheme } from '@mui/material/styles';
 import { Button } from '@mui/material';
+import { alpha, useTheme } from '@mui/material/styles';
+
+import { DarkModeTogglerProps } from './interfaces';
 
 const DarkModeToggler = ({
 	size = 20,

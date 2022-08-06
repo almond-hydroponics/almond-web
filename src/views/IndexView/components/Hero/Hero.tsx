@@ -1,14 +1,13 @@
-import Link from 'next/link';
+import { UserContext } from '@context/UserContext';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-
-import Container from 'components/Container';
+import Typography from '@mui/material/Typography';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import authService from '@utils/auth';
 import isArrayNotNull from '@utils/checkArrayEmpty';
-import { UserContext } from '@context/UserContext';
+import Container from 'components/Container';
+import Link from 'next/link';
 import { useContext } from 'react';
 
 const images = [

@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import Lightbox from 'react-image-lightbox';
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
-import Button from '@mui/material/Button';
+import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import React, { useState } from 'react';
+import Lightbox from 'react-image-lightbox';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const Places = (): JSX.Element => {
 	const theme = useTheme();

@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { renderHook } from '@testing-library/react-hooks';
 import useDeepCompareEffect, {
 	useDeepCompareEffectNoCheck,
 } from '@hooks/useDeepEffect';
+import { renderHook } from '@testing-library/react-hooks';
+import { useState } from 'react';
 
 describe('useDeepCompareEffect', () => {
 	it('should throw an error if using it with an empty array', () => {

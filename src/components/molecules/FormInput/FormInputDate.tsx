@@ -1,8 +1,9 @@
+import { LocalizationProvider, MobileTimePicker, TimePicker } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import { MobileTimePicker, LocalizationProvider, TimePicker } from '@mui/lab';
-import { Controller, useFormContext } from 'react-hook-form';
-import { FormInputProps } from './FormInputProps';
 import { TextField } from '@mui/material';
+import { Controller, useFormContext } from 'react-hook-form';
+
+import { FormInputProps } from './FormInputProps';
 
 const FormInputDate = ({ name, control, label }: FormInputProps) => {
 	return (

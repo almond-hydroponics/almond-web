@@ -1,4 +1,6 @@
-import { ReactNode } from 'react';
+import { ModalProps } from '@components/atoms/Modal/interfaces';
+import { Close } from '@mui/icons-material';
+import { LoadingButton } from '@mui/lab';
 import {
 	Button,
 	Dialog,
@@ -9,10 +11,8 @@ import {
 	IconButton,
 	styled,
 } from '@mui/material';
-import { Close } from '@mui/icons-material';
-import { LoadingButton } from '@mui/lab';
-import { ModalProps } from '@components/atoms/Modal/interfaces';
 import { alpha } from '@mui/material/styles';
+import { ReactNode } from 'react';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 	'& .MuDialogContent-root': {

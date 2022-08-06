@@ -1,11 +1,11 @@
-import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
 
-import NavItem from './components/NavItem';
 import pages from '../../../../../navigation';
+import NavItem from './components/NavItem';
 
 interface Props {
 	// eslint-disable-next-line @typescript-eslint/ban-types

@@ -1,13 +1,13 @@
-import Link from 'next/link';
+// components
+import { DarkModeToggler } from '@components/atoms';
+import Logo from '@components/atoms/Logo';
+import CustomAvatar from '@components/molecules/CustomAvatar';
+import { ShortTextRounded } from '@mui/icons-material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { alpha, useTheme } from '@mui/material/styles';
-// components
-import { DarkModeToggler } from '@components/atoms';
 import authService from '@utils/auth';
-import CustomAvatar from '@components/molecules/CustomAvatar';
-import Logo from '@components/atoms/Logo';
-import { ShortTextRounded } from '@mui/icons-material';
+import Link from 'next/link';
 
 interface Props {
 	// eslint-disable-next-line @typescript-eslint/ban-types

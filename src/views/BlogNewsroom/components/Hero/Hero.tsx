@@ -1,13 +1,12 @@
-import React from 'react';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+import Card from '@mui/material/Card';
 import InputAdornment from '@mui/material/InputAdornment';
 import { useTheme } from '@mui/material/styles';
-
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 import Container from 'components/Container';
+import React from 'react';
 
 const Hero = (): JSX.Element => {
 	const theme = useTheme();

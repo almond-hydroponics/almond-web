@@ -1,19 +1,20 @@
-import Link from 'next/link';
-import { useTheme } from '@mui/material/styles';
-import { Box, Button, Stack, Typography } from '@mui/material';
-import { useSession } from 'next-auth/react';
 // components
 import { DarkModeToggler } from '@components/atoms';
-import CustomAvatar from '@components/molecules/CustomAvatar';
 import Logo from '@components/atoms/Logo';
+import Modal from '@components/atoms/Modal';
+import CustomAvatar from '@components/molecules/CustomAvatar';
 import {
 	AccountCircleOutlined,
 	AccountCircleTwoTone,
 	ArrowBack,
 	ShortTextRounded,
 } from '@mui/icons-material';
-import Modal from '@components/atoms/Modal';
+import { Box, Button, Stack, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 import { useState } from 'react';
+
 import { Form } from './components';
 
 interface Props {

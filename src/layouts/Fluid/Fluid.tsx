@@ -1,14 +1,14 @@
-import { ReactElement, ReactNode, useState } from 'react';
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
-import useScrollTrigger from '@mui/material/useScrollTrigger';
-import AppBar from '@mui/material/AppBar';
 import Slide from '@mui/material/Slide';
-
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import useScrollTrigger from '@mui/material/useScrollTrigger';
 import Container from 'components/Container';
-import { Topbar, Sidebar, Footer } from './components';
+import { ReactElement, ReactNode, useState } from 'react';
+
+import { Footer, Sidebar, Topbar } from './components';
 
 interface HideOnScrollProps {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -1,8 +1,10 @@
 /* eslint-disable react/display-name */
 import crypto from 'crypto';
-import { Children } from 'react';
-import Document, { Head, Html, Main, NextScript } from 'next/document';
+
 import createEmotionServer from '@emotion/server/create-instance';
+import Document, { Head, Html, Main, NextScript } from 'next/document';
+import { Children } from 'react';
+
 import createEmotionCache from '../createEmotionCache';
 
 const APP_NAME = 'almond';

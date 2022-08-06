@@ -1,15 +1,15 @@
-import { useContext, useEffect, useState } from 'react';
-import { useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Link from 'next/link';
-import Typography from '@mui/material/Typography';
 import Logo from '@components/atoms/Logo';
-import Button from '@mui/material/Button';
-import fancyId from '@utils/fancyId';
-import { Avatar, Divider, IconButton, Stack } from '@mui/material';
 import { UserContext } from '@context/UserContext';
-import authService from '@utils/auth';
 import { ArrowForwardIosRounded } from '@mui/icons-material';
+import { Avatar, Divider, IconButton, Stack } from '@mui/material';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import { useTheme } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
+import authService from '@utils/auth';
+import fancyId from '@utils/fancyId';
+import Link from 'next/link';
+import { useContext, useEffect, useState } from 'react';
 
 interface Props {
 	title?: string;

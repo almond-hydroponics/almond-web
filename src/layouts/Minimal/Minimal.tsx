@@ -1,19 +1,19 @@
-import { ReactElement, ReactNode, MouseEvent, cloneElement } from 'react';
+import { KeyboardArrowUpRounded } from '@mui/icons-material';
+import {
+	AppBar,
+	Box,
+	Fab,
+	Slide,
+	Toolbar,
+	Zoom,
+	useScrollTrigger,
+} from '@mui/material';
 import { alpha, useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import {
-	Slide,
-	Box,
-	Toolbar,
-	useScrollTrigger,
-	AppBar,
-	Fab,
-	Zoom,
-} from '@mui/material';
-
 import Container from 'components/Container';
+import { MouseEvent, ReactElement, ReactNode, cloneElement } from 'react';
+
 import { Topbar } from './components';
-import { KeyboardArrowUpRounded } from '@mui/icons-material';
 
 interface Props {
 	children: ReactNode;
