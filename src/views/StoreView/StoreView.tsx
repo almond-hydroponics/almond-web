@@ -7,7 +7,6 @@ import {
 	FeaturedProducts,
 	Hero,
 	LatestProducts,
-	News,
 	Overview,
 	Products,
 } from './components';
@@ -35,11 +34,7 @@ const StoreView = (): JSX.Element => {
 			<Container>
 				<LatestProducts />
 			</Container>
-			<Box bgcolor={'alternate.main'}>
-				<Container>
-					<News />
-				</Container>
-			</Box>
+			<Box bgcolor={'alternate.main'}></Box>
 			{/*<Container paddingTop={'0 !important'}>*/}
 			{/*	<QuickSearch />*/}
 			{/*</Container>*/}

@@ -61,7 +61,7 @@ const LatestNews = ({ posts }: Props): JSX.Element => {
 						data-aos={'fade-up'}
 						gutterBottom
 						sx={{
-							fontWeight: 700,
+							fontWeight: 600,
 							marginTop: theme.spacing(1),
 						}}
 					>

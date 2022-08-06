@@ -1,182 +1,123 @@
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
+import { Box, Grid } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import React, { useState } from 'react';
-import Lightbox from 'react-image-lightbox';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const Places = (): JSX.Element => {
 	const theme = useTheme();
-	const [currentImage, setCurrentImage] = useState(0);
-	const [viewerIsOpen, setViewerIsOpen] = useState(false);
-
-	const openLightbox = (index: number): void => {
-		setCurrentImage(index);
-		setViewerIsOpen(true);
-	};
-
-	const closeLightbox = (): void => {
-		setCurrentImage(0);
-		setViewerIsOpen(false);
-	};
-
-	const isMd = useMediaQuery(theme.breakpoints.up('md'), {
-		defaultMatches: true,
-	});
-
-	const photos = [
-		{
-			src: '/img/hydroponics.webp',
-			source: '/img/hydroponics.webp',
-			rows: 1,
-			cols: 2,
-		},
-		{
-			src: '/img/hydroponics.webp',
-			source: '/img/hydroponics.webp',
-			rows: 1,
-			cols: 1,
-		},
-		{
-			src: '/img/hydroponics.webp',
-			source: '/img/hydroponics.webp',
-			rows: 1,
-			cols: 1,
-		},
-		{
-			src: '/img/hydroponics.webp',
-			source: '/img/hydroponics.webp',
-			rows: 1,
-			cols: 2,
-		},
-	];
-
-	const photosToShow = isMd ? photos : photos.slice(0, photos.length - 1);
 
 	return (
-		<Box>
-			<Box marginBottom={4}>
-				<Typography
-					variant="h4"
-					align={'center'}
-					data-aos={'fade-up'}
-					gutterBottom
-					sx={{
-						fontWeight: 700,
-					}}
-				>
-					Showcase our products
-				</Typography>
-				<Typography
-					variant="h6"
-					align={'center'}
-					color={'text.secondary'}
-					data-aos={'fade-up'}
-					sx={{ fontWeight: 400 }}
-				>
-					For entrepreneurs, startups and freelancers.
-					<br />
-					Discover coworking spaces designed to inspire and to connect you to a
-					community of motivated people.
-				</Typography>
+		<Grid container spacing={2} sx={{ display: 'flex' }}>
+			<Grid
+				item
+				container
+				justifyContent={'flex-end'}
+				alignItems={'flex-end'}
+				xs={4}
+				sx={{
+					'& .lazy-load-image-loaded': {
+						width: '80%',
+						height: '80%',
+						display: 'flex !important',
+					},
+				}}
+			>
 				<Box
-					display="flex"
-					flexDirection={{ xs: 'column', sm: 'row' }}
-					alignItems={{ xs: 'stretched', sm: 'flex-start' }}
-					justifyContent={'center'}
-					marginTop={2}
-				>
-					<Button
-						variant="contained"
-						color="primary"
-						size="large"
-						fullWidth={!isMd}
-					>
-						Go to store
-					</Button>
-					<Box
-						component={Button}
-						variant="outlined"
-						color="primary"
-						size="large"
-						marginTop={{ xs: 2, sm: 0 }}
-						marginLeft={{ sm: 2 }}
-						fullWidth={!isMd}
-						endIcon={
-							<svg
-								width={16}
-								height={16}
-								xmlns="http://www.w3.org/2000/svg"
-								fill="none"
-								viewBox="0 0 24 24"
-								stroke="currentColor"
-							>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									strokeWidth={2}
-									d="M17 8l4 4m0 0l-4 4m4-4H3"
-								/>
-							</svg>
-						}
-						onClick={() => openLightbox(0)}
-					>
-						Open the gallery
-					</Box>
-				</Box>
-			</Box>
-			<Box>
-				<ImageList
-					variant="quilted"
-					cols={3}
-					rowHeight={isMd ? 300 : 220}
-					gap={isMd ? 16 : 8}
-				>
-					{photosToShow.map((item, i) => (
-						<ImageListItem
-							key={i}
-							cols={isMd ? item.cols || 1 : 3}
-							rows={isMd ? item.rows || 1 : 1}
-						>
-							<LazyLoadImage
-								height={'100%'}
-								width={'100%'}
-								src={item.src}
-								alt="..."
-								effect="blur"
-								onClick={() => openLightbox(i)}
-								style={{
-									objectFit: 'cover',
-									cursor: 'poiner',
-									borderRadius: 8,
-								}}
-							/>
-						</ImageListItem>
-					))}
-				</ImageList>
-			</Box>
-			{viewerIsOpen && (
-				<Lightbox
-					mainSrc={photos[currentImage].src}
-					nextSrc={photos[(currentImage + 1) % photos.length].src}
-					prevSrc={
-						photos[(currentImage + photos.length - 1) % photos.length].src
-					}
-					onCloseRequest={() => closeLightbox()}
-					onMovePrevRequest={() =>
-						setCurrentImage((currentImage + photos.length - 1) % photos.length)
-					}
-					onMoveNextRequest={() =>
-						setCurrentImage((currentImage + 1) % photos.length)
-					}
-					reactModalStyle={{ overlay: { zIndex: 1500 } }}
+					component={LazyLoadImage}
+					height={1}
+					width={1}
+					borderRadius={2}
+					src={'/img/hydroponics-1.webp'}
+					alt="..."
+					effect="blur"
+					sx={{
+						objectFit: 'cover',
+						filter: theme.palette.mode === 'dark' ? 'brightness(0.6)' : 'none',
+					}}
 				/>
-			)}
-		</Box>
+			</Grid>
+			<Grid
+				item
+				container
+				justifyContent={'flex-start'}
+				alignItems={'flex-end'}
+				xs={8}
+				sx={{
+					'& .lazy-load-image-loaded': {
+						display: 'flex !important',
+						width: 1,
+					},
+				}}
+			>
+				<Box
+					component={LazyLoadImage}
+					height={1}
+					width={1}
+					borderRadius={2}
+					src={'/img/hydroponics.webp'}
+					alt="..."
+					effect="blur"
+					sx={{
+						objectFit: 'cover',
+						filter: theme.palette.mode === 'dark' ? 'brightness(0.6)' : 'none',
+					}}
+				/>
+			</Grid>
+			<Grid
+				item
+				container
+				justifyContent={'flex-end'}
+				alignItems={'flex-start'}
+				xs={8}
+				sx={{
+					'& .lazy-load-image-loaded': {
+						display: 'flex !important',
+						width: 1,
+					},
+				}}
+			>
+				<Box
+					component={LazyLoadImage}
+					height={1}
+					width={1}
+					borderRadius={2}
+					src={'/img/tomato-bucket.webp'}
+					alt="..."
+					effect="blur"
+					sx={{
+						objectFit: 'cover',
+						filter: theme.palette.mode === 'dark' ? 'brightness(0.6)' : 'none',
+					}}
+				/>
+			</Grid>
+			<Grid
+				item
+				container
+				justifyContent={'flex-start'}
+				alignItems={'flex-start'}
+				xs={4}
+				sx={{
+					'& .lazy-load-image-loaded': {
+						width: '80%',
+						height: '80%',
+						display: 'flex !important',
+					},
+				}}
+			>
+				<Box
+					component={LazyLoadImage}
+					height={1}
+					width={1}
+					borderRadius={2}
+					src={'/img/hydroponics-2.webp'}
+					alt="..."
+					effect="blur"
+					sx={{
+						objectFit: 'cover',
+						filter: theme.palette.mode === 'dark' ? 'brightness(0.6)' : 'none',
+					}}
+				/>
+			</Grid>
+		</Grid>
 	);
 };
 

@@ -75,7 +75,7 @@ const Services = (): JSX.Element => {
 						align={'center'}
 						gutterBottom
 						sx={{
-							fontWeight: 700,
+							fontWeight: 600,
 						}}
 					>
 						Feed your family with ease
@@ -87,8 +87,9 @@ const Services = (): JSX.Element => {
 						sx={{ fontWeight: 400 }}
 						align={'center'}
 					>
-						Almond is your food companion to grow your food healthily
-						throughout the season.
+						Our focus is on growing your food smart. We are a hydroponics
+						company that specializes in growing plants in a controlled
+						environment.
 					</Typography>
 				</Box>
 			</Box>

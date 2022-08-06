@@ -5,6 +5,14 @@ const runtimeCaching = require('next-pwa/cache');
 
 const isDevelopment = () => process.env.NODE_ENV === 'development';
 
+// const ContentSecurityPolicy = `
+//   default-src 'self';
+//   script-src 'self'${isDevelopment() ? " 'unsafe-eval'" : ''};
+//   connect-src 'self' vitals.vercel-insights.com;
+//   style-src 'self' 'unsafe-inline';
+//   font-src 'self';
+// `;
+
 const securityHeaders = [
 	{
 		key: 'X-Content-Type-Options',
@@ -26,6 +34,10 @@ const securityHeaders = [
 		key: 'X-DNS-Prefetch-Control',
 		value: 'on',
 	},
+	// {
+	// 	key: 'Content-Security-Policy',
+	// 	value: ContentSecurityPolicy.replace(/\s{2,}/g, ' ').trim(),
+	// },
 ];
 
 module.exports = withPWA({

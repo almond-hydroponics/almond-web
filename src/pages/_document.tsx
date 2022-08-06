@@ -7,8 +7,9 @@ import { Children } from 'react';
 
 import createEmotionCache from '../createEmotionCache';
 
-const APP_NAME = 'Almond';
-const APP_DESCRIPTION = 'Almond Hydroponics - Growing your plants smart.';
+const APP_NAME = 'Almond Hydroponics - Growing your plants smart';
+const APP_DESCRIPTION =
+	'Our focus is on growing your food smart. We are a hydroponics company that specializes in growing plants in a controlled environment.';
 
 const cspHashOf = (text: crypto.BinaryLike): string => {
 	const hash = crypto.createHash('sha256');
@@ -18,17 +19,27 @@ const cspHashOf = (text: crypto.BinaryLike): string => {
 
 export default class MyDocument extends Document {
 	render(): JSX.Element {
-		const csp = `
-		  default-src 'self';
-		  script-src 'self'${
-				process.env.NODE_ENV === 'production'
-					? `${cspHashOf(NextScript.getInlineScriptSource(this.props))}`
-					: " 'unsafe-eval'"
-			};
-		  connect-src 'self' vitals.vercel-insights.com;
-		  style-src 'self' 'unsafe-inline';
-		  font-src 'self';  
-		`;
+		// const csp = `
+		//   default-src 'self';
+		//   script-src 'self'${
+		// 		process.env.NODE_ENV === 'production'
+		// 			? `${cspHashOf(NextScript.getInlineScriptSource(this.props))}`
+		// 			: " 'unsafe-eval'"
+		// 	};
+		//   connect-src 'self' vitals.vercel-insights.com;
+		//   style-src 'self' 'unsafe-inline';
+		//   font-src 'self';
+		// `;
+
+		let csp = `style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src fonts.gstatic.com 'self' data:; default-src 'self'; script-src 'unsafe-eval' 'self' ${cspHashOf(
+			NextScript.getInlineScriptSource(this.props)
+		)}`;
+
+		if (process.env.NODE_ENV === 'production') {
+			csp = `style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src fonts.gstatic.com 'self' data:; default-src 'self'; connect-src 'self' vitals.vercel-insights.com; script-src 'unsafe-eval' 'self' ${cspHashOf(
+				NextScript.getInlineScriptSource(this.props)
+			)}`;
+		}
 
 		return (
 			<Html lang="en">
@@ -41,10 +52,7 @@ export default class MyDocument extends Document {
 						content="default"
 					/>
 					<meta name="apple-mobile-web-app-title" content={APP_NAME} />
-					<meta
-						httpEquiv="Content-Security-Policy"
-						content={csp.replace(/\s{2,}/g, ' ').trim()}
-					/>
+					{/*<meta httpEquiv="Content-Security-Policy" content={csp} />*/}
 					<meta name="theme-color" content="#ffffff" />
 					<meta name="description" content={APP_DESCRIPTION} />
 					<meta
@@ -56,16 +64,13 @@ export default class MyDocument extends Document {
 						name="msapplication-TileImage"
 						content="/ms-icon-144x144.png"
 					/>
-					<meta name="referrer" content={'strict-origin'} />
+					{/*<meta name="referrer" content={'strict-origin'} />*/}
 
 					<meta property="og:locale" content="en_US" />
 					<meta property="og:type" content="website" />
-					<meta
-						property="og:image"
-						content="/icons/android-icon-192x192.png"
-					/>
-					<meta property="og:title" content="Almond Hydroponics" />
-					<meta property="og:description" content="Almond." />
+					<meta property="og:image" content="/img/og-image.webp" />
+					<meta property="og:title" content={APP_NAME} />
+					<meta property="og:description" content={APP_DESCRIPTION} />
 					<meta property="og:url" content="https://almondhydroponics.com/" />
 
 					<link rel="manifest" href="/manifest.json" />
