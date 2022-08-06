@@ -7,7 +7,7 @@ import { Children } from 'react';
 
 import createEmotionCache from '../createEmotionCache';
 
-const APP_NAME = 'almond';
+const APP_NAME = 'Almond';
 const APP_DESCRIPTION = 'Almond Hydroponics - Growing your plants smart.';
 
 const cspHashOf = (text: crypto.BinaryLike): string => {
@@ -139,7 +139,14 @@ export default class MyDocument extends Document {
 						href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@100;200;300;400;500;700;900&display=swap"
 						rel="stylesheet"
 					/>
-					{/* Inject MUI styles first to match with the prepend: true configuration. */}
+					<link
+						rel="preload"
+						href="/fonts/CircularStd-Book.ttf"
+						as="font"
+						type="font/ttf"
+						crossOrigin="anonymous"
+					/>
+					{/* Inject MUI styles first to match with to prepend: true configuration. */}
 					{(this.props as any).emotionStyleTags}
 				</Head>
 				<body>

@@ -28,7 +28,7 @@ const securityHeaders = [
 module.exports = withPWA({
 	output: 'standalone',
 	swcMinify: true,
-	reactStrictMode: false,
+	reactStrictMode: true,
 	pwa: {
 		dest: 'public',
 		disable: process.env.NODE_ENV === 'development',
