@@ -1,0 +1,43 @@
+{
+	"compilerOptions": {
+		"allowJs": true,
+		"allowSyntheticDefaultImports": true,
+		"jsx": "preserve",
+		"jsxImportSource": "@emotion/react",
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"module": "esnext",
+		"moduleResolution": "node",
+		"noEmit": true,
+		//    "noUnusedLocals": true,
+		//    "noUnusedParameters": true,
+		"noImplicitAny": false,
+		"noImplicitThis": true,
+		"strictNullChecks": true,
+		"preserveConstEnums": true,
+		"removeComments": false,
+		"skipLibCheck": true,
+		"sourceMap": true,
+		"strict": true,
+		"target": "es5",
+		"forceConsistentCasingInFileNames": true,
+		"esModuleInterop": true,
+		"resolveJsonModule": true,
+		//    "isolatedModules": true,
+		"noFallthroughCasesInSwitch": true,
+		"outDir": "./dist",
+		"baseUrl": "src",
+		"paths": {
+			"@lib/*": ["lib/*"],
+			"@components/*": ["components/*"],
+			"@utils/*": ["utils/*"],
+			"@modules/*": ["store/modules/*"],
+			"@hooks/*": ["hooks/*"],
+			"@context/*": ["context/*"],
+			"@svg/*": ["svg/*"]
+		},
+		"isolatedModules": true,
+		"incremental": true
+	},
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+	"exclude": ["node_modules"]
+}

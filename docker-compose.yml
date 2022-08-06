@@ -1,0 +1,17 @@
+version: '3'
+services:
+  web:
+    container_name: web
+    image: web
+    restart: always
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    expose:
+      - 3000
+    networks:
+      - almond-network
+
+networks:
+  almond-network:
+    driver: bridge

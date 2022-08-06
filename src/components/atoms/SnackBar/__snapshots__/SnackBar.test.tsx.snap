@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`The SnackBar components displays a snack message if it receives new snack props 1`] = `<DocumentFragment />`;

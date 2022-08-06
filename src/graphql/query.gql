@@ -1,0 +1,22 @@
+query getGoogleAuthURL {
+	getGoogleAuthURL
+}
+
+query googleAuth($code: String!) {
+	googleAuth(input: { code: $code }) {
+		user {
+			id
+			firstName
+			lastName
+			email
+			active
+			verified
+			createdAt
+			updatedAt
+		}
+		errors {
+			field
+			message
+		}
+	}
+}

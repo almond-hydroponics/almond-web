@@ -1,0 +1,28 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.22.1
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  SNYK-JS-PRISMJS-1585202:
+    - react-syntax-highlighter > refractor > prismjs:
+        reason: None given
+        expires: '2021-11-18T17:28:51.501Z'
+  SNYK-JS-ANSIREGEX-1583908:
+    - gauge > wide-align > string-width > strip-ansi > ansi-regex:
+        reason: None given
+        expires: '2021-11-18T17:28:51.501Z'
+    - node-gyp > npmlog > gauge > wide-align > string-width > strip-ansi > ansi-regex:
+        reason: None given
+        expires: '2021-11-18T17:28:51.501Z'
+  SNYK-JS-EJS-1049328:
+    - next-pwa > workbox-webpack-plugin > workbox-build > @surma/rollup-plugin-off-main-thread > ejs:
+        reason: None given
+        expires: '2021-11-18T17:28:51.501Z'
+  SNYK-JS-GLOBPARENT-1016905:
+    - next-optimized-images > imagemin > globby > fast-glob > glob-parent:
+        reason: None given
+        expires: '2021-11-18T17:28:51.501Z'
+  SNYK-JS-NODEFETCH-674311:
+    - react-images > glam > fbjs > isomorphic-fetch > node-fetch:
+        reason: None given
+        expires: '2021-11-18T17:28:51.501Z'
+patch: {}
