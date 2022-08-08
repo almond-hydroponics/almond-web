@@ -1,3 +1,4 @@
+import { Link } from '@components/atoms';
 import { Stack, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
@@ -21,10 +22,13 @@ const Logo = ({
 	} = useTheme();
 
 	return (
-		<div
+		<Box
+			component={Link}
 			data-testid="logo"
-			onClick={() => router.push('/')}
-			onKeyDown={() => router.push('/')}
+			href={'/'}
+			noLinkStyle
+			// onClick={() => router.push('/')}
+			// onKeyDown={() => router.push('/')}
 			role="presentation"
 			style={{ cursor: 'pointer' }}
 		>
@@ -57,7 +61,7 @@ const Logo = ({
 					</Typography>
 				)}
 			</Stack>
-		</div>
+		</Box>
 	);
 };
 

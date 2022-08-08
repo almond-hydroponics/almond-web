@@ -7,3 +7,5 @@ export { default as TabPanel } from './TabPanel';
 export { MenuTabs, MenuTab } from './MenuTabs';
 export { default as SelectBox } from './SelectBox';
 export { default as LinearProgressBar } from './LinearProgressBar';
+export { default as Link } from './Link';
+export { default as Logo } from './Logo';

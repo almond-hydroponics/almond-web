@@ -25,14 +25,14 @@ const Hero = (): JSX.Element => {
 				<Box width={1}>
 					<Box marginBottom={2}>
 						<Typography
-							variant="h2"
+							variant="h3"
 							align={'center'}
 							sx={{
 								fontWeight: 600,
 								color: theme.palette.common.white,
 							}}
 						>
-							Hear from almond newsroom
+							Adventures in the world of plant hydroponics
 						</Typography>
 					</Box>
 					<Box>

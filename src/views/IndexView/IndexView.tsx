@@ -5,15 +5,14 @@ import Container from 'components/Container';
 import Main from 'layouts/Main';
 import { useContext, useEffect } from 'react';
 
-import { News } from '../StoreView/components';
 import { Features, Hero, Places, Services } from './components';
 
 interface Props {
 	csrfToken: string;
-	posts: any;
+	// posts: any;
 }
 
-const IndexView = ({ csrfToken, posts }: Props): JSX.Element => {
+const IndexView = ({ csrfToken }: Props): JSX.Element => {
 	const theme = useTheme();
 	const { setCsrfToken } = useContext(ComponentContext);
 
@@ -76,11 +75,11 @@ const IndexView = ({ csrfToken, posts }: Props): JSX.Element => {
 			{/*<Container>*/}
 			{/*	<GetStarted />*/}
 			{/*</Container>*/}
-			<Box>
-				<Container>
-					<News posts={posts} />
-				</Container>
-			</Box>
+			{/*<Box>*/}
+			{/*	<Container>*/}
+			{/*		<News posts={posts} />*/}
+			{/*	</Container>*/}
+			{/*</Box>*/}
 		</Main>
 	);
 };

@@ -1,3 +1,4 @@
+import { ArrowBack } from '@mui/icons-material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
@@ -29,11 +30,20 @@ const ServerError = (): JSX.Element => {
 						Oops!
 					</Typography>
 					<Typography variant="h2" align={'center'}>
-						This is our fault.
+						Something is definitely wrong.
+					</Typography>
+					<Typography variant="body1" align={'center'} paddingTop={3}>
+						(Don&apos;t worry, we&apos;ll get it fixed soon and fire a
+						developer for this)
 					</Typography>
 					<Box marginTop={4} display={'flex'} justifyContent={'center'}>
 						<Link href="/" passHref>
-							<Button variant="contained" color="primary" size="large">
+							<Button
+								variant="contained"
+								color="primary"
+								size="large"
+								startIcon={<ArrowBack />}
+							>
 								Return to home
 							</Button>
 						</Link>

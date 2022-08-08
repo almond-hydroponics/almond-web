@@ -1,6 +1,6 @@
 import Container from '@components/Container';
 import { ArrowBack } from '@mui/icons-material';
-import { Divider, Stack } from '@mui/material';
+import { Divider } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
@@ -46,7 +46,7 @@ const ErrorBoundaryPage = ({
 					>
 						<Box>
 							<Typography
-								variant="h6"
+								variant="body1"
 								component="p"
 								color="text.secondary"
 								align={isMd ? 'left' : 'center'}
@@ -76,7 +76,6 @@ const ErrorBoundaryPage = ({
 								<Button
 									variant="contained"
 									color="primary"
-									// size="large"
 									startIcon={<ArrowBack />}
 									onClick={resetErrorBoundary}
 								>

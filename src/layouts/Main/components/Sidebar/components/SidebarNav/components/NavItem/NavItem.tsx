@@ -1,4 +1,4 @@
-import Logo from '@components/atoms/Logo';
+import { Link, Logo } from '@components/atoms';
 import { UserContext } from '@context/UserContext';
 import { ArrowForwardIosRounded } from '@mui/icons-material';
 import { Avatar, Divider, IconButton, Stack } from '@mui/material';
@@ -8,7 +8,6 @@ import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import authService from '@utils/auth';
 import fancyId from '@utils/fancyId';
-import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
 
 interface Props {
@@ -85,24 +84,24 @@ const NavItem = ({ items, handleContactModal }: Props): JSX.Element => {
 				<Box key={i} marginBottom={1} marginTop={3}>
 					<Box display="block">
 						{item.pages.map((p) => (
-							<Box marginTop={1} key={fancyId()}>
-								<Link href={p.href} passHref>
-									<Button
+							<Box marginTop={3} key={fancyId()}>
+								<Link href={p.href} noLinkStyle>
+									<Typography
+										color="primary"
 										sx={{
 											fontWeight: 400,
 											fontSize: 22,
+											cursor: 'pointer',
 											color:
 												activeLink === p.href ? 'primary' : 'text.primary',
 											textDecoration: 'none',
 											'&:hover': {
-												color: theme.palette.primary.dark,
+												color: 'text.secondary',
 											},
 										}}
-										variant="text"
-										size="large"
 									>
 										{p.title}
-									</Button>
+									</Typography>
 								</Link>
 							</Box>
 						))}
@@ -110,23 +109,23 @@ const NavItem = ({ items, handleContactModal }: Props): JSX.Element => {
 				</Box>
 			))}
 
-			<Box marginBottom={2} marginTop={0}>
-				<Button
+			<Box marginBottom={2} marginTop={3}>
+				<Typography
+					onClick={handleContactModal}
+					color="primary"
 					sx={{
 						fontWeight: 400,
 						fontSize: 22,
+						cursor: 'pointer',
 						color: 'text.primary',
 						textDecoration: 'none',
 						'&:hover': {
-							color: theme.palette.primary.dark,
+							color: 'text.secondary',
 						},
 					}}
-					variant="text"
-					size="large"
-					onClick={handleContactModal}
 				>
-					Contact us
-				</Button>
+					Contact Us
+				</Typography>
 			</Box>
 		</Box>
 	);

@@ -5,7 +5,7 @@ import { OurStore } from '@lib/store';
 import { PaletteMode } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import Paper from '@mui/material/Paper';
-import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import AOS from 'aos';
 import { useSession } from 'next-auth/react';
 import { ReactNode, createContext, useEffect, useMemo, useState } from 'react';
@@ -54,23 +54,21 @@ const Page = ({ children }: Props): JSX.Element => {
 	const snack = useSelector((store: OurStore) => store.snack);
 
 	return (
-		<StyledEngineProvider injectFirst>
+		<ThemeProvider theme={theme}>
+			{/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+			<CssBaseline />
 			<ColorModeContext.Provider value={colorMode}>
-				<ThemeProvider theme={theme}>
-					<ErrorBoundary
-						FallbackComponent={ErrorBoundaryPage}
-						onReset={() => window.location.replace('/')}
-					>
-						<ComponentProvider>
-							{/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-							<CssBaseline />
-							<Paper elevation={0}>{children}</Paper>
-							<SnackBar snack={snack} />
-						</ComponentProvider>
-					</ErrorBoundary>
-				</ThemeProvider>
+				<ErrorBoundary
+					FallbackComponent={ErrorBoundaryPage}
+					onReset={() => window.location.replace('/')}
+				>
+					<ComponentProvider>
+						<Paper elevation={0}>{children}</Paper>
+						<SnackBar snack={snack} />
+					</ComponentProvider>
+				</ErrorBoundary>
 			</ColorModeContext.Provider>
-		</StyledEngineProvider>
+		</ThemeProvider>
 	);
 };
 

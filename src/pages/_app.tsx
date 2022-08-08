@@ -6,8 +6,7 @@ import 'aos/dist/aos.css';
 import 'assets/css/index.css';
 import 'assets/css/fonts.css';
 
-import { CacheProvider } from '@emotion/react';
-import { EmotionCache } from '@emotion/utils';
+import { CacheProvider, EmotionCache } from '@emotion/react';
 import { wrapper } from '@lib/store';
 import { GoogleAnalytics } from '@utils/googleAnalytics';
 import { SessionProvider } from 'next-auth/react';

@@ -3,7 +3,6 @@ import crypto from 'crypto';
 
 import createEmotionServer from '@emotion/server/create-instance';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
-import { Children } from 'react';
 
 import createEmotionCache from '../createEmotionCache';
 
@@ -52,8 +51,8 @@ export default class MyDocument extends Document {
 						content="default"
 					/>
 					<meta name="apple-mobile-web-app-title" content={APP_NAME} />
-					<meta httpEquiv="Content-Security-Policy" content={csp} />
-					<meta name="theme-color" content="#ffffff" />
+					{/*<meta httpEquiv="Content-Security-Policy" content={csp} />*/}
+					<meta name="theme-color" content="#2573b5" />
 					<meta name="description" content={APP_DESCRIPTION} />
 					<meta
 						name="robots"
@@ -64,6 +63,8 @@ export default class MyDocument extends Document {
 						name="msapplication-TileImage"
 						content="/ms-icon-144x144.png"
 					/>
+					<meta name="emotion-insertion-point" content="" />
+					{(this.props as any).emotionStyleTags}
 					{/*<meta name="referrer" content={'strict-origin'} />*/}
 
 					<meta property="og:locale" content="en_US" />
@@ -144,6 +145,8 @@ export default class MyDocument extends Document {
 						sizes="16x16"
 						href="/favicon-16x16.png"
 					/>
+					<link rel="preload" href="/css/fonts.css" as="style" />
+					<link rel="preload" href="/css/index.css" as="style" />
 					{/* Inject MUI styles first to match with to prepend: true configuration. */}
 					{(this.props as any).emotionStyleTags}
 				</Head>
@@ -212,7 +215,6 @@ MyDocument.getInitialProps = async (ctx) => {
 
 	return {
 		...initialProps,
-		// Styles fragment is rendered after the app and page rendering finish.
-		styles: [...Children.toArray(initialProps.styles), ...emotionStyleTags],
+		emotionStyleTags,
 	};
 };

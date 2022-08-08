@@ -62,6 +62,24 @@ const MostViewedArticles = ({ posts }): JSX.Element => {
 											},
 										}}
 									>
+										{/*<Box*/}
+										{/*	component={'img'}*/}
+										{/*	src={thumbnailUrl}*/}
+										{/*	srcSet={`${thumbnailUrl} 2x`}*/}
+										{/*	alt="..."*/}
+										{/*	height={1}*/}
+										{/*	width={1}*/}
+										{/*	sx={{*/}
+										{/*		borderRadius: 2,*/}
+										{/*		objectFit: 'cover',*/}
+										{/*		maxHeight: 200,*/}
+										{/*		cursor: 'pointer',*/}
+										{/*		filter:*/}
+										{/*			theme.palette.mode === 'dark'*/}
+										{/*				? 'brightness(0.7)'*/}
+										{/*				: 'none',*/}
+										{/*	}}*/}
+										{/*/>*/}
 										<Box
 											component={LazyLoadImage}
 											height={1}
@@ -93,7 +111,7 @@ const MostViewedArticles = ({ posts }): JSX.Element => {
 								>
 									<Link href={`/blog/${slug}`}>
 										<Typography
-											fontWeight={700}
+											fontWeight={500}
 											marginTop={{ xs: 1, md: 0 }}
 											sx={{ cursor: 'pointer' }}
 										>

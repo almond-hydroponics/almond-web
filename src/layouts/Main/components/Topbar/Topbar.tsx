@@ -1,6 +1,5 @@
 // components
-import Logo from '@components/atoms/Logo';
-import Modal from '@components/atoms/Modal';
+import { Link, Logo, Modal } from '@components/atoms';
 import CustomAvatar from '@components/molecules/CustomAvatar';
 import {
 	AccountCircleTwoTone,
@@ -10,7 +9,6 @@ import {
 import { Box, Button, Stack, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { useSession } from 'next-auth/react';
-import Link from 'next/link';
 import { useState } from 'react';
 
 import { Form } from './components';
@@ -109,7 +107,7 @@ const Topbar = ({
 			</Box>
 			<Box sx={{ display: { xs: 'none', md: 'flex' } }} alignItems={'center'}>
 				<Box>
-					<Link href="/resources" passHref>
+					<Link href="/resources" noLinkStyle>
 						<Typography
 							color="primary"
 							sx={{
@@ -126,7 +124,7 @@ const Topbar = ({
 				</Box>
 
 				<Box marginLeft={4}>
-					<Link href="/store" passHref>
+					<Link href="/store" noLinkStyle>
 						<Typography
 							color="primary"
 							sx={{
@@ -143,7 +141,7 @@ const Topbar = ({
 				</Box>
 
 				<Box marginLeft={4}>
-					<Link href="/blog" passHref>
+					<Link href="/blog" noLinkStyle>
 						<Typography
 							color="primary"
 							sx={{

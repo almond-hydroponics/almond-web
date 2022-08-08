@@ -1,3 +1,4 @@
+import { ArrowBack } from '@mui/icons-material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
@@ -33,7 +34,12 @@ const NotFound = (): JSX.Element => {
 					</Typography>
 					<Box marginTop={4} display={'flex'} justifyContent={'center'}>
 						<Link href="/" passHref>
-							<Button variant="contained" color="primary" size="large">
+							<Button
+								variant="contained"
+								color="primary"
+								size="large"
+								startIcon={<ArrowBack />}
+							>
 								Return to home
 							</Button>
 						</Link>
