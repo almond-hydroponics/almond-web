@@ -1,12 +1,11 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
 import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Container from 'components/Container';
 import Main from 'layouts/Main';
+import Link from 'next/link';
 
 const ServerError = (): JSX.Element => {
 	const theme = useTheme();
@@ -19,80 +18,26 @@ const ServerError = (): JSX.Element => {
 			<Box
 				bgcolor={theme.palette.alternate.main}
 				position={'relative'}
-				minHeight={'calc(100vh - 247px)'}
+				minHeight={`calc(100vh - ${isMd ? '247px - 56px' : '300px - 63px'})`}
 				display={'flex'}
 				alignItems={'center'}
 				justifyContent={'center'}
-				height={1}
+				height={'100%'}
 			>
 				<Container>
-					<Grid container>
-						<Grid
-							item
-							container
-							alignItems={'center'}
-							justifyContent={'center'}
-							xs={12}
-							md={6}
-						>
-							<Box>
-								<Typography
-									variant="h1"
-									component={'h1'}
-									align={isMd ? 'left' : 'center'}
-									sx={{ fontWeight: 700 }}
-								>
-									500
-								</Typography>
-								<Typography
-									variant="h6"
-									component="p"
-									color="text.secondary"
-									align={isMd ? 'left' : 'center'}
-								>
-									We are experiencing an internal server problem. Please try
-									again later or <br />
-									If you think this is a problem with us, please{' '}
-									<Link href="mailto:almond.froyo@gmail.com" underline="none">
-										tell us
-									</Link>
-								</Typography>
-								<Box
-									marginTop={4}
-									display={'flex'}
-									justifyContent={{ xs: 'center', md: 'flex-start' }}
-								>
-									<Button
-										component={Link}
-										variant="contained"
-										color="primary"
-										size="large"
-										href={'/'}
-									>
-										Back home
-									</Button>
-								</Box>
-							</Box>
-						</Grid>
-						<Grid item container justifyContent={'center'} xs={12} md={6}>
-							<Box height={1} width={1} maxWidth={500}>
-								<Box
-									component={'img'}
-									src={
-										'https://storage.googleapis.com/static.almondhydroponics.com/static/images/illustration_500.svg'
-									}
-									width={1}
-									height={1}
-									sx={{
-										filter:
-											theme.palette.mode === 'dark'
-												? 'brightness(0.8)'
-												: 'none',
-									}}
-								/>
-							</Box>
-						</Grid>
-					</Grid>
+					<Typography variant="h2" align={'center'} fontWeight={600}>
+						Oops!
+					</Typography>
+					<Typography variant="h2" align={'center'}>
+						This is our fault.
+					</Typography>
+					<Box marginTop={4} display={'flex'} justifyContent={'center'}>
+						<Link href="/" passHref>
+							<Button variant="contained" color="primary" size="large">
+								Return to home
+							</Button>
+						</Link>
+					</Box>
 				</Container>
 			</Box>
 		</Main>

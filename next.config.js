@@ -3,15 +3,13 @@ const path = require('path');
 const withPWA = require('next-pwa');
 const runtimeCaching = require('next-pwa/cache');
 
-const isDevelopment = () => process.env.NODE_ENV === 'development';
-
-// const ContentSecurityPolicy = `
-//   default-src 'self';
-//   script-src 'self'${isDevelopment() ? " 'unsafe-eval'" : ''};
-//   connect-src 'self' vitals.vercel-insights.com;
-//   style-src 'self' 'unsafe-inline';
-//   font-src 'self';
-// `;
+const ContentSecurityPolicy = `
+  default-src 'self';
+  script-src 'self' 'unsafe-eval';
+  connect-src 'self' vitals.vercel-insights.com;
+  style-src 'self' 'unsafe-inline' fonts.googleapis.com;
+  font-src 'self' fonts.gstatic.com data:;
+`;
 
 const securityHeaders = [
 	{
@@ -34,10 +32,10 @@ const securityHeaders = [
 		key: 'X-DNS-Prefetch-Control',
 		value: 'on',
 	},
-	// {
-	// 	key: 'Content-Security-Policy',
-	// 	value: ContentSecurityPolicy.replace(/\s{2,}/g, ' ').trim(),
-	// },
+	{
+		key: 'Content-Security-Policy',
+		value: ContentSecurityPolicy.replace(/\s{2,}/g, ' ').trim(),
+	},
 ];
 
 module.exports = withPWA({
@@ -46,7 +44,7 @@ module.exports = withPWA({
 	reactStrictMode: true,
 	pwa: {
 		dest: 'public',
-		disable: isDevelopment(),
+		disable: process.env.NODE_ENV === 'development',
 		runtimeCaching,
 		buildExcludes: [/middleware-manifest.json$/],
 		// fallbacks: {

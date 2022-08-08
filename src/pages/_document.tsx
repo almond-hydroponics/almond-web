@@ -52,7 +52,7 @@ export default class MyDocument extends Document {
 						content="default"
 					/>
 					<meta name="apple-mobile-web-app-title" content={APP_NAME} />
-					{/*<meta httpEquiv="Content-Security-Policy" content={csp} />*/}
+					<meta httpEquiv="Content-Security-Policy" content={csp} />
 					<meta name="theme-color" content="#ffffff" />
 					<meta name="description" content={APP_DESCRIPTION} />
 					<meta

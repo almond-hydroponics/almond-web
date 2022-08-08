@@ -44,19 +44,19 @@ const Topbar = ({
 			{!!session ? (
 				<CustomAvatar />
 			) : (
-				<Button
-					variant="text"
-					color="primary"
+				<Typography
 					onClick={handleAuthModal}
+					color="primary"
 					sx={{
-						color: linkColor,
+						color: 'text.primary',
+						cursor: 'pointer',
 						'&:hover': {
-							color: colorInvert ? 'common.white' : 'primary.dark',
+							color: 'text.secondary',
 						},
 					}}
 				>
 					Login
-				</Button>
+				</Typography>
 			)}
 		</Box>
 	);
@@ -108,67 +108,71 @@ const Topbar = ({
 				<Logo displayText />
 			</Box>
 			<Box sx={{ display: { xs: 'none', md: 'flex' } }} alignItems={'center'}>
-				<Box marginLeft={3}>
+				<Box>
 					<Link href="/resources" passHref>
-						<Button
+						<Typography
+							color="primary"
 							sx={{
-								color: linkColor,
+								color: 'text.primary',
+								cursor: 'pointer',
 								'&:hover': {
-									color: colorInvert ? 'common.white' : 'primary.dark',
+									color: 'text.secondary',
 								},
 							}}
-							variant="text"
 						>
 							Resources
-						</Button>
+						</Typography>
 					</Link>
 				</Box>
 
-				<Box marginLeft={3}>
+				<Box marginLeft={4}>
 					<Link href="/store" passHref>
-						<Button
+						<Typography
+							color="primary"
 							sx={{
-								color: linkColor,
+								color: 'text.primary',
+								cursor: 'pointer',
 								'&:hover': {
-									color: colorInvert ? 'common.white' : 'primary.dark',
+									color: 'text.secondary',
 								},
 							}}
-							variant="text"
 						>
 							Store
-						</Button>
+						</Typography>
 					</Link>
 				</Box>
 
-				<Box marginLeft={3}>
+				<Box marginLeft={4}>
 					<Link href="/blog" passHref>
-						<Button
+						<Typography
+							color="primary"
 							sx={{
-								color: linkColor,
+								color: 'text.primary',
+								cursor: 'pointer',
 								'&:hover': {
-									color: colorInvert ? 'common.white' : 'primary.dark',
+									color: 'text.secondary',
 								},
 							}}
-							variant="text"
 						>
-							Latest news
-						</Button>
+							Our Latest
+						</Typography>
 					</Link>
 				</Box>
 
-				<Box marginLeft={3}>
-					<Button
+				<Box marginLeft={4}>
+					<Typography
+						onClick={handleContactModal}
+						color="primary"
 						sx={{
-							color: linkColor,
+							color: 'text.primary',
+							cursor: 'pointer',
 							'&:hover': {
-								color: colorInvert ? 'common.white' : 'primary.dark',
+								color: 'text.secondary',
 							},
 						}}
-						variant="text"
-						onClick={handleContactModal}
 					>
-						Contact us
-					</Button>
+						Contact
+					</Typography>
 				</Box>
 			</Box>
 

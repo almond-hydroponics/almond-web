@@ -145,7 +145,7 @@ const Main = ({
 	);
 
 	return (
-		<>
+		<Box position={'relative'} minHeight={'100vh'}>
 			<AppBar
 				position={'sticky'}
 				sx={{
@@ -177,7 +177,9 @@ const Main = ({
 				open={open}
 				variant="temporary"
 			/>
-			<main>{children}</main>
+			<main style={{ paddingBottom: isMd ? '247px' : '300px' }}>
+				{children}
+			</main>
 			{renderContactModal()}
 			<ScrollTop>
 				<Fab color="secondary" size="small" aria-label="scroll back to top">
@@ -191,11 +193,14 @@ const Main = ({
 				sx={{
 					backgroundColor: 'common.black',
 					color: 'common.white',
+					position: 'absolute',
+					bottom: 0,
+					height: isMd ? '247px' : '300px',
 				}}
 			>
 				<Footer />
 			</Container>
-		</>
+		</Box>
 	);
 };
 
