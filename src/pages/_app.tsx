@@ -6,7 +6,9 @@ import 'aos/dist/aos.css';
 import 'assets/css/index.css';
 import 'assets/css/fonts.css';
 
+import { ApolloProvider } from '@apollo/client';
 import { CacheProvider, EmotionCache } from '@emotion/react';
+import { useApollo } from '@lib/apollo';
 import { wrapper } from '@lib/store';
 import { GoogleAnalytics } from '@utils/googleAnalytics';
 import { SessionProvider } from 'next-auth/react';
@@ -34,6 +36,8 @@ const App = ({
 }: Props): JSX.Element => {
 	GoogleAnalytics.useTracker();
 
+	const apolloClient = useApollo(pageProps.initialApolloState);
+
 	return (
 		<CacheProvider value={emotionCache}>
 			<Head>
@@ -43,16 +47,18 @@ const App = ({
 				/>
 				<title>Almond | growing your plants smart</title>
 			</Head>
-			<SessionProvider session={pageProps.session}>
-				<DefaultSeo
-					defaultTitle="almond"
-					titleTemplate="%s • almond"
-					description="Almond Hydroponics - Growing your plants smart"
-				/>
-				<Page>
-					<Component {...pageProps} />
-				</Page>
-			</SessionProvider>
+			<ApolloProvider client={apolloClient}>
+				<SessionProvider session={pageProps.session}>
+					<DefaultSeo
+						defaultTitle="almond"
+						titleTemplate="%s • almond"
+						description="Almond Hydroponics - Growing your plants smart"
+					/>
+					<Page>
+						<Component {...pageProps} />
+					</Page>
+				</SessionProvider>
+			</ApolloProvider>
 		</CacheProvider>
 	);
 };

@@ -1,16 +1,20 @@
+import { Modal } from '@components/atoms';
 import Container from '@components/Container';
 import { AccountCircleTwoTone, ArrowBack } from '@mui/icons-material';
 import CloseIcon from '@mui/icons-material/Close';
-import { Stack, Typography } from '@mui/material';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
+import {
+	Box,
+	Button,
+	Divider,
+	IconButton,
+	Stack,
+	Typography,
+} from '@mui/material';
 import authService from '@utils/auth';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
-import Modal from '../../../../../../components/atoms/Modal';
+import packageJson from '../../../../../../../package.json';
 import pages from '../../../../../navigation';
 import { Form } from '../../../Topbar/components';
 import NavItem from './components/NavItem';
@@ -87,7 +91,7 @@ const SidebarNav = ({ onClose, handleContactModal }: Props): JSX.Element => {
 				onClick={() => onClose()}
 			>
 				<IconButton>
-					<CloseIcon fontSize="small" />
+					<CloseIcon fontSize="medium" />
 				</IconButton>
 			</Box>
 			<Box paddingX={2} paddingBottom={2}>
@@ -128,7 +132,7 @@ const SidebarNav = ({ onClose, handleContactModal }: Props): JSX.Element => {
 						Legal
 					</Typography>
 					<Typography variant={'caption'} fontWeight={300}>
-						v1.01.123
+						{`v${packageJson.version}`}
 					</Typography>
 				</Stack>
 			</Container>

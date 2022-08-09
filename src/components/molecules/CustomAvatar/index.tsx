@@ -1,16 +1,23 @@
 import { ComponentContext } from '@context/ComponentContext';
 import { UserContext } from '@context/UserContext';
 import { Help, Logout, Mood, OpenInNew, Settings } from '@mui/icons-material';
-import { Avatar, ListItemIcon, Menu, MenuItem, Tooltip } from '@mui/material';
+import {
+	Avatar,
+	Chip,
+	ListItemIcon,
+	Menu,
+	MenuItem,
+	Tooltip,
+} from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import fancyId from '@utils/fancyId';
 import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { MouseEvent, useContext, useState } from 'react';
-import { useDispatch } from 'react-redux';
 
 interface Props {
 	hasMultipleRoles?: boolean;
+
 	[x: string]: any;
 }
 
@@ -69,15 +76,23 @@ const CustomAvatar = ({
 	return (
 		<div>
 			<Tooltip title="Account settings">
-				<Avatar
-					alt={name}
-					src={photo}
+				<Chip
+					size="medium"
+					label={name || 'Anonymous'}
+					variant="outlined"
 					onClick={handleToggleProfileMenu}
-					aria-describedby="menu-popover"
-					aria-controls="menu-popover"
-					aria-haspopup="true"
-					typeof="button"
-					{...rest}
+					avatar={
+						<Avatar
+							sx={{ width: 56, height: 56 }}
+							alt={name}
+							src={photo}
+							aria-describedby="menu-popover"
+							aria-controls="menu-popover"
+							aria-haspopup="true"
+							typeof="button"
+							{...rest}
+						/>
+					}
 				/>
 			</Tooltip>
 			<Menu
@@ -117,9 +132,9 @@ const CustomAvatar = ({
 				anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
 			>
 				{menuItems.map((item) => {
-					const handleClick = () => {
+					const handleClick = async () => {
 						handleProfileClose();
-						router.push(item.link);
+						await router.push(item.link);
 					};
 					return (
 						<MenuItem key={fancyId()} onClick={handleClick}>

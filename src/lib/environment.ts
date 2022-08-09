@@ -14,7 +14,7 @@ export const environment: Environment = {
 	// environment: process.env.NEXT_PUBLIC_ENVIRONMENT!,
 	// isProduction: process.env.NEXT_PUBLIC_ENVIRONMENT! === 'production',
 	graphqlUrl: process.env.NEXT_PUBLIC_ALMOND_API!,
-	websocketUrl: process.env.NEXT_PUBLIC_ALMOND_API!,
+	websocketUrl: process.env.NEXT_PUBLIC_WEBSOCKET_ALMOND_API!,
 	clientUrl: process.env.NEXT_PUBLIC_ALMOND_URL!,
 	// baseDomain: process.env.BASE_DOMAIN!,
 	apiToken: process.env.NEXT_API_TOKEN!,

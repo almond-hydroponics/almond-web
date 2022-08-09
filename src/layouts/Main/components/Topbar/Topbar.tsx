@@ -197,6 +197,7 @@ const Topbar = ({
 					<DragHandleRounded fontSize={'medium'} />
 				</Button>
 			</Box>
+			{renderAuthModal()}
 		</Box>
 	);
 };

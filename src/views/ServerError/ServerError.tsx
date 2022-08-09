@@ -1,4 +1,4 @@
-import { ArrowBack } from '@mui/icons-material';
+import { Replay } from '@mui/icons-material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
@@ -26,25 +26,36 @@ const ServerError = (): JSX.Element => {
 				height={'100%'}
 			>
 				<Container>
-					<Typography variant="h2" align={'center'} fontWeight={600}>
+					<Typography
+						variant="h2"
+						align={isMd ? 'center' : 'left'}
+						fontWeight={600}
+					>
 						Oops!
 					</Typography>
-					<Typography variant="h2" align={'center'}>
-						Something is definitely wrong.
+					<Typography variant="h2" align={isMd ? 'center' : 'left'}>
+						Something went wrong.
 					</Typography>
-					<Typography variant="body1" align={'center'} paddingTop={3}>
-						(Don&apos;t worry, we&apos;ll get it fixed soon and fire a
-						developer for this)
+					<Typography
+						variant="body1"
+						align={isMd ? 'center' : 'left'}
+						paddingTop={3}
+					>
+						But don&apos;t worry - it&apos;s not your fault.
 					</Typography>
-					<Box marginTop={4} display={'flex'} justifyContent={'center'}>
+					<Box
+						marginTop={4}
+						display={'flex'}
+						justifyContent={isMd ? 'center' : 'left'}
+					>
 						<Link href="/" passHref>
 							<Button
 								variant="contained"
 								color="primary"
 								size="large"
-								startIcon={<ArrowBack />}
+								startIcon={<Replay />}
 							>
-								Return to home
+								Retry
 							</Button>
 						</Link>
 					</Box>

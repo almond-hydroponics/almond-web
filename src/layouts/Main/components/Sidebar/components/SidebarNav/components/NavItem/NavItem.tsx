@@ -1,13 +1,13 @@
 import { Link, Logo } from '@components/atoms';
 import { UserContext } from '@context/UserContext';
-import { ArrowForwardIosRounded } from '@mui/icons-material';
-import { Avatar, Divider, IconButton, Stack } from '@mui/material';
+import { Mail } from '@mui/icons-material';
+import { Avatar, Badge, Chip, Divider, Stack } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-import authService from '@utils/auth';
 import fancyId from '@utils/fancyId';
+import { useSession } from 'next-auth/react';
 import { useContext, useEffect, useState } from 'react';
 
 interface Props {
@@ -25,55 +25,72 @@ const NavItem = ({ items, handleContactModal }: Props): JSX.Element => {
 
 	const { name, photo } = useContext(UserContext);
 
+	const { data: session } = useSession();
+
 	const accountAvatar = () => {
 		return (
-			<Stack direction="row" alignItems="center" spacing={2}>
-				<Avatar
-					alt={name}
-					src={photo}
-					aria-describedby="menu-popover"
-					aria-controls="menu-popover"
-					aria-haspopup="true"
-					typeof="button"
+			<Stack
+				direction="row"
+				alignItems="center"
+				justifyContent="space-between"
+				spacing={2}
+			>
+				<Chip
+					size="medium"
+					label={name || 'Anonymous'}
+					variant="outlined"
+					avatar={
+						<Avatar
+							alt={name || 'Anonymous'}
+							src={
+								photo ||
+								'https://storage.googleapis.com/static.almondhydroponics.com/static/images/avatar_male.svg'
+							}
+							aria-describedby="menu-popover"
+							aria-controls="menu-popover"
+							aria-haspopup="true"
+							typeof="button"
+						/>
+					}
 				/>
-				<Typography variant={'body1'}>{name}</Typography>
 			</Stack>
 		);
 	};
 
 	return (
 		<Box>
-			{authService.isAuthenticated() ? accountAvatar() : <Logo displayText />}
-			<Divider sx={{ marginBottom: 1, marginTop: 2 }} />
+			{!!session ? accountAvatar() : <Logo displayText />}
+			<Divider sx={{ marginBottom: 1, marginTop: 5 }} />
 
-			{authService.isAuthenticated() && (
+			{!!session && (
 				<>
 					<Stack
 						direction="row"
 						alignItems="center"
 						justifyContent="space-between"
-						spacing={2}
 					>
-						<Link href={'/messages'} passHref>
-							<Button
-								sx={{
-									fontWeight: 500,
-									fontSize: 16,
-									color: 'text.primary',
-									textDecoration: 'none',
-									'&:hover': {
-										color: theme.palette.primary.dark,
-									},
-								}}
-								variant="text"
-								size="large"
-							>
-								Messages
-							</Button>
-						</Link>
-						<IconButton>
-							<ArrowForwardIosRounded />
-						</IconButton>
+						<Button
+							component={Link}
+							href={'/messages'}
+							noLinkStyle
+							sx={{
+								paddingX: 0,
+								fontWeight: 400,
+								fontSize: 22,
+								color: 'text.primary',
+								textDecoration: 'none',
+								'&:hover': {
+									color: theme.palette.primary.dark,
+								},
+							}}
+							variant="text"
+							size="large"
+						>
+							Messages
+						</Button>
+						<Badge color="secondary" badgeContent={7}>
+							<Mail />
+						</Badge>
 					</Stack>
 
 					<Divider sx={{ marginBottom: 2, marginTop: 1 }} />
@@ -84,7 +101,7 @@ const NavItem = ({ items, handleContactModal }: Props): JSX.Element => {
 				<Box key={i} marginBottom={1} marginTop={3}>
 					<Box display="block">
 						{item.pages.map((p) => (
-							<Box marginTop={3} key={fancyId()}>
+							<Box marginTop={5} key={fancyId()}>
 								<Link href={p.href} noLinkStyle>
 									<Typography
 										color="primary"
@@ -109,7 +126,7 @@ const NavItem = ({ items, handleContactModal }: Props): JSX.Element => {
 				</Box>
 			))}
 
-			<Box marginBottom={2} marginTop={3}>
+			<Box marginBottom={4} marginTop={5}>
 				<Typography
 					onClick={handleContactModal}
 					color="primary"
