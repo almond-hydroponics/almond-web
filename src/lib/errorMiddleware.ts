@@ -1,7 +1,7 @@
 import { isRejectedWithValue } from '@reduxjs/toolkit';
 import { Middleware, MiddlewareAPI } from 'redux';
 
-import { displaySnackMessage } from './slices/snack';
+import { displaySnackMessage } from '../store/slices/snack';
 
 export const rtkQueryErrorSnack: Middleware =
 	(api: MiddlewareAPI) => (next) => (action) => {

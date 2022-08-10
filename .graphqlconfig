@@ -4,7 +4,7 @@
   "extensions": {
     "endpoints": {
       "Default GraphQL Endpoint": {
-        "url": "https://api.almondfroyo.com/graphql",
+        "url": "http://127.0.0.1:4000/graphql",
         "headers": {
           "user-agent": "JS GraphQL"
         },

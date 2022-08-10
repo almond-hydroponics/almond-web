@@ -1,3 +1,4 @@
+import { Link } from '@components/atoms';
 /* eslint-disable react/no-unescaped-entities */
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -29,15 +30,16 @@ const FeaturedProducts = (): JSX.Element => {
 							nutrients and growing accessories.
 						</Typography>
 					</Box>
-					<Box
-						component={Button}
+					<Button
+						component={Link}
 						variant="contained"
 						color="primary"
 						size="large"
-						height={54}
+						href="/store"
+						sx={{ marginTop: 2 }}
 					>
 						Discover our offer
-					</Box>
+					</Button>
 				</Grid>
 			</Grid>
 			<Box

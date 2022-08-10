@@ -1,5 +1,7 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 import environment from '@lib/environment';
+import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import { PrismaClient } from '@prisma/client/scripts/default-index';
 import axios from 'axios';
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
@@ -51,7 +53,10 @@ const refreshAccessToken = async (token: Token) => {
 	}
 };
 
+const prisma = new PrismaClient();
+
 export default NextAuth({
+	adapter: PrismaAdapter(prisma),
 	providers: [
 		CredentialsProvider({
 			id: 'credentials',

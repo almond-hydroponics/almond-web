@@ -3,8 +3,6 @@ import { GoogleIcon } from '@components/atoms';
 import { FormInputText } from '@components/molecules';
 import { ComponentContext } from '@context/ComponentContext';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { displaySnackMessage } from '@lib/slices/snack';
-import { AppDispatch } from '@lib/store';
 import {
 	AlternateEmailTwoTone,
 	EmailRounded,
@@ -12,8 +10,9 @@ import {
 	VisibilityOff,
 } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
-/* eslint-disable react/no-unescaped-entities */
 import { Box, Button, Grid, InputAdornment } from '@mui/material';
+import { AppDispatch } from '@store/index';
+import { displaySnackMessage } from '@store/slices/snack';
 import { SignInResponse, signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useContext, useState } from 'react';

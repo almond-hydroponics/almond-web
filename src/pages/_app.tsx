@@ -9,7 +9,7 @@ import 'assets/css/fonts.css';
 import { ApolloProvider } from '@apollo/client';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import { useApollo } from '@lib/apollo';
-import { wrapper } from '@lib/store';
+import { wrapper } from '@store/index';
 import { GoogleAnalytics } from '@utils/googleAnalytics';
 import { SessionProvider } from 'next-auth/react';
 import { DefaultSeo } from 'next-seo';

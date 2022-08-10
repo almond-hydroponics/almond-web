@@ -1,22 +1,9 @@
 import { KeyboardArrowUpRounded } from '@mui/icons-material';
-import {
-	AppBar,
-	Box,
-	Fab,
-	Slide,
-	Zoom,
-	useScrollTrigger,
-} from '@mui/material';
+import { AppBar, Box, Fab, Zoom, useScrollTrigger } from '@mui/material';
 import { alpha, useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Container from 'components/Container';
-import {
-	MouseEvent,
-	ReactElement,
-	ReactNode,
-	cloneElement,
-	useState,
-} from 'react';
+import { MouseEvent, ReactElement, ReactNode, useState } from 'react';
 
 import Modal from '../../components/atoms/Modal';
 import { Footer, Sidebar, Topbar } from './components';
@@ -38,31 +25,6 @@ interface AppBarOnScrollProps {
 interface ScrollTopProps {
 	window?: () => Window;
 	children: ReactElement;
-}
-
-function ElevationScroll({
-	children,
-	window,
-	isMobileView,
-}: AppBarOnScrollProps) {
-	// Note that you normally won't need to set the window ref as useScrollTrigger
-	// will default to window.
-	// This is only being set here because the demo is in an iframe.
-	const trigger = useScrollTrigger({
-		disableHysteresis: true,
-		threshold: 0,
-		target: window ? window() : undefined,
-	});
-
-	return isMobileView ? (
-		<Slide appear={false} direction="down" in={!trigger}>
-			{children}
-		</Slide>
-	) : (
-		cloneElement(children, {
-			elevation: trigger ? 4 : 0,
-		})
-	);
 }
 
 const ScrollTop = ({ window, children }: ScrollTopProps) => {
@@ -129,7 +91,7 @@ const Main = ({
 
 	const trigger = useScrollTrigger({
 		disableHysteresis: true,
-		threshold: 38,
+		threshold: 0,
 	});
 
 	const renderContactModal = (): JSX.Element => (
@@ -152,9 +114,10 @@ const Main = ({
 					top: 0,
 					backgroundColor: trigger ? 'hsla(0,0%,100%,.8)' : bgcolor,
 					backdropFilter: trigger ? 'blur(15px)' : 'none',
-					borderBottom: trigger
-						? `1px solid ${alpha(theme.palette.divider, 0.1)}`
-						: 'none',
+					borderBottom: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
+					// borderBottom: trigger
+					// 	? `1px solid ${alpha(theme.palette.divider, 0.1)}`
+					// 	: 'none',
 				}}
 				elevation={0}
 			>

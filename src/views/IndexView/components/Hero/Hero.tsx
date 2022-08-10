@@ -1,13 +1,10 @@
+import { Link } from '@components/atoms';
+import Container from '@components/Container';
 import { UserContext } from '@context/UserContext';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
+import { Box, Button, Typography, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import authService from '@utils/auth';
 import isArrayNotNull from '@utils/checkArrayEmpty';
-import Container from 'components/Container';
-import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 import { useContext } from 'react';
 
 const Hero = (): JSX.Element => {
@@ -16,7 +13,7 @@ const Hero = (): JSX.Element => {
 		defaultMatches: true,
 	});
 	const { devices } = useContext(UserContext);
-	const isAuthed = authService.isAuthenticated();
+	const { data: session } = useSession();
 
 	const LeftSide = () => (
 		<>
@@ -44,18 +41,19 @@ const Hero = (): JSX.Element => {
 					year round.
 				</Typography>
 			</Box>
-			<Link
-				passHref
+			<Button
+				component={Link}
+				variant="contained"
+				color="primary"
+				size="large"
 				href={
-					isAuthed
+					!!session
 						? `${isArrayNotNull(devices) ? '/dashboard' : '/my-device'}`
 						: '/store'
 				}
 			>
-				<Button variant="contained" color="primary" size="large">
-					{isAuthed ? 'Go to dashboard' : 'Visit our store'}
-				</Button>
-			</Link>
+				{!!session ? 'Go to dashboard' : 'Visit our store'}
+			</Button>
 		</>
 	);
 

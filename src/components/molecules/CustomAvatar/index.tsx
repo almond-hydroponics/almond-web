@@ -1,15 +1,23 @@
 import { ComponentContext } from '@context/ComponentContext';
 import { UserContext } from '@context/UserContext';
-import { Help, Logout, Mood, OpenInNew, Settings } from '@mui/icons-material';
+import {
+	AccountCircleOutlined,
+	HelpOutline,
+	Logout,
+	Mood,
+	OpenInNew,
+} from '@mui/icons-material';
 import {
 	Avatar,
+	Button,
 	Chip,
 	ListItemIcon,
+	ListItemText,
 	Menu,
 	MenuItem,
 	Tooltip,
 } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+import { alpha, useTheme } from '@mui/material/styles';
 import fancyId from '@utils/fancyId';
 import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
@@ -58,32 +66,37 @@ const CustomAvatar = ({
 	const open = Boolean(anchorEl);
 
 	let menuItems = [
-		{ name: 'Settings', icon: <Settings fontSize="small" />, link: 'account' },
-		{ name: 'Help', icon: <Help fontSize="small" />, link: 'help' },
+		{
+			name: 'Profile',
+			icon: <AccountCircleOutlined fontSize="small" />,
+			link: 'account',
+			secondaryText: 'Account settings',
+		},
+		{
+			name: 'Help',
+			icon: <HelpOutline fontSize="small" />,
+			link: 'help',
+			secondaryText: 'Find support',
+		},
 		{
 			name: 'Send Feedback',
 			icon: <OpenInNew fontSize="small" />,
 			link: 'send-feedback',
+			secondaryText: 'Help improve almond',
 		},
 	];
 
-	if (router.pathname === '/') {
-		menuItems = menuItems.filter((item) => {
-			return item.name !== 'Settings';
-		});
-	}
-
 	return (
-		<div>
-			<Tooltip title="Account settings">
+		<>
+			<Tooltip title={name || 'Anonymous'}>
 				<Chip
 					size="medium"
 					label={name || 'Anonymous'}
 					variant="outlined"
+					color="primary"
 					onClick={handleToggleProfileMenu}
 					avatar={
 						<Avatar
-							sx={{ width: 56, height: 56 }}
 							alt={name}
 							src={photo}
 							aria-describedby="menu-popover"
@@ -104,9 +117,12 @@ const CustomAvatar = ({
 				PaperProps={{
 					elevation: 0,
 					sx: {
-						zIndex: theme.zIndex.drawer + 1,
+						border: `0.6px solid ${alpha(theme.palette.divider, 0.3)}`,
+						width: 270,
+						maxWidth: '100%',
+						zIndex: theme.zIndex.appBar + 1,
 						overflow: 'visible',
-						filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+						// filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
 						mt: 1.5,
 						'& .MuiAvatar-root': {
 							width: 32,
@@ -114,18 +130,19 @@ const CustomAvatar = ({
 							ml: -0.5,
 							mr: 1,
 						},
-						'&:before': {
-							content: '""',
-							display: 'block',
-							position: 'absolute',
-							top: 0,
-							right: 14,
-							width: 10,
-							height: 10,
-							bgcolor: 'background.paper',
-							transform: 'translateY(-50%) rotate(45deg)',
-							zIndex: 0,
-						},
+						// '&:before': {
+						// 	content: '""',
+						// 	display: 'block',
+						// 	position: 'absolute',
+						// 	top: 0,
+						// 	right: 14,
+						// 	width: 10,
+						// 	height: 10,
+						// 	bgcolor: 'background.paper',
+						// 	transform: 'translateY(-50%) rotate(45deg)',
+						// 	zIndex: theme.zIndex.appBar + 1,
+						// 	border: `0.6px solid ${alpha(theme.palette.divider, 0.3)}`,
+						// },
 					},
 				}}
 				transformOrigin={{ horizontal: 'right', vertical: 'top' }}
@@ -137,9 +154,28 @@ const CustomAvatar = ({
 						await router.push(item.link);
 					};
 					return (
-						<MenuItem key={fancyId()} onClick={handleClick}>
-							<ListItemIcon>{item.icon}</ListItemIcon>
-							{item.name}
+						<MenuItem
+							key={fancyId()}
+							onClick={handleClick}
+							sx={{
+								borderBottom: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
+								paddingY: 1,
+							}}
+						>
+							<ListItemIcon sx={{ minWidth: 44, marginRight: 1 }}>
+								<Avatar
+									sx={{
+										backgroundColor: '#e8f0fe',
+										color: theme.palette.primary.main,
+									}}
+								>
+									{item.icon}
+								</Avatar>
+							</ListItemIcon>
+							<ListItemText
+								primary={item.name}
+								secondary={item.secondaryText}
+							/>
 						</MenuItem>
 					);
 				})}
@@ -152,14 +188,20 @@ const CustomAvatar = ({
 					</MenuItem>
 				)}
 
-				<MenuItem onClick={logoutActiveUser}>
-					<ListItemIcon>
-						<Logout fontSize="small" />
-					</ListItemIcon>
-					Logout
+				<MenuItem>
+					<Button
+						fullWidth
+						variant="contained"
+						type="submit"
+						color="primary"
+						startIcon={<Logout />}
+						onClick={logoutActiveUser}
+					>
+						Logout
+					</Button>
 				</MenuItem>
 			</Menu>
-		</div>
+		</>
 	);
 };
 

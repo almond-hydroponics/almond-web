@@ -1,6 +1,6 @@
-import { makeStore } from '@lib/store';
 import { StyledEngineProvider } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/styles';
+import { makeStore } from '@store/index';
 import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 

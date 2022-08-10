@@ -6,7 +6,7 @@ import {
 	ArrowBack,
 	DragHandleRounded,
 } from '@mui/icons-material';
-import { Box, Button, Stack, Typography } from '@mui/material';
+import { Box, Button, Chip, Stack, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { useSession } from 'next-auth/react';
 import { useState } from 'react';
@@ -42,19 +42,14 @@ const Topbar = ({
 			{!!session ? (
 				<CustomAvatar />
 			) : (
-				<Typography
-					onClick={handleAuthModal}
+				<Chip
+					size="medium"
+					label="Login"
+					variant="outlined"
 					color="primary"
-					sx={{
-						color: 'text.primary',
-						cursor: 'pointer',
-						'&:hover': {
-							color: 'text.secondary',
-						},
-					}}
-				>
-					Login
-				</Typography>
+					onClick={handleAuthModal}
+					icon={<AccountCircleTwoTone />}
+				/>
 			)}
 		</Box>
 	);

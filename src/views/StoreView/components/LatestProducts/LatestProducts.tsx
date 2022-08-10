@@ -1,218 +1,319 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Grid from '@mui/material/Grid';
-import IconButton from '@mui/material/IconButton';
-import { useTheme } from '@mui/material/styles';
+import Link from '@mui/material/Link';
+import Stack from '@mui/material/Stack';
+import { alpha, useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import React from 'react';
 
 const mock = [
 	{
-		media:
-			'https://storage.googleapis.com/static.almondhydroponics.com/static/images/single-nft-hydroponic-system.png',
-		title: 'Hydroponics system',
-		price: 'Ksh450',
+		media: 'https://assets.maccarianagency.com/backgrounds/img56.jpg',
+		title: 'Adidas shoes',
+		description: 'Discover the new collection of Adidas.',
+		price: '$69.90',
+		href: '/demos/ecommerce/product-overview',
+		reviewScore: 5,
+		reviewCount: 12,
+		isNew: true,
 	},
 	{
-		media:
-			'https://storage.googleapis.com/static.almondhydroponics.com/static/images/single-nft-hydroponic-system.png',
-		title: 'Hydroponics system',
-		price: 'Ksh450',
+		media: 'https://assets.maccarianagency.com/backgrounds/img59.jpg',
+		title: 'Black jeans',
+		description: 'Discover the new collection of Black jeans.',
+		price: '$59.90',
+		oldPrice: '$80.00',
+		href: '/demos/ecommerce/product-overview',
+		reviewScore: 5,
+		reviewCount: 12,
+		isNew: true,
 	},
 	{
-		media:
-			'https://storage.googleapis.com/static.almondhydroponics.com/static/images/single-nft-hydroponic-system.png',
-		title: 'Hydroponics system',
-		price: 'Ksh450',
+		media: 'https://assets.maccarianagency.com/backgrounds/img61.jpg',
+		title: 'Skiny jeans',
+		description: 'Discover the new collection of Skiny jeans.',
+		price: '$69.90',
+		oldPrice: '$80.00',
+		href: '/demos/ecommerce/product-overview',
+		reviewScore: 5,
+		reviewCount: 12,
+		isNew: true,
 	},
 	{
-		media:
-			'https://storage.googleapis.com/static.almondhydroponics.com/static/images/single-nft-hydroponic-system.png',
-		title: 'Hydroponics system',
-		price: 'Ksh450',
+		media: 'https://assets.maccarianagency.com/backgrounds/img63.jpg',
+		title: 'Colorful shoes',
+		description: 'Colorful shoes designed for everyone.',
+		price: '$39.90',
+		oldPrice: '$60.00',
+		reviewScore: 4,
+		reviewCount: 6,
+		isNew: true,
+	},
+	{
+		media: 'https://assets.maccarianagency.com/backgrounds/img53.jpg',
+		title: 'White sweatshirts',
+		description: 'Discover the new collection of White.',
+		price: '$40.90',
+		oldPrice: '$60.00',
+		href: '/demos/ecommerce/product-overview',
+		reviewScore: 4,
+		reviewCount: 12,
+	},
+	{
+		media: 'https://assets.maccarianagency.com/backgrounds/img60.jpg',
+		title: 'Jojo jeans',
+		description: 'Discover the new collection of Jojo jeans.',
+		price: '$29.90',
+		href: '/demos/ecommerce/product-overview',
+		reviewScore: 4,
+		reviewCount: 12,
+		isNew: true,
+	},
+	{
+		media: 'https://assets.maccarianagency.com/backgrounds/img57.jpg',
+		title: 'Nike',
+		description: 'New arrivals of Nike sport shoes.',
+		price: '$49.90',
+		oldPrice: '$70.00',
+		href: '/demos/ecommerce/product-overview',
+		reviewScore: 5,
+		reviewCount: 8,
+		isNew: true,
+	},
+	{
+		media: 'https://assets.maccarianagency.com/backgrounds/img54.jpg',
+		title: 'OFF white',
+		description: 'Discover the new collection of OFF white.',
+		price: '$69.90',
+		href: '/demos/ecommerce/product-overview',
+		reviewScore: 5,
+		reviewCount: 12,
+		isNew: true,
 	},
 ];
 
-const LatestProducts = (): JSX.Element => {
+const TrendingItems = (): JSX.Element => {
 	const theme = useTheme();
-
 	return (
 		<Box>
 			<Box marginBottom={4}>
-				<Typography
-					sx={{
-						textTransform: 'uppercase',
-						fontWeight: 'medium',
-					}}
-					gutterBottom
-					color={'secondary'}
-					align={'center'}
-				>
-					Products
+				<Typography variant={'h5'} fontWeight={700}>
+					Trending products
 				</Typography>
-				<Typography
-					variant="h4"
-					align={'center'}
-					data-aos={'fade-up'}
-					gutterBottom
-					sx={{
-						fontWeight: 700,
-					}}
-				>
-					The latest products
-				</Typography>
-				<Typography
-					variant="h6"
-					align={'center'}
-					color={'text.secondary'}
-					data-aos={'fade-up'}
-				>
-					Experience your music like never before. Buy music instruments &
-					accessories online.
-				</Typography>
-				<Box display="flex" justifyContent={'center'} marginTop={2}>
-					<Button variant="contained" color="primary" size="large">
-						View all
-					</Button>
-				</Box>
 			</Box>
 			<Grid container spacing={4}>
 				{mock.map((item, i) => (
-					<Grid
-						item
-						xs={12}
-						sm={6}
-						md={3}
-						key={i}
-						data-aos={'fade-up'}
-						data-aos-delay={i * 100}
-					>
+					<Grid item xs={12} sm={6} md={3} key={i}>
 						<Box display={'block'} width={1} height={1}>
-							<Box
-								component={Card}
-								width={1}
-								height={1}
-								borderRadius={3}
-								display={'flex'}
-								flexDirection={'column'}
+							<Card
+								sx={{
+									width: 1,
+									height: 1,
+									display: 'flex',
+									flexDirection: 'column',
+									boxShadow: 'none',
+									bgcolor: 'transparent',
+									backgroundImage: 'none',
+								}}
 							>
 								<CardMedia
+									title={item.title}
+									image={item.media}
 									sx={{
 										position: 'relative',
-										height: { xs: 240, sm: 340, md: 280 },
+										height: 320,
 										overflow: 'hidden',
-										padding: 3,
-										paddingBottom: 0,
-										background: theme.palette.alternate.main,
-										display: 'flex',
-										alignItems: 'flex-end',
-										justifyContent: 'center',
+										borderRadius: 2,
+										filter:
+											theme.palette.mode === 'dark'
+												? 'brightness(0.7)'
+												: 'none',
 									}}
 								>
-									<Box
-										component={LazyLoadImage}
-										effect="blur"
-										src={item.media}
+									<Stack
+										direction={'row'}
+										spacing={1}
 										sx={{
-											'& img': {
-												objectFit: 'contain',
-											},
+											position: 'absolute',
+											top: 'auto',
+											bottom: 0,
+											left: 0,
+											right: 0,
+											padding: 2,
 										}}
-									/>
-									<Box
-										display={'flex'}
-										justifyContent={'flex-end'}
-										position={'absolute'}
-										top={0}
-										left={0}
-										right={0}
-										padding={2}
-										width={1}
 									>
-										<Box
-											component={IconButton}
-											color="secondary"
-											bgcolor={'background.paper'}
-											size={'large'}
-										>
+										{item.oldPrice && (
 											<Box
-												component={'svg'}
-												xmlns="http://www.w3.org/2000/svg"
-												fill="none"
-												viewBox="0 0 24 24"
-												stroke="currentColor"
-												width={20}
-												height={20}
-												color={'secondary.main'}
+												sx={{
+													bgcolor: theme.palette.error.light,
+													paddingY: '4px',
+													paddingX: '8px',
+													borderRadius: 1,
+													display: 'flex',
+													alignItems: 'center',
+												}}
 											>
-												<path
-													strokeLinecap="round"
-													strokeLinejoin="round"
-													strokeWidth={2}
-													d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-												/>
-											</Box>
-										</Box>
-									</Box>
-								</CardMedia>
-								<CardContent>
-									<Typography
-										variant={'h6'}
-										align={'left'}
-										sx={{ fontWeight: 700 }}
-									>
-										{item.title}
-									</Typography>
-									<Box
-										display={'flex'}
-										justifyContent={'flex-start'}
-										marginY={1}
-									>
-										<Box display={'flex'} justifyContent={'center'}>
-											{[1, 2, 3, 4, 5].map((item) => (
-												<Box key={item} color={theme.palette.secondary.main}>
-													<svg
-														width={18}
-														height={18}
-														xmlns="http://www.w3.org/2000/svg"
-														viewBox="0 0 20 20"
-														fill="currentColor"
-													>
-														<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-													</svg>
-												</Box>
-											))}
-										</Box>
-									</Box>
-									<CardActions sx={{ justifyContent: 'space-between' }}>
-										<Typography sx={{ fontWeight: 700 }} color={'primary'}>
-											{item.price}
-										</Typography>
-										<Button
-											variant={'contained'}
-											startIcon={
-												<Box
-													component={'svg'}
-													xmlns="http://www.w3.org/2000/svg"
-													viewBox="0 0 20 20"
-													fill="currentColor"
-													width={20}
-													height={20}
+												<Typography
+													variant={'caption'}
+													fontWeight={700}
+													sx={{
+														color: theme.palette.common.white,
+														textTransform: 'uppercase',
+														lineHeight: 1,
+													}}
 												>
-													<path d="M0 0h24v24H0V0z" fill="none" />
-													<path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 3c0 .55.45 1 1 1h1l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h11c.55 0 1-.45 1-1s-.45-1-1-1H7l1.1-2h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.37-.66-.11-1.48-.87-1.48H5.21l-.67-1.43c-.16-.35-.52-.57-.9-.57H2c-.55 0-1 .45-1 1zm16 15c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z" />
-												</Box>
-											}
+													promo price
+												</Typography>
+											</Box>
+										)}
+										{item.isNew && (
+											<Box
+												sx={{
+													bgcolor: theme.palette.success.light,
+													paddingY: '4px',
+													paddingX: '8px',
+													borderRadius: 1,
+													display: 'flex',
+													alignItems: 'center',
+												}}
+											>
+												<Typography
+													variant={'caption'}
+													fontWeight={700}
+													sx={{
+														color: theme.palette.common.white,
+														textTransform: 'uppercase',
+														lineHeight: 1,
+													}}
+												>
+													new
+												</Typography>
+											</Box>
+										)}
+									</Stack>
+								</CardMedia>
+								<Box marginTop={2}>
+									<Typography fontWeight={700}>{item.title}</Typography>
+									<Typography variant={'caption'} color={'text.secondary'}>
+										{item.description}
+									</Typography>
+								</Box>
+								<Box marginTop={2} display={'flex'} alignItems={'center'}>
+									{item.oldPrice && (
+										<Typography
+											marginRight={0.5}
+											color={'text.secondary'}
+											sx={{ textDecoration: 'line-through' }}
 										>
-											Add to cart
-										</Button>
-									</CardActions>
-								</CardContent>
-							</Box>
+											{item.oldPrice}
+										</Typography>
+									)}
+									<Typography
+										fontWeight={700}
+										color={item.oldPrice ? 'error.light' : 'text.primary'}
+									>
+										{item.price}
+									</Typography>
+								</Box>
+								<Box marginTop={0.5} display={'flex'} alignItems={'center'}>
+									<Box display={'flex'} alignItems={'center'}>
+										{[1, 2, 3, 4, 5].map((r) => (
+											<Box
+												key={r}
+												component={'svg'}
+												color={
+													r <= item.reviewScore
+														? theme.palette.secondary.main
+														: theme.palette.divider
+												}
+												width={16}
+												height={16}
+												xmlns="http://www.w3.org/2000/svg"
+												viewBox="0 0 20 20"
+												fill="currentColor"
+											>
+												<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+											</Box>
+										))}
+									</Box>
+									<Typography
+										variant={'caption'}
+										color={'text.secondary'}
+										marginLeft={0.5}
+									>
+										{item.reviewCount} reviews
+									</Typography>
+								</Box>
+								<Stack marginTop={2} spacing={1} direction={'row'}>
+									<Button
+										variant={'contained'}
+										color={'primary'}
+										size={'large'}
+										fullWidth
+									>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 20 20"
+											fill="currentColor"
+											width={20}
+											height={20}
+										>
+											<path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
+										</svg>
+									</Button>
+									<Button
+										color={'primary'}
+										size={'large'}
+										fullWidth
+										sx={{ bgcolor: alpha(theme.palette.primary.light, 0.1) }}
+									>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 20 20"
+											fill="currentColor"
+											width={20}
+											height={20}
+										>
+											<path
+												fillRule="evenodd"
+												d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+												clipRule="evenodd"
+											/>
+										</svg>
+									</Button>
+								</Stack>
+								<Button
+									component={Link}
+									href={item.href}
+									size={'large'}
+									sx={{
+										color: theme.palette.text.primary,
+										marginTop: 1,
+										justifyContent: 'space-between',
+									}}
+									fullWidth
+									endIcon={
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 20 20"
+											fill="currentColor"
+											width={20}
+											height={20}
+										>
+											<path
+												fillRule="evenodd"
+												d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+												clipRule="evenodd"
+											/>
+										</svg>
+									}
+								>
+									See the details
+								</Button>
+							</Card>
 						</Box>
 					</Grid>
 				))}
@@ -221,4 +322,4 @@ const LatestProducts = (): JSX.Element => {
 	);
 };
 
-export default LatestProducts;
+export default TrendingItems;

@@ -14,6 +14,10 @@ const pages = [
 				title: 'Latest news',
 				href: '/blog',
 			},
+			{
+				title: 'Settings',
+				href: '/account',
+			},
 		],
 	},
 ];

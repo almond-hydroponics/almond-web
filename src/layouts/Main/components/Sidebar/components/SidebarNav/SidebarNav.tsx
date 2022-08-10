@@ -1,18 +1,25 @@
-import { Modal } from '@components/atoms';
+import { Link, Logo, Modal } from '@components/atoms';
 import Container from '@components/Container';
-import { AccountCircleTwoTone, ArrowBack } from '@mui/icons-material';
+import { UserContext } from '@context/UserContext';
+import {
+	AccountCircleTwoTone,
+	ArrowBack,
+	PolicyTwoTone,
+} from '@mui/icons-material';
 import CloseIcon from '@mui/icons-material/Close';
 import {
+	Avatar,
 	Box,
 	Button,
+	Chip,
 	Divider,
 	IconButton,
 	Stack,
 	Typography,
 } from '@mui/material';
-import authService from '@utils/auth';
+import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 import packageJson from '../../../../../../../package.json';
 import pages from '../../../../../navigation';
@@ -30,11 +37,22 @@ const SidebarNav = ({ onClose, handleContactModal }: Props): JSX.Element => {
 	const [openAuthModal, setAuthModalOpen] = useState<boolean>(false);
 	const [authByEmail, setAuthByEmail] = useState<boolean>(false);
 
+	const { data: session } = useSession();
+
 	const handleAuthModal = () => {
 		setAuthModalOpen((prevState) => !prevState);
 		authByEmail && setAuthByEmail(false);
 	};
 	const handleAuthByEmail = () => setAuthByEmail((prevState) => !prevState);
+	const { name, photo } = useContext(UserContext);
+
+	const logoutActiveUser = async (e): Promise<void> => {
+		e.preventDefault();
+		await signOut({
+			callbackUrl: `${window.location.origin}`,
+			redirect: false,
+		});
+	};
 
 	const renderAuthButtons = () => (
 		<Box>
@@ -43,9 +61,9 @@ const SidebarNav = ({ onClose, handleContactModal }: Props): JSX.Element => {
 				variant="outlined"
 				color="primary"
 				size="medium"
-				onClick={handleAuthModal}
+				onClick={!!session ? logoutActiveUser : handleAuthModal}
 			>
-				{authService.isAuthenticated() ? 'Logout' : 'Account'}
+				{!!session ? 'Logout' : 'Account'}
 			</Button>
 		</Box>
 	);
@@ -83,17 +101,54 @@ const SidebarNav = ({ onClose, handleContactModal }: Props): JSX.Element => {
 		/>
 	);
 
+	const accountAvatar = () => {
+		return (
+			<Stack
+				direction="row"
+				alignItems="center"
+				justifyContent="space-between"
+				spacing={2}
+			>
+				<Chip
+					size="medium"
+					label={name || 'Anonymous'}
+					// variant="outlined"
+					avatar={
+						<Avatar
+							alt={name || 'Anonymous'}
+							src={
+								photo ||
+								'https://storage.googleapis.com/static.almondhydroponics.com/static/images/avatar_male.svg'
+							}
+							aria-describedby="menu-popover"
+							aria-controls="menu-popover"
+							aria-haspopup="true"
+							typeof="button"
+						/>
+					}
+				/>
+			</Stack>
+		);
+	};
+
 	return (
 		<Box>
-			<Box
-				display={'flex'}
-				justifyContent={'flex-end'}
-				onClick={() => onClose()}
+			<Stack
+				direction="row"
+				alignItems="center"
+				justifyContent="space-between"
 			>
-				<IconButton>
-					<CloseIcon fontSize="medium" />
-				</IconButton>
-			</Box>
+				{!!session ? accountAvatar() : <Logo displayText />}
+				<Box
+					display={'flex'}
+					justifyContent={'flex-end'}
+					onClick={() => onClose()}
+				>
+					<IconButton>
+						<CloseIcon fontSize="medium" />
+					</IconButton>
+				</Box>
+			</Stack>
 			<Box paddingX={2} paddingBottom={2}>
 				<Box>
 					<NavItem
@@ -125,12 +180,14 @@ const SidebarNav = ({ onClose, handleContactModal }: Props): JSX.Element => {
 					justifyContent="space-between"
 					spacing={2}
 				>
-					<Typography
-						variant={'body2'}
-						onClick={() => router.push('company-terms')}
+					<Button
+						component={Link}
+						href="company-terms"
+						startIcon={<PolicyTwoTone />}
+						sx={{ color: 'text.primary', paddingX: 0 }}
 					>
 						Legal
-					</Typography>
+					</Button>
 					<Typography variant={'caption'} fontWeight={300}>
 						{`v${packageJson.version}`}
 					</Typography>

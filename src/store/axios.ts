@@ -1,6 +1,5 @@
+import environment from '@lib/environment';
 import axios from 'axios';
-
-import environment from './environment';
 
 // Create axios instance.
 const axiosInstance = axios.create({

@@ -1,4 +1,4 @@
-import { Link, Logo } from '@components/atoms';
+import { Link } from '@components/atoms';
 import { UserContext } from '@context/UserContext';
 import { Mail } from '@mui/icons-material';
 import { Avatar, Badge, Chip, Divider, Stack } from '@mui/material';
@@ -38,7 +38,7 @@ const NavItem = ({ items, handleContactModal }: Props): JSX.Element => {
 				<Chip
 					size="medium"
 					label={name || 'Anonymous'}
-					variant="outlined"
+					// variant="outlined"
 					avatar={
 						<Avatar
 							alt={name || 'Anonymous'}
@@ -59,9 +59,7 @@ const NavItem = ({ items, handleContactModal }: Props): JSX.Element => {
 
 	return (
 		<Box>
-			{!!session ? accountAvatar() : <Logo displayText />}
-			<Divider sx={{ marginBottom: 1, marginTop: 5 }} />
-
+			<Divider sx={{ marginBottom: 1, marginTop: 3 }} />
 			{!!session && (
 				<>
 					<Stack
@@ -106,11 +104,13 @@ const NavItem = ({ items, handleContactModal }: Props): JSX.Element => {
 									<Typography
 										color="primary"
 										sx={{
-											fontWeight: 400,
+											fontWeight: activeLink === p.href ? 600 : 400,
 											fontSize: 22,
 											cursor: 'pointer',
 											color:
-												activeLink === p.href ? 'primary' : 'text.primary',
+												activeLink === p.href
+													? 'primary.main'
+													: 'text.primary',
 											textDecoration: 'none',
 											'&:hover': {
 												color: 'text.secondary',
