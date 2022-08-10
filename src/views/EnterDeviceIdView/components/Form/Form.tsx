@@ -1,53 +1,23 @@
-import { FormInputText } from '@components/molecules';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { PhonelinkSetupSharp } from '@mui/icons-material';
-import { Button, Grid, InputAdornment } from '@mui/material';
-import { useCallback, useContext } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { Button, Grid, InputAdornment, TextField } from '@mui/material';
+import { forwardRef, useContext } from 'react';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { IMaskInput } from 'react-imask';
 import { EnterDeviceContext } from 'views/EnterDeviceIdView';
 import * as yup from 'yup';
-
-const useValidationResolver = (validationSchema) =>
-	useCallback(
-		async (data) => {
-			try {
-				const values = await validationSchema.validate(data, {
-					abortEarly: false,
-				});
-
-				return {
-					values,
-					errors: {},
-				};
-			} catch (errors: any) {
-				return {
-					values: {},
-					errors: errors.inner.reduce(
-						(allErrors, currentError) => ({
-							...allErrors,
-							[currentError.path]: {
-								type: currentError.type ?? 'validation',
-								message: currentError.message,
-							},
-						}),
-						{}
-					),
-				};
-			}
-		},
-		[validationSchema]
-	);
 
 const schema = yup
 	.object({
 		deviceId: yup
 			.string()
 			.required('Device ID is required for you to proceed')
-			.test(
-				'len',
-				'Device ID should be 8 characters. Kindly confirm',
-				(val) => val?.toString().length === 8
-			),
+			.min(9, 'Device ID should be 8 characters. Kindly confirm.'),
+		// .test(
+		// 	'len',
+		// 	'Device ID should be 8 characters. Kindly confirm',
+		// 	(val) => val?.toString().length === 9
+		// ),
 	})
 	.required();
 
@@ -59,8 +29,34 @@ const defaultValues = {
 	deviceId: '',
 };
 
+interface CustomProps {
+	onChange: (event: { target: { name: string; value: string } }) => void;
+	name: string;
+}
+
+const TextMaskCustom = forwardRef<HTMLElement, CustomProps>(
+	function TextMaskCustom(props, ref) {
+		const { onChange, ...other } = props;
+		return (
+			<IMaskInput
+				{...other}
+				mask="aaaa-aaaa"
+				// @ts-expect-error Ref is allowed for now
+				inputRef={ref}
+				onAccept={(value: unknown) =>
+					onChange({
+						target: {
+							name: props.name,
+							value: String(value).toUpperCase(),
+						},
+					})
+				}
+				overwrite
+			/>
+		);
+	}
+);
 const Form = (): JSX.Element => {
-	const dispatch = useDispatch();
 	// const { device } = useSelector(
 	// 	(globalState: IRootState) => globalState,
 	// 	shallowEqual
@@ -77,9 +73,13 @@ const Form = (): JSX.Element => {
 	// 	},
 	// );
 
-	const { handleSubmit, control } = useForm<IFormInput>({
+	const {
+		handleSubmit,
+		control,
+		formState: { isValid },
+	} = useForm<IFormInput>({
 		defaultValues: defaultValues,
-		resolver: useValidationResolver(schema),
+		resolver: yupResolver(schema),
 		mode: 'onChange',
 	});
 
@@ -102,21 +102,50 @@ const Form = (): JSX.Element => {
 		>
 			<Grid container spacing={2}>
 				<Grid item xs={12}>
-					<FormInputText
+					<Controller
 						name="deviceId"
-						size="medium"
 						control={control}
-						label="Enter device ID"
-						type="text"
-						iconPosition="start"
-						InputProps={{
-							endAdornment: (
-								<InputAdornment position="end">
-									<PhonelinkSetupSharp />
-								</InputAdornment>
-							),
+						render={({
+							field: { onChange, value },
+							fieldState: { error },
+						}) => {
+							return (
+								<TextField
+									helperText={error ? error.message : null}
+									size="medium"
+									error={!!error}
+									onChange={onChange}
+									value={value}
+									fullWidth
+									label="Enter device ID"
+									variant="outlined"
+									InputProps={{
+										inputComponent: TextMaskCustom as any,
+										endAdornment: (
+											<InputAdornment position="end">
+												<PhonelinkSetupSharp />
+											</InputAdornment>
+										),
+									}}
+								/>
+							);
 						}}
 					/>
+					{/*<FormInputText*/}
+					{/*	name="deviceId"*/}
+					{/*	size="medium"*/}
+					{/*	control={control}*/}
+					{/*	label="Enter device ID"*/}
+					{/*	type="text"*/}
+					{/*	iconPosition="start"*/}
+					{/*	InputProps={{*/}
+					{/*		endAdornment: (*/}
+					{/*			<InputAdornment position="end">*/}
+					{/*				<PhonelinkSetupSharp />*/}
+					{/*			</InputAdornment>*/}
+					{/*		),*/}
+					{/*	}}*/}
+					{/*/>*/}
 				</Grid>
 				<Grid item xs={12}>
 					<Button
@@ -125,7 +154,7 @@ const Form = (): JSX.Element => {
 						type="submit"
 						color="primary"
 						fullWidth
-						// disabled={isValid}
+						disabled={!isValid}
 					>
 						Add device
 					</Button>

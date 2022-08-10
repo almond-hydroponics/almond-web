@@ -4926,6 +4926,7 @@ __metadata:
     react-hook-form: ^7.34.0
     react-image-lightbox: ^5.1.4
     react-images: ^1.1.7
+    react-imask: ^6.4.2
     react-lazy-load-image-component: ^1.5.5
     react-query: ^3.39.2
     react-redux: ^8.0.2
@@ -9763,6 +9764,13 @@ __metadata:
     pify: ^4.0.1
     replace-ext: ^1.0.0
   checksum: 459d83fbbc8a6710c8a607c1cff2eb83b54d4bb3ae457e2d094f3967c2a078846ae58f92fbef509f277f851381d1c6a2b330aeefda26f2c98e651f0e9ffc8bce
+  languageName: node
+  linkType: hard
+
+"imask@npm:^6.4.2":
+  version: 6.4.2
+  resolution: "imask@npm:6.4.2"
+  checksum: a713aec87f23b1b095aa3a515311222346211dc544bfcae25d4a0aa3bca9a8c13a3269985d8b913cd9af013b733cdae7f81278988d04a9a34b173744b081c0e9
   languageName: node
   linkType: hard
 
@@ -15197,6 +15205,18 @@ __metadata:
     react: ^15.3.0 || ^16.2.0
     react-dom: ^15.3.0 || ^16.2.0
   checksum: 6ce47e9531c281109bc41a99dad710642db42ecc3f5e517ff1028c8a6715e26baf4278b562e3994ebf8bcc18cba28df860eb764bc41ea4f3adc3d6b072f8271e
+  languageName: node
+  linkType: hard
+
+"react-imask@npm:^6.4.2":
+  version: 6.4.2
+  resolution: "react-imask@npm:6.4.2"
+  dependencies:
+    imask: ^6.4.2
+    prop-types: ^15.7.2
+  peerDependencies:
+    react: ">=0.14.0"
+  checksum: be31fca7780ca5592b59b44ca3789124ebd2c35903711eb85c1668f069e3d1c9bc2f332dd69e2a2d97513f63a75e4565c4c6310dcb1005d9c7585ae60b9f44a3
   languageName: node
   linkType: hard
 

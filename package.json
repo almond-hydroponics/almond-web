@@ -100,6 +100,7 @@
 		"react-hook-form": "^7.34.0",
 		"react-image-lightbox": "^5.1.4",
 		"react-images": "^1.1.7",
+		"react-imask": "^6.4.2",
 		"react-lazy-load-image-component": "^1.5.5",
 		"react-query": "^3.39.2",
 		"react-redux": "^8.0.2",

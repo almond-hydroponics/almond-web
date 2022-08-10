@@ -1,18 +1,14 @@
 import { Link } from '@components/atoms';
 import Container from '@components/Container';
-import { UserContext } from '@context/UserContext';
 import { Box, Button, Typography, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import isArrayNotNull from '@utils/checkArrayEmpty';
 import { useSession } from 'next-auth/react';
-import { useContext } from 'react';
 
 const Hero = (): JSX.Element => {
 	const theme = useTheme();
 	const isMd = useMediaQuery(theme.breakpoints.up('md'), {
 		defaultMatches: true,
 	});
-	const { devices } = useContext(UserContext);
 	const { data: session } = useSession();
 
 	const LeftSide = () => (
@@ -47,12 +43,12 @@ const Hero = (): JSX.Element => {
 				color="primary"
 				size="large"
 				href={
-					!!session
-						? `${isArrayNotNull(devices) ? '/dashboard' : '/my-device'}`
-						: '/store'
+					!!session ? `${!session ? '/dashboard' : '/setup-device'}` : '/store'
 				}
 			>
-				{!!session ? 'Go to dashboard' : 'Visit our store'}
+				{!!session
+					? `${!session ? 'Go to dashboard' : 'Setup new device'}`
+					: 'Visit our store'}
 			</Button>
 		</>
 	);
