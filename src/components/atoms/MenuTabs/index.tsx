@@ -19,8 +19,6 @@ const MenuTab = styled((props: MenuTabProps) => (
 	marginTop: 10,
 	textTransform: 'none',
 	minWidth: 72,
-	fontWeight: theme.typography.fontWeightMedium,
-	fontSize: 13,
 	'&:hover': {
 		color: theme.palette.primary.main,
 		backgroundColor: theme.palette.background.level1,

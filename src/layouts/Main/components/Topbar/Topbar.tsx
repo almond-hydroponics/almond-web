@@ -1,11 +1,7 @@
 // components
 import { Link, Logo, Modal } from '@components/atoms';
 import CustomAvatar from '@components/molecules/CustomAvatar';
-import {
-	AccountCircleTwoTone,
-	ArrowBack,
-	DragHandleRounded,
-} from '@mui/icons-material';
+import { AccountCircleTwoTone, ArrowBack, Notes } from '@mui/icons-material';
 import { Box, Button, Chip, Stack, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { useSession } from 'next-auth/react';
@@ -176,7 +172,6 @@ const Topbar = ({
 					onClick={() => onSidebarOpen()}
 					aria-label="Menu"
 					variant={'text'}
-					size={'small'}
 					sx={{
 						color: linkColor,
 						'&:hover': {
@@ -189,7 +184,7 @@ const Topbar = ({
 						// borderColor: alpha(theme.palette.divider, 0.2),
 					}}
 				>
-					<DragHandleRounded fontSize={'medium'} />
+					<Notes fontSize={'medium'} />
 				</Button>
 			</Box>
 			{renderAuthModal()}

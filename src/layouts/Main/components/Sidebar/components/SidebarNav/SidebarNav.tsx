@@ -1,6 +1,5 @@
 import { Link, Logo, Modal } from '@components/atoms';
 import Container from '@components/Container';
-import { UserContext } from '@context/UserContext';
 import {
 	AccountCircleTwoTone,
 	ArrowBack,
@@ -19,7 +18,7 @@ import {
 } from '@mui/material';
 import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 
 import packageJson from '../../../../../../../package.json';
 import pages from '../../../../../navigation';
@@ -39,12 +38,17 @@ const SidebarNav = ({ onClose, handleContactModal }: Props): JSX.Element => {
 
 	const { data: session } = useSession();
 
+	const { name, image } = session?.user || {
+		name: 'Anonymous User',
+		image:
+			'https://storage.googleapis.com/static.almondhydroponics.com/static/images/avatar_male.svg',
+	};
+
 	const handleAuthModal = () => {
 		setAuthModalOpen((prevState) => !prevState);
 		authByEmail && setAuthByEmail(false);
 	};
 	const handleAuthByEmail = () => setAuthByEmail((prevState) => !prevState);
-	const { name, photo } = useContext(UserContext);
 
 	const logoutActiveUser = async (e): Promise<void> => {
 		e.preventDefault();
@@ -111,13 +115,14 @@ const SidebarNav = ({ onClose, handleContactModal }: Props): JSX.Element => {
 			>
 				<Chip
 					size="medium"
-					label={name || 'Anonymous'}
-					// variant="outlined"
+					label={name || 'Anonymous User'}
+					variant="outlined"
+					color="primary"
 					avatar={
 						<Avatar
-							alt={name || 'Anonymous'}
+							alt={name ?? 'Anonymous User'}
 							src={
-								photo ||
+								image ??
 								'https://storage.googleapis.com/static.almondhydroponics.com/static/images/avatar_male.svg'
 							}
 							aria-describedby="menu-popover"

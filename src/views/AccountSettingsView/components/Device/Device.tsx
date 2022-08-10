@@ -1,4 +1,3 @@
-import { UserContext } from '@context/UserContext';
 import {
 	Avatar,
 	Box,
@@ -9,7 +8,6 @@ import {
 	useMediaQuery,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { useContext } from 'react';
 
 import { Form } from '../../../EnterDeviceIdView/components';
 
@@ -19,24 +17,45 @@ const Device = (): JSX.Element => {
 		defaultMatches: true,
 	});
 
-	const { devices } = useContext(UserContext);
+	const devices = [
+		{
+			id: '1',
+			name: 'Device 1',
+		},
+		{
+			id: '2',
+			name: 'Device 2',
+		},
+	];
 
 	return (
 		<Box>
-			<Typography variant="h6" color="textPrimary">
+			<Typography variant="h5" color="text.primary" fontWeight={600}>
 				Add new device
 			</Typography>
-			<Typography variant={'subtitle2'} color={'text.secondary'}>
-				The device ID will help you to control your purchased device from
-				Almond. Kindly enter the 6 digit figure to start using your system.
-				Configuration with the device might take a few minutes.
-			</Typography>
-			<Box paddingY={4}>
+			<Box paddingY={2}>
 				<Divider />
 			</Box>
 
-			<Grid container spacing={2} justifyContent={'center'}>
+			<Grid
+				container
+				spacing={4}
+				justifyContent={isMd ? 'flex-start' : 'center'}
+				direction={isMd ? 'row' : 'column-reverse'}
+				alignItems={isMd ? 'flex-start' : 'center'}
+			>
 				<Grid item xs={12} md={6}>
+					<Typography
+						variant="subtitle2"
+						color="text.secondary"
+						fontWeight={400}
+						paddingBottom={1}
+						gutterBottom
+					>
+						The device ID will help you to control your purchased device from
+						Almond. Kindly enter the 6 digit figure to start using your system.
+						Configuration with the device might take a few minutes.
+					</Typography>
 					<Form />
 				</Grid>
 				<Grid
@@ -54,8 +73,8 @@ const Device = (): JSX.Element => {
 								backgroundColor: '#D9E9BA',
 								fontWeight: 500,
 							}}
-							key={device._id}
-							label={device.id}
+							key={device.id}
+							label={device.name}
 							avatar={
 								<Avatar
 									sx={{
@@ -70,9 +89,9 @@ const Device = (): JSX.Element => {
 					))}
 				</Grid>
 			</Grid>
-			<Box paddingY={4}>
-				<Divider />
-			</Box>
+			{/*<Box paddingY={4}>*/}
+			{/*	<Divider />*/}
+			{/*</Box>*/}
 		</Box>
 	);
 };

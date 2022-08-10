@@ -24,18 +24,14 @@ const Notifications = (): JSX.Element => {
 				justifyContent={'space-between'}
 				alignItems={{ xs: 'flex-start', md: 'center' }}
 			>
-				<Typography variant="h6" fontWeight={700}>
+				<Typography variant="h5" color="text.primary" fontWeight={600}>
 					Update app notifications
 				</Typography>
-				<Button
-					size={'large'}
-					variant={'outlined'}
-					sx={{ marginTop: { xs: 2, md: 0 } }}
-				>
+				<Button variant={'outlined'} sx={{ marginTop: { xs: 2, md: 0 } }}>
 					Reset all
 				</Button>
 			</Box>
-			<Box paddingY={4}>
+			<Box paddingY={2}>
 				<Divider />
 			</Box>
 
@@ -45,7 +41,12 @@ const Notifications = (): JSX.Element => {
 						<Typography variant="h6" gutterBottom>
 							System settings
 						</Typography>
-						<Typography variant="caption" gutterBottom>
+						<Typography
+							variant="subtitle2"
+							color="text.secondary"
+							fontWeight={400}
+							gutterBottom
+						>
 							Receive emails to your email address
 						</Typography>
 						<Box>
@@ -73,7 +74,12 @@ const Notifications = (): JSX.Element => {
 						<Typography variant="h6" gutterBottom>
 							Device settings
 						</Typography>
-						<Typography variant="caption" gutterBottom>
+						<Typography
+							variant="subtitle2"
+							color="text.secondary"
+							fontWeight={400}
+							gutterBottom
+						>
 							Receive alerts from your device
 						</Typography>
 						<Box>
@@ -95,7 +101,12 @@ const Notifications = (): JSX.Element => {
 						<Typography variant="h6" gutterBottom>
 							Chat settings
 						</Typography>
-						<Typography variant="caption" gutterBottom>
+						<Typography
+							variant="subtitle2"
+							color="text.secondary"
+							fontWeight={400}
+							gutterBottom
+						>
 							Receive info about your chats
 						</Typography>
 						<Box>

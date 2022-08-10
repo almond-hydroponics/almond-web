@@ -1,17 +1,11 @@
 import { FormInputText } from '@components/molecules';
-import useFormState from '@hooks/useFormState';
-import { verifyUserDevice } from '@modules/device';
 import { PhonelinkSetupSharp } from '@mui/icons-material';
-import { Button, Grid } from '@mui/material';
-import { EnterDeviceContext } from '@views/EnterDeviceIdView';
+import { Button, Grid, InputAdornment } from '@mui/material';
 import { useCallback, useContext } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import validate from 'validate.js';
-// import { yupResolver } from '@hookform/resolvers/yup';
+import { useDispatch } from 'react-redux';
+import { EnterDeviceContext } from 'views/EnterDeviceIdView';
 import * as yup from 'yup';
-
-import { IRootState } from '../../../../store/rootReducer';
 
 const useValidationResolver = (validationSchema) =>
 	useCallback(
@@ -52,7 +46,7 @@ const schema = yup
 			.test(
 				'len',
 				'Device ID should be 8 characters. Kindly confirm',
-				(val) => val.toString().length === 8
+				(val) => val?.toString().length === 8
 			),
 	})
 	.required();
@@ -67,10 +61,10 @@ const defaultValues = {
 
 const Form = (): JSX.Element => {
 	const dispatch = useDispatch();
-	const { device } = useSelector(
-		(globalState: IRootState) => globalState,
-		shallowEqual
-	);
+	// const { device } = useSelector(
+	// 	(globalState: IRootState) => globalState,
+	// 	shallowEqual
+	// );
 
 	const { handleNext } = useContext(EnterDeviceContext);
 
@@ -89,9 +83,7 @@ const Form = (): JSX.Element => {
 		mode: 'onChange',
 	});
 
-	const onSubmit: SubmitHandler<IFormInput> = ({ deviceId }) => {
-		dispatch(verifyUserDevice({ id: deviceId }));
-	};
+	const onSubmit: SubmitHandler<IFormInput> = ({ deviceId }) => {};
 
 	// const onSubmit = (e) => {
 	// 	handleSubmit(e);
@@ -117,35 +109,14 @@ const Form = (): JSX.Element => {
 						label="Enter device ID"
 						type="text"
 						iconPosition="start"
-						Icon={PhonelinkSetupSharp}
+						InputProps={{
+							endAdornment: (
+								<InputAdornment position="end">
+									<PhonelinkSetupSharp />
+								</InputAdornment>
+							),
+						}}
 					/>
-					{/*<Controller*/}
-					{/*	name={'textValue'}*/}
-					{/*	control={control}*/}
-					{/*	render={({ field: { onChange, value } }) => (*/}
-					{/*		<TextField*/}
-					{/*			label="Enter device ID"*/}
-					{/*			name="deviceId"*/}
-					{/*			variant="outlined"*/}
-					{/*			size="medium"*/}
-					{/*			fullWidth*/}
-					{/*			helperText={hasError('deviceId') ? errors.deviceId[0] : null}*/}
-					{/*			error={hasError('deviceId')}*/}
-					{/*			onChange={onChange}*/}
-					{/*			type="text"*/}
-					{/*			value={...register('deviceId')}*/}
-					{/*			InputProps={{*/}
-					{/*			  startAdornment: (*/}
-					{/*			    <InputAdornment position="start">*/}
-					{/*			      <PhonelinkSetupSharp*/}
-					{/*			        color={hasError('deviceId') ? 'error' : 'primary'}*/}
-					{/*			      />*/}
-					{/*			    </InputAdornment>*/}
-					{/*			  ),*/}
-					{/*			}}*/}
-					{/*		/>*/}
-					{/*	)}*/}
-					{/*/>*/}
 				</Grid>
 				<Grid item xs={12}>
 					<Button
@@ -156,7 +127,7 @@ const Form = (): JSX.Element => {
 						fullWidth
 						// disabled={isValid}
 					>
-						{device.isLoading ? 'Adding...' : 'Add device'}
+						Add device
 					</Button>
 				</Grid>
 			</Grid>

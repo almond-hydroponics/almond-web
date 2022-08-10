@@ -4,7 +4,6 @@ import { ArrowBackRounded } from '@mui/icons-material';
 import { IconButton, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 const Topbar = (): JSX.Element => {
@@ -17,28 +16,27 @@ const Topbar = (): JSX.Element => {
 			justifyContent={'space-between'}
 			alignItems={'center'}
 		>
-			<Link
-				href={router.pathname === '/account' ? '/dashboard' : '/'}
-				passHref
+			<Box
+				sx={{ display: 'flex' }}
+				alignItems={'center'}
+				onClick={router.back}
 			>
-				<Box sx={{ display: 'flex' }} alignItems={'center'}>
-					<IconButton
-						style={{ padding: 0, marginRight: theme.spacing(1) }}
-						color="primary"
-					>
-						<ArrowBackRounded className="learn-more-link__arrow" />
-					</IconButton>
-					<Typography
-						fontWeight={500}
-						variant="body1"
-						color="primary"
-						sx={{ cursor: 'pointer' }}
-					>
-						{router.pathname === '/account' ? 'back' : 'home'}
-					</Typography>
-				</Box>
-			</Link>
-			<Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+				<IconButton
+					style={{ padding: 0, marginRight: theme.spacing(1) }}
+					color="primary"
+				>
+					<ArrowBackRounded className="learn-more-link__arrow" />
+				</IconButton>
+				<Typography
+					fontWeight={500}
+					variant="body1"
+					color="primary"
+					sx={{ cursor: 'pointer' }}
+				>
+					Back
+				</Typography>
+			</Box>
+			<Box>
 				<CustomAvatar />
 			</Box>
 		</Box>

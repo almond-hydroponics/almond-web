@@ -1,17 +1,8 @@
 import { KeyboardArrowUpRounded } from '@mui/icons-material';
-import {
-	AppBar,
-	Box,
-	Fab,
-	Slide,
-	Toolbar,
-	Zoom,
-	useScrollTrigger,
-} from '@mui/material';
+import { AppBar, Box, Fab, Zoom, useScrollTrigger } from '@mui/material';
 import { alpha, useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import Container from 'components/Container';
-import { MouseEvent, ReactElement, ReactNode, cloneElement } from 'react';
+import { MouseEvent, ReactElement, ReactNode } from 'react';
 
 import { Topbar } from './components';
 
@@ -19,41 +10,9 @@ interface Props {
 	children: ReactNode;
 }
 
-interface AppBarOnScrollProps {
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	children: ReactElement<any, any>;
-	window?: () => Window;
-	isMobileView?: boolean;
-}
-
 interface ScrollTopProps {
 	window?: () => Window;
 	children: ReactElement;
-}
-
-function ElevationScroll({
-	children,
-	window,
-	isMobileView,
-}: AppBarOnScrollProps) {
-	// Note that you normally won't need to set the window ref as useScrollTrigger
-	// will default to window.
-	// This is only being set here because the demo is in an iframe.
-	const trigger = useScrollTrigger({
-		disableHysteresis: true,
-		threshold: 0,
-		target: window ? window() : undefined,
-	});
-
-	return isMobileView ? (
-		<Slide appear={false} direction="down" in={!trigger}>
-			{children}
-		</Slide>
-	) : (
-		cloneElement(children, {
-			elevation: trigger ? 4 : 0,
-		})
-	);
 }
 
 const ScrollTop = ({ window, children }: ScrollTopProps) => {
@@ -91,37 +50,36 @@ const ScrollTop = ({ window, children }: ScrollTopProps) => {
 
 const Minimal = ({ children }: Props): JSX.Element => {
 	const theme = useTheme();
-	const isMd = useMediaQuery(theme.breakpoints.up('md'), {
-		defaultMatches: true,
+
+	const trigger = useScrollTrigger({
+		disableHysteresis: true,
+		threshold: 0,
 	});
 
 	return (
-		<Box>
-			<ElevationScroll isMobileView={isMd}>
-				<AppBar
-					position={'fixed'}
-					sx={{
-						backgroundColor: theme.palette.background.paper,
-						borderBottom: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
-					}}
-					elevation={0}
+		<Box position={'relative'} minHeight={'100vh'} bgcolor={'alternate.main'}>
+			<AppBar
+				position={'sticky'}
+				sx={{
+					top: 0,
+					backgroundColor: trigger
+						? 'hsla(0,0%,100%,.8)'
+						: theme.palette.background.paper,
+					backdropFilter: trigger ? 'blur(15px)' : 'none',
+					borderBottom: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
+				}}
+				elevation={0}
+			>
+				<Container
+					maxWidth={1}
+					paddingY={{ xs: 2, md: 1 }}
+					paddingX={{ xs: 1, md: 4 }}
 				>
-					<Toolbar>
-						<Container
-							maxWidth={1}
-							paddingY={{ xs: 1, sm: 1.5 }}
-							paddingX={{ xs: 0 }}
-						>
-							<Topbar />
-						</Container>
-					</Toolbar>
-				</AppBar>
-			</ElevationScroll>
+					<Topbar />
+				</Container>
+			</AppBar>
 			<div id="back-to-top-anchor" />
-			<main>
-				<Box height={{ xs: 58, sm: 66 }} />
-				{children}
-			</main>
+			<main>{children}</main>
 			<ScrollTop>
 				<Fab color="secondary" size="small" aria-label="scroll back to top">
 					<KeyboardArrowUpRounded />

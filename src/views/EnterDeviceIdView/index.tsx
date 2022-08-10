@@ -1,6 +1,5 @@
 import Container from '@components/Container';
 import {
-	ArrowBack,
 	ArrowForward,
 	KeyboardArrowLeft,
 	KeyboardArrowRight,
@@ -9,7 +8,6 @@ import {
 	Box,
 	Button,
 	Checkbox,
-	CssBaseline,
 	Divider,
 	FormControlLabel,
 	Grid,
@@ -20,22 +18,24 @@ import {
 	Stepper,
 	Typography,
 } from '@mui/material';
-import { alpha, useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { requestPermission } from '@utils/Firebase/firebaseMessaging';
-import { useRouter } from 'next/router';
-import { ReactNode, createContext, useState } from 'react';
-
-import { Minimal } from '../../layouts';
 import {
 	AddDeviceIllustration,
 	AddDeviceIllustration1,
 	AddDeviceIllustration2,
 	AddDeviceIllustration3,
-} from '../../svg/illustrations';
+} from '@svg/illustrations';
+// import { requestPermission } from '@utils/Firebase/firebaseMessaging';
+import { useRouter } from 'next/router';
+import { ReactNode, createContext, useState } from 'react';
+
+import { Minimal } from '../../layouts';
 import { ConnectionForm, Form } from './components';
 
-export const EnterDeviceContext = createContext({ handleNext: () => {} });
+export const EnterDeviceContext = createContext({
+	handleNext: () => {},
+});
 
 const steps = ['Add new device', 'Configure connectivity', 'Go to dashboard'];
 
@@ -171,7 +171,7 @@ const EnterDeviceIdView = (): JSX.Element => {
 												<FormControlLabel
 													control={<Checkbox color="primary" />}
 													label="Push notifications"
-													onChange={requestPermission}
+													// onChange={requestPermission}
 												/>
 											</Box>
 											<Box>

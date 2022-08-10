@@ -1,26 +1,22 @@
 import { MenuTab, MenuTabs, TabPanel } from '@components/atoms';
 import Container from '@components/Container';
 import { MenuComponentProps } from '@components/molecules/MenuRoutes/interfaces';
-import {
-	AllOut,
-	NotificationsNone,
-	WidgetsRounded,
-} from '@mui/icons-material';
+import { AllOut, NotificationsNone } from '@mui/icons-material';
 import { Box, Card, Grid, Typography, useMediaQuery } from '@mui/material';
 import { alpha, useTheme } from '@mui/material/styles';
 import { useRouter } from 'next/router';
 import { ChangeEvent, createElement, useEffect, useState } from 'react';
 
 import { Minimal } from '../../layouts';
-import { Device, General, Notifications } from './components';
+import { Device, Notifications } from './components';
 
 const subPages: MenuComponentProps[] = [
-	{
-		id: 'general',
-		primaryText: 'General',
-		component: General,
-		icon: <WidgetsRounded />,
-	},
+	// {
+	// 	id: 'general',
+	// 	primaryText: 'General',
+	// 	component: General,
+	// 	icon: <WidgetsRounded />,
+	// },
 	// {
 	// 	id: 'security',
 	// 	primaryText: 'Security',

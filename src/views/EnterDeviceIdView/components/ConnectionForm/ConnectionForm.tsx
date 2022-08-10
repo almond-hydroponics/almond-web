@@ -1,5 +1,4 @@
 import useFormState from '@hooks/useFormState';
-import { loginAccount } from '@modules/authentication';
 import {
 	SignalWifi3Bar,
 	Visibility,
@@ -7,6 +6,7 @@ import {
 } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
 import { Box, Grid, InputAdornment, TextField } from '@mui/material';
+import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import validate from 'validate.js';
@@ -32,7 +32,7 @@ const ConnectionForm = (): JSX.Element => {
 	const { values, isValid, errors, hasError, handleFormChange, handleSubmit } =
 		useFormState({
 			onSubmit: async ({ email, password }) => {
-				await dispatch(loginAccount({ email, password }));
+				await signIn('credentials', { email, password });
 			},
 			formErrors: (formValues) => validate(formValues, schema),
 		});
