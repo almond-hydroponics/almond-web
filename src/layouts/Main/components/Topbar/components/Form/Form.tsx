@@ -1,4 +1,3 @@
-import { useQuery } from '@apollo/client';
 import { GoogleIcon } from '@components/atoms';
 import { FormInputText } from '@components/molecules';
 import { ComponentContext } from '@context/ComponentContext';
@@ -19,8 +18,6 @@ import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
-
-import { GetGoogleAuthUrlDocument } from '../../../../../../generated/graphql';
 
 interface Props {
 	handleAuthModal: () => void;
@@ -56,7 +53,7 @@ const Form = ({
 	const { csrfToken } = useContext(ComponentContext);
 	const { replace } = useRouter();
 
-	const { data } = useQuery(GetGoogleAuthUrlDocument);
+	// const { data } = useQuery(GetGoogleAuthUrlDocument);
 
 	const { handleSubmit, control, reset } = useForm<IFormInput>({
 		resolver: yupResolver(schema),
@@ -100,14 +97,7 @@ const Form = ({
 		}
 	};
 
-	// const handleGoogleLogin = async () => await signIn('google');
-
-	console.log(
-		'Class: , Function: Form, Line 105 data?.getGoogleAuthURL():',
-		data?.getGoogleAuthURL
-	);
-
-	const handleGoogleLogin = () => replace(data?.getGoogleAuthURL as string);
+	const handleGoogleLogin = async () => await signIn('google');
 
 	const renderContinueWithEmail = (): JSX.Element => (
 		<form name="email-login" onSubmit={handleSubmit(onSubmit)}>

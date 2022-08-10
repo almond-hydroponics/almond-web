@@ -1,5 +1,4 @@
 import { ComponentContext } from '@context/ComponentContext';
-import { UserContext } from '@context/UserContext';
 import {
 	AccountCircleOutlined,
 	HelpOutline,
@@ -38,9 +37,11 @@ const CustomAvatar = ({
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const { data: session } = useSession();
 
-	const { name } = useContext(UserContext);
-	const photo =
-		'https://storage.googleapis.com/static.almondhydroponics.com/static/images/avatar_male.svg';
+	const { name, image } = session?.user || {
+		name: 'Anonymous User',
+		image:
+			'https://storage.googleapis.com/static.almondhydroponics.com/static/images/avatar_male.svg',
+	};
 
 	const handleToggleProfileMenu = (event: MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget);
@@ -88,17 +89,20 @@ const CustomAvatar = ({
 
 	return (
 		<>
-			<Tooltip title={name || 'Anonymous'}>
+			<Tooltip title={name ?? 'Anonymous User'}>
 				<Chip
 					size="medium"
-					label={name || 'Anonymous'}
+					label={name ?? 'Anonymous User'}
 					variant="outlined"
 					color="primary"
 					onClick={handleToggleProfileMenu}
 					avatar={
 						<Avatar
-							alt={name}
-							src={photo}
+							alt={name ?? 'Anonymous User'}
+							src={
+								image ??
+								'https://storage.googleapis.com/static.almondhydroponics.com/static/images/avatar_male.svg'
+							}
 							aria-describedby="menu-popover"
 							aria-controls="menu-popover"
 							aria-haspopup="true"

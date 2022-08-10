@@ -38,7 +38,7 @@ const Topbar = ({
 	const handleAuthByEmail = () => setAuthByEmail((prevState) => !prevState);
 
 	const renderAuthButtons = () => (
-		<Box marginLeft={3} sx={{ display: { xs: 'none', md: 'flex' } }}>
+		<Box sx={{ display: { xs: 'none', md: 'flex' } }}>
 			{!!session ? (
 				<CustomAvatar />
 			) : (
