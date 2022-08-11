@@ -3953,6 +3953,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/gtag.js@npm:^0.0.10":
+  version: 0.0.10
+  resolution: "@types/gtag.js@npm:0.0.10"
+  checksum: 5c18ffdc64418887763ec1a564e73c9fbf222ff3eece1fbc35a182fdd884e7884bb7708f67e6e4939f157bb9f2cb7a4aff42be7834527e35c5aac4f98783164c
+  languageName: node
+  linkType: hard
+
 "@types/hast@npm:^2.0.0":
   version: 2.3.4
   resolution: "@types/hast@npm:2.3.4"
@@ -4836,6 +4843,7 @@ __metadata:
     "@testing-library/react-hooks": ^8.0.1
     "@testing-library/user-event": ^14.4.2
     "@types/aos": ^3.0.4
+    "@types/gtag.js": ^0.0.10
     "@types/js-cookie": ^3.0.2
     "@types/node": ^18.6.5
     "@types/react": ^18.0.17
@@ -4922,7 +4930,6 @@ __metadata:
     react-chartjs-2: ^4.3.1
     react-countup: ^6.3.0
     react-dom: ^18.2.0
-    react-ga: ^3.3.1
     react-hook-form: ^7.34.0
     react-image-lightbox: ^5.1.4
     react-images: ^1.1.7
@@ -15152,16 +15159,6 @@ __metadata:
     prop-types: ^15.5
     react: ^15.6 || ^16
   checksum: 319626493ad20e22933f7a3a35f45e1b1c67a6c7b4039c395bce0b131d15b93f558fcf9cbda06aad76f302b14040d75467453a814a511dd808ed8ce4b0ac2f73
-  languageName: node
-  linkType: hard
-
-"react-ga@npm:^3.3.1":
-  version: 3.3.1
-  resolution: "react-ga@npm:3.3.1"
-  peerDependencies:
-    prop-types: ^15.6.0
-    react: ^15.6.2 || ^16.0 || ^17 || ^18
-  checksum: 3026976d0249fbf80e7b5dad7707964198064d7ac460f3397de40524e76dd6c29dead0900f850e2bd3135a86a9b083af8cda9cfa087f195852bf8d2b17c1fcfb
   languageName: node
   linkType: hard
 

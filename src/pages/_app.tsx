@@ -10,12 +10,14 @@ import { ApolloProvider } from '@apollo/client';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import { useApollo } from '@lib/apollo';
 import { wrapper } from '@store/index';
-import { GoogleAnalytics } from '@utils/googleAnalytics';
+import { pageview } from '@utils/gtag';
 import { SessionProvider } from 'next-auth/react';
 import { DefaultSeo } from 'next-seo';
 import { AppProps } from 'next/app';
 /* eslint-disable react/prop-types */
 import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 // components
 import Page from '../components/Page';
@@ -34,7 +36,19 @@ const App = ({
 	pageProps,
 	emotionCache = clientSideEmotionCache,
 }: Props): JSX.Element => {
-	GoogleAnalytics.useTracker();
+	const router = useRouter();
+
+	useEffect(() => {
+		const handleRouteChange = (url: URL) => {
+			pageview(url);
+		};
+		router.events.on('routeChangeComplete', handleRouteChange);
+		router.events.on('hashChangeComplete', handleRouteChange);
+		return () => {
+			router.events.off('routeChangeComplete', handleRouteChange);
+			router.events.off('hashChangeComplete', handleRouteChange);
+		};
+	}, [router.events]);
 
 	const apolloClient = useApollo(pageProps.initialApolloState);
 

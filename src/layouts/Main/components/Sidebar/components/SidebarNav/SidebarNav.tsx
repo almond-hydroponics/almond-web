@@ -142,13 +142,10 @@ const SidebarNav = ({ onClose, handleContactModal }: Props): JSX.Element => {
 				direction="row"
 				alignItems="center"
 				justifyContent="space-between"
+				marginLeft={2}
 			>
 				{!!session ? accountAvatar() : <Logo displayText />}
-				<Box
-					display={'flex'}
-					justifyContent={'flex-end'}
-					onClick={() => onClose()}
-				>
+				<Box display={'flex'} justifyContent={'flex-end'} onClick={onClose}>
 					<IconButton>
 						<CloseIcon fontSize="medium" />
 					</IconButton>

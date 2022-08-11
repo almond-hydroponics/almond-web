@@ -2,7 +2,9 @@
 import crypto from 'crypto';
 
 import createEmotionServer from '@emotion/server/create-instance';
+import { GA_TRACKING_ID } from '@utils/gtag';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
+import Script from 'next/script';
 
 import createEmotionCache from '../createEmotionCache';
 
@@ -149,6 +151,26 @@ export default class MyDocument extends Document {
 					<link rel="preload" href="/css/index.css" as="style" />
 					{/* Inject MUI styles first to match with to prepend: true configuration. */}
 					{(this.props as any).emotionStyleTags}
+
+					{/* Global Site Tag (gtag.js) - Google Analytics */}
+					<Script
+						strategy="afterInteractive"
+						src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+					/>
+					<Script
+						id="gtag-init"
+						strategy="afterInteractive"
+						dangerouslySetInnerHTML={{
+							__html: `
+	            window.dataLayer = window.dataLayer || [];
+	            function gtag(){dataLayer.push(arguments);}
+	            gtag('js', new Date());
+	            gtag('config', '${GA_TRACKING_ID}', {
+	              page_path: window.location.pathname,
+	            });
+	          `,
+						}}
+					/>
 				</Head>
 				<body>
 					<Main />

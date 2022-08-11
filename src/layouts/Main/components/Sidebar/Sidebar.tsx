@@ -19,10 +19,12 @@ const Sidebar = ({
 }: Props): JSX.Element => {
 	return (
 		<Drawer
-			anchor="left"
+			anchor="right"
 			onClose={() => onClose()}
 			open={open}
 			variant={variant}
+			transitionDuration={400}
+			elevation={0}
 			sx={{
 				'& .MuiPaper-root': {
 					width: '100%',

@@ -1,8 +1,8 @@
 // components
 import { Link, Logo, Modal } from '@components/atoms';
 import CustomAvatar from '@components/molecules/CustomAvatar';
-import { AccountCircleTwoTone, ArrowBack, Notes } from '@mui/icons-material';
-import { Box, Button, Chip, Stack, Typography } from '@mui/material';
+import { AccountCircleTwoTone, ArrowBack, Menu } from '@mui/icons-material';
+import { Box, Chip, IconButton, Stack, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { useSession } from 'next-auth/react';
 import { useState } from 'react';
@@ -168,24 +168,13 @@ const Topbar = ({
 			{renderAuthButtons()}
 
 			<Box sx={{ display: { xs: 'flex', md: 'none' } }} alignItems={'center'}>
-				<Button
-					onClick={() => onSidebarOpen()}
+				<IconButton
+					onClick={onSidebarOpen}
 					aria-label="Menu"
-					variant={'text'}
-					sx={{
-						color: linkColor,
-						'&:hover': {
-							color: colorInvert ? 'common.white' : 'primary.dark',
-						},
-						borderRadius: 1,
-						minWidth: 'auto',
-						padding: 0,
-						marginLeft: 2,
-						// borderColor: alpha(theme.palette.divider, 0.2),
-					}}
+					sx={{ padding: 0, margin: 0 }}
 				>
-					<Notes fontSize={'medium'} />
-				</Button>
+					<Menu fontSize={'medium'} />
+				</IconButton>
 			</Box>
 			{renderAuthModal()}
 		</Box>

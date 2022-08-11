@@ -83,3 +83,67 @@ a {
 .highcharts-data-table tr:hover {
 	background: #f1f7ff;
 }
+
+.menu-btn {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 80px;
+	height: 4px;
+	cursor: pointer;
+	transition: all 0.5s ease-in-out;
+	z-index: 1302;
+	/* border: 3px solid #fff; */
+}
+
+.menu-btn__burger {
+	/*width: 25px;*/
+	height: 1px;
+	background-color: #191414;
+	margin: 4px 0;
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
+	display: block;
+	/*width: 50px;*/
+	/*height: 6px;*/
+	/*background: #000000;*/
+	border-radius: 5px;
+	/*!*box-shadow: 0 2px 5px rgba(255, 101, 47, .2);*!*/
+	/*transition: all .5s ease-in-out;*/
+}
+
+.menu-btn__burger::before,
+.menu-btn__burger::after {
+	content: '';
+	position: absolute;
+	width: 25px;
+	height: 2px;
+	background: #191414;
+	border-radius: 5px;
+	/*box-shadow: 0 2px 5px rgba(255, 101, 47, .2);*/
+	transition: all 0.5s ease-in-out;
+}
+
+.menu-btn__burger::before {
+	transform: translateY(-4px);
+}
+
+.menu-btn__burger::after {
+	transform: translateY(4px);
+}
+
+/* ANIMATION */
+.menu-btn.open .menu-btn__burger {
+	transform: translateX(-50px);
+	background: transparent;
+	box-shadow: none;
+}
+
+.menu-btn.open .menu-btn__burger::before {
+	transform: rotate(45deg) translate(35px, -35px);
+}
+
+.menu-btn.open .menu-btn__burger::after {
+	transform: rotate(-45deg) translate(35px, 35px);
+}
