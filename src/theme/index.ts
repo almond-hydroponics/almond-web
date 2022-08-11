@@ -1,23 +1,16 @@
 import { PaletteMode, Theme, responsiveFontSizes } from '@mui/material';
 import { ComponentsOverrides, createTheme } from '@mui/material/styles';
-import { CSSProperties } from 'react';
 
 import { dark, light } from './palette';
 import shadows from './shadows';
+import { createTypography } from './typography';
 
 const getTheme = (mode: PaletteMode): Theme =>
 	responsiveFontSizes(
 		createTheme({
 			palette: mode === 'light' ? light : dark,
 			shadows: shadows(mode),
-			typography: {
-				fontFamily: 'CircularStd, Helvetica, Arial, sans-serif',
-				fontSize: 16,
-				button: {
-					textTransform: 'none',
-					fontWeight: 'medium' as CSSProperties['fontWeight'],
-				},
-			},
+			typography: createTypography(),
 			zIndex: {
 				appBar: 1200,
 				drawer: 1300,

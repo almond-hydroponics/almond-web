@@ -20,9 +20,9 @@ import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import fancyId from '@utils/fancyId';
-import { useState } from 'react';
 import CountUp from 'react-countup';
-import VisibilitySensor from 'react-visibility-sensor';
+import { useInView } from 'react-intersection-observer';
+// import VisibilitySensor from 'react-visibility-sensor';
 
 const mock = [
 	{
@@ -49,19 +49,13 @@ const Features = (): JSX.Element => {
 		defaultMatches: true,
 	});
 
-	const [viewPortEntered, setViewPortEntered] = useState(false);
-	const setViewPortVisibility = (
-		isVisible: boolean | ((prevState: boolean) => boolean)
-	) => {
-		if (viewPortEntered) {
-			return;
-		}
-
-		setViewPortEntered(isVisible);
-	};
+	const { ref, inView, entry } = useInView({
+		/* Optional options */
+		threshold: 0,
+	});
 
 	return (
-		<Box>
+		<Box ref={ref}>
 			<Grid container spacing={4} direction={isMd ? 'row' : 'column-reverse'}>
 				<Grid item xs={12} md={6} data-aos={isMd ? 'fade-right' : 'fade-up'}>
 					<Box marginBottom={4}>
@@ -87,17 +81,12 @@ const Features = (): JSX.Element => {
 									color={'primary'}
 									gutterBottom
 								>
-									<VisibilitySensor
-										onChange={(isVisible) => setViewPortVisibility(isVisible)}
-										delayedCall
-									>
-										<CountUp
-											redraw={false}
-											end={viewPortEntered ? +item.title : 0}
-											start={0}
-											suffix={item.suffix}
-										/>
-									</VisibilitySensor>
+									<CountUp
+										redraw={false}
+										end={inView ? +item.title : 0}
+										start={0}
+										suffix={item.suffix}
+									/>
 								</Typography>
 								<Typography color="text.secondary" component="p">
 									{item.subtitle}

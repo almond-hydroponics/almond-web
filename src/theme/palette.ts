@@ -12,9 +12,12 @@ export const light = {
 	},
 	mode: 'light' as PaletteMode,
 	primary: {
-		main: '#2573b5',
-		light: '#62a1e8',
-		dark: '#004885',
+		main: '#1967D2',
+		light: '#6494ff',
+		dark: '#003ea0',
+		// main: '#2573b5',
+		// light: '#62a1e8',
+		// dark: '#004885',
 		contrastText: '#fff',
 	},
 	secondary: {

@@ -103,3 +103,7 @@ typings/
 !.yarn/versions
 .pnp.*
 /wordpress/
+
+**/public/workbox-*.js
+**/public/sw.js
+**/public/fallback-*.js

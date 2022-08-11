@@ -68,30 +68,30 @@ const Services = (): JSX.Element => {
 	return (
 		<Box>
 			<Box marginBottom={4}>
-				<Box marginBottom={2}>
-					<Typography
-						variant="h4"
-						color="text.primary"
-						align={'center'}
-						gutterBottom
-						sx={{
-							fontWeight: 600,
-						}}
-					>
-						Feed your family with ease
-					</Typography>
-					<Typography
-						variant="h6"
-						component="p"
-						color="text.secondary"
-						sx={{ fontWeight: 400 }}
-						align={'center'}
-					>
-						Our focus is on growing your food smart. We are a hydroponics
-						company that specializes in growing plants in a controlled
-						environment.
-					</Typography>
-				</Box>
+				{/*<Box marginBottom={2}>*/}
+				{/*	<Typography*/}
+				{/*		variant="h5"*/}
+				{/*		color="text.primary"*/}
+				{/*		align={'center'}*/}
+				{/*		gutterBottom*/}
+				{/*		sx={{*/}
+				{/*			fontWeight: 600,*/}
+				{/*		}}*/}
+				{/*	>*/}
+				{/*		Feed your family with ease*/}
+				{/*	</Typography>*/}
+				{/*	<Typography*/}
+				{/*		variant="h6"*/}
+				{/*		component="p"*/}
+				{/*		color="text.secondary"*/}
+				{/*		sx={{ fontWeight: 400 }}*/}
+				{/*		align={'center'}*/}
+				{/*	>*/}
+				{/*		Our focus is on growing your food smart. We are a hydroponics*/}
+				{/*		company that specializes in growing plants in a controlled*/}
+				{/*		environment.*/}
+				{/*	</Typography>*/}
+				{/*</Box>*/}
 			</Box>
 			<Grid container spacing={2}>
 				{mock.map((item, i) => (

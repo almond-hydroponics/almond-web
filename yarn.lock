@@ -2127,11 +2127,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graphql-codegen/cli@npm:^2.11.5":
-  version: 2.11.5
-  resolution: "@graphql-codegen/cli@npm:2.11.5"
+"@graphql-codegen/cli@npm:^2.11.6":
+  version: 2.11.6
+  resolution: "@graphql-codegen/cli@npm:2.11.6"
   dependencies:
-    "@graphql-codegen/core": 2.6.1
+    "@graphql-codegen/core": 2.6.2
     "@graphql-codegen/plugin-helpers": ^2.6.2
     "@graphql-tools/apollo-engine-loader": ^7.3.6
     "@graphql-tools/code-file-loader": ^7.3.1
@@ -2169,21 +2169,21 @@ __metadata:
     graphql-code-generator: cjs/bin.js
     graphql-codegen: cjs/bin.js
     graphql-codegen-esm: esm/bin.js
-  checksum: 1fd26390e92caed52249f78f87132fa86c3723c36d47f08657d19ea754eeebd85196e8549cf301f15aefbe4cd532698329803f5c1071e4f8306092b871123b92
+  checksum: 2da1a75388d99eb0e51c2eb90c910dd2bedf4f1967acf7eebb5f59e2a49d9fee3b03846a71efe2a49a1e59631c1f0091c85a700a9c270b0f4d795d34752cdc77
   languageName: node
   linkType: hard
 
-"@graphql-codegen/core@npm:2.6.1":
-  version: 2.6.1
-  resolution: "@graphql-codegen/core@npm:2.6.1"
+"@graphql-codegen/core@npm:2.6.2":
+  version: 2.6.2
+  resolution: "@graphql-codegen/core@npm:2.6.2"
   dependencies:
     "@graphql-codegen/plugin-helpers": ^2.6.2
-    "@graphql-tools/schema": ^8.5.0
+    "@graphql-tools/schema": ^9.0.0
     "@graphql-tools/utils": ^8.8.0
     tslib: ~2.4.0
   peerDependencies:
     graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
-  checksum: ae9acd9b121b1a602c427325f1dfdd1c278cc094cf35bddaec5df546217315767125c04e5ae9d2683777993f3c3ac70a775bb6f0b233856c08f054000e16e30a
+  checksum: 3d078e9caa11baf7ceaa4d67b29a6be32f50a183c1fa6f228a3ade62902b9b91cdea2c94d99adbadf10ec38a7f2df9f16cd366dc7b4febf95336e3b4a7eb9160
   languageName: node
   linkType: hard
 
@@ -2484,6 +2484,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@graphql-tools/merge@npm:8.3.3":
+  version: 8.3.3
+  resolution: "@graphql-tools/merge@npm:8.3.3"
+  dependencies:
+    "@graphql-tools/utils": 8.10.0
+    tslib: ^2.4.0
+  peerDependencies:
+    graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+  checksum: fe8979cd5d82b56eca66e383700519bd674babb0ccd189cd30625418917893b62448686dc771cd4f0b0be000dfdf2f2e6bbfac7a54653241db15862bd2c2f6fc
+  languageName: node
+  linkType: hard
+
 "@graphql-tools/optimize@npm:^1.3.0":
   version: 1.3.0
   resolution: "@graphql-tools/optimize@npm:1.3.0"
@@ -2537,7 +2549,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graphql-tools/schema@npm:8.5.1, @graphql-tools/schema@npm:^8.5.0":
+"@graphql-tools/schema@npm:8.5.1":
   version: 8.5.1
   resolution: "@graphql-tools/schema@npm:8.5.1"
   dependencies:
@@ -2548,6 +2560,20 @@ __metadata:
   peerDependencies:
     graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
   checksum: 91363cd4371e347af40ef66f7d903b5d4f5998bfaec9214768e6a795136ef6372f9f225e05e18daacd929e23695811f15e791c6cbe082bf5b5d03b16b1f874f8
+  languageName: node
+  linkType: hard
+
+"@graphql-tools/schema@npm:^9.0.0":
+  version: 9.0.1
+  resolution: "@graphql-tools/schema@npm:9.0.1"
+  dependencies:
+    "@graphql-tools/merge": 8.3.3
+    "@graphql-tools/utils": 8.10.0
+    tslib: ^2.4.0
+    value-or-promise: 1.0.11
+  peerDependencies:
+    graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+  checksum: 84f2d2bb0469e1905738edc6211f0a05a7e0a07ff9bdbb1dccfa0793fe44375eaa62a1c2fc9ad5fb8fa4010b3a5762cc9d5af8c042b51f57b2421a8f65e6cad3
   languageName: node
   linkType: hard
 
@@ -2573,6 +2599,17 @@ __metadata:
   peerDependencies:
     graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
   checksum: f761ac4b485ee3e2f974c9192e7cb74a4d30b5d4782729d15694a8dd290a87729d134bf84652918992a8f4eb120caa2698d7109b3abe354b6a7024cf474414db
+  languageName: node
+  linkType: hard
+
+"@graphql-tools/utils@npm:8.10.0":
+  version: 8.10.0
+  resolution: "@graphql-tools/utils@npm:8.10.0"
+  dependencies:
+    tslib: ^2.4.0
+  peerDependencies:
+    graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+  checksum: 1070959ab24c23510d70e8a557d1d2a90d2c041f2f7b1458e18158cede172b1964d50a803e3d206add73cb843998aaa434713f7c89e2e174974815385a3cad70
   languageName: node
   linkType: hard
 
@@ -3540,9 +3577,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prisma/client@npm:^4.2.0":
-  version: 4.2.0
-  resolution: "@prisma/client@npm:4.2.0"
+"@prisma/client@npm:^4.2.1":
+  version: 4.2.1
+  resolution: "@prisma/client@npm:4.2.1"
   dependencies:
     "@prisma/engines-version": 4.2.0-33.2920a97877e12e055c1333079b8d19cee7f33826
   peerDependencies:
@@ -3550,7 +3587,7 @@ __metadata:
   peerDependenciesMeta:
     prisma:
       optional: true
-  checksum: 37afb11bfd91584ea266f0b475bff017b1fa4e6b87b95de35dfe158194e266d3167e7531c5acd2cd59b46d9d04c16aba501a49c5ad19649e911226a96fa674da
+  checksum: 2eefe7182f2ebc26c35777e9ff22acb9c1d1f6e0988c518b32063d7677d066ab7258d13a0ee851addc77526dc0de9c05a02d5688c55377d65ddee1b6866b9e95
   languageName: node
   linkType: hard
 
@@ -3561,16 +3598,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prisma/engines@npm:4.2.0":
-  version: 4.2.0
-  resolution: "@prisma/engines@npm:4.2.0"
-  checksum: 74c898b2e1c7e182877ab5924189968b4f2a7a17475805282d3966bc54a8eb4cbcaba677decb613c4ca6dcb1dc73f6f0dd7ee14b205bbe325c921520de080d7b
+"@prisma/engines@npm:4.2.1":
+  version: 4.2.1
+  resolution: "@prisma/engines@npm:4.2.1"
+  checksum: 60a13c34412d875f803fbf6452df7dd811b92f9d08e0096629841f404b14e9830ff2e487c8e462d710a1a38a6b0a202e60369d804d0251ae139376772c64f00a
   languageName: node
   linkType: hard
 
-"@reduxjs/toolkit@npm:^1.8.3":
-  version: 1.8.3
-  resolution: "@reduxjs/toolkit@npm:1.8.3"
+"@reduxjs/toolkit@npm:^1.8.4":
+  version: 1.8.4
+  resolution: "@reduxjs/toolkit@npm:1.8.4"
   dependencies:
     immer: ^9.0.7
     redux: ^4.1.2
@@ -3584,7 +3621,7 @@ __metadata:
       optional: true
     react-redux:
       optional: true
-  checksum: 2c932ac6fa430b982108829a6150ca0c15ff617eb121b8055b91a89ab2124e8d93a1277ccdc96ff8af680fbde9d4c7021b1f924f11e28004ee61c6a7d39915bc
+  checksum: 2ed7ee22bc84f0a2370ca2746513ece4593b8310c16c89e1ccf43ce23dcb83d7c4f4773d78049b68b4e92b3c5bee641e8081faf3947371be6b004ebba8142a51
   languageName: node
   linkType: hard
 
@@ -3699,7 +3736,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/dom@npm:^8.11.1, @testing-library/dom@npm:^8.16.1, @testing-library/dom@npm:^8.5.0":
+"@testing-library/dom@npm:^8.11.1, @testing-library/dom@npm:^8.5.0":
   version: 8.16.1
   resolution: "@testing-library/dom@npm:8.16.1"
   dependencies:
@@ -3712,6 +3749,22 @@ __metadata:
     lz-string: ^1.4.4
     pretty-format: ^27.0.2
   checksum: eca86b69f28cdab7226209075b3ca54f87fc0fc92a41440bbfa41e14ed0815aac4a63b1d9a08230e0dbd0de3a54c61cd90a3a423695e6840124e2473c8149e99
+  languageName: node
+  linkType: hard
+
+"@testing-library/dom@npm:^8.17.1":
+  version: 8.17.1
+  resolution: "@testing-library/dom@npm:8.17.1"
+  dependencies:
+    "@babel/code-frame": ^7.10.4
+    "@babel/runtime": ^7.12.5
+    "@types/aria-query": ^4.2.0
+    aria-query: ^5.0.0
+    chalk: ^4.1.0
+    dom-accessibility-api: ^0.5.9
+    lz-string: ^1.4.4
+    pretty-format: ^27.0.2
+  checksum: e4df091fcf84c9eac4a6ee4c76674c1d562bf98732f0ac8820972d7718ab10397b672b9f082aace3cacd1f610fc77de6e1b6094e67afe1df0443bf22eb9deab2
   languageName: node
   linkType: hard
 
@@ -3768,12 +3821,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/user-event@npm:^14.4.2":
-  version: 14.4.2
-  resolution: "@testing-library/user-event@npm:14.4.2"
+"@testing-library/user-event@npm:^14.4.3":
+  version: 14.4.3
+  resolution: "@testing-library/user-event@npm:14.4.3"
   peerDependencies:
     "@testing-library/dom": ">=7.21.4"
-  checksum: 66364f2c503ddc01f5fdf98507aecf40b4edf0b9c140332aaf0161b1d7d52dea8a5d93baee927ae955bd7d6d58be0c12367a2cff924bdb4232746f0e614f9e03
+  checksum: 852c48ea6db1c9471b18276617c84fec4320771e466cd58339a732ca3fd73ad35e5a43ae14f51af51a8d0a150dcf60fcaab049ef367871207bea8f92c4b8195e
   languageName: node
   linkType: hard
 
@@ -4127,10 +4180,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^18.6.5":
-  version: 18.6.5
-  resolution: "@types/node@npm:18.6.5"
-  checksum: e3e66c9a84b94010a57c1b9dac882c08484278d74f9d120dbe6a3e45d00740d178bd1d34a5deee28197c94b9f4359153b637bab9b305328e865027e9987a0f3d
+"@types/node@npm:^18.7.1":
+  version: 18.7.1
+  resolution: "@types/node@npm:18.7.1"
+  checksum: f1e2b701b107f97be01da4c46845cd23bcdcb2865f9abbb2847546d09587e726ea207daca6f0d1e72196875ef8c62feeeff5f1c1f2070445acd6d1a61d815c7c
   languageName: node
   linkType: hard
 
@@ -4819,7 +4872,7 @@ __metadata:
     "@emotion/server": ^11.10.0
     "@emotion/styled": ^11.10.0
     "@emotion/utils": ^1.2.0
-    "@graphql-codegen/cli": ^2.11.5
+    "@graphql-codegen/cli": ^2.11.6
     "@graphql-codegen/introspection": ^2.2.1
     "@graphql-codegen/typescript": ^2.7.3
     "@graphql-codegen/typescript-graphql-request": ^4.5.3
@@ -4835,17 +4888,17 @@ __metadata:
     "@next-auth/prisma-adapter": ^1.0.4
     "@next/bundle-analyzer": ^12.2.4
     "@next/mdx": ^12.2.4
-    "@prisma/client": ^4.2.0
-    "@reduxjs/toolkit": ^1.8.3
-    "@testing-library/dom": ^8.16.1
+    "@prisma/client": ^4.2.1
+    "@reduxjs/toolkit": ^1.8.4
+    "@testing-library/dom": ^8.17.1
     "@testing-library/jest-dom": ^5.16.5
     "@testing-library/react": ^13.3.0
     "@testing-library/react-hooks": ^8.0.1
-    "@testing-library/user-event": ^14.4.2
+    "@testing-library/user-event": ^14.4.3
     "@types/aos": ^3.0.4
     "@types/gtag.js": ^0.0.10
     "@types/js-cookie": ^3.0.2
-    "@types/node": ^18.6.5
+    "@types/node": ^18.7.1
     "@types/react": ^18.0.17
     "@types/react-dom": ^18.0.6
     "@types/react-lazy-load-image-component": ^1.5.2
@@ -4886,7 +4939,7 @@ __metadata:
     graphql: ^16.5.0
     graphql-request: ^4.3.0
     graphql-tag: ^2.12.6
-    graphql-ws: ^5.9.1
+    graphql-ws: ^5.10.0
     gray-matter: ^4.0.3
     highcharts: ^10.2.0
     highcharts-react-official: ^3.1.0
@@ -4925,7 +4978,7 @@ __metadata:
     prettier-eslint-cli: ^6.0.1
     prettier-plugin-import-sort: ^0.0.7
     pretty-quick: ^3.1.3
-    prisma: ^4.2.0
+    prisma: ^4.2.1
     react: ^18.2.0
     react-chartjs-2: ^4.3.1
     react-countup: ^6.3.0
@@ -4934,6 +4987,7 @@ __metadata:
     react-image-lightbox: ^5.1.4
     react-images: ^1.1.7
     react-imask: ^6.4.2
+    react-intersection-observer: ^9.4.0
     react-lazy-load-image-component: ^1.5.5
     react-query: ^3.39.2
     react-redux: ^8.0.2
@@ -4941,12 +4995,11 @@ __metadata:
     react-syntax-highlighter: ^15.5.0
     react-test-renderer: ^18.2.0
     react-typed: ^1.2.0
-    react-visibility-sensor: ^5.1.1
     redux: ^4.2.0
     reselect: ^4.1.6
     rimraf: ^3.0.2
     slick-carousel: ^1.8.1
-    snyk: ^1.984.0
+    snyk: ^1.986.0
     swr: ^1.3.0
     typescript: ^4.7.4
     validate.js: ^0.13.1
@@ -9281,7 +9334,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql-ws@npm:^5.4.1, graphql-ws@npm:^5.9.1":
+"graphql-ws@npm:^5.10.0":
+  version: 5.10.0
+  resolution: "graphql-ws@npm:5.10.0"
+  peerDependencies:
+    graphql: ">=0.11 <=16"
+  checksum: 6a5ead12ecfc6a448ac2828d981349288591c82a6f8ae0552a866c05fc17eb498325522c7d20c9169e9263799f78b085ecfda2dffb84a7b4ec2fc85c10ce1a0d
+  languageName: node
+  linkType: hard
+
+"graphql-ws@npm:^5.4.1":
   version: 5.9.1
   resolution: "graphql-ws@npm:5.9.1"
   peerDependencies:
@@ -14838,15 +14900,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prisma@npm:^4.2.0":
-  version: 4.2.0
-  resolution: "prisma@npm:4.2.0"
+"prisma@npm:^4.2.1":
+  version: 4.2.1
+  resolution: "prisma@npm:4.2.1"
   dependencies:
-    "@prisma/engines": 4.2.0
+    "@prisma/engines": 4.2.1
   bin:
     prisma: build/index.js
     prisma2: build/index.js
-  checksum: 90682aaaa1d94ef27b13eb2c4e20c07b77d651c80ba2fb429ed0216602dcf4a32f6db172f48ed1da8cd13b1d7bc604593280d549326a20c477c4011cd1b1d5c2
+  checksum: 7f6fa164e153aa09f28f90420756831bb275a123ee0691fdd70bccee193ccc1d537cd14394cdf2ad549bb8773e06704025664948275d17f0fe4c139a470848e1
   languageName: node
   linkType: hard
 
@@ -15217,6 +15279,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-intersection-observer@npm:^9.4.0":
+  version: 9.4.0
+  resolution: "react-intersection-observer@npm:9.4.0"
+  peerDependencies:
+    react: ^15.0.0 || ^16.0.0 || ^17.0.0|| ^18.0.0
+  checksum: 6b9caff424c27ffac81bd7275f0d97512366d24434ebe15718f5e106e7198448a7027b1586ecbbb3eff81ac1348362320b7f740ac3d6cd505d62222fd251d718
+  languageName: node
+  linkType: hard
+
 "react-is@npm:^16.12.0 || ^17.0.0 || ^18.0.0, react-is@npm:^18.0.0, react-is@npm:^18.2.0":
   version: 18.2.0
   resolution: "react-is@npm:18.2.0"
@@ -15509,18 +15580,6 @@ __metadata:
     react: 0.14.x || ^15.0.0 || ^16.0.0
     react-dom: 0.14.x || ^15.0.0 || ^16.0.0
   checksum: aca461aa3f79a624fb25aaefd6ec0b17f19e7f30a258b166f3a48d6545ec4c23896999a04c961254d48d74742bf0453f7e1701d3977948d125a5720d57152959
-  languageName: node
-  linkType: hard
-
-"react-visibility-sensor@npm:^5.1.1":
-  version: 5.1.1
-  resolution: "react-visibility-sensor@npm:5.1.1"
-  dependencies:
-    prop-types: ^15.7.2
-  peerDependencies:
-    react: ">=16.0.0"
-    react-dom: ">=16.0.0"
-  checksum: ebce7bc743071930a2dd333a041c4a99aac24d5059c47a52eff25a8d81ab9307fadc87b8a6655ebb3154f5c1ceafcc309ae04ee07a7d5fad2949a6903d15acd5
   languageName: node
   linkType: hard
 
@@ -16070,8 +16129,8 @@ __metadata:
   linkType: hard
 
 "rollup@npm:^2.43.1":
-  version: 2.77.2
-  resolution: "rollup@npm:2.77.2"
+  version: 2.77.3
+  resolution: "rollup@npm:2.77.3"
   dependencies:
     fsevents: ~2.3.2
   dependenciesMeta:
@@ -16079,7 +16138,7 @@ __metadata:
       optional: true
   bin:
     rollup: dist/bin/rollup
-  checksum: 5a84fb98a6f858906bceba091430442f6c1f362b07c5fa9123b708f87e39f52640e34a189cd9a1776ceae61300055c78ba648205fa03188451539ebeb19797df
+  checksum: b179c68249584565ddb5664a241e8e48c293b2207718d885b08ee25797d98857a383f06b544bb89819407da5a71557f4713309a278f61c4778bb32b1d3321a1c
   languageName: node
   linkType: hard
 
@@ -16491,12 +16550,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:^1.984.0":
-  version: 1.984.0
-  resolution: "snyk@npm:1.984.0"
+"snyk@npm:^1.986.0":
+  version: 1.986.0
+  resolution: "snyk@npm:1.986.0"
   bin:
     snyk: bin/snyk
-  checksum: 72cf9cc97d758bc856b0a9f69a5ac0a448fdc423494030b5f1fc9e189d7e1cda8f6cfa8017cf39fbf6910a231e7d8873e1cacdc8ed332b27efad460d215e5b5d
+  checksum: 5ac6973a91855c6b308e5b1bdd14833b830a4ccea1d0686012bebbadc355c453165c72150dfbe70516be20c04081362e43ed206ccdad7c098fdb5f812b3663b1
   languageName: node
   linkType: hard
 

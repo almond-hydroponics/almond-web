@@ -1,7 +1,5 @@
 // next.config.js
-const path = require('path');
 const withPWA = require('next-pwa');
-const images = require('next-images');
 const runtimeCaching = require('next-pwa/cache');
 
 const prod = process.env.NODE_ENV === 'production';
@@ -43,18 +41,22 @@ const securityHeaders = [
 ];
 
 module.exports = withPWA({
-	pwa: {
-		dest: 'public',
-		disable: !prod,
-		runtimeCaching,
-		buildExcludes: [/middleware-manifest.json$/],
-		// fallbacks: {
-		//   image: '/static/images/fallback.png',
-		// }
-	},
 	output: 'standalone',
 	swcMinify: true,
 	reactStrictMode: true,
+	pwa: {
+		dest: 'public',
+		disable: process.env.NODE_ENV === 'development',
+		runtimeCaching,
+		fallbacks: {
+			// image: '/static/images/fallback.png',
+			font: '/static/font/fallback.woff2',
+		},
+	},
+	images: {
+		// disableStaticImages: true,
+		domains: ['static.almondhydroponics.com'],
+	},
 	eslint: {
 		ignoreDuringBuilds: true,
 	},
