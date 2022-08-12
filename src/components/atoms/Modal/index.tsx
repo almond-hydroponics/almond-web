@@ -43,8 +43,6 @@ const BootstrapDialogTitle = ({
 			p: 2,
 			backgroundColor: (theme) => alpha(theme.palette.primary.main, 0.1),
 			color: (theme) => theme.palette.primary.main,
-			fontSize: 16,
-			zIndex: 1400,
 		}}
 		{...other}
 	>

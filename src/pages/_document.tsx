@@ -32,15 +32,24 @@ export default class MyDocument extends Document {
 		//   font-src 'self';
 		// `;
 
-		let csp = `style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src fonts.gstatic.com 'self' data:; default-src 'self'; script-src 'unsafe-eval' 'self' ${cspHashOf(
-			NextScript.getInlineScriptSource(this.props)
-		)}`;
+		// const ContentSecurityPolicy = `
+		//   default-src 'self';
+		//   img-src * 'self' https://*.google-analytics.com https://*.googletagmanager.com data: https:;
+		//   script-src 'self' 'unsafe-inline' https://*.googletagmanager.com;
+		//   connect-src 'self' vitals.vercel-insights.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com;
+		//   style-src 'self';
+		//   font-src 'self' data:;
+		// `;
 
-		if (process.env.NODE_ENV === 'production') {
-			csp = `style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src fonts.gstatic.com 'self' data:; default-src 'self'; connect-src 'self' vitals.vercel-insights.com; script-src 'unsafe-eval' 'self' ${cspHashOf(
-				NextScript.getInlineScriptSource(this.props)
-			)}`;
-		}
+		// let csp = `style-src 'self'; font-src 'self' data:; default-src 'self'; script-src 'self' 'unsafe-inline' https://*.googletagmanager.com ${cspHashOf(
+		// 	NextScript.getInlineScriptSource(this.props)
+		// )}`;
+		//
+		// if (process.env.NODE_ENV === 'production') {
+		// 	csp = `style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src fonts.gstatic.com 'self' data:; default-src 'self'; connect-src 'self' vitals.vercel-insights.com; script-src 'unsafe-eval' 'self' ${cspHashOf(
+		// 		NextScript.getInlineScriptSource(this.props)
+		// 	)}`;
+		// }
 
 		return (
 			<Html lang="en">
@@ -153,8 +162,15 @@ export default class MyDocument extends Document {
 						href="/safari-pinned-tab.svg"
 						color="#5bbad5"
 					/>
-					<link rel="preload" href="/css/fonts.css" as="style" />
-					<link rel="preload" href="/css/index.css" as="style" />
+					<link
+						rel="preload"
+						href="/fonts/CircularStd-Book.woff2"
+						as="font"
+						type="font/woff2"
+						crossOrigin="anonymous"
+					/>
+					{/*<link rel="preload" href="/css/fonts.css" as="style" />*/}
+					{/*<link rel="preload" href="/css/index.css" as="style" />*/}
 
 					{/* Global Site Tag (gtag.js) - Google Analytics */}
 					<Script

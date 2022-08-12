@@ -26,21 +26,13 @@ const NotFound = (): JSX.Element => {
 				height={'100%'}
 			>
 				<Container>
-					<Typography
-						variant="h2"
-						align={isMd ? 'center' : 'left'}
-						fontWeight={600}
-					>
+					<Typography variant="h2" align="center" fontWeight={600}>
 						Oops!
 					</Typography>
-					<Typography variant="h2" align={isMd ? 'center' : 'left'}>
+					<Typography variant="h2" align="center">
 						You broke the internet.
 					</Typography>
-					<Box
-						marginTop={4}
-						display={'flex'}
-						justifyContent={isMd ? 'center' : 'left'}
-					>
+					<Box marginTop={4} display={'flex'} justifyContent="center">
 						<Link href="/" passHref>
 							<Button
 								variant="contained"

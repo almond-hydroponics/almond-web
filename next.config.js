@@ -1,16 +1,19 @@
 // next.config.js
 const withPWA = require('next-pwa');
 const runtimeCaching = require('next-pwa/cache');
+const crypto = require('crypto');
 
 const prod = process.env.NODE_ENV === 'production';
 
+const cshHash = crypto.createHash('sha256');
+
 // const ContentSecurityPolicy = `
 //   default-src 'self';
-//   img-src * 'self' data: https:;
-//   script-src 'self' 'unsafe-eval';
-//   connect-src 'self' vitals.vercel-insights.com;
-//   style-src 'self' 'unsafe-inline' fonts.googleapis.com;
-//   font-src 'self' fonts.gstatic.com data:;
+//   img-src * 'self' https://*.google-analytics.com https://*.googletagmanager.com data: https:;
+//   script-src 'self' 'unsafe-inline' https://*.googletagmanager.com;
+//   connect-src 'self' vitals.vercel-insights.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com;
+//   style-src 'self';
+//   font-src 'self' data:;
 // `;
 
 const securityHeaders = [

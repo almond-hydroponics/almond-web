@@ -59,7 +59,7 @@ const Features = (): JSX.Element => {
 			<Grid container spacing={4} direction={isMd ? 'row' : 'column-reverse'}>
 				<Grid item xs={12} md={6} data-aos={isMd ? 'fade-right' : 'fade-up'}>
 					<Box marginBottom={4}>
-						<Typography sx={{ fontWeight: 600 }} variant={'h4'} gutterBottom>
+						<Typography sx={{ fontWeight: 600 }} variant={'h5'} gutterBottom>
 							Try one of our produce.
 						</Typography>
 						<Typography
@@ -88,7 +88,11 @@ const Features = (): JSX.Element => {
 										suffix={item.suffix}
 									/>
 								</Typography>
-								<Typography color="text.secondary" component="p">
+								<Typography
+									color="text.secondary"
+									component="p"
+									variant="body1"
+								>
 									{item.subtitle}
 								</Typography>
 							</Grid>

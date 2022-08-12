@@ -11,7 +11,7 @@ type Func = () => NonNullable<ThemeOptions['typography']>;
  */
 const createTypography: Func = () => ({
 	fontFamily: [`CircularStd`, `Helvetica`, `Arial`, `sans-serif`].join(','),
-	// fontSize: 16,
+	fontSize: 16,
 	// h1: {
 	// 	fontSize: '2.5rem',
 	// },
