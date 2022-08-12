@@ -64,9 +64,9 @@ const App = ({
 			<ApolloProvider client={apolloClient}>
 				<SessionProvider session={pageProps.session}>
 					<DefaultSeo
-						defaultTitle="almond"
+						defaultTitle="Almond Hydroponics"
 						titleTemplate="%s • almond"
-						description="Almond Hydroponics - Growing your plants smart"
+						description="We design sustainable solutions for hydroponic farmers, empowering them to grow fresh, clean, and local food in their communities around the globe."
 					/>
 					<Page>
 						<Component {...pageProps} />

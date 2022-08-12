@@ -33,23 +33,42 @@ const Hero = (): JSX.Element => {
 					color="text.secondary"
 					sx={{ fontWeight: 400 }}
 				>
-					Focus on the safe production of fresh food from your own home all
-					year round.
+					We design sustainable solutions for hydroponic farmers, empowering
+					them to grow fresh, clean, and local food in their communities around
+					the globe.
 				</Typography>
 			</Box>
-			<Button
-				component={Link}
-				variant="contained"
-				color="primary"
-				size="large"
-				href={
-					!!session ? `${!session ? '/dashboard' : '/setup-device'}` : '/store'
-				}
+			<Box
+				display="flex"
+				flexDirection={{ xs: 'column', sm: 'row' }}
+				alignItems={{ xs: 'stretched', sm: 'flex-start' }}
+				marginTop={4}
 			>
-				{!!session
-					? `${!session ? 'Go to dashboard' : 'Setup new device'}`
-					: 'Visit our store'}
-			</Button>
+				<Button
+					component={Link}
+					variant="contained"
+					color="primary"
+					size="large"
+					href="/store"
+				>
+					Visit our store
+				</Button>
+				<Button
+					component={Link}
+					variant="outlined"
+					color="primary"
+					size="large"
+					href={`${!session ? '/dashboard' : '/setup-device'}`}
+					marginTop={{ xs: 2, sm: 0 }}
+					marginLeft={{ sm: 2 }}
+					width={{ xs: '100%', md: 'auto' }}
+					sx={{
+						backgroundColor: 'background.paper',
+					}}
+				>
+					{!session ? 'Go to dashboard' : 'Setup new device'}
+				</Button>
+			</Box>
 		</>
 	);
 

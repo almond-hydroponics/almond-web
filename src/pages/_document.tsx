@@ -10,7 +10,7 @@ import createEmotionCache from '../createEmotionCache';
 
 const APP_NAME = 'Almond Hydroponics - Growing your plants smart';
 const APP_DESCRIPTION =
-	'Our focus is on growing your food smart. We are a hydroponics company that specializes in growing plants in a controlled environment.';
+	'We design sustainable solutions for hydroponic farmers, empowering them to grow fresh, clean, and local food in their communities around the globe.';
 
 const cspHashOf = (text: crypto.BinaryLike): string => {
 	const hash = crypto.createHash('sha256');

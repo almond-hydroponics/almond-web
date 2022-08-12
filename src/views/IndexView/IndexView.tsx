@@ -5,7 +5,7 @@ import Container from 'components/Container';
 import Main from 'layouts/Main';
 import { useContext, useEffect } from 'react';
 
-import { Features, Hero, Places, Services } from './components';
+import { About, Features, Hero, Places, Services } from './components';
 
 interface Props {
 	csrfToken: string;
@@ -68,6 +68,13 @@ const IndexView = ({ csrfToken }: Props): JSX.Element => {
 				<Container>
 					<Features />
 				</Container>
+				<Box paddingTop={{ md: 8 }}>
+					<Box bgcolor={'alternate.main'}>
+						<Container>
+							<About />
+						</Container>
+					</Box>
+				</Box>
 				<Container>
 					<Places />
 				</Container>

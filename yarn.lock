@@ -4965,7 +4965,7 @@ __metadata:
     next-images: ^1.8.4
     next-mdx-remote: ^4.1.0
     next-optimized-images: ^2.6.2
-    next-pwa: ^5.5.5
+    next-pwa: latest
     next-redux-wrapper: ^7.0.5
     next-seo: ^5.5.0
     next-with-apollo: ^5.3.0
@@ -13301,7 +13301,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next-pwa@npm:^5.5.5":
+"next-pwa@npm:latest":
   version: 5.5.5
   resolution: "next-pwa@npm:5.5.5"
   dependencies:
