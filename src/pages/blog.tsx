@@ -1,7 +1,4 @@
-import fs from 'fs';
-import path from 'path';
-
-import matter from 'gray-matter';
+import prisma from '@lib/prisma';
 import { GetStaticProps } from 'next';
 import BlogNewsroom from 'views/BlogNewsroom';
 
@@ -9,25 +6,17 @@ export default function BlogNewsroomPage({ posts }): JSX.Element {
 	return <BlogNewsroom posts={posts} />;
 }
 
-export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
-	const files = fs.readdirSync(path.join('posts'));
-
-	const posts = files.map((filename) => {
-		const markdownWithMeta = fs.readFileSync(
-			path.join('posts', filename),
-			'utf-8'
-		);
-		const { data: frontMatter } = matter(markdownWithMeta);
-
-		return {
-			frontMatter,
-			slug: filename.split('.')[0],
-		};
+export const getStaticProps: GetStaticProps = async () => {
+	const posts = await prisma.post.findMany({
+		where: { published: true },
+		include: {
+			author: true,
+		},
 	});
 
 	return {
 		props: {
-			posts,
+			posts: JSON.parse(JSON.stringify(posts)),
 		},
 	};
 };

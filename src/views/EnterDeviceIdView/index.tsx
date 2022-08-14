@@ -37,7 +37,7 @@ export const EnterDeviceContext = createContext({
 	handleNext: () => {},
 });
 
-const steps = ['Add new device', 'Configure connectivity', 'Go to dashboard'];
+const steps = ['Add device', 'Connectivity', 'Finish'];
 
 const EnterDeviceIdView = (): JSX.Element => {
 	const router = useRouter();
@@ -88,17 +88,15 @@ const EnterDeviceIdView = (): JSX.Element => {
 		switch (page) {
 			case 0:
 				return (
-					<Grid
-						container
-						direction={{ xs: 'column', md: 'row' }}
-						justifyContent="space-evenly"
+					<Stack
+						direction="row"
+						justifyContent="space-around"
 						alignItems="center"
-						spacing={3}
+						spacing={2}
+						paddingTop={4}
 					>
-						<Grid item xs maxHeight={{ xs: 200, md: 'unset' }}>
-							<AddDeviceIllustration />
-						</Grid>
-						<Grid item xs>
+						<AddDeviceIllustration />
+						<Box>
 							<Box maxWidth={500}>
 								<Typography variant={'body2'} color={'text.secondary'}>
 									The device ID will help you to control your purchased device
@@ -111,22 +109,22 @@ const EnterDeviceIdView = (): JSX.Element => {
 							<Box width={1} maxWidth={500}>
 								<Form />
 							</Box>
-						</Grid>
-					</Grid>
+						</Box>
+					</Stack>
 				);
 			case 1:
 				return (
-					<Grid
-						container
-						direction={{ xs: 'column', md: 'row' }}
-						justifyContent="space-evenly"
+					<Stack
+						direction="row"
+						justifyContent="space-around"
 						alignItems="center"
-						spacing={3}
+						spacing={2}
+						paddingTop={4}
 					>
-						<Grid item xs maxHeight={{ xs: 200, md: 'unset' }}>
+						<Box maxHeight={{ xs: 200, md: 'unset' }}>
 							<AddDeviceIllustration1 />
-						</Grid>
-						<Grid item xs>
+						</Box>
+						<Box>
 							<Box maxWidth={500}>
 								<Typography variant={'body2'} color={'text.secondary'}>
 									Setup your WIFI configuration for the device. Make sure your
@@ -139,8 +137,8 @@ const EnterDeviceIdView = (): JSX.Element => {
 							<Box height={1} width={1} maxWidth={500} paddingBottom={5}>
 								<ConnectionForm />
 							</Box>
-						</Grid>
-					</Grid>
+						</Box>
+					</Stack>
 				);
 			case 2:
 				return (
@@ -289,96 +287,85 @@ const EnterDeviceIdView = (): JSX.Element => {
 	return (
 		<EnterDeviceContext.Provider value={{ handleNext }}>
 			<Minimal>
-				<Box
-					position={'relative'}
-					// minHeight={'100vh'}
-					display={'flex'}
-					alignItems={'center'}
-					justifyContent={'center'}
-					// height={1}
-				>
-					<Container maxWidth={{ sm: 720, md: 960 }}>
-						<Grid container>
-							<Grid
-								item
-								container
-								justifyContent={'center'}
-								xs={12}
-								paddingBottom={4}
-							>
-								<Box
-									height={1}
-									width={1}
-									maxWidth={700}
-									paddingBottom={{ xs: 0, md: 6 }}
-								>
-									<Stepper activeStep={activeStep} alternativeLabel={isSm}>
-										{steps.map((label, index) => {
-											const stepProps: { completed?: boolean } = {};
-											const labelProps: {
-												optional?: ReactNode;
-											} = {};
-											if (isStepOptional(index)) {
-												labelProps.optional = (
-													<Typography variant="caption">(Optional)</Typography>
-												);
-											}
-											if (isStepSkipped(index)) {
-												stepProps.completed = false;
-											}
-											return (
-												<Step key={label} {...stepProps}>
-													<StepLabel {...labelProps}>{label}</StepLabel>
-												</Step>
-											);
-										})}
-									</Stepper>
-								</Box>
-							</Grid>
+				<Container maxWidth={{ sm: 720, md: 960 }}>
+					<Stack
+						direction={isSm ? 'row' : 'column'}
+						justifyContent="space-around"
+						alignItems="center"
+						spacing={2}
+					>
+						<Box
+							// height={1}
+							width={1}
+							// maxWidth={700}
+							// paddingBottom={{ xs: 0, md: 6 }}
+						>
+							<Stepper activeStep={activeStep} alternativeLabel={isSm}>
+								{steps.map((label, index) => {
+									const stepProps: { completed?: boolean } = {};
+									const labelProps: {
+										optional?: ReactNode;
+									} = {};
+									// if (isStepOptional(index)) {
+									// 	labelProps.optional = (
+									// 		<Typography variant="caption">(Optional)</Typography>
+									// 	);
+									// }
+									if (isStepSkipped(index)) {
+										stepProps.completed = false;
+									}
+									return (
+										<Step key={label} {...stepProps}>
+											<StepLabel {...labelProps}>{label}</StepLabel>
+										</Step>
+									);
+								})}
+							</Stepper>
+						</Box>
 
-							{activeStep === steps.length ? (
-								<Grid
-									container
-									direction={{ xs: 'column', md: 'row' }}
-									justifyContent="space-evenly"
-									alignItems="center"
-									spacing={3}
-								>
-									<Grid item xs maxHeight={{ xs: 200, md: 'unset' }}>
-										<AddDeviceIllustration2 />
-									</Grid>
-									<Grid item xs>
-										<Typography
-											variant={'body1'}
-											color={'text.secondary'}
-											sx={{ mt: 2, mb: 1 }}
-										>
-											Hooray! All steps have completed successfully.
-										</Typography>
-										<Box maxWidth={400} paddingY={2}>
-											<Divider />
-										</Box>
-										<Box maxWidth={400}>
-											<Button
-												fullWidth
-												variant="contained"
-												color="primary"
-												size="large"
-												onClick={() => router.push('/dashboard')}
-												endIcon={<ArrowForward />}
-											>
-												Go to dashboard
-											</Button>
-										</Box>
-									</Grid>
+						{activeStep === steps.length ? (
+							<Grid
+								container
+								direction={{ xs: 'column', md: 'row' }}
+								justifyContent="space-evenly"
+								alignItems="center"
+								spacing={3}
+							>
+								<Grid item xs maxHeight={{ xs: 200, md: 'unset' }}>
+									<AddDeviceIllustration2 />
 								</Grid>
-							) : (
-								<>{activePage(activeStep)}</>
-							)}
-						</Grid>
+								<Grid item xs>
+									<Typography
+										variant={'body1'}
+										color={'text.secondary'}
+										sx={{ mt: 2, mb: 1 }}
+									>
+										Hooray! All steps have completed successfully.
+									</Typography>
+									<Box maxWidth={400} paddingY={2}>
+										<Divider />
+									</Box>
+									<Box maxWidth={400}>
+										<Button
+											fullWidth
+											variant="contained"
+											color="primary"
+											size="large"
+											onClick={() => router.push('/dashboard')}
+											endIcon={<ArrowForward />}
+										>
+											Go to dashboard
+										</Button>
+									</Box>
+								</Grid>
+							</Grid>
+						) : (
+							<>{activePage(activeStep)}</>
+						)}
+
 						{renderBottomNavigation()}
-					</Container>
-				</Box>
+					</Stack>
+				</Container>
 			</Minimal>
 		</EnterDeviceContext.Provider>
 	);

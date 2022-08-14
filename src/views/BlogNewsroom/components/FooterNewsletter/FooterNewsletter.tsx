@@ -9,18 +9,13 @@ const FooterNewsletter = (): JSX.Element => {
 			<Box marginBottom={4}>
 				<Typography
 					fontWeight={700}
-					variant={'h4'}
+					variant={'h5'}
 					align={'center'}
 					gutterBottom
 				>
 					Get our plant adventures delivered
 				</Typography>
-				<Typography
-					variant={'h6'}
-					component={'p'}
-					color={'text.secondary'}
-					align={'center'}
-				>
+				<Typography color={'text.secondary'} align={'center'}>
 					From us to your inbox weekly.
 				</Typography>
 			</Box>
