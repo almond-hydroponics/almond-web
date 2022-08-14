@@ -9,8 +9,14 @@ import {
 	Typography,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+import { Post } from '@prisma/client';
+import dayjsTime from '@utils/dayjsTime';
 import Link from 'next/link';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+
+interface Props {
+	posts: Post[];
+}
 
 const MostViewedArticles = ({ posts }): JSX.Element => {
 	const theme = useTheme();
@@ -26,19 +32,10 @@ const MostViewedArticles = ({ posts }): JSX.Element => {
 			/>
 			<Grid container spacing={4}>
 				{posts.map((post, i) => {
-					const {
-						frontMatter: {
-							title,
-							description,
-							thumbnailUrl,
-							date,
-							tags,
-							author,
-						},
-						slug,
-					} = post;
+					const { title, description, thumbnailUrl, createdAt, author } = post;
 					// const formattedDate = dayjs(date).fromNow();
-					const tag = tags[0];
+					const tag = 'Blah';
+					const slug = 'blah';
 
 					return (
 						<Grid item xs={12} key={i}>
@@ -84,7 +81,7 @@ const MostViewedArticles = ({ posts }): JSX.Element => {
 											component={LazyLoadImage}
 											height={1}
 											width={1}
-											src={thumbnailUrl}
+											src={thumbnailUrl as string}
 											alt="..."
 											effect="blur"
 											sx={{
@@ -131,7 +128,8 @@ const MostViewedArticles = ({ posts }): JSX.Element => {
 													color={'text.secondary'}
 													// component={'i'}
 												>
-													{author} - {date}
+													{author.name} -{' '}
+													{dayjsTime(createdAt).format('MMMM D, YYYY')}
 												</Typography>
 												<Chip
 													component={'a'}

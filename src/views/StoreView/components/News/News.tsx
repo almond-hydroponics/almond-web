@@ -1,3 +1,4 @@
+import { Link } from '@components/atoms';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
@@ -7,7 +8,6 @@ import { alpha, useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import fancyId from '@utils/fancyId';
-import Link from 'next/link';
 import Slider from 'react-slick';
 
 interface Props {
@@ -19,6 +19,8 @@ const LatestNews = ({ posts }: Props): JSX.Element => {
 	const isMd = useMediaQuery(theme.breakpoints.up('md'), {
 		defaultMatches: true,
 	});
+
+	const slug = 'blah';
 
 	const sliderOpts = {
 		dots: !isMd,
@@ -56,7 +58,7 @@ const LatestNews = ({ posts }: Props): JSX.Element => {
 			<Box position={'relative'} zIndex={2}>
 				<Box marginBottom={4}>
 					<Typography
-						variant="h4"
+						variant="h5"
 						align={'center'}
 						data-aos={'fade-up'}
 						gutterBottom
@@ -68,7 +70,6 @@ const LatestNews = ({ posts }: Props): JSX.Element => {
 						Our latest news
 					</Typography>
 					<Typography
-						variant="h6"
 						align={'center'}
 						color={'text.secondary'}
 						data-aos={'fade-up'}
@@ -79,7 +80,7 @@ const LatestNews = ({ posts }: Props): JSX.Element => {
 					</Typography>
 					<Box display="flex" justifyContent={'center'} marginTop={2}>
 						<Button variant="contained" color="primary" size="large">
-							Browse the blog
+							Browse the articles
 						</Button>
 					</Box>
 				</Box>
@@ -115,17 +116,7 @@ const LatestNews = ({ posts }: Props): JSX.Element => {
 				>
 					<Slider {...sliderOpts}>
 						{posts.map((post) => {
-							const {
-								frontMatter: {
-									title,
-									description,
-									thumbnailUrl,
-									date,
-									tags,
-									author,
-								},
-								slug,
-							} = post;
+							const { title, description, thumbnailUrl } = post;
 
 							return (
 								<Box key={fancyId()}>
@@ -172,30 +163,30 @@ const LatestNews = ({ posts }: Props): JSX.Element => {
 													display={'flex'}
 													justifyContent={{ xs: 'center', md: 'flex-start' }}
 												>
-													<Link href={`/blog/${slug}`}>
-														<Button
-															endIcon={
-																<Box
-																	component={'svg'}
-																	xmlns="http://www.w3.org/2000/svg"
-																	fill="none"
-																	viewBox="0 0 24 24"
-																	stroke="currentColor"
-																	width={24}
-																	height={24}
-																>
-																	<path
-																		strokeLinecap="round"
-																		strokeLinejoin="round"
-																		strokeWidth={2}
-																		d="M17 8l4 4m0 0l-4 4m4-4H3"
-																	/>
-																</Box>
-															}
-														>
-															Read More
-														</Button>
-													</Link>
+													<Button
+														component={Link}
+														href={`/blog/${slug}`}
+														endIcon={
+															<Box
+																component={'svg'}
+																xmlns="http://www.w3.org/2000/svg"
+																fill="none"
+																viewBox="0 0 24 24"
+																stroke="currentColor"
+																width={24}
+																height={24}
+															>
+																<path
+																	strokeLinecap="round"
+																	strokeLinejoin="round"
+																	strokeWidth={2}
+																	d="M17 8l4 4m0 0l-4 4m4-4H3"
+																/>
+															</Box>
+														}
+													>
+														Read More
+													</Button>
 												</Box>
 											</Box>
 										</CardContent>

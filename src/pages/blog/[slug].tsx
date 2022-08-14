@@ -25,7 +25,7 @@ export default function BlogArticlePage({
 export const getStaticProps: GetStaticProps = async ({ params: { slug } }) => {
 	const markdownWithMeta = fs.readFileSync(
 		path.join('posts', slug + '.mdx'),
-		'utf-8'
+		'utf8'
 	);
 	const { data: frontMatter, content } = matter(markdownWithMeta);
 	const mdxSource = await serialize(content);

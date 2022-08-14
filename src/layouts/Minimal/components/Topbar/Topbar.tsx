@@ -21,18 +21,10 @@ const Topbar = (): JSX.Element => {
 				alignItems={'center'}
 				onClick={router.back}
 			>
-				<IconButton
-					style={{ padding: 0, marginRight: theme.spacing(1) }}
-					color="primary"
-				>
+				<IconButton style={{ marginRight: theme.spacing(1) }} color="primary">
 					<ArrowBackRounded className="learn-more-link__arrow" />
 				</IconButton>
-				<Typography
-					fontWeight={500}
-					variant="body1"
-					color="primary"
-					sx={{ cursor: 'pointer' }}
-				>
+				<Typography variant="body2" color="primary" sx={{ cursor: 'pointer' }}>
 					Back
 				</Typography>
 			</Box>

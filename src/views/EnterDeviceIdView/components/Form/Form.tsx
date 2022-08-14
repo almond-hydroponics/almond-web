@@ -40,7 +40,7 @@ const TextMaskCustom = forwardRef<HTMLElement, CustomProps>(
 		return (
 			<IMaskInput
 				{...other}
-				mask="aaaa-aaaa"
+				mask="**** ****"
 				// @ts-expect-error Ref is allowed for now
 				inputRef={ref}
 				onAccept={(value: unknown) =>
@@ -83,7 +83,12 @@ const Form = (): JSX.Element => {
 		mode: 'onChange',
 	});
 
-	const onSubmit: SubmitHandler<IFormInput> = ({ deviceId }) => {};
+	const onSubmit: SubmitHandler<IFormInput> = ({ deviceId }) => {
+		console.log(
+			'Class: , Function: onSubmit, Line 87 deviceId():',
+			deviceId.split(' ').join('')
+		);
+	};
 
 	// const onSubmit = (e) => {
 	// 	handleSubmit(e);
@@ -112,6 +117,7 @@ const Form = (): JSX.Element => {
 							return (
 								<TextField
 									helperText={error ? error.message : null}
+									placeholder="ASDF GHJK"
 									size="medium"
 									error={!!error}
 									onChange={onChange}
@@ -121,8 +127,8 @@ const Form = (): JSX.Element => {
 									variant="outlined"
 									InputProps={{
 										inputComponent: TextMaskCustom as any,
-										endAdornment: (
-											<InputAdornment position="end">
+										startAdornment: (
+											<InputAdornment position="start">
 												<PhonelinkSetupSharp />
 											</InputAdornment>
 										),
@@ -131,21 +137,6 @@ const Form = (): JSX.Element => {
 							);
 						}}
 					/>
-					{/*<FormInputText*/}
-					{/*	name="deviceId"*/}
-					{/*	size="medium"*/}
-					{/*	control={control}*/}
-					{/*	label="Enter device ID"*/}
-					{/*	type="text"*/}
-					{/*	iconPosition="start"*/}
-					{/*	InputProps={{*/}
-					{/*		endAdornment: (*/}
-					{/*			<InputAdornment position="end">*/}
-					{/*				<PhonelinkSetupSharp />*/}
-					{/*			</InputAdornment>*/}
-					{/*		),*/}
-					{/*	}}*/}
-					{/*/>*/}
 				</Grid>
 				<Grid item xs={12}>
 					<Button

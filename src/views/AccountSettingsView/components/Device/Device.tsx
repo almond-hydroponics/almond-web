@@ -49,7 +49,7 @@ const Device = (): JSX.Element => {
 						variant="subtitle2"
 						color="text.secondary"
 						fontWeight={400}
-						paddingBottom={1}
+						paddingBottom={2}
 						gutterBottom
 					>
 						The device ID will help you to control your purchased device from
