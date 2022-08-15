@@ -172,6 +172,11 @@ export default class MyDocument extends Document {
 					{/*<link rel="preload" href="/css/fonts.css" as="style" />*/}
 					{/*<link rel="preload" href="/css/index.css" as="style" />*/}
 
+					<Script
+						src="https://accounts.google.com/gsi/client"
+						strategy="afterInteractive"
+					/>
+
 					{/* Global Site Tag (gtag.js) - Google Analytics */}
 					<Script
 						strategy="afterInteractive"

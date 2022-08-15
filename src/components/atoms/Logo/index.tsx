@@ -52,7 +52,7 @@ const Logo = ({
 						variant="h5"
 						color="textPrimary"
 						style={{
-							fontWeight: 600,
+							fontWeight: 500,
 							fontSize: '1.45rem',
 							// color: colorInvert ? 'common.white' : 'common.black',
 						}}

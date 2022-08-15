@@ -8,6 +8,7 @@ import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 
 import { Form } from './components';
+import GoogleOneTap from './components/GoogleOneTap';
 
 interface Props {
 	// eslint-disable-next-line @typescript-eslint/ban-types
@@ -177,6 +178,7 @@ const Topbar = ({
 				</IconButton>
 			</Box>
 			{renderAuthModal()}
+			<GoogleOneTap />
 		</Box>
 	);
 };
