@@ -1,7 +1,7 @@
 import { Link } from '@components/atoms';
 import Container from '@components/Container';
 import { Box, Button, Typography, useMediaQuery } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+import { alpha, useTheme } from '@mui/material/styles';
 import { useSession } from 'next-auth/react';
 
 const Hero = (): JSX.Element => {
@@ -64,6 +64,10 @@ const Hero = (): JSX.Element => {
 					width={{ xs: '100%', md: 'auto' }}
 					sx={{
 						backgroundColor: 'background.paper',
+						'&:hover': {
+							backgroundColor: (theme) =>
+								alpha(theme.palette.primary.main, 0.1),
+						},
 					}}
 				>
 					{!session ? 'Go to dashboard' : 'Setup new device'}

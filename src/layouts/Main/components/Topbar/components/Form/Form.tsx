@@ -9,7 +9,7 @@ import {
 	VisibilityOff,
 } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
-import { Box, Button, Grid, InputAdornment } from '@mui/material';
+import { Box, Button, Grid, InputAdornment, SvgIcon } from '@mui/material';
 import { AppDispatch } from '@store/index';
 import { displaySnackMessage } from '@store/slices/snack';
 import { SignInResponse, signIn } from 'next-auth/react';
@@ -181,7 +181,11 @@ const Form = ({
 					size="large"
 					variant="outlined"
 					fullWidth
-					startIcon={<GoogleIcon />}
+					startIcon={
+						<SvgIcon height={18} width={17}>
+							<GoogleIcon />
+						</SvgIcon>
+					}
 					onClick={handleGoogleLogin}
 				>
 					Continue with Google

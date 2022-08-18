@@ -2,7 +2,14 @@
 import { Link, Logo, Modal } from '@components/atoms';
 import CustomAvatar from '@components/molecules/CustomAvatar';
 import { AccountCircleTwoTone, ArrowBack, Menu } from '@mui/icons-material';
-import { Box, Chip, IconButton, Stack, Typography } from '@mui/material';
+import {
+	Avatar,
+	Box,
+	Chip,
+	IconButton,
+	Stack,
+	Typography,
+} from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { useSession } from 'next-auth/react';
 import { useState } from 'react';
@@ -44,7 +51,16 @@ const Topbar = ({
 					variant="outlined"
 					color="primary"
 					onClick={handleAuthModal}
-					icon={<AccountCircleTwoTone />}
+					avatar={
+						<Avatar
+							alt={'Anonymous User'}
+							src={'/img/avatar_male.svg'}
+							aria-describedby="menu-popover"
+							aria-controls="menu-popover"
+							aria-haspopup="true"
+							typeof="button"
+						/>
+					}
 				/>
 			)}
 		</Box>
@@ -62,18 +78,15 @@ const Topbar = ({
 			) : (
 				<AccountCircleTwoTone />
 			)}
-			<Typography variant="h6">Login into your account</Typography>
+			<Typography>Login into your account</Typography>
 		</Stack>
 	);
 
 	const renderAuthModal = (): JSX.Element => (
 		<Modal
-			maxWidth="xs"
 			isModalOpen={openAuthModal}
 			renderHeader={renderModalHeader()}
-			renderDialogText={
-				authByEmail ? '' : 'Choose your preferred method to authenticate'
-			}
+			renderDialogText={''}
 			renderContent={
 				<Form
 					handleAuthModal={handleAuthModal}

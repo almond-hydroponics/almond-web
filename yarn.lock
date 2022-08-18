@@ -3034,15 +3034,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mdx-js/loader@npm:^2.1.2":
-  version: 2.1.2
-  resolution: "@mdx-js/loader@npm:2.1.2"
+"@mdx-js/loader@npm:^2.1.3":
+  version: 2.1.3
+  resolution: "@mdx-js/loader@npm:2.1.3"
   dependencies:
     "@mdx-js/mdx": ^2.0.0
     source-map: ^0.7.0
   peerDependencies:
     webpack: ">=4"
-  checksum: 5fd8978b4835aa8bb94a1f9c3e753839001c8fb1cd2b1d4ed8f03dd17bc1c16c339cecade38dae11d4100cd8414ba0e6042b19a041eee63f25a8bb12c3e1ed54
+  checksum: 087ec51548d194631d2df9d6ae7ebd45000e9a5d67d71068487036edb1d24848a6198574745af7f57916d1e32bdeec4e256cb842296a2f02e75180221e54bc45
   languageName: node
   linkType: hard
 
@@ -4931,7 +4931,7 @@ __metadata:
     "@graphql-codegen/typescript-operations": ^2.5.3
     "@graphql-codegen/typescript-react-apollo": ^3.3.3
     "@hookform/resolvers": ^2.9.7
-    "@mdx-js/loader": ^2.1.2
+    "@mdx-js/loader": ^2.1.3
     "@mui/icons-material": ^5.8.4
     "@mui/lab": ^5.0.0-alpha.95
     "@mui/material": ^5.10.1
@@ -4970,14 +4970,14 @@ __metadata:
     chartjs-plugin-streaming: ^2.0.0
     cookie: ^0.5.0
     cross-env: ^7.0.3
-    date-fns: ^2.29.1
+    date-fns: ^2.29.2
     dayjs: ^1.11.5
     deepmerge: ^4.2.2
     dequal: ^2.0.3
     eslint: ^8.22.0
     eslint-config-next: ^12.2.5
     eslint-config-react-app: ^7.0.1
-    eslint-import-resolver-typescript: ^3.4.1
+    eslint-import-resolver-typescript: ^3.4.2
     eslint-plugin-flowtype: ^8.0.3
     eslint-plugin-import: ^2.26.0
     eslint-plugin-jest-dom: ^4.0.2
@@ -5052,7 +5052,7 @@ __metadata:
     reselect: ^4.1.6
     rimraf: ^3.0.2
     slick-carousel: ^1.8.1
-    snyk: ^1.987.0
+    snyk: ^1.988.0
     swr: ^1.3.0
     typescript: ^4.7.4
     validate.js: ^0.13.1
@@ -7217,10 +7217,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"date-fns@npm:^2.29.1":
-  version: 2.29.1
-  resolution: "date-fns@npm:2.29.1"
-  checksum: 9d07f77dffc1eb8c213391bde39f2963ffe7c0019d9edde14487882d627224f3a39b963e6e99d0cc58afff220a6a1a7e8864d2789958f4eaa77714de94d4d076
+"date-fns@npm:^2.29.2":
+  version: 2.29.2
+  resolution: "date-fns@npm:2.29.2"
+  checksum: 08bebcceb0a5dbadae4c55e6592b9d5c07dbd7833433c7e9a1d4a424300db32589b8b48e5979b32863c9b00a48d9bab6663e580c2a4f9f203d46cbf9113b5664
   languageName: node
   linkType: hard
 
@@ -7991,9 +7991,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-import-resolver-typescript@npm:^3.4.1":
-  version: 3.4.1
-  resolution: "eslint-import-resolver-typescript@npm:3.4.1"
+"eslint-import-resolver-typescript@npm:^3.4.2":
+  version: 3.4.2
+  resolution: "eslint-import-resolver-typescript@npm:3.4.2"
   dependencies:
     debug: ^4.3.4
     enhanced-resolve: ^5.10.0
@@ -8001,11 +8001,11 @@ __metadata:
     globby: ^13.1.2
     is-core-module: ^2.9.0
     is-glob: ^4.0.3
-    synckit: ^0.8.1
+    synckit: ^0.8.3
   peerDependencies:
     eslint: "*"
     eslint-plugin-import: "*"
-  checksum: 952aaa4f25435b009e6604bf8a81acee2db064de1cefcac0628fd5167711721829e911910534f8773fbfe6a12c21d60bb0d324351ad25cd092481d9f80f6105d
+  checksum: e54d8c02542cc85fc9703a064111a25585a7189b61445a209792ae50b718d273e5522be44c61f149f59292570eef6a08036d988c8477da9f6d8f3c6177801319
   languageName: node
   linkType: hard
 
@@ -16637,12 +16637,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:^1.987.0":
-  version: 1.987.0
-  resolution: "snyk@npm:1.987.0"
+"snyk@npm:^1.988.0":
+  version: 1.988.0
+  resolution: "snyk@npm:1.988.0"
   bin:
     snyk: bin/snyk
-  checksum: b9393e6c6b06ec3c2f8424681f413dbe1e3bbdb50bfd4a5da41ce74474b2ba16d0e296f1109bd09b75a99f6462baa9787e334747bd0fa4e947cdb56f309fd375
+  checksum: 8feb42c0410aaa3d82de23480961472365345dd167e942d56ab0aa28917000c5c29b931cdcc32ab7438672f5e414e42bf8151b9f4d58087c16cdf324e3b21bf2
   languageName: node
   linkType: hard
 
@@ -17251,13 +17251,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"synckit@npm:^0.8.1":
-  version: 0.8.1
-  resolution: "synckit@npm:0.8.1"
+"synckit@npm:^0.8.3":
+  version: 0.8.3
+  resolution: "synckit@npm:0.8.3"
   dependencies:
     "@pkgr/utils": ^2.3.0
     tslib: ^2.4.0
-  checksum: 36a1b699996f3bb251c8f828364e101cf08b2a20225cb39df9d7c2186380554b8172374babfe10f03f4b52ab8c453c16447c3cbf61108221f2c58c446bf8425a
+  checksum: ba6baa7c32e69b38eebb322a8eb1712a117f7f1eaa42e75623c7d6da43f0e61d3ac33fa962c2c58a8b37742f1e0ae9d21f04c9da0dbf34d618a8780055e9e1fa
   languageName: node
   linkType: hard
 

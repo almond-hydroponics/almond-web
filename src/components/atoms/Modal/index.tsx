@@ -23,6 +23,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 	},
 	'& .MuiDialog-paper': {
 		borderRadius: 12,
+		border: `1px solid ${theme.palette.divider}`,
 	},
 }));
 

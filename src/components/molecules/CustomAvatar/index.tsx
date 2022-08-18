@@ -39,8 +39,7 @@ const CustomAvatar = ({
 
 	const { name, image } = session?.user || {
 		name: 'Anonymous User',
-		image:
-			'https://storage.googleapis.com/static.almondhydroponics.com/static/images/avatar_male.svg',
+		image: '/img/avatar_male.svg',
 	};
 
 	const handleToggleProfileMenu = (event: MouseEvent<HTMLElement>) => {
@@ -62,6 +61,7 @@ const CustomAvatar = ({
 			callbackUrl: `${window.location.origin}`,
 			redirect: false,
 		});
+		// await router.push('/');
 	};
 
 	const open = Boolean(anchorEl);
@@ -99,10 +99,7 @@ const CustomAvatar = ({
 					avatar={
 						<Avatar
 							alt={name ?? 'Anonymous User'}
-							src={
-								image ??
-								'https://storage.googleapis.com/static.almondhydroponics.com/static/images/avatar_male.svg'
-							}
+							src={image ?? '/img/avatar_male.svg'}
 							aria-describedby="menu-popover"
 							aria-controls="menu-popover"
 							aria-haspopup="true"
