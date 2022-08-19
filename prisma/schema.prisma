@@ -45,6 +45,7 @@ model User {
   sessions      Session[]
   devices       Device[]
   post          Post[]
+  role          Role      @default(USER)
 }
 
 model VerificationToken {
@@ -77,4 +78,9 @@ model Post {
   authorId     String?
   createdAt    DateTime? @default(now())
   updatedAt    DateTime? @updatedAt
+}
+
+enum Role {
+  ADMIN
+  USER
 }
