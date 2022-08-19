@@ -16,11 +16,14 @@ export const snackSlice = createSlice({
 	name: 'snack',
 	initialState: snackInitialState,
 	reducers: {
-		displaySnackMessage(state, action: PayloadAction<SnackMessage>) {
-			state.message = action.payload.message;
-			state.severity = action.payload.severity;
+		displaySnackMessage(state, { payload }: PayloadAction<SnackMessage>) {
+			state.message = payload.message;
+			state.severity = payload.severity;
+		},
+		reset: (state) => {
+			state.message = '';
 		},
 	},
 });
 
-export const { displaySnackMessage } = snackSlice.actions;
+export const { displaySnackMessage, reset } = snackSlice.actions;

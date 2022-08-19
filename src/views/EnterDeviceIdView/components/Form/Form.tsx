@@ -1,10 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { trpc } from '@lib/trpc';
 import { PhonelinkSetupSharp } from '@mui/icons-material';
 import { Button, Grid, InputAdornment, TextField } from '@mui/material';
-import { forwardRef, useContext } from 'react';
+import { displaySnackMessage } from '@store/slices/snack';
+import { forwardRef } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { IMaskInput } from 'react-imask';
-import { EnterDeviceContext } from 'views/EnterDeviceIdView';
+import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
 
 const schema = yup
@@ -13,11 +15,6 @@ const schema = yup
 			.string()
 			.required('Device ID is required for you to proceed')
 			.min(9, 'Device ID should be 8 characters. Kindly confirm.'),
-		// .test(
-		// 	'len',
-		// 	'Device ID should be 8 characters. Kindly confirm',
-		// 	(val) => val?.toString().length === 9
-		// ),
 	})
 	.required();
 
@@ -56,22 +53,36 @@ const TextMaskCustom = forwardRef<HTMLElement, CustomProps>(
 		);
 	}
 );
-const Form = (): JSX.Element => {
-	// const { device } = useSelector(
-	// 	(globalState: IRootState) => globalState,
-	// 	shallowEqual
-	// );
 
-	const { handleNext } = useContext(EnterDeviceContext);
+interface FormProps {
+	handleNext?: () => void;
+}
 
-	// const { values, isValid, errors, hasError, handleFormChange } = useFormState(
-	// 	{
-	// 		onSubmit: ({ deviceId }) => {
-	// 			dispatch(verifyUserDevice({ id: deviceId }));
-	// 		},
-	// 		formErrors: (formValues) => validate(formValues, schema),
-	// 	},
-	// );
+const Form = ({ handleNext }: FormProps): JSX.Element => {
+	const dispatch = useDispatch();
+	const verifyDeviceMutation = trpc.useMutation('device.verify', {
+		onError: (error) => {
+			dispatch(
+				displaySnackMessage({
+					message: error.message,
+					severity: 'error',
+				})
+			);
+		},
+		onSuccess: (data) => {
+			dispatch(
+				displaySnackMessage({
+					message: `Your device ID ${data?.name} has been successfully verified`,
+				})
+			);
+
+			setTimeout(() => {
+				if (location.pathname === '/setup-device' && handleNext) {
+					handleNext();
+				}
+			}, 2000);
+		},
+	});
 
 	const {
 		handleSubmit,
@@ -84,15 +95,13 @@ const Form = (): JSX.Element => {
 	});
 
 	const onSubmit: SubmitHandler<IFormInput> = ({ deviceId }) => {
-		console.log(
-			'Class: , Function: onSubmit, Line 87 deviceId():',
-			deviceId.split(' ').join('')
-		);
+		verifyDeviceMutation.mutate({
+			name: deviceId.split(' ').join(''),
+		});
 	};
 
 	// const onSubmit = (e) => {
 	// 	handleSubmit(e);
-	// 	console.log('Class: , Function: onSubmit, Line 45 device():', device);
 	// 	if (!device?.errors) return;
 	// 	if (location.pathname === '/my-device') {
 	// 		handleNext();
@@ -123,7 +132,7 @@ const Form = (): JSX.Element => {
 									onChange={onChange}
 									value={value}
 									fullWidth
-									label="Enter device ID"
+									label="Enter Device ID"
 									variant="outlined"
 									InputProps={{
 										inputComponent: TextMaskCustom as any,

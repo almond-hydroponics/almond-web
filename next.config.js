@@ -58,7 +58,11 @@ module.exports = withPWA({
 	},
 	images: {
 		// disableStaticImages: true,
-		domains: ['static.almondhydroponics.com'],
+		domains: [
+			'static.almondhydroponics.com',
+			'res.cloudinary.com',
+			'avatars.githubusercontent.com',
+		],
 	},
 	eslint: {
 		ignoreDuringBuilds: true,

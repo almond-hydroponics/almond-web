@@ -8,6 +8,12 @@ generator client {
   provider = "prisma-client-js"
 }
 
+enum Role {
+  ADMIN
+  USER
+  DEVELOPER
+}
+
 model Account {
   id                String  @id @default(cuid())
   userId            String
@@ -25,6 +31,7 @@ model Account {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
+  @@index([userId])
 }
 
 model Session {
@@ -33,6 +40,8 @@ model Session {
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model User {
@@ -57,14 +66,15 @@ model VerificationToken {
 }
 
 model Device {
-  id        String    @id @default(cuid())
-  name      String    @unique @db.VarChar(255)
-  user      User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        String     @id @default(cuid())
+  name      String     @unique @db.VarChar(255)
+  user      User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String?
-  verified  Boolean?
-  active    Boolean?
-  createdAt DateTime? @default(now())
-  updatedAt DateTime? @updatedAt
+  verified  Boolean? @default(false)
+  active    Boolean? @default(false)
+  createdAt DateTime?  @default(now())
+  updatedAt DateTime?  @updatedAt
+  schedule  Schedule[]
 }
 
 model Post {
@@ -72,16 +82,24 @@ model Post {
   title        String
   description  String?
   content      String?
+  contentHtml  String    @db.Text
   thumbnailUrl String?
   published    Boolean   @default(false)
   author       User?     @relation(fields: [authorId], references: [id])
   authorId     String?
   createdAt    DateTime? @default(now())
   updatedAt    DateTime? @updatedAt
+
+  @@index([authorId])
 }
 
-enum Role {
-  ADMIN
-  USER
-  DEVELOPER
+model Schedule {
+  id        String   @id @default(cuid())
+  schedule  String
+  enabled   Boolean? @default(true)
+  device    Device?  @relation(fields: [deviceId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  deviceId  String?
+  createdAt DateTime @default(now())
+
+  @@index([deviceId])
 }

@@ -1,7 +1,7 @@
 // components
 import { Link, Logo, Modal } from '@components/atoms';
 import CustomAvatar from '@components/molecules/CustomAvatar';
-import { AccountCircleTwoTone, ArrowBack, Menu } from '@mui/icons-material';
+import { AccountCircleTwoTone, Menu } from '@mui/icons-material';
 import {
 	Avatar,
 	Box,
@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 import { Form } from './components';
@@ -38,7 +39,7 @@ const Topbar = ({
 		setAuthModalOpen((prevState) => !prevState);
 		authByEmail && setAuthByEmail(false);
 	};
-	const handleAuthByEmail = () => setAuthByEmail((prevState) => !prevState);
+	const router = useRouter();
 
 	const renderAuthButtons = () => (
 		<Box sx={{ display: { xs: 'none', md: 'flex' } }}>
@@ -50,7 +51,7 @@ const Topbar = ({
 					label="Login"
 					variant="outlined"
 					color="primary"
-					onClick={handleAuthModal}
+					onClick={() => router.push('/login')}
 					avatar={
 						<Avatar
 							alt={'Anonymous User'}
@@ -73,11 +74,7 @@ const Topbar = ({
 			alignItems="center"
 			spacing={2}
 		>
-			{authByEmail ? (
-				<ArrowBack onClick={handleAuthByEmail} />
-			) : (
-				<AccountCircleTwoTone />
-			)}
+			<AccountCircleTwoTone />
 			<Typography>Login into your account</Typography>
 		</Stack>
 	);
@@ -87,13 +84,7 @@ const Topbar = ({
 			isModalOpen={openAuthModal}
 			renderHeader={renderModalHeader()}
 			renderDialogText={''}
-			renderContent={
-				<Form
-					handleAuthModal={handleAuthModal}
-					authByEmail={authByEmail}
-					handleAuthByEmail={handleAuthByEmail}
-				/>
-			}
+			renderContent={<Form />}
 			onClose={handleAuthModal}
 			onDismiss={handleAuthModal}
 		/>

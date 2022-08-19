@@ -5,7 +5,7 @@ import { PaletteMode } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import Paper from '@mui/material/Paper';
 import { ThemeProvider } from '@mui/material/styles';
-import { OurStore } from '@store/index';
+import { RootState } from '@store/index';
 import AOS from 'aos';
 import { useSession } from 'next-auth/react';
 import { ReactNode, createContext, useEffect, useMemo, useState } from 'react';
@@ -51,7 +51,7 @@ const Page = ({ children }: Props): JSX.Element => {
 	);
 
 	const theme = useMemo(() => getTheme(mode as PaletteMode), [mode]);
-	const snack = useSelector((store: OurStore) => store.snack);
+	const snack = useSelector((store: RootState) => store.snack);
 
 	return (
 		<ThemeProvider theme={theme}>

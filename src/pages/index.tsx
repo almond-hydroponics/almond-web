@@ -1,10 +1,9 @@
 import prisma from '@lib/prisma';
 import { GetServerSideProps } from 'next';
-import { getCsrfToken } from 'next-auth/react';
 import IndexView from 'views/IndexView';
 
-const IndexPage = ({ csrfToken, posts }): JSX.Element => {
-	return <IndexView csrfToken={csrfToken} posts={posts} />;
+const IndexPage = ({ posts }): JSX.Element => {
+	return <IndexView posts={posts} />;
 };
 
 export default IndexPage;
@@ -20,7 +19,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 	return {
 		props: {
 			posts: JSON.parse(JSON.stringify(posts)),
-			csrfToken: await getCsrfToken(context),
 		},
 	};
 };

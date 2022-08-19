@@ -1,3 +1,4 @@
+import { Link } from '@components/atoms';
 import Container from '@components/Container';
 import {
 	ArrowForward,
@@ -78,95 +79,6 @@ const EnterDeviceIdView = (): JSX.Element => {
 		});
 	};
 
-	const page1 = () => (
-		<Box paddingTop={12}>
-			<Box height={1} width={1} maxWidth={500}>
-				<Typography variant="h6" gutterBottom>
-					Let&apos;s setup your device first.
-				</Typography>
-				<Typography variant={'body2'} color={'text.secondary'}>
-					The device ID will help you to control your purchased device from
-					Almond. Kindly enter the 8 digit provided on purchase.
-				</Typography>
-			</Box>
-			<Box paddingY={{ xs: 3, md: 4 }}>
-				<Divider />
-			</Box>
-			<Box width={1} maxWidth={500}>
-				<Form />
-			</Box>
-		</Box>
-	);
-
-	const page2 = () => (
-		<Box paddingTop={12}>
-			<Box height={1} width={1} maxWidth={500}>
-				<Typography variant="h6" gutterBottom>
-					Checking your connectivity status.
-				</Typography>
-				<Typography variant={'body2'} color={'text.secondary'}>
-					Setup your WIFI configuration for the device. Make sure your device
-					is powered on to complete this step.
-				</Typography>
-			</Box>
-			<Box paddingY={{ xs: 3, md: 4 }}>
-				<Divider />
-			</Box>
-			<Box height={1} width={1} maxWidth={500} paddingBottom={5}>
-				<ConnectionForm />
-			</Box>
-		</Box>
-	);
-
-	const page3 = () => (
-		<Box paddingTop={12}>
-			<Box height={1} width={1} maxWidth={500}>
-				<Typography variant="h6" gutterBottom>
-					Just a minute. How about notifications?
-				</Typography>
-				<Typography variant={'body2'} color={'text.secondary'}>
-					Your device has been setup successfully. Below are some of the
-					default notification settings to receive from your device.
-				</Typography>
-				<Box paddingY={{ xs: 3, md: 4 }}>
-					<Divider />
-				</Box>
-				<Box>
-					<Box>
-						<FormControlLabel
-							control={<Checkbox color="primary" />}
-							label="Push notifications"
-							// onChange={requestPermission}
-						/>
-					</Box>
-					<Box>
-						<FormControlLabel
-							control={<Checkbox color="primary" />}
-							label="E-mail alerts"
-						/>
-					</Box>
-					<Box>
-						<FormControlLabel
-							control={<Checkbox color="primary" />}
-							label="Text messages"
-						/>
-					</Box>
-				</Box>
-				<Box paddingTop={4}>
-					<Button
-						fullWidth
-						variant="contained"
-						type="submit"
-						color="primary"
-						size="large"
-					>
-						Save
-					</Button>
-				</Box>
-			</Box>
-		</Box>
-	);
-
 	// const steps = [page1, page2, page3];
 
 	const activePage = (page: number) => {
@@ -187,7 +99,7 @@ const EnterDeviceIdView = (): JSX.Element => {
 							<Divider />
 						</Box>
 						<Box width={1} maxWidth={500}>
-							<Form />
+							<Form handleNext={handleNext} />
 						</Box>
 					</Box>
 				);
@@ -403,11 +315,12 @@ const EnterDeviceIdView = (): JSX.Element => {
 								</Typography>
 								<Box>
 									<Button
+										component={Link}
+										href="/dashboard"
 										fullWidth
 										variant="contained"
 										color="primary"
 										size="large"
-										onClick={() => router.push('/dashboard')}
 										endIcon={<ArrowForward />}
 									>
 										Go to dashboard

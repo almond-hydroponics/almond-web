@@ -1,24 +1,27 @@
-import { ComponentContext } from '@context/ComponentContext';
-import { Snackbar, useMediaQuery } from '@mui/material';
-import MuiAlert, { AlertProps } from '@mui/material/Alert';
+import { AlertProps, Snackbar, useMediaQuery } from '@mui/material';
+import MuiAlert from '@mui/material/Alert';
 // third-party libraries
 import { useTheme } from '@mui/material/styles';
+import { reset } from '@store/slices/snack';
 // react libraries
-import { useContext, useEffect } from 'react';
+import { SyntheticEvent, forwardRef, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 // interfaces
 import { SnackMessageProps } from './interfaces';
 
-export const SnackBar = ({ snack }: SnackMessageProps): JSX.Element => {
-	const componentContext = useContext(ComponentContext);
-	const {
-		isSnackOpen,
-		handleCloseSnack,
-		snackMessage,
-		setSnackMessage,
-		setOpenSnack,
-	} = componentContext;
+const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
+	props,
+	ref
+) {
+	return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
+export const SnackBar = ({ snack }: SnackMessageProps): JSX.Element => {
+	const [isSnackOpen, setSnackOpen] = useState(false);
+	const [snackMessage, setSnackMessage] = useState('');
+
+	const dispatch = useDispatch();
 	const theme = useTheme();
 	const isSm = useMediaQuery(theme.breakpoints.up('sm'), {
 		defaultMatches: true,
@@ -27,12 +30,17 @@ export const SnackBar = ({ snack }: SnackMessageProps): JSX.Element => {
 
 	useEffect(() => {
 		setSnackMessage(message);
-		setOpenSnack(!!message);
-	}, [snack]);
+		setSnackOpen(!!message);
+	}, [message]);
 
-	const Alert = (alertProps: AlertProps) => (
-		<MuiAlert elevation={6} variant="filled" {...alertProps} />
-	);
+	const handleCloseSnack = (
+		event?: SyntheticEvent | Event,
+		reason?: string
+	) => {
+		if (reason === 'clickaway') return;
+		setSnackOpen(false);
+		dispatch(reset());
+	};
 
 	return (
 		<Snackbar
@@ -46,7 +54,11 @@ export const SnackBar = ({ snack }: SnackMessageProps): JSX.Element => {
 			onClose={handleCloseSnack}
 		>
 			<div data-testid="snack-message">
-				<Alert onClose={handleCloseSnack} severity={severity ?? 'success'}>
+				<Alert
+					onClose={handleCloseSnack}
+					severity={severity ?? 'success'}
+					sx={{ bottom: { xs: isSm ? 'unset' : 90 }, width: '100%' }}
+				>
 					{snackMessage}
 				</Alert>
 			</div>
