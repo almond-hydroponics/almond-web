@@ -8,8 +8,8 @@
 		"module": "esnext",
 		"moduleResolution": "node",
 		"noEmit": true,
-		//    "noUnusedLocals": true,
-		//    "noUnusedParameters": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
 		"noImplicitAny": false,
 		"noImplicitThis": true,
 		"strictNullChecks": true,
@@ -22,7 +22,8 @@
 		"forceConsistentCasingInFileNames": true,
 		"esModuleInterop": true,
 		"resolveJsonModule": true,
-		//    "isolatedModules": true,
+		"isolatedModules": true,
+		"incremental": true,
 		"noFallthroughCasesInSwitch": true,
 		"outDir": "./dist",
 		"baseUrl": "src",
@@ -35,9 +36,14 @@
 			"@context/*": ["context/*"],
 			"@svg/*": ["svg/*"],
 			"@store/*": ["store/*"]
-		},
-		"isolatedModules": true,
-		"incremental": true
+		}
+	},
+	"ts-node": {
+		"esm": true,
+		"transpileOnly": true,
+		"moduleTypes": {
+			"prisma/seed.ts": "cjs"
+		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
 	"exclude": ["node_modules"]

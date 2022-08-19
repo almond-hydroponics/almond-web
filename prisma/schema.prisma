@@ -60,7 +60,7 @@ model Device {
   id        String    @id @default(cuid())
   name      String    @unique @db.VarChar(255)
   user      User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String
+  userId    String?
   verified  Boolean?
   active    Boolean?
   createdAt DateTime? @default(now())
@@ -83,4 +83,5 @@ model Post {
 enum Role {
   ADMIN
   USER
+  DEVELOPER
 }
