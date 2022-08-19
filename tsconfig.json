@@ -35,7 +35,9 @@
 			"@hooks/*": ["hooks/*"],
 			"@context/*": ["context/*"],
 			"@svg/*": ["svg/*"],
-			"@store/*": ["store/*"]
+			"@store/*": ["store/*"],
+			"@server/*": ["server/*"],
+			"@env/*": ["env/*"]
 		}
 	},
 	"ts-node": {

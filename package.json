@@ -26,7 +26,15 @@
 		"commit:signed": "cz -S",
 		"clear-all": "rimraf ./.cache ./.next",
 		"test:synk": "snyk test",
-		"db:seed": "ts-node prisma/seed.ts"
+		"db:format": "prisma format",
+		"db:seed": "ts-node prisma/seed.ts",
+		"db:reset": "prisma migrate reset",
+		"db:migrate": "prisma migrate",
+		"db:rollback": "ts-node prisma/rollback.ts",
+		"db:seed:reset": "yarn db:reset && yarn db:seed",
+		"db:seed:migrate": "yarn db:migrate && yarn db:seed",
+		"db:seed:rollback": "yarn db:rollback && yarn db:seed",
+		"db:studio": "prisma studio"
 	},
 	"prisma": {
 		"seed": "ts-node --transpile-only prisma/seed.ts"
@@ -52,6 +60,10 @@
 		"@next/mdx": "^12.2.5",
 		"@prisma/client": "^4.2.1",
 		"@reduxjs/toolkit": "^1.8.4",
+		"@trpc/client": "^9.27.0",
+		"@trpc/next": "^9.27.0",
+		"@trpc/react": "^9.27.0",
+		"@trpc/server": "^9.27.0",
 		"aos": "^2.3.4",
 		"apollo-boost": "^0.4.9",
 		"apollo-link-context": "^1.0.20",
@@ -68,6 +80,7 @@
 		"dayjs": "^1.11.5",
 		"deepmerge": "^4.2.2",
 		"dequal": "^2.0.3",
+		"envsafe": "^2.0.3",
 		"formik": "^2.2.9",
 		"graphql": "^16.6.0",
 		"graphql-request": "^4.3.0",
@@ -107,7 +120,7 @@
 		"react-imask": "^6.4.2",
 		"react-intersection-observer": "^9.4.0",
 		"react-lazy-load-image-component": "^1.5.5",
-		"react-query": "^3.39.2",
+		"react-query": "3",
 		"react-redux": "^8.0.2",
 		"react-slick": "^0.29.0",
 		"react-syntax-highlighter": "^15.5.0",
@@ -115,9 +128,11 @@
 		"redux": "^4.2.0",
 		"reselect": "^4.1.6",
 		"slick-carousel": "^1.8.1",
+		"superjson": "^1.9.1",
 		"swr": "^1.3.0",
 		"validate.js": "^0.13.1",
-		"yup": "^0.32.11"
+		"yup": "^0.32.11",
+		"zod": "^3.18.0"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^17.0.3",
@@ -141,6 +156,7 @@
 		"@types/react-dom": "^18.0.6",
 		"@types/react-lazy-load-image-component": "^1.5.2",
 		"@types/react-redux": "^7.1.24",
+		"@types/redux-logger": "^3",
 		"@typescript-eslint/eslint-plugin": "^5.33.1",
 		"@typescript-eslint/parser": "^5.33.1",
 		"cross-env": "^7.0.3",
@@ -174,6 +190,7 @@
 		"pretty-quick": "^3.1.3",
 		"prisma": "^4.2.1",
 		"react-test-renderer": "^18.2.0",
+		"redux-logger": "^3.0.6",
 		"rimraf": "^3.0.2",
 		"snyk": "^1.988.0",
 		"ts-node": "^10.9.1",

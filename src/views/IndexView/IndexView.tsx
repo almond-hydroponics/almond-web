@@ -1,27 +1,17 @@
-import { ComponentContext } from '@context/ComponentContext';
 import Box from '@mui/material/Box';
 import { alpha, useTheme } from '@mui/material/styles';
 import Container from 'components/Container';
 import Main from 'layouts/Main';
-import { useContext, useEffect } from 'react';
 
 import { News } from '../StoreView/components';
 import { About, Features, Hero, Places, Services } from './components';
 
 interface Props {
-	csrfToken: string;
 	posts: any;
 }
 
-const IndexView = ({ csrfToken, posts }: Props): JSX.Element => {
+const IndexView = ({ posts }: Props): JSX.Element => {
 	const theme = useTheme();
-	const { setCsrfToken } = useContext(ComponentContext);
-
-	useEffect(() => {
-		if (csrfToken !== '' || undefined) {
-			setCsrfToken(csrfToken);
-		}
-	}, []);
 
 	return (
 		<Main>
