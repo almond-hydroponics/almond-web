@@ -10,3 +10,4 @@ export { default as LinearProgressBar } from './LinearProgressBar';
 export { default as Link } from './Link';
 export { default as Logo } from './Logo';
 export { default as HamburgerMenu } from './HamburgerMenu';
+export { default as MenuContent } from './MenuContent';

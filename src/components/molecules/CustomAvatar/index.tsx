@@ -14,7 +14,9 @@ import {
 	ListItemText,
 	Menu,
 	MenuItem,
+	Theme,
 	Tooltip,
+	useMediaQuery,
 } from '@mui/material';
 import { alpha, useTheme } from '@mui/material/styles';
 import fancyId from '@utils/fancyId';
@@ -22,22 +24,14 @@ import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { MouseEvent, useContext, useState } from 'react';
 
-interface Props {
-	hasMultipleRoles?: boolean;
-
-	[x: string]: any;
-}
-
-const CustomAvatar = ({
-	hasMultipleRoles = false,
-	...rest
-}: Props): JSX.Element => {
+const CustomAvatar = (): JSX.Element => {
 	const router = useRouter();
 	const theme = useTheme();
+	const isSm = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const { data: session } = useSession();
 
-	const { name, image } = session?.user || {
+	const { name, image, role } = session?.user || {
 		name: 'Anonymous User',
 		image: '/img/avatar_male.svg',
 	};
@@ -90,24 +84,35 @@ const CustomAvatar = ({
 	return (
 		<>
 			<Tooltip title={name ?? 'Anonymous User'}>
-				<Chip
-					size="medium"
-					label={name ?? 'Anonymous User'}
-					variant="outlined"
-					color="primary"
-					onClick={handleToggleProfileMenu}
-					avatar={
-						<Avatar
-							alt={name ?? 'Anonymous User'}
-							src={image ?? '/img/avatar_male.svg'}
-							aria-describedby="menu-popover"
-							aria-controls="menu-popover"
-							aria-haspopup="true"
-							typeof="button"
-							{...rest}
-						/>
-					}
-				/>
+				{isSm ? (
+					<Avatar
+						onClick={handleToggleProfileMenu}
+						alt={name ?? 'Anonymous User'}
+						src={image ?? '/img/avatar_male.svg'}
+						aria-describedby="menu-popover"
+						aria-controls="menu-popover"
+						aria-haspopup="true"
+						typeof="button"
+					/>
+				) : (
+					<Chip
+						size="medium"
+						label={name ?? 'Anonymous User'}
+						variant="outlined"
+						color="primary"
+						onClick={handleToggleProfileMenu}
+						avatar={
+							<Avatar
+								alt={name ?? 'Anonymous User'}
+								src={image ?? '/img/avatar_male.svg'}
+								aria-describedby="menu-popover"
+								aria-controls="menu-popover"
+								aria-haspopup="true"
+								typeof="button"
+							/>
+						}
+					/>
+				)}
 			</Tooltip>
 			<Menu
 				id="menu-popover"
@@ -180,7 +185,7 @@ const CustomAvatar = ({
 						</MenuItem>
 					);
 				})}
-				{router.pathname === '/dashboard' && hasMultipleRoles && (
+				{router.pathname === '/dashboard' && role === 'ADMIN' && (
 					<MenuItem onClick={handleRoleModal}>
 						<ListItemIcon>
 							<Mood fontSize="small" />

@@ -17,12 +17,12 @@ import {
 	WidgetsRounded,
 } from '@mui/icons-material';
 import AnalyticsView from 'views/AnalyticsView';
-import DeviceManagementView from 'views/DeviceManagementView';
-import EnvironmentControlView from 'views/EnvironmentControlView';
-import PeopleView from 'views/PeopleView';
-import SupportView from 'views/SupportView';
-import UserRolesView from 'views/UserRolesView';
-import WaterCyclesView from 'views/WaterCyclesView';
+// import DeviceManagementView from 'views/DeviceManagementView';
+// import EnvironmentControlView from 'views/EnvironmentControlView';
+// import PeopleView from 'views/PeopleView';
+// import SupportView from 'views/SupportView';
+// import UserRolesView from 'views/UserRolesView';
+// import WaterCyclesView from 'views/WaterCyclesView';
 
 export const UserMenus: MenuComponentProps[] = [
 	{
@@ -34,43 +34,43 @@ export const UserMenus: MenuComponentProps[] = [
 	{
 		icon: <Opacity />,
 		primaryText: 'Water Cycles',
-		component: WaterCyclesView,
+		component: AnalyticsView,
 		id: 'water-cycles',
 	},
 	{
 		icon: <ControlCamera />,
 		primaryText: 'Environment',
-		component: EnvironmentControlView,
+		component: AnalyticsView,
 		id: 'environment',
 	},
 	{
 		icon: <Security />,
 		primaryText: 'Quality Control',
-		component: WaterCyclesView,
+		component: AnalyticsView,
 		id: 'quality-control',
 	},
 	{
 		icon: <Memory />,
 		primaryText: 'Energy Usage',
-		component: WaterCyclesView,
+		component: AnalyticsView,
 		id: 'energy-usage',
 	},
 	{
 		icon: <LocalFlorist />,
 		primaryText: 'Support',
-		component: SupportView,
+		component: AnalyticsView,
 		id: 'support',
 	},
 	{
 		icon: <Help />,
 		primaryText: 'Help',
-		component: WaterCyclesView,
+		component: AnalyticsView,
 		id: 'help',
 	},
 	{
 		icon: <OpenInNew />,
 		primaryText: 'Send feedback',
-		component: WaterCyclesView,
+		component: AnalyticsView,
 		id: 'send-feedback',
 	},
 ];
@@ -85,31 +85,31 @@ export const AdminMenus: MenuComponentProps[] = [
 	{
 		icon: <AllOut />,
 		primaryText: 'Devices',
-		component: DeviceManagementView,
+		component: AnalyticsView,
 		id: 'devices',
 	},
 	{
 		icon: <People />,
 		primaryText: 'People',
-		component: PeopleView,
+		component: AnalyticsView,
 		id: 'people',
 	},
 	{
 		icon: <BubbleChart />,
 		primaryText: 'Roles',
-		component: UserRolesView,
+		component: AnalyticsView,
 		id: 'roles',
 	},
 	{
 		icon: <Spa />,
 		primaryText: 'Support',
-		component: SupportView,
+		component: AnalyticsView,
 		id: 'support',
 	},
 	{
 		icon: <Help />,
 		primaryText: 'Help',
-		component: WaterCyclesView,
+		component: AnalyticsView,
 		id: 'help',
 	},
 ];

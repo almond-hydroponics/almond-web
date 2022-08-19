@@ -7,3 +7,6 @@ export {
 	FormInputDate,
 	FormInputRadio,
 } from './FormInput';
+export { default as BottomNavigation } from './BottomNavigation';
+export { default as AnalyticsCard } from './AnalyticsCard';
+export { default as Notifications } from './Notifications';

@@ -1,10 +1,6 @@
-import { Link, Logo, Modal } from '@components/atoms';
+import { Link, Logo } from '@components/atoms';
 import Container from '@components/Container';
-import {
-	AccountCircleTwoTone,
-	ArrowBack,
-	PolicyTwoTone,
-} from '@mui/icons-material';
+import { PolicyTwoTone } from '@mui/icons-material';
 import CloseIcon from '@mui/icons-material/Close';
 import {
 	Avatar,
@@ -18,11 +14,9 @@ import {
 } from '@mui/material';
 import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
 
 import packageJson from '../../../../../../../package.json';
 import pages from '../../../../../navigation';
-import { Form } from '../../../Topbar/components';
 import NavItem from './components/NavItem';
 
 interface Props {
@@ -33,8 +27,6 @@ interface Props {
 
 const SidebarNav = ({ onClose, handleContactModal }: Props): JSX.Element => {
 	const router = useRouter();
-	const [openAuthModal, setAuthModalOpen] = useState<boolean>(false);
-	const [authByEmail, setAuthByEmail] = useState<boolean>(false);
 
 	const { data: session } = useSession();
 
@@ -44,11 +36,7 @@ const SidebarNav = ({ onClose, handleContactModal }: Props): JSX.Element => {
 			'https://storage.googleapis.com/static.almondhydroponics.com/static/images/avatar_male.svg',
 	};
 
-	const handleAuthModal = () => {
-		setAuthModalOpen((prevState) => !prevState);
-		authByEmail && setAuthByEmail(false);
-	};
-	const handleAuthByEmail = () => setAuthByEmail((prevState) => !prevState);
+	const handleLogin = () => router.push('/login');
 
 	const logoutActiveUser = async (e): Promise<void> => {
 		e.preventDefault();
@@ -65,44 +53,11 @@ const SidebarNav = ({ onClose, handleContactModal }: Props): JSX.Element => {
 				variant="outlined"
 				color="primary"
 				size="medium"
-				onClick={!!session ? logoutActiveUser : handleAuthModal}
+				onClick={!!session ? logoutActiveUser : handleLogin}
 			>
 				{!!session ? 'Logout' : 'Account'}
 			</Button>
 		</Box>
-	);
-
-	const renderModalHeader = (): JSX.Element => (
-		<Stack
-			direction="row"
-			justifyContent="flex-start"
-			alignItems="center"
-			spacing={2}
-		>
-			{authByEmail ? (
-				<ArrowBack onClick={handleAuthByEmail} />
-			) : (
-				<AccountCircleTwoTone />
-			)}
-			<Typography variant="h6">Login into your account</Typography>
-		</Stack>
-	);
-
-	const renderAuthModal = (): JSX.Element => (
-		<Modal
-			isModalOpen={openAuthModal}
-			renderHeader="Login into your account"
-			renderDialogText="Choose your preferred method to authenticate into your account"
-			renderContent={
-				<Form
-					handleAuthModal={handleAuthModal}
-					authByEmail={authByEmail}
-					handleAuthByEmail={handleAuthByEmail}
-				/>
-			}
-			onClose={handleAuthModal}
-			onDismiss={handleAuthModal}
-		/>
 	);
 
 	const accountAvatar = () => {
@@ -173,7 +128,6 @@ const SidebarNav = ({ onClose, handleContactModal }: Props): JSX.Element => {
 						Go to store
 					</Button>
 				</Box>
-				{renderAuthModal()}
 			</Box>
 			<Container paddingY={2} sx={{ bottom: 0, position: 'fixed' }}>
 				<Stack
