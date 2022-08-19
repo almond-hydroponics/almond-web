@@ -5017,7 +5017,7 @@ __metadata:
     next-images: ^1.8.4
     next-mdx-remote: ^4.1.0
     next-optimized-images: ^2.6.2
-    next-pwa: latest
+    next-pwa: "marcofranssen/next-pwa#fix-pwa-config"
     next-redux-wrapper: ^7.0.5
     next-seo: ^5.5.0
     next-superjson-plugin: ^0.3.0
@@ -13416,9 +13416,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next-pwa@npm:latest":
+"next-pwa@marcofranssen/next-pwa#fix-pwa-config":
   version: 5.5.5
-  resolution: "next-pwa@npm:5.5.5"
+  resolution: "next-pwa@https://github.com/marcofranssen/next-pwa.git#commit=4c9464afe99e2d8a93755e5c46a027eebe4822e4"
   dependencies:
     babel-loader: ^8.2.5
     clean-webpack-plugin: ^4.0.0
@@ -13428,7 +13428,7 @@ __metadata:
     workbox-window: ^6.5.4
   peerDependencies:
     next: ">=9.0.0"
-  checksum: 2179769cf5225d9859c284ae12b173324a9b86b7d071539e7d9454d85ca42b2dae4e5c101da65f2ad77a6433f83801527d19795cb10f48dfd2e160a336db6a80
+  checksum: 3d134a31f580ab9b469196348d9d8dad06ad9c533d9c3d33eeaa525c4c5496559c9fc40d1c022eeb3409af35d7fc76b60e3cd7ff235b0a62e29aac944a6d0610
   languageName: node
   linkType: hard
 
