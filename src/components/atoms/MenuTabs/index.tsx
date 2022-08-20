@@ -7,7 +7,7 @@ interface MenuTabProps {
 }
 
 const MenuTabs = styled(Tabs)({
-	'&.MuiTabs-indicator': {
+	'& .MuiTabs-indicator': {
 		display: 'none',
 	},
 });
@@ -15,21 +15,20 @@ const MenuTabs = styled(Tabs)({
 const MenuTab = styled((props: MenuTabProps) => (
 	<Tab disableRipple {...props} />
 ))(({ theme }) => ({
-	marginBottom: 10,
-	marginTop: 10,
+	paddingBottom: 28,
+	paddingTop: 28,
 	textTransform: 'none',
 	minWidth: 72,
 	'&:hover': {
-		color: theme.palette.primary.main,
-		backgroundColor: theme.palette.background.level1,
-		opacity: 1,
-		borderRadius: theme.shape.borderRadius,
+		color: theme.palette.text.primary,
+		backgroundColor: theme.palette.alternate.main,
 	},
 	'&.Mui-selected': {
 		color: theme.palette.primary.main,
 		fontWeight: theme.typography.fontWeightMedium,
-		backgroundColor: theme.palette.background.level3,
-		borderRadius: theme.shape.borderRadius,
+		border: 'none',
+		// backgroundColor: alpha(theme.palette.primary.main, 0.1),
+		// borderRadius: theme.shape.borderRadius,
 	},
 	'&:focus': {
 		color: theme.palette.primary.main,

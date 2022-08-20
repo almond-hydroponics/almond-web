@@ -106,10 +106,10 @@ const Topbar = ({
 						<Typography
 							color="primary"
 							sx={{
-								color: 'text.primary',
+								color: 'text.secondary',
 								cursor: 'pointer',
 								'&:hover': {
-									color: 'text.secondary',
+									color: 'text.primary',
 								},
 							}}
 						>
@@ -123,10 +123,10 @@ const Topbar = ({
 						<Typography
 							color="primary"
 							sx={{
-								color: 'text.primary',
+								color: 'text.secondary',
 								cursor: 'pointer',
 								'&:hover': {
-									color: 'text.secondary',
+									color: 'text.primary',
 								},
 							}}
 						>
@@ -140,10 +140,10 @@ const Topbar = ({
 						<Typography
 							color="primary"
 							sx={{
-								color: 'text.primary',
+								color: 'text.secondary',
 								cursor: 'pointer',
 								'&:hover': {
-									color: 'text.secondary',
+									color: 'text.primary',
 								},
 							}}
 						>
@@ -157,10 +157,10 @@ const Topbar = ({
 						onClick={handleContactModal}
 						color="primary"
 						sx={{
-							color: 'text.primary',
+							color: 'text.secondary',
 							cursor: 'pointer',
 							'&:hover': {
-								color: 'text.secondary',
+								color: 'text.primary',
 							},
 						}}
 					>

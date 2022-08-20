@@ -27,7 +27,7 @@ const MenuContent = (): JSX.Element => {
 
 	return (
 		<MenuTabs
-			style={{ padding: 20 }}
+			style={{ padding: 0, margin: 0 }}
 			value={selectedIndex}
 			// @ts-expect-error
 			onChange={handleOnChange}
@@ -37,16 +37,14 @@ const MenuContent = (): JSX.Element => {
 			aria-label="menu tabs"
 			visibleScrollbar={false}
 		>
-			{displayMenusByRole()
-				.slice(0, 6)
-				.map((item) => (
-					<MenuTab
-						key={item.primaryText}
-						label={item.primaryText}
-						icon={item.icon}
-						{...a11yProps(selectedIndex)}
-					/>
-				))}
+			{displayMenusByRole().map((item) => (
+				<MenuTab
+					key={item.primaryText}
+					label={item.primaryText}
+					icon={item.icon}
+					{...a11yProps(selectedIndex)}
+				/>
+			))}
 		</MenuTabs>
 	);
 };

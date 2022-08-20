@@ -10,7 +10,6 @@ import {
 	LocalFlorist,
 	Memory,
 	Opacity,
-	OpenInNew,
 	People,
 	Security,
 	Spa,
@@ -60,18 +59,6 @@ export const UserMenus: MenuComponentProps[] = [
 		primaryText: 'Support',
 		component: AnalyticsView,
 		id: 'support',
-	},
-	{
-		icon: <Help />,
-		primaryText: 'Help',
-		component: AnalyticsView,
-		id: 'help',
-	},
-	{
-		icon: <OpenInNew />,
-		primaryText: 'Send feedback',
-		component: AnalyticsView,
-		id: 'send-feedback',
 	},
 ];
 

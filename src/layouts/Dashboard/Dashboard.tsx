@@ -17,7 +17,7 @@ import { ReactElement, ReactNode, cloneElement } from 'react';
 
 import { Topbar } from './components';
 
-const drawerWidth = 200;
+const drawerWidth = 160;
 
 interface AppBarOnScrollProps {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -108,11 +108,7 @@ const Dashboard = ({ children }: Props): JSX.Element => {
 				}}
 				elevation={0}
 			>
-				<Container
-					maxWidth={1}
-					paddingY={{ xs: 2, md: 1 }}
-					paddingX={{ xs: 1, md: 4 }}
-				>
+				<Container maxWidth={1} paddingY={1} paddingX={{ xs: 1, md: 4 }}>
 					<Topbar />
 				</Container>
 			</AppBar>

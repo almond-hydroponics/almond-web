@@ -159,11 +159,11 @@ const Topbar = (): JSX.Element => {
 			</Stack>
 
 			<Box sx={{ display: 'flex' }} alignItems={'center'}>
-				<Box marginLeft={isSm ? 3 : 1}>{renderTimeLineIcon()}</Box>
-				<Box marginLeft={isSm ? 3 : 1}>
+				<Box>{renderTimeLineIcon()}</Box>
+				<Box marginLeft={isSm ? 2 : 1}>
 					<Notifications />
 				</Box>
-				<Box marginLeft={isSm ? 3 : 1}>
+				<Box marginLeft={isSm ? 2 : 1}>
 					<CustomAvatar />
 				</Box>
 			</Box>
