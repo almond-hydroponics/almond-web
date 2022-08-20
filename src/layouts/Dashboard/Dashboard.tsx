@@ -4,8 +4,8 @@ import { BottomNavigation } from '@components/molecules';
 import {
 	AppBar,
 	Box,
+	CssBaseline,
 	Drawer,
-	LinearProgress,
 	Slide,
 	Theme,
 	Toolbar,
@@ -13,15 +13,11 @@ import {
 	useScrollTrigger,
 } from '@mui/material';
 import { alpha, useTheme } from '@mui/material/styles';
-import {
-	ReactElement,
-	ReactNode,
-	cloneElement,
-	useEffect,
-	useState,
-} from 'react';
+import { ReactElement, ReactNode, cloneElement } from 'react';
 
 import { Topbar } from './components';
+
+const drawerWidth = 200;
 
 interface AppBarOnScrollProps {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -59,19 +55,9 @@ interface Props {
 	children: ReactNode;
 }
 
-const useMounted = () => {
-	const [mounted, setMounted] = useState(false);
-	useEffect(() => setMounted(true), []);
-	return mounted;
-};
-
 const Dashboard = ({ children }: Props): JSX.Element => {
-	const hidden = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
+	const isSm = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
 	const theme = useTheme();
-	const isMd = useMediaQuery(theme.breakpoints.up('md'), {
-		defaultMatches: true,
-	});
-	const isMounted = useMounted();
 
 	// const options: IClientOptions = {
 	// 	username: process.env.NEXT_PUBLIC_MQTT_USERNAME,
@@ -107,13 +93,16 @@ const Dashboard = ({ children }: Props): JSX.Element => {
 		// 	options={options}
 		// 	parserMethod={(msg) => msg}
 		// >
-		<Box position={'relative'} minHeight={'100vh'}>
+		<Box sx={{ display: 'flex', minHeight: '100vh' }}>
+			{/*<Box position={'relative'} minHeight={'100vh'}>*/}
+			<CssBaseline />
 			<AppBar
-				position={'sticky'}
+				position={'fixed'}
 				sx={{
+					zIndex: (theme) => theme.zIndex.drawer + 1,
 					// background: theme.palette.alternate.main,
 					top: 0,
-					backgroundColor: trigger ? 'hsla(0,0%,100%,.8)' : 'transparent',
+					backgroundColor: trigger ? 'hsla(0,0%,100%,.8)' : 'alternate.main',
 					backdropFilter: trigger ? 'blur(15px)' : 'none',
 					borderBottom: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
 				}}
@@ -127,12 +116,20 @@ const Dashboard = ({ children }: Props): JSX.Element => {
 					<Topbar />
 				</Container>
 			</AppBar>
-			{hidden && (
+			{isSm && (
 				<Drawer
 					variant="permanent"
+					sx={{
+						width: drawerWidth,
+						flexShrink: 0,
+						[`& .MuiDrawer-paper`]: {
+							width: drawerWidth,
+							boxSizing: 'border-box',
+						},
+					}}
 					PaperProps={{
 						sx: {
-							background: theme.palette.alternate.main,
+							// background: theme.palette.alternate.main,
 							borderRight: 'none',
 						},
 					}}
@@ -141,26 +138,20 @@ const Dashboard = ({ children }: Props): JSX.Element => {
 					<MenuContent />
 				</Drawer>
 			)}
-			<main>
-				<Box height={{ xs: 58, sm: 66 }} />
-				<Box
-					display="flex"
-					flex="1 1 auto"
-					overflow="hidden"
-					paddingLeft={{ md: '10%' }} // Replace with 148px if it doesn't work
-				>
-					<Box display="flex" flex="1 1 auto" overflow="hidden">
-						<Box flex="1 1 auto" height="100%" overflow="auto">
-							{isMounted ? children : <LinearProgress color="primary" />}
-						</Box>
-					</Box>
-				</Box>
-			</main>
-			{hidden ? null : (
-				<Container>
-					<BottomNavigation />
-				</Container>
-			)}
+			<Box
+				component="main"
+				paddingX={isSm ? 3 : 0}
+				paddingY={isSm ? 0 : 3}
+				sx={{ flexGrow: 1, backgroundColor: 'background.paper' }}
+			>
+				<Toolbar />
+				{children}
+				{isSm ? null : (
+					<Container>
+						<BottomNavigation />
+					</Container>
+				)}
+			</Box>
 		</Box>
 	);
 };

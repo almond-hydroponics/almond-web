@@ -179,8 +179,7 @@ const Notifications = (): JSX.Element => {
 				sx={{
 					borderRadius: 1,
 					minWidth: 'auto',
-					paddingX: 1,
-					borderColor: alpha(theme.palette.divider, 0.2),
+					padding: 0.5,
 				}}
 			>
 				<Badge
@@ -192,9 +191,9 @@ const Notifications = (): JSX.Element => {
 					badgeContent={unreadNotifications}
 				>
 					{unreadNotifications > 0 ? (
-						<NewNotifications color="primary" />
+						<NewNotifications fontSize={'small'} color="primary" />
 					) : (
-						<NotificationsNoneRounded color="primary" />
+						<NotificationsNoneRounded fontSize={'small'} color="primary" />
 					)}
 				</Badge>
 			</Button>

@@ -11,14 +11,15 @@ import {
 } from '@mui/icons-material';
 import {
 	Badge,
+	Chip,
+	Stack,
 	Theme,
 	Tooltip,
-	Typography,
 	useMediaQuery,
 } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import { alpha, useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import { Device, Role } from '@prisma/client';
 import arrayIsEmpty from '@utils/arrayIsEmpty';
 import { useSession } from 'next-auth/react';
@@ -74,14 +75,15 @@ const Topbar = (): JSX.Element => {
 		return (
 			<Tooltip title="Check device activities">
 				<Button
+					size={'small'}
 					variant={'outlined'}
 					aria-label="Dark mode toggler"
 					color={mode === 'light' ? 'primary' : 'secondary'}
 					sx={{
 						borderRadius: 1,
 						minWidth: 'auto',
-						paddingX: 1,
-						borderColor: alpha(theme.palette.divider, 0.2),
+						padding: 0.5,
+						// borderColor: alpha(theme.palette.divider, 0.2),
 					}}
 				>
 					<Badge
@@ -94,55 +96,43 @@ const Topbar = (): JSX.Element => {
 						color="secondary"
 						badgeContent={activityLogs.length}
 					>
-						<Timeline color="primary" onClick={handleClick} />
+						<Timeline
+							fontSize={'small'}
+							color="primary"
+							onClick={handleClick}
+						/>
 					</Badge>
 				</Button>
 			</Tooltip>
 		);
 	};
 
-	const renderDeviceDisplay = (): JSX.Element => {
+	const renderDevice = (): JSX.Element => {
 		const handleClick = (): void => setDeviceModalOpen(true);
 		const handleDeviceModal = (): void => setDeviceModalOpen(true);
 		return (
-			<Button
-				variant="outlined"
-				onClick={handleClick}
-				onKeyDown={handleDeviceModal}
-				startIcon={
-					<FiberManualRecord
-						fontSize="small"
-						sx={{ color: statusChange(connectionStatus as string) }}
-					/>
-				}
-				endIcon={renderMoreButton(handleClick)}
-				sx={{
-					borderColor: alpha(theme.palette.divider, 0.2),
-					backgroundColor: theme.palette.alternate.main,
-				}}
-			>
-				<Typography
-					variant="subtitle2"
-					sx={{
-						fontWeight: 400,
-						fontSize: 13,
-						marginLeft: 1,
-						display: isSm ? 'flex' : 'none',
-					}}
-					color="textPrimary"
-				>
-					Device:
-				</Typography>
-				<Typography
-					variant="subtitle2"
-					sx={{
-						paddingLeft: 0.5,
-						fontWeight: 600,
-					}}
-				>
-					{arrayIsEmpty(devices) ? 'No device' : devices[0].name}
-				</Typography>
-			</Button>
+			<Tooltip title="Select device">
+				<Chip
+					size="medium"
+					label={`Device: ${
+						arrayIsEmpty(devices) ? 'No device' : devices[0].name
+					}`}
+					variant="outlined"
+					color="primary"
+					onClick={handleClick}
+					onKeyDown={handleDeviceModal}
+					icon={
+						<FiberManualRecord
+							fontSize="small"
+							sx={{
+								color: `${statusChange(
+									connectionStatus as string
+								)} !important`,
+							}}
+						/>
+					}
+				/>
+			</Tooltip>
 		);
 	};
 
@@ -153,14 +143,22 @@ const Topbar = (): JSX.Element => {
 			alignItems={'center'}
 			width={1}
 		>
-			<Box sx={{ display: { xs: 'none', md: 'flex' } }} alignItems={'center'}>
-				<Logo displayText />
-			</Box>
+			<Stack
+				direction="row"
+				justifyContent="flex-start"
+				alignItems="center"
+				spacing={isSm ? 4 : 0.5}
+			>
+				<Box
+					sx={{ display: { xs: 'none', md: 'flex' } }}
+					alignItems={'center'}
+				>
+					<Logo displayText />
+				</Box>
+				{role === 'USER' && renderDevice()}
+			</Stack>
 
 			<Box sx={{ display: 'flex' }} alignItems={'center'}>
-				<Box sx={{ display: 'flex' }} alignItems={'center'}>
-					{role === 'USER' && renderDeviceDisplay()}
-				</Box>
 				<Box marginLeft={isSm ? 3 : 1}>{renderTimeLineIcon()}</Box>
 				<Box marginLeft={isSm ? 3 : 1}>
 					<Notifications />

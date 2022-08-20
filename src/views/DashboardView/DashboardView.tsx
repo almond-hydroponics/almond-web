@@ -20,7 +20,7 @@ import {
 	Typography,
 } from '@mui/material';
 import { alpha, useTheme } from '@mui/material/styles';
-import { Role } from '@prisma/client';
+import { Device, Role } from '@prisma/client';
 import arrayIsEmpty from '@utils/arrayIsEmpty';
 import dayjs from '@utils/dayjsTime';
 // interfaces
@@ -95,7 +95,7 @@ const DashboardView = (): JSX.Element => {
 	const isMounted = useMounted();
 
 	const { data: session } = useSession();
-	const devices = session?.user?.devices || [];
+	const devices = session?.user?.devices || ([] as Device[]);
 	const role = session?.user?.role as Role;
 
 	const {
@@ -181,9 +181,9 @@ const DashboardView = (): JSX.Element => {
 			}}
 		>
 			{devices?.map((device) => (
-				<MenuItem key={device.id} value={device.id}>
+				<MenuItem key={device.id} value={device.name}>
 					<Typography fontSize={14} variant="body1">
-						{device.id}
+						{device.name}
 					</Typography>
 				</MenuItem>
 			))}
