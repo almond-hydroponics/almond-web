@@ -1,12 +1,12 @@
+import { createRouter } from '@server/create-router';
+import { deviceRouter } from '@server/routers/device';
+import { userRouter } from '@server/routers/user';
 import superjson from 'superjson';
-
-import { createRouter } from '../create-router';
-import { deviceRouter } from './device';
 
 export const appRouter = createRouter()
 	.transformer(superjson)
-	.merge('device.', deviceRouter);
-// .merge('user.', userRouter);
+	.merge('device.', deviceRouter)
+	.merge('user.', userRouter);
 // .merge('post.', postRouter)
 
 export type AppRouter = typeof appRouter;

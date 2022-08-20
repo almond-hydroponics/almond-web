@@ -16,7 +16,7 @@ export const userRouter = createProtectedRouter()
 					id: true,
 					name: true,
 					image: true,
-					title: true,
+					devices: true,
 				},
 			});
 
@@ -33,18 +33,14 @@ export const userRouter = createProtectedRouter()
 	.mutation('edit', {
 		input: z.object({
 			name: z.string().min(1),
-			title: z.string().nullish(),
 		}),
 		async resolve({ ctx, input }) {
-			const user = await ctx.prisma.user.update({
+			return await ctx.prisma.user.update({
 				where: { id: ctx.session.user.id },
 				data: {
 					name: input.name,
-					title: input.title,
 				},
 			});
-
-			return user;
 		},
 	})
 	.mutation('update-avatar', {
@@ -52,25 +48,10 @@ export const userRouter = createProtectedRouter()
 			image: z.string().nullish(),
 		}),
 		async resolve({ ctx, input }) {
-			const user = await ctx.prisma.user.update({
+			return await ctx.prisma.user.update({
 				where: { id: ctx.session.user.id },
 				data: {
 					image: input.image,
-				},
-			});
-
-			return user;
-		},
-	})
-	.query('mentionList', {
-		async resolve({ ctx }) {
-			return await ctx.prisma.user.findMany({
-				select: {
-					id: true,
-					name: true,
-				},
-				orderBy: {
-					name: 'asc',
 				},
 			});
 		},
