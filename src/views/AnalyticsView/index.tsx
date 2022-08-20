@@ -1,14 +1,19 @@
-import { Role } from '@prisma/client';
-import { useSession } from 'next-auth/react';
+import { ComponentContext } from '@context/ComponentContext';
+import { useContext } from 'react';
 
 import AdminAnalytics from './AdminAnalytics';
 import RegularUserAnalytics from './RegularUserAnalytics';
 
 export const AnalyticsView = (): JSX.Element => {
-	const { data: session } = useSession();
-	const role = session?.user?.role as Role;
+	const { currentRoleBasedAccess } = useContext(ComponentContext);
 
-	return role === 'ADMIN' ? <AdminAnalytics /> : <RegularUserAnalytics />;
+	const dashboardView = {
+		USER: <RegularUserAnalytics />,
+		ADMIN: <AdminAnalytics />,
+		DEVELOPER: <RegularUserAnalytics />,
+	};
+
+	return dashboardView[currentRoleBasedAccess];
 };
 
 export default AnalyticsView;

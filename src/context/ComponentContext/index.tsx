@@ -8,6 +8,11 @@ const selectedIndex = JSON.parse(
 		: '0'
 );
 
+const currentRoleBasedAccess =
+	typeof window === 'undefined'
+		? 'USER'
+		: window.localStorage.getItem('currentRoleBasedAccess');
+
 const ComponentContext = createContext({
 	isMenuOpen: false,
 	selectedIndex: selectedIndex || 0,
@@ -18,6 +23,7 @@ const ComponentContext = createContext({
 	setMenuOpen: (_open: boolean) => {},
 	setSelectedIndex: (_selectedIndex: number) => {},
 	setDeviceModalOpen: (_open: boolean) => {},
+	setCurrentRoleBasedAccess: (_role: string) => {},
 	handleSelectDeviceModal: () => {},
 	handleCloseDeviceModal: () => {},
 	toggleActivityDrawer: (
@@ -32,6 +38,7 @@ const ComponentContext = createContext({
 	isSnackOpen: false,
 	csrfToken: '',
 	setCsrfToken: (_csrfToken: string) => {},
+	currentRoleBasedAccess: currentRoleBasedAccess || 'USER',
 });
 
 const ComponentProvider = ({
@@ -55,6 +62,10 @@ const ComponentProvider = ({
 		isSnackOpen: false,
 		snackMessage: '',
 		csrfToken: '',
+		currentRoleBasedAccess:
+			typeof window === 'undefined'
+				? 'USER'
+				: (window.localStorage.getItem('currentRoleBasedAccess') as string),
 	});
 
 	const setMenuOpen = (isOpen: boolean) =>
@@ -72,6 +83,14 @@ const ComponentProvider = ({
 			'selectedIndex',
 			JSON.stringify(selectedIndex)
 		);
+	};
+
+	const setCurrentRoleBasedAccess = (role: string) => {
+		setState((prevState) => ({
+			...prevState,
+			currentRoleBasedAccess: role,
+		}));
+		window.localStorage.setItem('currentRoleBasedAccess', role);
 	};
 
 	const setDeviceModalOpen = (isModalOpen: boolean) => {
@@ -138,6 +157,7 @@ const ComponentProvider = ({
 		isSnackOpen,
 		snackMessage,
 		csrfToken,
+		currentRoleBasedAccess,
 	} = state;
 
 	return (
@@ -163,6 +183,8 @@ const ComponentProvider = ({
 				snackMessage,
 				csrfToken,
 				setCsrfToken,
+				setCurrentRoleBasedAccess,
+				currentRoleBasedAccess,
 				...props,
 			}}
 		>

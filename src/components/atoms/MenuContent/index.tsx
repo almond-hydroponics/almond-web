@@ -6,11 +6,16 @@ import { useSession } from 'next-auth/react';
 import { ChangeEvent, useContext } from 'react';
 
 const MenuContent = (): JSX.Element => {
-	const { selectedIndex, setSelectedIndex } = useContext(ComponentContext);
+	const { selectedIndex, setSelectedIndex, currentRoleBasedAccess } =
+		useContext(ComponentContext);
 	const { data: session } = useSession();
 
-	const displayMenusByRole = () =>
-		session?.user.role === 'ADMIN' ? AdminMenus : UserMenus;
+	const displayMenusByRoleBase = {
+		USER: UserMenus,
+		ADMIN: AdminMenus,
+		DEVELOPER: UserMenus,
+	};
+
 	const handleOnChange = (
 		event: ChangeEvent<HTMLDivElement>,
 		value: number
@@ -37,7 +42,7 @@ const MenuContent = (): JSX.Element => {
 			aria-label="menu tabs"
 			visibleScrollbar={false}
 		>
-			{displayMenusByRole().map((item) => (
+			{displayMenusByRoleBase[currentRoleBasedAccess].map((item) => (
 				<MenuTab
 					key={item.primaryText}
 					label={item.primaryText}

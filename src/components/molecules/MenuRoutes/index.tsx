@@ -6,7 +6,6 @@ import {
 	AllOut,
 	BubbleChart,
 	ControlCamera,
-	Help,
 	LocalFlorist,
 	Memory,
 	Opacity,
@@ -92,12 +91,6 @@ export const AdminMenus: MenuComponentProps[] = [
 		primaryText: 'Support',
 		component: AnalyticsView,
 		id: 'support',
-	},
-	{
-		icon: <Help />,
-		primaryText: 'Help',
-		component: AnalyticsView,
-		id: 'help',
 	},
 ];
 

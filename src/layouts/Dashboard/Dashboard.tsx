@@ -6,6 +6,7 @@ import {
 	Box,
 	CssBaseline,
 	Drawer,
+	LinearProgress,
 	Slide,
 	Theme,
 	Toolbar,
@@ -13,7 +14,14 @@ import {
 	useScrollTrigger,
 } from '@mui/material';
 import { alpha, useTheme } from '@mui/material/styles';
-import { ReactElement, ReactNode, cloneElement } from 'react';
+import {
+	ReactElement,
+	ReactNode,
+	cloneElement,
+	useEffect,
+	useRef,
+	useState,
+} from 'react';
 
 import { Topbar } from './components';
 
@@ -51,6 +59,12 @@ function ElevationScroll({
 	);
 }
 
+const useMounted = () => {
+	const [mounted, setMounted] = useState(false);
+	useEffect(() => setMounted(true), []);
+	return mounted;
+};
+
 interface Props {
 	children: ReactNode;
 }
@@ -58,6 +72,17 @@ interface Props {
 const Dashboard = ({ children }: Props): JSX.Element => {
 	const isSm = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
 	const theme = useTheme();
+	const isMounted = useMounted();
+
+	const mounted = useRef(false);
+
+	useEffect(() => {
+		mounted.current = true;
+
+		return () => {
+			mounted.current = false;
+		};
+	}, []);
 
 	// const options: IClientOptions = {
 	// 	username: process.env.NEXT_PUBLIC_MQTT_USERNAME,
@@ -141,7 +166,7 @@ const Dashboard = ({ children }: Props): JSX.Element => {
 				sx={{ flexGrow: 1, backgroundColor: 'background.paper' }}
 			>
 				<Toolbar />
-				{children}
+				{mounted ? children : <LinearProgress color="primary" />}
 				{isSm ? null : (
 					<Container>
 						<BottomNavigation />

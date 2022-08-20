@@ -9,7 +9,6 @@ import {
 	Box,
 	IconButton,
 	InputAdornment,
-	LinearProgress,
 	List,
 	ListItem,
 	ListItemText,
@@ -32,6 +31,7 @@ import {
 	createElement,
 	useContext,
 	useEffect,
+	useRef,
 	useState,
 } from 'react';
 // third-party libraries
@@ -90,9 +90,21 @@ const DashboardView = (): JSX.Element => {
 		roleId: '',
 	});
 
+	const { currentRoleBasedAccess } = useContext(ComponentContext);
+
 	const history = useRouter();
 
 	const isMounted = useMounted();
+
+	const mounted = useRef(false);
+
+	useEffect(() => {
+		mounted.current = true;
+
+		return () => {
+			mounted.current = false;
+		};
+	}, []);
 
 	const { data: session } = useSession();
 	const devices = session?.user?.devices || ([] as Device[]);
@@ -313,8 +325,11 @@ const DashboardView = (): JSX.Element => {
 		</SwipeableDrawer>
 	);
 
-	const displayMenusByRole = () =>
-		session?.user.role === 'ADMIN' ? AdminMenus : UserMenus;
+	const displayMenusByRoleBase = {
+		USER: UserMenus,
+		ADMIN: AdminMenus,
+		DEVELOPER: UserMenus,
+	};
 
 	return (
 		<Box
@@ -332,12 +347,12 @@ const DashboardView = (): JSX.Element => {
 					paddingX={{ xs: 1 }}
 				>
 					<TabPanel index={selectedIndex} value={selectedIndex}>
-						{!isMounted ? (
-							<LinearProgress color="primary" />
-						) : (
-							createElement(displayMenusByRole()[selectedIndex].component, {
+						{createElement(
+							displayMenusByRoleBase[currentRoleBasedAccess][selectedIndex]
+								.component,
+							{
 								history,
-							})
+							}
 						)}
 					</TabPanel>
 					{renderSelectDeviceModal()}

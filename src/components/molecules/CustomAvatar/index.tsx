@@ -1,9 +1,11 @@
 import { ComponentContext } from '@context/ComponentContext';
 import {
 	AccountCircleOutlined,
+	AdminPanelSettingsTwoTone,
+	CodeTwoTone,
+	FaceTwoTone,
 	HelpOutline,
 	Logout,
-	Mood,
 	OpenInNew,
 } from '@mui/icons-material';
 import {
@@ -14,6 +16,7 @@ import {
 	ListItemText,
 	Menu,
 	MenuItem,
+	Stack,
 	Theme,
 	Tooltip,
 	useMediaQuery,
@@ -30,6 +33,8 @@ const CustomAvatar = (): JSX.Element => {
 	const isSm = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const { data: session } = useSession();
+	const { setCurrentRoleBasedAccess, currentRoleBasedAccess } =
+		useContext(ComponentContext);
 
 	const { name, image, role } = session?.user || {
 		name: 'Anonymous User',
@@ -58,6 +63,12 @@ const CustomAvatar = (): JSX.Element => {
 		// await router.push('/');
 	};
 
+	const almondRolesBlah = [
+		{ name: 'USER', icon: <FaceTwoTone fontSize="small" /> },
+		{ name: 'ADMIN', icon: <AdminPanelSettingsTwoTone fontSize="small" /> },
+		{ name: 'DEVELOPER', icon: <CodeTwoTone fontSize="small" /> },
+	];
+
 	const open = Boolean(anchorEl);
 
 	let menuItems = [
@@ -74,7 +85,7 @@ const CustomAvatar = (): JSX.Element => {
 			secondaryText: 'Find support',
 		},
 		{
-			name: 'Send Feedback',
+			name: 'Feedback',
 			icon: <OpenInNew fontSize="small" />,
 			link: 'send-feedback',
 			secondaryText: 'Help improve almond',
@@ -154,6 +165,44 @@ const CustomAvatar = (): JSX.Element => {
 				transformOrigin={{ horizontal: 'right', vertical: 'top' }}
 				anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
 			>
+				{router.pathname === '/dashboard' && role === 'ADMIN' && (
+					<MenuItem
+						key={fancyId()}
+						sx={{
+							borderBottom: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
+							paddingY: 1,
+						}}
+					>
+						<Stack
+							direction="row"
+							justifyContent="center"
+							alignItems="center"
+							spacing={2}
+							width={1}
+						>
+							{almondRolesBlah.map((role) => (
+								<Tooltip key={role.name} title={role.name.toLowerCase()}>
+									<Button
+										onClick={() => setCurrentRoleBasedAccess(role.name)}
+										variant={
+											currentRoleBasedAccess === role.name && role.name
+												? 'contained'
+												: 'outlined'
+										}
+										aria-label={role.name}
+										sx={{
+											borderRadius: 1,
+											minWidth: 'auto',
+											// borderColor: alpha(theme.palette.divider, 0.2),
+										}}
+									>
+										{role.icon}
+									</Button>
+								</Tooltip>
+							))}
+						</Stack>
+					</MenuItem>
+				)}
 				{menuItems.map((item) => {
 					const handleClick = async () => {
 						handleProfileClose();
@@ -171,7 +220,7 @@ const CustomAvatar = (): JSX.Element => {
 							<ListItemIcon sx={{ minWidth: 44, marginRight: 1 }}>
 								<Avatar
 									sx={{
-										backgroundColor: '#e8f0fe',
+										backgroundColor: alpha(theme.palette.primary.main, 0.1),
 										color: theme.palette.primary.main,
 									}}
 								>
@@ -185,14 +234,6 @@ const CustomAvatar = (): JSX.Element => {
 						</MenuItem>
 					);
 				})}
-				{router.pathname === '/dashboard' && role === 'ADMIN' && (
-					<MenuItem onClick={handleRoleModal}>
-						<ListItemIcon>
-							<Mood fontSize="small" />
-						</ListItemIcon>
-						Change role
-					</MenuItem>
-				)}
 
 				<MenuItem>
 					<Button

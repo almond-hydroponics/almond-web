@@ -15,4 +15,5 @@ export interface ComponentContextState {
 	isSnackOpen: boolean;
 	snackMessage: string;
 	csrfToken: string;
+	currentRoleBasedAccess: string;
 }

@@ -39,7 +39,7 @@ const AdminAnalytics = (): JSX.Element => {
 			</Typography>
 			<Divider />
 			<Typography marginTop={2} variant="body1" align="left">
-				In summary, these are the latest stats from your system. Take time to
+				In summary, these are the latest stats for the platform. Take time to
 				monitor the different metrics of the client usage.
 			</Typography>
 			<Grid marginTop={4} container item xs={12} spacing={1}>

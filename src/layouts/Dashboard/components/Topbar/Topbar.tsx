@@ -3,12 +3,7 @@ import Logo from '@components/atoms/Logo';
 import { Notifications } from '@components/molecules';
 import CustomAvatar from '@components/molecules/CustomAvatar';
 import { ComponentContext } from '@context/ComponentContext';
-import {
-	ArrowDropDownTwoTone,
-	ArrowDropUpTwoTone,
-	FiberManualRecord,
-	Timeline,
-} from '@mui/icons-material';
+import { FiberManualRecord, Timeline } from '@mui/icons-material';
 import {
 	Badge,
 	Chip,
@@ -35,8 +30,12 @@ const offlineColor = '#CCCCCC';
 
 const Topbar = (): JSX.Element => {
 	const isSm = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
-	const { toggleActivityDrawer, setDeviceModalOpen, isSelectDeviceModalOpen } =
-		useContext(ComponentContext);
+	const {
+		toggleActivityDrawer,
+		setDeviceModalOpen,
+		isSelectDeviceModalOpen,
+		currentRoleBasedAccess,
+	} = useContext(ComponentContext);
 	const connectionStatus = 'Connected';
 
 	const { data: session } = useSession();
@@ -62,13 +61,6 @@ const Topbar = (): JSX.Element => {
 				return reconnectingColor;
 		}
 	};
-
-	const renderMoreButton = (handleClick) =>
-		isSelectDeviceModalOpen ? (
-			<ArrowDropUpTwoTone />
-		) : (
-			<ArrowDropDownTwoTone onClick={handleClick} />
-		);
 
 	const renderTimeLineIcon = (): JSX.Element => {
 		const handleClick = () => toggleActivityDrawer(true, true);
@@ -155,11 +147,11 @@ const Topbar = (): JSX.Element => {
 				>
 					<Logo displayText />
 				</Box>
-				{role === 'USER' && renderDevice()}
+				{currentRoleBasedAccess === 'USER' && renderDevice()}
 			</Stack>
 
 			<Box sx={{ display: 'flex' }} alignItems={'center'}>
-				<Box>{renderTimeLineIcon()}</Box>
+				<Box marginLeft={isSm ? 2 : 1}>{renderTimeLineIcon()}</Box>
 				<Box marginLeft={isSm ? 2 : 1}>
 					<Notifications />
 				</Box>
