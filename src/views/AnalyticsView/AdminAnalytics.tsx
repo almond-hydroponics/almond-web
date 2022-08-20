@@ -9,8 +9,11 @@ import {
 	LibraryBooksTwoTone,
 	ScheduleTwoTone,
 } from '@mui/icons-material';
-import { Grid } from '@mui/material';
+import { Box, Divider, Grid } from '@mui/material';
+import Typography from '@mui/material/Typography';
 import { useContext } from 'react';
+
+const background = '/img/background_illustration.svg';
 
 const AdminAnalytics = (): JSX.Element => {
 	const users = 69;
@@ -20,8 +23,26 @@ const AdminAnalytics = (): JSX.Element => {
 	const handleCardClick = (index: number) => () => setSelectedIndex(index);
 
 	return (
-		<div data-testid="admin-analytics-page">
-			<Grid container item xs={12} spacing={1}>
+		<Box
+			data-testid="regular-analytics-page"
+			sx={{
+				backgroundImage: `url(${background})`,
+				backgroundPositionX: 'center',
+				backgroundRepeat: 'no-repeat',
+			}}
+		>
+			<Typography variant="h5" align="left" fontWeight={600}>
+				Welcome to the Admin side.
+			</Typography>
+			<Typography marginTop={1} marginBottom={2} variant="body1" align="left">
+				Take a peek of what you can do here.
+			</Typography>
+			<Divider />
+			<Typography marginTop={2} variant="body1" align="left">
+				In summary, these are the latest stats from your system. Take time to
+				monitor the different metrics of the client usage.
+			</Typography>
+			<Grid marginTop={4} container item xs={12} spacing={1}>
 				<AnalyticsCard
 					onClick={handleCardClick(1)}
 					colorClass="blueCard"
@@ -45,7 +66,7 @@ const AdminAnalytics = (): JSX.Element => {
 				/>
 				<AnalyticsCard
 					onClick={handleCardClick(1)}
-					colorClass="redCard"
+					colorClass="tealCard"
 					icon={<AccountBalanceTwoTone fontSize="large" />}
 					mainInfo="Sales"
 					subInfo="4,000"
@@ -65,7 +86,7 @@ const AdminAnalytics = (): JSX.Element => {
 					subInfo="3"
 				/>
 			</Grid>
-		</div>
+		</Box>
 	);
 };
 

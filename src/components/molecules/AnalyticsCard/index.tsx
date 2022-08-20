@@ -54,21 +54,21 @@ const AnalyticsCard = ({
 			},
 		},
 		yellowCard: {
-			color: '#71340F',
-			backgroundColor: '#FEF2E8',
+			color: '#271900',
+			backgroundColor: '#ffdea6',
 			borderColor: '#71340F',
 		},
 
 		blueCard: {
-			color: '#1967d2',
-			backgroundColor: '#e8f0fe',
-			borderColor: '#1967d2',
+			color: '#282B2D',
+			backgroundColor: '#B9E3FD',
+			borderColor: '#282B2D',
 		},
 
 		purpleCard: {
-			color: '#501174',
-			backgroundColor: '#F4EEF8',
-			borderColor: '#501174',
+			color: '#332D41',
+			backgroundColor: '#EADDFF',
+			borderColor: '#332D41',
 		},
 
 		brownCard: {
@@ -77,19 +77,13 @@ const AnalyticsCard = ({
 			borderColor: '#3e2723',
 		},
 
-		redCard: {
+		tealCard: {
 			color: '#34383B',
 			backgroundColor: '#D5E4EB',
 			borderColor: '#BFD7DF',
-			// color: '#980910',
-			// backgroundColor: '#F9E3E3',
-			// borderColor: '#980910',
 		},
 
 		greenCard: {
-			// color: '#0B6F66',
-			// backgroundColor: '#E9F5E6',
-			// borderColor: '#0B6F66',
 			color: '#3E4E56',
 			backgroundColor: '#D9E9BA',
 			borderColor: '#3E4E56',
@@ -106,10 +100,10 @@ const AnalyticsCard = ({
 				<Box marginLeft={2} marginTop={1} display={{ sm: 'none' }}>
 					<Typography
 						classes={classes.mainInfo}
-						fontWeight={500}
-						fontSize={{ xs: 14, sm: 16 }}
+						// fontWeight={500}
+						// fontSize={{ xs: 14, sm: 16 }}
 						sx={{ ...classes[colorClass!] }}
-						variant="h6"
+						variant="body2"
 						data-testid="main-info"
 					>
 						{mainInfo}
@@ -133,9 +127,9 @@ const AnalyticsCard = ({
 					>
 						<Typography
 							fontWeight={500}
-							fontSize={{ xs: 14, sm: 16 }}
+							// fontSize={{ xs: 14, sm: 16 }}
 							sx={{ ...classes[colorClass!], ...classes.mainInfo }}
-							variant="h6"
+							variant="body1"
 							data-testid="main-info"
 						>
 							{mainInfo}

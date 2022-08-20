@@ -103,27 +103,27 @@ export const AdminMenus: MenuComponentProps[] = [
 
 export const BottomNavigationMenus: MenuBottomProps[] = [
 	{
-		icon: <WidgetsRounded />,
+		icon: <WidgetsRounded fontSize={'small'} />,
 		label: 'Analytics',
 		value: 'analytics',
 	},
 	{
-		icon: <Opacity />,
+		icon: <Opacity fontSize={'small'} />,
 		label: 'Water',
 		value: 'water',
 	},
 	{
-		icon: <ControlCamera />,
+		icon: <ControlCamera fontSize={'small'} />,
 		label: 'Environment',
 		value: 'environment',
 	},
 	{
-		icon: <Security />,
+		icon: <Security fontSize={'small'} />,
 		label: 'Quality',
 		value: 'quality',
 	},
 	{
-		icon: <Memory />,
+		icon: <Memory fontSize={'small'} />,
 		label: 'Energy',
 		value: 'energy',
 	},
@@ -131,27 +131,27 @@ export const BottomNavigationMenus: MenuBottomProps[] = [
 
 export const AdminBottomNavigationMenus: MenuBottomProps[] = [
 	{
-		icon: <WidgetsRounded />,
+		icon: <WidgetsRounded fontSize={'small'} />,
 		label: 'Analytics',
 		value: 'analytics',
 	},
 	{
-		icon: <AllOut />,
+		icon: <AllOut fontSize={'small'} />,
 		label: 'Devices',
 		value: 'devices',
 	},
 	{
-		icon: <People />,
+		icon: <People fontSize={'small'} />,
 		label: 'People',
 		value: 'people',
 	},
 	{
-		icon: <BubbleChart />,
+		icon: <BubbleChart fontSize={'small'} />,
 		label: 'Roles',
 		value: 'roles',
 	},
 	{
-		icon: <Spa />,
+		icon: <Spa fontSize={'small'} />,
 		label: 'Requests',
 		value: 'requests',
 	},

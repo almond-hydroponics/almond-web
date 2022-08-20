@@ -36,7 +36,7 @@ const PageBottomNavigation = (): JSX.Element => {
 					left: 0,
 					right: 0,
 					background: theme.palette.alternate.main,
-					// borderTop: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
+					borderTop: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
 				}}
 				elevation={0}
 				data-testid="bottom-navigation"

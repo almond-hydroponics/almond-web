@@ -4,7 +4,7 @@ type color =
 	| 'blueCard'
 	| 'yellowCard'
 	| 'purpleCard'
-	| 'redCard'
+	| 'tealCard'
 	| 'greenCard'
 	| 'brownCard';
 

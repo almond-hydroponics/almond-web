@@ -10,8 +10,11 @@ import {
 	OpacityTwoTone,
 	ScheduleTwoTone,
 } from '@mui/icons-material';
-import { Grid } from '@mui/material';
+import { Box, Divider, Grid } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import { Device } from '@prisma/client';
 import formatWaterLevelData from '@utils/formatWaterLevel';
+import { useSession } from 'next-auth/react';
 import { useContext, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -33,6 +36,13 @@ const RegularUserAnalytics = (): JSX.Element => {
 	const dispatch = useDispatch();
 
 	const isEmpty = (arr) => !Array.isArray(arr) || arr.length === 0;
+
+	const { data: session } = useSession();
+	const devices = (session?.user?.devices as Device[]) || [
+		{
+			name: '',
+		},
+	];
 
 	// useEffectAsync(async () => {
 	// 	dispatch(
@@ -56,9 +66,36 @@ const RegularUserAnalytics = (): JSX.Element => {
 
 	const handleCardClick = (index: number) => () => setSelectedIndex(index);
 
+	const background = '/img/background_illustration.svg';
+
 	return (
-		<div data-testid="regular-analytics-page">
-			<Grid container item xs={12} spacing={1}>
+		<Box
+			data-testid="regular-analytics-page"
+			sx={{
+				backgroundImage: `url(${background})`,
+				backgroundPositionX: 'center',
+				backgroundRepeat: 'no-repeat',
+			}}
+		>
+			<Typography variant="h5" align="left" fontWeight={600}>
+				Welcome to Almond Hydroponics!
+			</Typography>
+			<Typography marginTop={1} marginBottom={2} variant="body1" align="left">
+				Your current device is {devices[0]?.name}.
+			</Typography>
+			<Divider />
+			<Typography marginTop={2} variant="body1" align="left">
+				At a glance, here are the latest readings from your device with the
+				next scheduled watering time.
+			</Typography>
+			<Grid marginTop={4} container item xs={12} spacing={1}>
+				<AnalyticsCard
+					onClick={handleCardClick(1)}
+					colorClass="brownCard"
+					icon={<ScheduleTwoTone fontSize="large" />}
+					mainInfo="Next schedule"
+					subInfo={nextTimeSchedule}
+				/>
 				<AnalyticsCard
 					onClick={handleCardClick(1)}
 					colorClass="blueCard"
@@ -74,15 +111,8 @@ const RegularUserAnalytics = (): JSX.Element => {
 					subInfo={`${temperature ?? 0}\u00b0C`}
 				/>
 				<AnalyticsCard
-					onClick={handleCardClick(1)}
-					colorClass="brownCard"
-					icon={<ScheduleTwoTone fontSize="large" />}
-					mainInfo="Next schedule"
-					subInfo={nextTimeSchedule}
-				/>
-				<AnalyticsCard
 					onClick={handleCardClick(2)}
-					colorClass="redCard"
+					colorClass="tealCard"
 					icon={<BlurOn fontSize="large" />}
 					mainInfo="Air temperature"
 					subInfo={`${temperature ?? 0}\u00b0C`}
@@ -102,7 +132,7 @@ const RegularUserAnalytics = (): JSX.Element => {
 					subInfo="3 kW"
 				/>
 			</Grid>
-		</div>
+		</Box>
 	);
 };
 
