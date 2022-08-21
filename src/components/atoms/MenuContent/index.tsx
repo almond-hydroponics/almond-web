@@ -2,13 +2,11 @@ import { MenuTab, MenuTabs } from '@components/atoms';
 // components
 import { AdminMenus, UserMenus } from '@components/molecules/MenuRoutes';
 import { ComponentContext } from '@context/ComponentContext';
-import { useSession } from 'next-auth/react';
 import { ChangeEvent, useContext } from 'react';
 
 const MenuContent = (): JSX.Element => {
 	const { selectedIndex, setSelectedIndex, currentRoleBasedAccess } =
 		useContext(ComponentContext);
-	const { data: session } = useSession();
 
 	const displayMenusByRoleBase = {
 		USER: UserMenus,

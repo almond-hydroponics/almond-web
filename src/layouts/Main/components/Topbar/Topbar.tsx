@@ -1,15 +1,22 @@
 // components
 import { Link, Logo, Modal } from '@components/atoms';
 import CustomAvatar from '@components/molecules/CustomAvatar';
-import { AccountCircleTwoTone, Menu } from '@mui/icons-material';
+import {
+	AccountCircleTwoTone,
+	LocalGroceryStore,
+	Menu,
+} from '@mui/icons-material';
 import {
 	Avatar,
+	Badge,
 	Box,
 	Chip,
 	IconButton,
 	Stack,
+	Tooltip,
 	Typography,
 } from '@mui/material';
+import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
@@ -40,6 +47,39 @@ const Topbar = ({
 		authByEmail && setAuthByEmail(false);
 	};
 	const router = useRouter();
+
+	const renderStoreIcon = (): JSX.Element => (
+		<Tooltip title="Check device activities">
+			<Button
+				component={Link}
+				href={'/cart'}
+				size={'small'}
+				variant={'outlined'}
+				aria-label="Dark mode toggler"
+				color="primary"
+				sx={{
+					borderRadius: 1,
+					minWidth: 'auto',
+					padding: 0.5,
+					marginRight: 2,
+					// borderColor: alpha(theme.palette.divider, 0.2),
+				}}
+			>
+				<Badge
+					// overlap="circular"
+					// variant="dot"
+					anchorOrigin={{
+						vertical: 'top',
+						horizontal: 'right',
+					}}
+					color="secondary"
+					badgeContent={1}
+				>
+					<LocalGroceryStore fontSize={'small'} color="primary" />
+				</Badge>
+			</Button>
+		</Tooltip>
+	);
 
 	const renderAuthButtons = () => (
 		<Box sx={{ display: { xs: 'none', md: 'flex' } }}>
@@ -169,16 +209,21 @@ const Topbar = ({
 				</Box>
 			</Box>
 
-			{renderAuthButtons()}
-
-			<Box sx={{ display: { xs: 'flex', md: 'none' } }} alignItems={'center'}>
-				<IconButton
-					onClick={onSidebarOpen}
-					aria-label="Menu"
-					sx={{ padding: 0, margin: 0 }}
+			<Box sx={{ display: 'flex' }} alignItems={'center'}>
+				{renderStoreIcon()}
+				{renderAuthButtons()}
+				<Box
+					sx={{ display: { xs: 'flex', md: 'none' } }}
+					alignItems={'center'}
 				>
-					<Menu fontSize={'medium'} />
-				</IconButton>
+					<IconButton
+						onClick={onSidebarOpen}
+						aria-label="Menu"
+						sx={{ padding: 0, margin: 0 }}
+					>
+						<Menu fontSize={'medium'} />
+					</IconButton>
+				</Box>
 			</Box>
 			{renderAuthModal()}
 		</Box>

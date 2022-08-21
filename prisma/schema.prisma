@@ -70,8 +70,8 @@ model Device {
   name      String     @unique @db.VarChar(255)
   user      User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String?
-  verified  Boolean? @default(false)
-  active    Boolean? @default(false)
+  verified  Boolean?   @default(false)
+  active    Boolean?   @default(false)
   createdAt DateTime?  @default(now())
   updatedAt DateTime?  @updatedAt
   schedule  Schedule[]
@@ -85,7 +85,7 @@ model Post {
   contentHtml  String    @db.Text
   thumbnailUrl String?
   published    Boolean   @default(false)
-  author       User?     @relation(fields: [authorId], references: [id])
+  author       User?     @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId     String?
   createdAt    DateTime? @default(now())
   updatedAt    DateTime? @updatedAt
@@ -94,12 +94,13 @@ model Post {
 }
 
 model Schedule {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   schedule  String
-  enabled   Boolean? @default(true)
-  device    Device?  @relation(fields: [deviceId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  enabled   Boolean?  @default(true)
+  device    Device?   @relation(fields: [deviceId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   deviceId  String?
-  createdAt DateTime @default(now())
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
 
   @@index([deviceId])
 }

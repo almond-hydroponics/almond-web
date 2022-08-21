@@ -4,7 +4,7 @@ import Container from 'components/Container';
 import Main from 'layouts/Main';
 
 import { News } from '../StoreView/components';
-import { About, Features, Hero, Places, Services } from './components';
+import { Hero, Places, Services } from './components';
 
 interface Props {
 	posts: any;
@@ -56,16 +56,16 @@ const IndexView = ({ posts }: Props): JSX.Element => {
 				{/*<Container>*/}
 				{/*	<QuickStart />*/}
 				{/*</Container>*/}
-				<Container>
-					<Features />
-				</Container>
-				<Box paddingTop={{ md: 8 }}>
-					<Box bgcolor={'alternate.main'}>
-						<Container>
-							<About />
-						</Container>
-					</Box>
-				</Box>
+				{/*<Container>*/}
+				{/*	<Features />*/}
+				{/*</Container>*/}
+				{/*<Box paddingTop={{ md: 8 }}>*/}
+				{/*	<Box bgcolor={'alternate.main'}>*/}
+				{/*		<Container>*/}
+				{/*			<About />*/}
+				{/*		</Container>*/}
+				{/*	</Box>*/}
+				{/*</Box>*/}
 				<Container>
 					<Places />
 				</Container>

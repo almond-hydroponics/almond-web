@@ -15,7 +15,7 @@ import {
 	WidgetsRounded,
 } from '@mui/icons-material';
 import AnalyticsView from 'views/AnalyticsView';
-// import DeviceManagementView from 'views/DeviceManagementView';
+import DeviceManagementView from 'views/DeviceManagementView';
 // import EnvironmentControlView from 'views/EnvironmentControlView';
 // import PeopleView from 'views/PeopleView';
 // import SupportView from 'views/SupportView';
@@ -71,7 +71,7 @@ export const AdminMenus: MenuComponentProps[] = [
 	{
 		icon: <AllOut />,
 		primaryText: 'Devices',
-		component: AnalyticsView,
+		component: DeviceManagementView,
 		id: 'devices',
 	},
 	{

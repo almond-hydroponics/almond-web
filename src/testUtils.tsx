@@ -1,6 +1,6 @@
 import { StyledEngineProvider } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/styles';
-import { makeStore } from '@store/index';
+import store from '@store/index';
 import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 
@@ -21,7 +21,6 @@ jest.mock('next-auth/react', () => {
 	};
 });
 
-const store = makeStore();
 const theme = getTheme('light');
 
 const ReduxProvider = ({ children, reduxStore }) => (

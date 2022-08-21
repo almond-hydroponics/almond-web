@@ -1,5 +1,5 @@
 import { Link } from '@components/atoms';
-import { ArrowBack } from '@mui/icons-material';
+import { LocalGroceryStoreTwoTone } from '@mui/icons-material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
@@ -8,7 +8,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import Container from 'components/Container';
 import Main from 'layouts/Main';
 
-const NotFound = (): JSX.Element => {
+const CartView = (): JSX.Element => {
 	const theme = useTheme();
 	const isMd = useMediaQuery(theme.breakpoints.up('md'), {
 		defaultMatches: true,
@@ -26,22 +26,19 @@ const NotFound = (): JSX.Element => {
 				height={'100%'}
 			>
 				<Container>
-					<Typography variant="h2" align="center" fontWeight={600}>
-						Oops!
-					</Typography>
-					<Typography variant="h2" align="center">
-						You broke the internet.
+					<Typography variant="h4" align="center" fontWeight={500}>
+						Your cart is empty!
 					</Typography>
 					<Box marginTop={4} display={'flex'} justifyContent="center">
 						<Button
 							component={Link}
-							href={'/'}
-							variant="contained"
+							href={'/store'}
+							variant="outlined"
 							color="primary"
 							size="large"
-							startIcon={<ArrowBack />}
+							endIcon={<LocalGroceryStoreTwoTone />}
 						>
-							Return to home
+							Continue shopping
 						</Button>
 					</Box>
 				</Container>
@@ -50,4 +47,4 @@ const NotFound = (): JSX.Element => {
 	);
 };
 
-export default NotFound;
+export default CartView;

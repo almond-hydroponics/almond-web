@@ -1,7 +1,5 @@
 import { AnalyticsCard } from '@components/molecules';
 import { ComponentContext } from '@context/ComponentContext';
-// interfaces
-// components
 import {
 	BlurOn,
 	BubbleChart,
@@ -16,26 +14,14 @@ import { Device } from '@prisma/client';
 import formatWaterLevelData from '@utils/formatWaterLevel';
 import { useSession } from 'next-auth/react';
 import { useContext, useState } from 'react';
-import { useDispatch } from 'react-redux';
 
 const RegularUserAnalytics = (): JSX.Element => {
 	const { setSelectedIndex } = useContext(ComponentContext);
-	// const { temperature, humidity, waterLevel } = useSelector(
-	// 	(globalState: IRootState) => globalState.sensorData.sensorData
-	// );
-	// const { schedules } = useSelector(
-	// 	(globalState: IRootState) => globalState.timeSchedules
-	// );
 	const temperature = 27;
 	const humidity = 50;
 	const waterLevel = 400;
 
-	const schedules = [];
-
 	const [nextTimeSchedule, setNextTimeSchedule] = useState('00:00');
-	const dispatch = useDispatch();
-
-	const isEmpty = (arr) => !Array.isArray(arr) || arr.length === 0;
 
 	const { data: session } = useSession();
 	const devices = (session?.user?.devices as Device[]) || [

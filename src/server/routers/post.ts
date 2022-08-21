@@ -1,12 +1,11 @@
-import { markdownToHtml } from '@/lib/editor';
-import { postToSlackIfEnabled } from '@/lib/slack';
+import { markdownToHtml } from '@lib/editor';
 import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
 
 import { createProtectedRouter } from '../create-protected-router';
 
 export const postRouter = createProtectedRouter()
-	.query('feed', {
+	.query('all', {
 		input: z
 			.object({
 				take: z.number().min(1).max(50).optional(),
@@ -18,7 +17,7 @@ export const postRouter = createProtectedRouter()
 			const take = input?.take ?? 50;
 			const skip = input?.skip;
 			const where = {
-				hidden: ctx.isUserAdmin ? undefined : false,
+				published: ctx.isUserAdmin ? undefined : false,
 				authorId: input?.authorId,
 			};
 
@@ -34,30 +33,12 @@ export const postRouter = createProtectedRouter()
 					title: true,
 					contentHtml: true,
 					createdAt: true,
-					hidden: true,
+					published: true,
 					author: {
 						select: {
 							id: true,
 							name: true,
 							image: true,
-						},
-					},
-					likedBy: {
-						orderBy: {
-							createdAt: 'asc',
-						},
-						select: {
-							user: {
-								select: {
-									id: true,
-									name: true,
-								},
-							},
-						},
-					},
-					_count: {
-						select: {
-							comments: true,
 						},
 					},
 				},
@@ -75,7 +56,7 @@ export const postRouter = createProtectedRouter()
 	})
 	.query('detail', {
 		input: z.object({
-			id: z.number(),
+			id: z.string(),
 		}),
 		async resolve({ ctx, input }) {
 			const { id } = input;
@@ -87,7 +68,7 @@ export const postRouter = createProtectedRouter()
 					content: true,
 					contentHtml: true,
 					createdAt: true,
-					hidden: true,
+					published: true,
 					author: {
 						select: {
 							id: true,
@@ -95,43 +76,15 @@ export const postRouter = createProtectedRouter()
 							image: true,
 						},
 					},
-					likedBy: {
-						orderBy: {
-							createdAt: 'asc',
-						},
-						select: {
-							user: {
-								select: {
-									id: true,
-									name: true,
-								},
-							},
-						},
-					},
-					comments: {
-						orderBy: {
-							createdAt: 'asc',
-						},
-						select: {
-							id: true,
-							content: true,
-							contentHtml: true,
-							createdAt: true,
-							author: {
-								select: {
-									id: true,
-									name: true,
-									image: true,
-								},
-							},
-						},
-					},
 				},
 			});
 
-			const postBelongsToUser = post?.author.id === ctx.session.user.id;
+			const postBelongsToUser = post?.author?.id === ctx.session.user.id;
 
-			if (!post || (post.hidden && !postBelongsToUser && !ctx.isUserAdmin)) {
+			if (
+				!post ||
+				(post.published && !postBelongsToUser && !ctx.isUserAdmin)
+			) {
 				throw new TRPCError({
 					code: 'NOT_FOUND',
 					message: `No post with id '${id}'`,
@@ -141,34 +94,13 @@ export const postRouter = createProtectedRouter()
 			return post;
 		},
 	})
-	.query('search', {
-		input: z.object({
-			query: z.string().min(1),
-		}),
-		async resolve({ input, ctx }) {
-			const posts = await ctx.prisma.post.findMany({
-				take: 10,
-				where: {
-					hidden: false,
-					title: { search: input.query },
-					content: { search: input.query },
-				},
-				select: {
-					id: true,
-					title: true,
-				},
-			});
-
-			return posts;
-		},
-	})
 	.mutation('add', {
 		input: z.object({
 			title: z.string().min(1),
 			content: z.string().min(1),
 		}),
 		async resolve({ ctx, input }) {
-			const post = await ctx.prisma.post.create({
+			return await ctx.prisma.post.create({
 				data: {
 					title: input.title,
 					content: input.content,
@@ -180,15 +112,11 @@ export const postRouter = createProtectedRouter()
 					},
 				},
 			});
-
-			await postToSlackIfEnabled({ post, authorName: ctx.session.user.name });
-
-			return post;
 		},
 	})
 	.mutation('edit', {
 		input: z.object({
-			id: z.number(),
+			id: z.string(),
 			data: z.object({
 				title: z.string().min(1),
 				content: z.string().min(1),
@@ -208,13 +136,13 @@ export const postRouter = createProtectedRouter()
 				},
 			});
 
-			const postBelongsToUser = post?.author.id === ctx.session.user.id;
+			const postBelongsToUser = post?.author?.id === ctx.session.user.id;
 
 			if (!postBelongsToUser) {
 				throw new TRPCError({ code: 'FORBIDDEN' });
 			}
 
-			const updatedPost = await ctx.prisma.post.update({
+			return await ctx.prisma.post.update({
 				where: { id },
 				data: {
 					title: data.title,
@@ -222,12 +150,10 @@ export const postRouter = createProtectedRouter()
 					contentHtml: markdownToHtml(data.content),
 				},
 			});
-
-			return updatedPost;
 		},
 	})
 	.mutation('delete', {
-		input: z.number(),
+		input: z.string(),
 		async resolve({ input: id, ctx }) {
 			const post = await ctx.prisma.post.findUnique({
 				where: { id },
@@ -240,7 +166,7 @@ export const postRouter = createProtectedRouter()
 				},
 			});
 
-			const postBelongsToUser = post?.author.id === ctx.session.user.id;
+			const postBelongsToUser = post?.author?.id === ctx.session.user.id;
 
 			if (!postBelongsToUser) {
 				throw new TRPCError({ code: 'FORBIDDEN' });
@@ -250,77 +176,39 @@ export const postRouter = createProtectedRouter()
 			return id;
 		},
 	})
-	.mutation('like', {
-		input: z.number(),
-		async resolve({ input: id, ctx }) {
-			await ctx.prisma.likedPosts.create({
-				data: {
-					post: {
-						connect: {
-							id,
-						},
-					},
-					user: {
-						connect: {
-							id: ctx.session.user.id,
-						},
-					},
-				},
-			});
-
-			return id;
-		},
-	})
-	.mutation('unlike', {
-		input: z.number(),
-		async resolve({ input: id, ctx }) {
-			await ctx.prisma.likedPosts.delete({
-				where: {
-					postId_userId: {
-						postId: id,
-						userId: ctx.session.user.id,
-					},
-				},
-			});
-
-			return id;
-		},
-	})
-	.mutation('hide', {
-		input: z.number(),
+	.mutation('publish', {
+		input: z.string(),
 		async resolve({ input: id, ctx }) {
 			if (!ctx.isUserAdmin) {
 				throw new TRPCError({ code: 'FORBIDDEN' });
 			}
 
-			const post = await ctx.prisma.post.update({
+			return await ctx.prisma.post.update({
 				where: { id },
 				data: {
-					hidden: true,
+					published: true,
 				},
 				select: {
 					id: true,
 				},
 			});
-			return post;
 		},
 	})
-	.mutation('unhide', {
-		input: z.number(),
+	.mutation('unpublish', {
+		input: z.string(),
 		async resolve({ input: id, ctx }) {
 			if (!ctx.isUserAdmin) {
 				throw new TRPCError({ code: 'FORBIDDEN' });
 			}
 
-			const post = await ctx.prisma.post.update({
+			return await ctx.prisma.post.update({
 				where: { id },
 				data: {
-					hidden: false,
+					published: false,
 				},
 				select: {
 					id: true,
 				},
 			});
-			return post;
 		},
 	});
