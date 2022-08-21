@@ -1,27 +1,21 @@
-import { markdownToHtml } from '@/lib/editor';
 import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
 
 import { createProtectedRouter } from '../create-protected-router';
 
-export const deviceRouter = createProtectedRouter()
+export const scheduleRouter = createProtectedRouter()
 	.mutation('add', {
 		input: z.object({
-			postId: z.number(),
-			name: z.string().min(1),
+			deviceId: z.string(),
+			schedule: z.string().min(1),
 		}),
 		async resolve({ ctx, input }) {
-			return await ctx.prisma.device.create({
+			return await ctx.prisma.schedule.create({
 				data: {
-					name: input.name,
-					author: {
+					schedule: input.schedule,
+					device: {
 						connect: {
-							id: ctx.session.user.id,
-						},
-					},
-					post: {
-						connect: {
-							id: input.postId,
+							id: input.deviceId,
 						},
 					},
 				},
@@ -30,63 +24,66 @@ export const deviceRouter = createProtectedRouter()
 	})
 	.mutation('edit', {
 		input: z.object({
-			id: z.number(),
+			id: z.string(),
 			data: z.object({
-				content: z.string().min(1),
+				schedule: z.string().min(1),
+				enabled: z.boolean().optional(),
 			}),
 		}),
 		async resolve({ ctx, input }) {
 			const { id, data } = input;
 
-			const comment = await ctx.prisma.comment.findUnique({
+			const schedule = await ctx.prisma.schedule.findUnique({
 				where: { id },
 				select: {
-					author: {
+					device: {
 						select: {
 							id: true,
+							userId: true,
 						},
 					},
 				},
 			});
 
-			const commentBelongsToUser = comment?.author.id === ctx.session.user.id;
+			const scheduleBelongsToUser =
+				schedule?.device?.userId === ctx.session.user.id;
 
-			if (!commentBelongsToUser) {
+			if (!scheduleBelongsToUser) {
 				throw new TRPCError({ code: 'FORBIDDEN' });
 			}
 
-			const updatedComment = await ctx.prisma.comment.update({
+			return await ctx.prisma.schedule.update({
 				where: { id },
 				data: {
-					content: data.content,
-					contentHtml: markdownToHtml(data.content),
+					schedule: data.schedule,
+					enabled: data.enabled,
 				},
 			});
-
-			return updatedComment;
 		},
 	})
 	.mutation('delete', {
-		input: z.number(),
+		input: z.string(),
 		async resolve({ input: id, ctx }) {
-			const comment = await ctx.prisma.comment.findUnique({
+			const schedule = await ctx.prisma.schedule.findUnique({
 				where: { id },
 				select: {
-					author: {
+					device: {
 						select: {
 							id: true,
+							userId: true,
 						},
 					},
 				},
 			});
 
-			const commentBelongsToUser = comment?.author.id === ctx.session.user.id;
+			const scheduleBelongsToUser =
+				schedule?.device?.userId === ctx.session.user.id;
 
-			if (!commentBelongsToUser) {
+			if (!scheduleBelongsToUser) {
 				throw new TRPCError({ code: 'FORBIDDEN' });
 			}
 
-			await ctx.prisma.comment.delete({ where: { id } });
+			await ctx.prisma.device.delete({ where: { id } });
 			return id;
 		},
 	});
