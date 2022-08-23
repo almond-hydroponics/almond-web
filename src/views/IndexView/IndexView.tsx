@@ -1,8 +1,8 @@
 import Box from '@mui/material/Box';
 import { alpha, useTheme } from '@mui/material/styles';
 import Container from 'components/Container';
-import Main from 'layouts/Main';
 
+import { Main } from '../../layouts';
 import { News } from '../StoreView/components';
 import { Hero, Places, Services } from './components';
 

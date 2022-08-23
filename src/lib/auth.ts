@@ -25,28 +25,29 @@ export const authOptions: NextAuthOptions = {
 		async session({ session, user }) {
 			const devices = await prisma.device.findMany({
 				where: {
-					user: { id: user.id },
+					user: { id: user?.id },
 				},
 				select: {
 					id: true,
 					name: true,
 					active: true,
+					identifier: true,
 				},
 			});
 			return {
 				...session,
 				user: {
 					...session.user,
-					devices,
-					id: user.id,
-					role: user.role,
+					devices: devices || [],
+					id: user.id || '',
+					role: user.role || Role.USER,
 				},
 			};
 		},
 	},
-	pages: {
-		signIn: '/login',
-	},
+	// pages: {
+	// 	signIn: '/login',
+	// },
 	secret: serverEnv.NEXTAUTH_SECRET,
 	debug: process.env.NODE_ENV === 'development',
 };
@@ -59,7 +60,7 @@ declare module 'next-auth' {
 			email: string;
 			image?: string | null;
 			role: Role;
-			devices: Pick<Device, 'id' | 'name' | 'active'>[];
+			devices: Pick<Device, 'id' | 'name' | 'active' | 'identifier'>[];
 		};
 	}
 

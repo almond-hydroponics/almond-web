@@ -14,7 +14,7 @@ export const skeletonColumns = (columns: any[]) => {
 		return {
 			...item,
 			renderCell: () => (
-				<Box sx={{ minWidth: item.minWidth ? item.minWidth - 30 : 100 }}>
+				<Box sx={{ minWidth: item?.minWidth ? item?.minWidth - 30 : 100 }}>
 					<Skeleton animation="wave" />
 				</Box>
 			),
@@ -33,11 +33,10 @@ export const skeletonRows = (columns: any[]) => {
 };
 
 interface Props {
-	pageTitle?: string;
 	columns: any[];
 }
 
-const SkeletonLoader = ({ pageTitle, columns }: Props): JSX.Element => {
+const SkeletonLoader = ({ columns }: Props): JSX.Element => {
 	const modColumns = columns?.map((item) => {
 		if (item.renderCell) {
 			delete item.renderCell;
@@ -59,7 +58,7 @@ const SkeletonLoader = ({ pageTitle, columns }: Props): JSX.Element => {
 			{}
 		);
 
-	const rows = generateArray(30, createSkeletonRows);
+	const rows = generateArray(7, createSkeletonRows);
 
 	return (
 		<Dashboard>

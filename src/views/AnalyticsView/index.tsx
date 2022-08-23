@@ -5,11 +5,11 @@ import AdminAnalytics from './AdminAnalytics';
 import RegularUserAnalytics from './RegularUserAnalytics';
 
 export const AnalyticsView = (): JSX.Element => {
-	const { currentRoleBasedAccess } = useContext(ComponentContext);
+	const { currentRoleBasedAccess, isAdmin } = useContext(ComponentContext);
 
 	const dashboardView = {
 		USER: <RegularUserAnalytics />,
-		ADMIN: <AdminAnalytics />,
+		ADMIN: isAdmin ? <AdminAnalytics /> : <RegularUserAnalytics />,
 		DEVELOPER: <RegularUserAnalytics />,
 	};
 

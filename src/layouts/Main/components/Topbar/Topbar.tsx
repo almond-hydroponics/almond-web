@@ -39,7 +39,7 @@ const Topbar = ({
 	const [openAuthModal, setAuthModalOpen] = useState<boolean>(false);
 	const [authByEmail, setAuthByEmail] = useState<boolean>(false);
 	const theme = useTheme();
-	const { data: session } = useSession();
+	const { data: session, status } = useSession();
 	const linkColor = colorInvert ? 'common.white' : 'text.primary';
 
 	const handleAuthModal = () => {
@@ -73,7 +73,7 @@ const Topbar = ({
 						horizontal: 'right',
 					}}
 					color="secondary"
-					badgeContent={1}
+					badgeContent={0}
 				>
 					<LocalGroceryStore fontSize={'small'} color="primary" />
 				</Badge>
@@ -83,15 +83,15 @@ const Topbar = ({
 
 	const renderAuthButtons = () => (
 		<Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-			{!!session ? (
+			{status === 'authenticated' ? (
 				<CustomAvatar />
 			) : (
 				<Chip
 					size="medium"
-					label="Login"
+					label="Account"
 					variant="outlined"
 					color="primary"
-					onClick={() => router.push('/login')}
+					onClick={handleAuthModal}
 					avatar={
 						<Avatar
 							alt={'Anonymous User'}

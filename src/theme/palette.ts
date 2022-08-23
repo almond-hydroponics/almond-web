@@ -3,7 +3,7 @@ import { PaletteMode } from '@mui/material';
 export const light = {
 	alternate: {
 		// main: '#f7f9fc',
-		main: '#f4f4f6',
+		main: '#f8f9fa',
 		dark: '#edf1f7',
 	},
 	cardShadow: 'rgba(23, 70, 161, .11)',

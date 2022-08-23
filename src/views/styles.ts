@@ -7,22 +7,20 @@ export const useTableStyles = makeStyles((theme: Theme) =>
 		root: {
 			border: 0,
 			WebkitFontSmoothing: 'auto',
+			'& .MuiDataGrid-root': {
+				border: 'none',
+			},
 			'& .MuiDataGridIconSeparator': {
 				display: 'none',
 			},
-			// '& .MuiDataGrid-colCell, .MuiDataGrid-cell': {
-			// 	paddingLeft: 2,
-			// 	paddingRight: 2,
-			// },
-			'& .tableHeader': {
-				color: theme.palette.primary.main,
-				// fontWeight: 500,
-			},
-			'& .MuiDataGridCell': {
-				fontSize: 12,
-				[theme.breakpoints.down('sm')]: {
-					fontSize: 12,
-				},
+			'& .MuiDataGrid-cell': {
+				// fontSize: 12,
+				color: theme.palette.text.secondary,
+				fontWeight: 400,
+				// [theme.breakpoints.down('sm')]: {
+				// 	fontSize: 12,
+				// 	color: theme.palette.text.secondary,
+				// },
 			},
 			'& .MuiDataGrid-columnSeparator': {
 				display: 'none !important',
@@ -39,25 +37,16 @@ export const useTableStyles = makeStyles((theme: Theme) =>
 			'& .MuiPaginationItemRoot': {
 				borderRadius: 0,
 			},
-			'& .MuiDataGrid-columnHeaders': {
-				backgroundColor: theme.palette.alternate.dark,
-			},
+			// '& .MuiDataGrid-columnHeaders': {
+			// 	backgroundColor: theme.palette.alternate.dark,
+			// },
 			'& .MuiDataGrid-columnHeaderTitleContainer': {
 				padding: '0 !important',
 			},
 			'& .MuiDataGrid-columnHeaderTitle': {
-				// color: theme.palette.primary.main,
-				fontWeight: 500,
+				color: theme.palette.text.secondary,
+				fontWeight: 400,
 			},
-			// '& .tableCell': {
-			// 	fontWeight: 500,
-			// 	fontSize: 20,
-			// },
-			// '& .MuiDataGridCell': {
-			// 	[theme.breakpoints.down('sm')]: {
-			// 		fontSize: 12,
-			// 	},
-			// },
 			'& .MuiDataGrid-row:nth-child(even)': {
 				backgroundColor: alpha(theme.palette.alternate.dark, 0.3),
 			},
@@ -65,7 +54,7 @@ export const useTableStyles = makeStyles((theme: Theme) =>
 				backgroundColor: '#D9E9BA',
 				color: '#3E4E56',
 				borderColor: '#ffffff',
-				fontWeight: 500,
+				fontWeight: 400,
 			},
 			'& .data-cell-grid.verify': {
 				color: '#282B2D',

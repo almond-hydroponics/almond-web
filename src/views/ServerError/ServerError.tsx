@@ -1,3 +1,4 @@
+import { Main } from '@layouts/index';
 import { Replay } from '@mui/icons-material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -5,7 +6,6 @@ import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Container from 'components/Container';
-import Main from 'layouts/Main';
 import Link from 'next/link';
 
 const ServerError = (): JSX.Element => {
@@ -29,7 +29,7 @@ const ServerError = (): JSX.Element => {
 					<Typography variant="h2" align="center" fontWeight={600}>
 						Oops!
 					</Typography>
-					<Typography variant="h2" align="center">
+					<Typography variant="h3" align="center">
 						Something went wrong.
 					</Typography>
 					<Typography variant="body1" align="center" paddingTop={3}>

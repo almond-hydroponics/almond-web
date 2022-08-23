@@ -5,12 +5,12 @@ import { ComponentContext } from '@context/ComponentContext';
 import { ChangeEvent, useContext } from 'react';
 
 const MenuContent = (): JSX.Element => {
-	const { selectedIndex, setSelectedIndex, currentRoleBasedAccess } =
+	const { selectedIndex, setSelectedIndex, currentRoleBasedAccess, isAdmin } =
 		useContext(ComponentContext);
 
 	const displayMenusByRoleBase = {
 		USER: UserMenus,
-		ADMIN: AdminMenus,
+		ADMIN: isAdmin ? AdminMenus : UserMenus,
 		DEVELOPER: UserMenus,
 	};
 

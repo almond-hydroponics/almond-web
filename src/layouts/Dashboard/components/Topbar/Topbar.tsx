@@ -15,13 +15,10 @@ import {
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
-import { Device, Role } from '@prisma/client';
+import { Device } from '@prisma/client';
 import arrayIsEmpty from '@utils/arrayIsEmpty';
 import { useSession } from 'next-auth/react';
 import { useContext } from 'react';
-
-// import { activityLogs } from '@views/DashboardContainer/DashboardContainer';
-// import { useMqttState } from 'mqtt-react-hooks';
 
 const connectedColor = '#76ff03';
 const reconnectingColor = '#FFCE56';
@@ -29,17 +26,17 @@ const closedColor = '#ff1744';
 const offlineColor = '#CCCCCC';
 
 const Topbar = (): JSX.Element => {
-	const isSm = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
+	const isSm = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'));
 	const {
 		toggleActivityDrawer,
 		setDeviceModalOpen,
 		isSelectDeviceModalOpen,
 		currentRoleBasedAccess,
+		isAdmin,
 	} = useContext(ComponentContext);
 	const connectionStatus = 'Connected';
 
 	const { data: session } = useSession();
-	const role = session?.user?.role as Role;
 	const devices = session?.user?.devices || ([] as Device[]);
 
 	const theme = useTheme();
@@ -147,7 +144,7 @@ const Topbar = (): JSX.Element => {
 				>
 					<Logo displayText />
 				</Box>
-				{currentRoleBasedAccess === 'USER' && renderDevice()}
+				{!isAdmin && renderDevice()}
 			</Stack>
 
 			<Box sx={{ display: 'flex' }} alignItems={'center'}>

@@ -4,7 +4,7 @@ import {
 	skeletonRows,
 } from '@components/molecules/SkeletonLoader';
 import { InferQueryPathAndInput, trpc } from '@lib/trpc';
-import { Chip, Stack, Typography } from '@mui/material';
+import { Box, Chip, Grid, Stack, Typography } from '@mui/material';
 import { red } from '@mui/material/colors';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -496,23 +496,23 @@ export const DeviceManagementView = (): JSX.Element => {
 	const columns: GridColDef[] = [
 		{
 			field: 'id',
-			headerName: 'Device',
-			width: 250,
+			headerName: 'Device ID',
+			minWidth: 250,
 		},
 		{
 			field: 'name',
-			headerName: 'Device ID',
-			width: 150,
+			headerName: 'Name',
+			minWidth: 150,
 		},
 		{
 			field: 'user',
 			headerName: 'User',
-			width: 200,
+			minWidth: 200,
 		},
 		{
 			field: 'status',
 			headerName: 'Status',
-			width: 150,
+			minWidth: 150,
 			cellClassName: ({ value }: GridCellParams<string>) => {
 				return clsx('data-cell-grid', {
 					verify: value === 'not-verified',
@@ -524,7 +524,7 @@ export const DeviceManagementView = (): JSX.Element => {
 		{
 			field: 'actions',
 			headerName: 'Actions',
-			width: 150,
+			minWidth: 150,
 			renderCell: ({ value }: GridCellParams) =>
 				renderActionButtons(value as Device),
 		},
@@ -548,11 +548,63 @@ export const DeviceManagementView = (): JSX.Element => {
 	}));
 
 	return (
-		<DataTable
-			rows={!devices ? skeletonRows(columns) : rows}
-			columns={!devices ? skeletonColumns(columns) : columns}
-			// error={error}
-		/>
+		<Box sx={{ flexGrow: 1 }}>
+			<Grid
+				container
+				direction="row"
+				justifyContent="center"
+				alignItems="stretch"
+				spacing={2}
+			>
+				<Grid item xs={12} sm={8}>
+					<Box
+						bgcolor={'background.paper'}
+						sx={{
+							border: '1px solid #dadce0',
+							borderRadius: 2,
+						}}
+					>
+						<DataTable
+							rows={!devices ? skeletonRows(columns) : rows}
+							columns={!devices ? skeletonColumns(columns) : columns}
+						/>
+					</Box>
+				</Grid>
+				<Grid item xs>
+					<Stack
+						direction="column"
+						justifyContent="center"
+						alignItems="stretch"
+						spacing={2}
+					>
+						<Box
+							bgcolor={'background.paper'}
+							sx={{
+								border: '1px solid #dadce0',
+								borderRadius: 2,
+							}}
+						>
+							<DataTable
+								rows={!devices ? skeletonRows(columns) : rows}
+								columns={!devices ? skeletonColumns(columns) : columns}
+							/>
+						</Box>
+						{/*<Box*/}
+						{/*	bgcolor={'background.paper'}*/}
+						{/*	sx={{*/}
+						{/*		border: '1px solid #dadce0',*/}
+						{/*		borderRadius: 2,*/}
+						{/*	}}*/}
+						{/*>*/}
+						{/*	<DataTable*/}
+						{/*		rows={!devices ? skeletonRows(columns) : rows}*/}
+						{/*		columns={!devices ? skeletonColumns(columns) : columns}*/}
+						{/*	/>*/}
+						{/*</Box>*/}
+					</Stack>
+				</Grid>
+			</Grid>
+		</Box>
 	);
 };
 

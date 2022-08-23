@@ -1,14 +1,16 @@
 import CustomAvatar from '@components/molecules/CustomAvatar';
 // components
 import { ArrowBackRounded } from '@mui/icons-material';
-import { IconButton, Typography } from '@mui/material';
+import { Avatar, Chip, IconButton, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 
 const Topbar = (): JSX.Element => {
 	const router = useRouter();
 	const theme = useTheme();
+	const { data: session } = useSession();
 
 	return (
 		<Box
@@ -29,7 +31,26 @@ const Topbar = (): JSX.Element => {
 				</Typography>
 			</Box>
 			<Box>
-				<CustomAvatar />
+				{!!session ? (
+					<CustomAvatar />
+				) : (
+					<Chip
+						size="medium"
+						label="Login"
+						variant="outlined"
+						color="primary"
+						avatar={
+							<Avatar
+								alt={'Anonymous User'}
+								src={'/img/avatar_male.svg'}
+								aria-describedby="menu-popover"
+								aria-controls="menu-popover"
+								aria-haspopup="true"
+								typeof="button"
+							/>
+						}
+					/>
+				)}
 			</Box>
 		</Box>
 	);

@@ -2,7 +2,6 @@ import {
 	CustomErrorOverlay,
 	CustomLoadingOverlay,
 	CustomNoRowsOverlay,
-	CustomPagination,
 } from '@components/atoms';
 import { Divider } from '@mui/material';
 import { alpha, useTheme } from '@mui/material/styles';
@@ -51,13 +50,12 @@ const DataTable = ({
 				<GridToolbarFilterButton />
 				<Divider orientation="vertical" variant="middle" flexItem />
 				<GridToolbarDensitySelector />
-				<Divider orientation="vertical" variant="middle" flexItem />
 			</GridToolbarContainer>
 		);
 	};
 
 	return (
-		<div style={{ height: '85vh', width: '100%' }}>
+		<div style={{ height: '85vh', width: '100%', padding: '12px' }}>
 			<div style={{ display: 'flex', height: '100%' }}>
 				<div style={{ flexGrow: 1 }} className={classes.root}>
 					<DataGrid
@@ -69,10 +67,10 @@ const DataTable = ({
 						}))}
 						autoPageSize
 						pagination
-						density="compact"
+						density="standard"
 						components={{
-							Toolbar: customToolbar,
-							Pagination: CustomPagination,
+							// Toolbar: customToolbar,
+							// Pagination: CustomPagination,
 							LoadingOverlay: CustomLoadingOverlay,
 							NoRowsOverlay: CustomNoRowsOverlay,
 							ErrorOverlay: CustomErrorOverlay,

@@ -19,7 +19,7 @@ import {
 	Typography,
 } from '@mui/material';
 import { alpha, useTheme } from '@mui/material/styles';
-import { Device, Role } from '@prisma/client';
+import { Device } from '@prisma/client';
 import arrayIsEmpty from '@utils/arrayIsEmpty';
 import dayjs from '@utils/dayjsTime';
 // interfaces
@@ -34,11 +34,11 @@ import {
 	useRef,
 	useState,
 } from 'react';
-// third-party libraries
-import { useDispatch } from 'react-redux';
 
 import Dashboard from '../../layouts/Dashboard';
 import { DashboardContainerState } from './interfaces';
+
+// third-party libraries
 
 export const activityLogs = [
 	{
@@ -90,7 +90,7 @@ const DashboardView = (): JSX.Element => {
 		roleId: '',
 	});
 
-	const { currentRoleBasedAccess } = useContext(ComponentContext);
+	const { currentRoleBasedAccess, isAdmin } = useContext(ComponentContext);
 
 	const history = useRouter();
 
@@ -108,7 +108,6 @@ const DashboardView = (): JSX.Element => {
 
 	const { data: session } = useSession();
 	const devices = session?.user?.devices || ([] as Device[]);
-	const role = session?.user?.role as Role;
 
 	const {
 		selectedIndex,
@@ -126,8 +125,6 @@ const DashboardView = (): JSX.Element => {
 		qos: 2,
 		rap: true,
 	};
-
-	const dispatch = useDispatch();
 
 	// :TODO: Reformat to get user specific device subscription
 	// const userSensorSubscription = 'almond/data';
@@ -193,7 +190,7 @@ const DashboardView = (): JSX.Element => {
 			}}
 		>
 			{devices?.map((device) => (
-				<MenuItem key={device.id} value={device.name}>
+				<MenuItem key={device.id} value={device.identifier}>
 					<Typography fontSize={14} variant="body1">
 						{device.name}
 					</Typography>
@@ -327,7 +324,7 @@ const DashboardView = (): JSX.Element => {
 
 	const displayMenusByRoleBase = {
 		USER: UserMenus,
-		ADMIN: AdminMenus,
+		ADMIN: isAdmin ? AdminMenus : UserMenus,
 		DEVELOPER: UserMenus,
 	};
 
@@ -340,10 +337,10 @@ const DashboardView = (): JSX.Element => {
 					sx={{ position: 'relative' }}
 					maxWidth={{
 						sm: 720,
-						md: '90%',
+						md: '100%',
 					}} // Replace md with 1440px if it doesn't work
 					width={1}
-					paddingY={{ xs: 1, sm: 6, md: 3 }}
+					paddingY={1}
 					paddingX={{ xs: 1 }}
 				>
 					<TabPanel index={selectedIndex} value={selectedIndex}>

@@ -1,3 +1,0 @@
--- AlterTable
-ALTER TABLE "Schedule" ALTER COLUMN "createdAt" DROP NOT NULL,
-ALTER COLUMN "userId" DROP NOT NULL;

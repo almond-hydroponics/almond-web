@@ -33,7 +33,7 @@ const CustomAvatar = (): JSX.Element => {
 	const isSm = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const { data: session } = useSession();
-	const { setCurrentRoleBasedAccess, currentRoleBasedAccess } =
+	const { setCurrentRoleBasedAccess, currentRoleBasedAccess, isAdmin } =
 		useContext(ComponentContext);
 
 	const { name, image, role } = session?.user || {
@@ -63,7 +63,7 @@ const CustomAvatar = (): JSX.Element => {
 		// await router.push('/');
 	};
 
-	const almondRolesBlah = [
+	const almondRoles = [
 		{ name: 'USER', icon: <FaceTwoTone fontSize="small" /> },
 		{ name: 'ADMIN', icon: <AdminPanelSettingsTwoTone fontSize="small" /> },
 		{ name: 'DEVELOPER', icon: <CodeTwoTone fontSize="small" /> },
@@ -76,7 +76,7 @@ const CustomAvatar = (): JSX.Element => {
 			name: 'Profile',
 			icon: <AccountCircleOutlined fontSize="small" />,
 			link: 'account',
-			secondaryText: 'Account settings',
+			secondaryText: 'All about you',
 		},
 		{
 			name: 'Help',
@@ -180,7 +180,7 @@ const CustomAvatar = (): JSX.Element => {
 							spacing={2}
 							width={1}
 						>
-							{almondRolesBlah.map((role) => (
+							{almondRoles.map((role) => (
 								<Tooltip key={role.name} title={role.name.toLowerCase()}>
 									<Button
 										onClick={() => setCurrentRoleBasedAccess(role.name)}
@@ -235,17 +235,23 @@ const CustomAvatar = (): JSX.Element => {
 					);
 				})}
 
-				<MenuItem>
-					<Button
-						fullWidth
-						variant="contained"
-						type="submit"
-						color="primary"
-						startIcon={<Logout />}
-						onClick={logoutActiveUser}
-					>
-						Logout
-					</Button>
+				<MenuItem
+					onClick={logoutActiveUser}
+					sx={{
+						paddingY: 1,
+					}}
+				>
+					<ListItemIcon sx={{ minWidth: 44, marginRight: 1 }}>
+						<Avatar
+							sx={{
+								backgroundColor: alpha(theme.palette.primary.main, 0.1),
+								color: theme.palette.primary.main,
+							}}
+						>
+							<Logout fontSize="small" />
+						</Avatar>
+					</ListItemIcon>
+					<ListItemText primary="Logout" secondary="Heading back home" />
 				</MenuItem>
 			</Menu>
 		</>

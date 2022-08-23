@@ -2214,7 +2214,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/cache@npm:^11.10.0, @emotion/cache@npm:^11.10.1, @emotion/cache@npm:^11.9.3":
+"@emotion/cache@npm:^11.10.0, @emotion/cache@npm:^11.9.3":
   version: 11.10.1
   resolution: "@emotion/cache@npm:11.10.1"
   dependencies:
@@ -2224,6 +2224,19 @@ __metadata:
     "@emotion/weak-memoize": ^0.3.0
     stylis: 4.0.13
   checksum: 950203c5a447c107a189042178fdf43b2e699f579e2d7cd9f39cb99ee2b1f20d84bb1ed653d2737a1adb79756c1f747783875ee76ccb547357f5aa9cd5ce63ee
+  languageName: node
+  linkType: hard
+
+"@emotion/cache@npm:^11.10.2":
+  version: 11.10.2
+  resolution: "@emotion/cache@npm:11.10.2"
+  dependencies:
+    "@emotion/memoize": ^0.8.0
+    "@emotion/sheet": ^1.2.0
+    "@emotion/utils": ^1.2.0
+    "@emotion/weak-memoize": ^0.3.0
+    stylis: 4.0.13
+  checksum: fbe3a7ec2c1240b8fd1e1d4ca30366817086fe3421eb1854cda90efe4385a4527e22c4b5c1c783a1db1fe86add52493b7c50d0cddee129746d463268797080bb
   languageName: node
   linkType: hard
 
@@ -4511,10 +4524,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/marked@npm:^4.0.5":
-  version: 4.0.5
-  resolution: "@types/marked@npm:4.0.5"
-  checksum: 19fa294997695b82a5620da305dfab4fcfce996b34884c604198145820c4502efc46bd1d275bd9a7fcf1930ab865e584572746bd957031be1860c9546af40340
+"@types/marked@npm:^4.0.6":
+  version: 4.0.6
+  resolution: "@types/marked@npm:4.0.6"
+  checksum: 223f7d8e9481287aa0274df573dd56df6cb11a1090649fabd63fd97f900ed318e730d9dfaff598aa75d8946a212c1d8959a421c5cb46d90c5a6f734a1e4a7d78
   languageName: node
   linkType: hard
 
@@ -4576,10 +4589,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^18.7.8":
-  version: 18.7.8
-  resolution: "@types/node@npm:18.7.8"
-  checksum: e0125efefa896083c05f549d93166109959ffdd68cb626aad0d660c0ce9de888fe405b4763b4a3c3e0968560409c272413e0ad07204522543c688e162a617ecb
+"@types/node@npm:^18.7.9":
+  version: 18.7.9
+  resolution: "@types/node@npm:18.7.9"
+  checksum: 691ea1b734c0a39c4fe03c104fed18e0148bda6f2504dd341f84be8153d28e74d8114198d2d064ab7fdd2ece3ee16c60b78eea0101fb004f6e4595a631bc3839
   languageName: node
   linkType: hard
 
@@ -5286,7 +5299,7 @@ __metadata:
     "@apollo/react-ssr": ^4.0.0
     "@commitlint/cli": ^17.0.3
     "@commitlint/config-conventional": ^17.0.3
-    "@emotion/cache": ^11.10.1
+    "@emotion/cache": ^11.10.2
     "@emotion/react": ^11.10.0
     "@emotion/server": ^11.10.0
     "@emotion/styled": ^11.10.0
@@ -5322,8 +5335,8 @@ __metadata:
     "@types/dompurify": ^2.3.3
     "@types/gtag.js": ^0.0.10
     "@types/js-cookie": ^3.0.2
-    "@types/marked": ^4.0.5
-    "@types/node": ^18.7.8
+    "@types/marked": ^4.0.6
+    "@types/node": ^18.7.9
     "@types/react": ^18.0.17
     "@types/react-dom": ^18.0.6
     "@types/react-lazy-load-image-component": ^1.5.2
@@ -5353,7 +5366,7 @@ __metadata:
     eslint: ^8.22.0
     eslint-config-next: ^12.2.5
     eslint-config-react-app: ^7.0.1
-    eslint-import-resolver-typescript: ^3.4.2
+    eslint-import-resolver-typescript: ^3.5.0
     eslint-plugin-flowtype: ^8.0.3
     eslint-plugin-import: ^2.26.0
     eslint-plugin-jest-dom: ^4.0.2
@@ -5432,7 +5445,7 @@ __metadata:
     reselect: ^4.1.6
     rimraf: ^3.0.2
     slick-carousel: ^1.8.1
-    snyk: ^1.989.0
+    snyk: ^1.990.0
     superjson: ^1.9.1
     swr: ^1.3.0
     textarea-caret: ^3.1.0
@@ -8491,21 +8504,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-import-resolver-typescript@npm:^3.4.2":
-  version: 3.4.2
-  resolution: "eslint-import-resolver-typescript@npm:3.4.2"
+"eslint-import-resolver-typescript@npm:^3.5.0":
+  version: 3.5.0
+  resolution: "eslint-import-resolver-typescript@npm:3.5.0"
   dependencies:
     debug: ^4.3.4
     enhanced-resolve: ^5.10.0
     get-tsconfig: ^4.2.0
     globby: ^13.1.2
-    is-core-module: ^2.9.0
+    is-core-module: ^2.10.0
     is-glob: ^4.0.3
     synckit: ^0.8.3
   peerDependencies:
     eslint: "*"
     eslint-plugin-import: "*"
-  checksum: e54d8c02542cc85fc9703a064111a25585a7189b61445a209792ae50b718d273e5522be44c61f149f59292570eef6a08036d988c8477da9f6d8f3c6177801319
+  checksum: 9719d1f68b7bb0eaf8939cff2d3b02b526949f73db744877de781640650dd4d0a17d934222b9ac69e27d9f363ee4569c1aa1a2a2aab6500257517f9bf7d25976
   languageName: node
   linkType: hard
 
@@ -10885,7 +10898,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-core-module@npm:^2.5.0, is-core-module@npm:^2.8.1, is-core-module@npm:^2.9.0":
+"is-core-module@npm:^2.10.0, is-core-module@npm:^2.5.0, is-core-module@npm:^2.8.1, is-core-module@npm:^2.9.0":
   version: 2.10.0
   resolution: "is-core-module@npm:2.10.0"
   dependencies:
@@ -17480,12 +17493,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:^1.989.0":
-  version: 1.989.0
-  resolution: "snyk@npm:1.989.0"
+"snyk@npm:^1.990.0":
+  version: 1.990.0
+  resolution: "snyk@npm:1.990.0"
   bin:
     snyk: bin/snyk
-  checksum: 4479799ae0e373863161cb288fb6987810ceaee3c0d5ec14d131bc4c7a9d088b20f0ebf348b7e794f12e97d1aeee5fc0b3d6da6db8b10def0db6ce6ffa175054
+  checksum: 2642b937869c4509fc0a1a5cc1d4c856ff8abf5dd1c9750ebae9289190ca5e63b147183d0d5ac101f01516f11dd400f29fa9884fbcb7c85d60bf5e9e72efa956
   languageName: node
   linkType: hard
 

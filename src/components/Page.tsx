@@ -8,6 +8,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { RootState } from '@store/index';
 import AOS from 'aos';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 import { ReactNode, createContext, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import getTheme from 'theme';
@@ -24,7 +25,9 @@ interface Props {
 
 const Page = ({ children }: Props): JSX.Element => {
 	const [mode, setMode] = useState<'light' | 'dark'>('light');
-	const { data: session } = useSession();
+
+	const { push, pathname } = useRouter();
+	const { status } = useSession();
 
 	useEffect(() => {
 		// Remove the server-side injected CSS.
@@ -40,6 +43,14 @@ const Page = ({ children }: Props): JSX.Element => {
 			easing: 'ease-in-out',
 		});
 	}, []);
+
+	const routerPaths = ['/setup-device', '/dashboard', '/settings'];
+
+	useEffect(() => {
+		if (status === 'unauthenticated' && routerPaths.includes(pathname)) {
+			push('/');
+		}
+	}, [status, pathname]);
 
 	const colorMode = useMemo(
 		() => ({

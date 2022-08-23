@@ -70,7 +70,7 @@ interface Props {
 }
 
 const Dashboard = ({ children }: Props): JSX.Element => {
-	const isSm = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
+	const isMd = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'));
 	const theme = useTheme();
 	const isMounted = useMounted();
 
@@ -127,7 +127,7 @@ const Dashboard = ({ children }: Props): JSX.Element => {
 					zIndex: (theme) => theme.zIndex.drawer + 1,
 					// background: theme.palette.alternate.main,
 					top: 0,
-					backgroundColor: trigger ? 'hsla(0,0%,100%,.8)' : 'alternate.main',
+					backgroundColor: trigger ? 'hsla(0,0%,100%,.8)' : 'background.paper',
 					backdropFilter: trigger ? 'blur(15px)' : 'none',
 					borderBottom: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
 				}}
@@ -137,7 +137,7 @@ const Dashboard = ({ children }: Props): JSX.Element => {
 					<Topbar />
 				</Container>
 			</AppBar>
-			{isSm && (
+			{isMd && (
 				<Drawer
 					variant="permanent"
 					sx={{
@@ -146,6 +146,7 @@ const Dashboard = ({ children }: Props): JSX.Element => {
 						[`& .MuiDrawer-paper`]: {
 							width: drawerWidth,
 							boxSizing: 'border-box',
+							backgroundColor: 'alternate.main',
 						},
 					}}
 					PaperProps={{
@@ -161,13 +162,13 @@ const Dashboard = ({ children }: Props): JSX.Element => {
 			)}
 			<Box
 				component="main"
-				paddingX={isSm ? 3 : 0}
-				paddingY={isSm ? 0 : 3}
-				sx={{ flexGrow: 1, backgroundColor: 'background.paper' }}
+				paddingX={isMd ? 3 : 0}
+				paddingY={isMd ? 0 : 3}
+				sx={{ flexGrow: 1, backgroundColor: 'alternate.main' }}
 			>
 				<Toolbar />
 				{mounted ? children : <LinearProgress color="primary" />}
-				{isSm ? null : (
+				{isMd ? null : (
 					<Container>
 						<BottomNavigation />
 					</Container>

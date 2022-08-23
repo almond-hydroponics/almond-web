@@ -5,6 +5,7 @@ const prisma = new PrismaClient();
 const main = async () => {
 	const device = await prisma.device.create({
 		data: {
+			identifier: '0013A499',
 			name: '0013A499',
 			verified: false,
 			active: false,

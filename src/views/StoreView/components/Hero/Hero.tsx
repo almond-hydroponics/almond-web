@@ -3,9 +3,11 @@ import Container from '@components/Container';
 import { colors } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import { alpha, useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
 const Hero = (): JSX.Element => {
+	const theme = useTheme();
 	const LeftSide = () => (
 		<>
 			<Box marginBottom={2}>
@@ -47,7 +49,7 @@ const Hero = (): JSX.Element => {
 			<Box
 				paddingX={2}
 				paddingY={1}
-				bgcolor={'alternate.dark'}
+				bgcolor={alpha(theme.palette.primary.main, 0.1)}
 				borderRadius={2}
 			>
 				<Typography variant="body1" component="p">

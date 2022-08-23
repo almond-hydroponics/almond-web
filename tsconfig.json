@@ -37,7 +37,8 @@
 			"@svg/*": ["svg/*"],
 			"@store/*": ["store/*"],
 			"@server/*": ["server/*"],
-			"@env/*": ["env/*"]
+			"@env/*": ["env/*"],
+			"@layouts/*": ["layouts/*"]
 		}
 	},
 	"ts-node": {

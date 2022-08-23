@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { trpc } from '@lib/trpc';
-import { PhonelinkSetupSharp } from '@mui/icons-material';
+import { AllOut } from '@mui/icons-material';
 import { Button, Grid, InputAdornment, TextField } from '@mui/material';
 import { displaySnackMessage } from '@store/slices/snack';
 import { forwardRef } from 'react';
@@ -11,7 +11,7 @@ import * as yup from 'yup';
 
 const schema = yup
 	.object({
-		deviceId: yup
+		identifier: yup
 			.string()
 			.required('Device ID is required for you to proceed')
 			.min(9, 'Device ID should be 8 characters. Kindly confirm.'),
@@ -19,16 +19,16 @@ const schema = yup
 	.required();
 
 type IFormInput = {
-	deviceId: string;
+	identifier: string;
 };
 
 const defaultValues = {
-	deviceId: '',
+	identifier: '',
 };
 
 interface CustomProps {
-	onChange: (event: { target: { name: string; value: string } }) => void;
-	name: string;
+	onChange: (event: { target: { identifier: string; value: string } }) => void;
+	identifier: string;
 }
 
 const TextMaskCustom = forwardRef<HTMLElement, CustomProps>(
@@ -43,7 +43,7 @@ const TextMaskCustom = forwardRef<HTMLElement, CustomProps>(
 				onAccept={(value: unknown) =>
 					onChange({
 						target: {
-							name: props.name,
+							identifier: props.identifier,
 							value: String(value).toUpperCase(),
 						},
 					})
@@ -72,7 +72,7 @@ const Form = ({ handleNext }: FormProps): JSX.Element => {
 		onSuccess: (data) => {
 			dispatch(
 				displaySnackMessage({
-					message: `Your device ID ${data?.name} has been successfully verified`,
+					message: `Your device ID ${data?.identifier} has been successfully verified`,
 				})
 			);
 
@@ -94,9 +94,9 @@ const Form = ({ handleNext }: FormProps): JSX.Element => {
 		mode: 'onChange',
 	});
 
-	const onSubmit: SubmitHandler<IFormInput> = ({ deviceId }) => {
+	const onSubmit: SubmitHandler<IFormInput> = ({ identifier }) => {
 		verifyDeviceMutation.mutate({
-			name: deviceId.split(' ').join(''),
+			identifier: identifier.split(' ').join(''),
 		});
 	};
 
@@ -117,7 +117,7 @@ const Form = ({ handleNext }: FormProps): JSX.Element => {
 			<Grid container spacing={2}>
 				<Grid item xs={12}>
 					<Controller
-						name="deviceId"
+						name="identifier"
 						control={control}
 						render={({
 							field: { onChange, value },
@@ -138,7 +138,7 @@ const Form = ({ handleNext }: FormProps): JSX.Element => {
 										inputComponent: TextMaskCustom as any,
 										startAdornment: (
 											<InputAdornment position="start">
-												<PhonelinkSetupSharp />
+												<AllOut />
 											</InputAdornment>
 										),
 									}}

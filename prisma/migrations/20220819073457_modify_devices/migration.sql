@@ -1,5 +1,0 @@
--- AlterEnum
-ALTER TYPE "Role" ADD VALUE 'DEVELOPER';
-
--- AlterTable
-ALTER TABLE "Device" ALTER COLUMN "userId" DROP NOT NULL;

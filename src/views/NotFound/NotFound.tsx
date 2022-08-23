@@ -1,4 +1,5 @@
 import { Link } from '@components/atoms';
+import { Main } from '@layouts/index';
 import { ArrowBack } from '@mui/icons-material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -6,7 +7,6 @@ import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Container from 'components/Container';
-import Main from 'layouts/Main';
 
 const NotFound = (): JSX.Element => {
 	const theme = useTheme();
@@ -29,7 +29,7 @@ const NotFound = (): JSX.Element => {
 					<Typography variant="h2" align="center" fontWeight={600}>
 						Oops!
 					</Typography>
-					<Typography variant="h2" align="center">
+					<Typography variant="h3" align="center">
 						You broke the internet.
 					</Typography>
 					<Box marginTop={4} display={'flex'} justifyContent="center">

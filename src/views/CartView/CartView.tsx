@@ -1,4 +1,5 @@
 import { Link } from '@components/atoms';
+import { Main } from '@layouts/index';
 import { LocalGroceryStoreTwoTone } from '@mui/icons-material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -6,7 +7,6 @@ import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Container from 'components/Container';
-import Main from 'layouts/Main';
 
 const CartView = (): JSX.Element => {
 	const theme = useTheme();

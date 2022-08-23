@@ -6,6 +6,7 @@ import 'aos/dist/aos.css';
 import 'assets/css/index.css';
 import 'assets/css/fonts.css';
 
+import { ErrorBoundary } from '@components/molecules/ErrorBoundary';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import { transformer } from '@lib/trpc';
 import { AppRouter } from '@server/routers/_app';
@@ -27,6 +28,7 @@ import { Provider } from 'react-redux';
 // components
 import Page from '../components/Page';
 import createEmotionCache from '../createEmotionCache';
+import ErrorBoundaryPage from '../views/ErrorBoundaryPage';
 
 interface Props extends AppProps {
 	emotionCache?: EmotionCache;
@@ -56,27 +58,32 @@ const App = ({
 	}, [router.events]);
 
 	return (
-		<CacheProvider value={emotionCache}>
-			<Head>
-				<meta
-					name="viewport"
-					content="width=device-width, initial-scale=1, shrink-to-fit=no"
-				/>
-				<title>Almond | growing your plants smart</title>
-			</Head>
-			<Provider store={store}>
-				<SessionProvider session={pageProps.session}>
-					<DefaultSeo
-						defaultTitle="Almond Hydroponics"
-						titleTemplate="%s • almond"
-						description="We design sustainable solutions for hydroponic farmers, empowering them to grow fresh, clean, and local food in their communities around the globe."
+		<ErrorBoundary
+			FallbackComponent={ErrorBoundaryPage}
+			onReset={() => window.location.replace('/')}
+		>
+			<CacheProvider value={emotionCache}>
+				<Head>
+					<meta
+						name="viewport"
+						content="width=device-width, initial-scale=1, shrink-to-fit=no"
 					/>
-					<Page>
-						<Component {...pageProps} />
-					</Page>
-				</SessionProvider>
-			</Provider>
-		</CacheProvider>
+					<title>Almond | growing your plants smart</title>
+				</Head>
+				<Provider store={store}>
+					<SessionProvider session={pageProps.session}>
+						<DefaultSeo
+							defaultTitle="Almond Hydroponics"
+							titleTemplate="%s • almond"
+							description="We design sustainable solutions for hydroponic farmers, empowering them to grow fresh, clean, and local food in their communities around the globe."
+						/>
+						<Page>
+							<Component {...pageProps} />
+						</Page>
+					</SessionProvider>
+				</Provider>
+			</CacheProvider>
+		</ErrorBoundary>
 	);
 };
 

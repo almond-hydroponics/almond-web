@@ -66,41 +66,41 @@ model VerificationToken {
 }
 
 model Device {
-  id        String     @id @default(cuid())
-  name      String     @unique @db.VarChar(255)
-  user      User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String?
-  verified  Boolean?   @default(false)
-  active    Boolean?   @default(false)
-  createdAt DateTime?  @default(now())
-  updatedAt DateTime?  @updatedAt
-  schedule  Schedule[]
+  id         String     @id @default(cuid())
+  identifier String     @unique @db.VarChar(255)
+  name       String
+  user       User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String?
+  verified   Boolean?   @default(false)
+  active     Boolean?   @default(false)
+  createdAt  DateTime?  @default(now())
+  updatedAt  DateTime?  @updatedAt
+  schedule   Schedule[]
 }
 
 model Post {
-  id           String    @id @default(cuid())
-  title        String
-  description  String?
-  content      String?
-  contentHtml  String    @db.Text
+  id           String   @id @default(cuid())
+  title        String   @db.VarChar(255)
+  content      String   @db.Text
+  contentHtml  String   @db.Text
   thumbnailUrl String?
-  published    Boolean   @default(false)
-  author       User?     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  published    Boolean  @default(false)
+  author       User?    @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId     String?
-  createdAt    DateTime? @default(now())
-  updatedAt    DateTime? @updatedAt
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
   @@index([authorId])
 }
 
 model Schedule {
-  id        String    @id @default(cuid())
+  id        String   @id @default(cuid())
   schedule  String
-  enabled   Boolean?  @default(true)
-  device    Device?   @relation(fields: [deviceId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  deviceId  String?
-  createdAt DateTime? @default(now())
-  updatedAt DateTime? @updatedAt
+  enabled   Boolean  @default(true)
+  device    Device   @relation(fields: [deviceId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  deviceId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([deviceId])
 }

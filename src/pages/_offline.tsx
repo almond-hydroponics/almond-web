@@ -1,13 +1,59 @@
+import { Link } from '@components/atoms';
+import { Main } from '@layouts/index';
+import { Replay } from '@mui/icons-material';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import { useTheme } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import Container from 'components/Container';
 import Head from 'next/head';
 
-export default function Offline() {
+const NotFound = (): JSX.Element => {
+	const theme = useTheme();
+	const isMd = useMediaQuery(theme.breakpoints.up('md'), {
+		defaultMatches: true,
+	});
+
 	return (
 		<>
 			<Head>
-				<title>almond offline</title>
+				<title>Almond Offline</title>
 			</Head>
-			<h1>This is an offline fallback page</h1>
-			<h2>When offline, any page route will fallback to this page</h2>
+			<Main>
+				<Box
+					bgcolor={theme.palette.alternate.main}
+					position={'relative'}
+					minHeight={`calc(100vh - ${isMd ? '247px - 56px' : '300px - 63px'})`}
+					display={'flex'}
+					alignItems={'center'}
+					justifyContent={'center'}
+					height={'100%'}
+				>
+					<Container>
+						<Typography variant="h2" align="center" fontWeight={600}>
+							You are offline!
+						</Typography>
+						<Typography variant="h3" align="center">
+							Reconnect to the internet and try again
+						</Typography>
+						<Box marginTop={4} display={'flex'} justifyContent="center">
+							<Button
+								component={Link}
+								href={'/'}
+								variant="contained"
+								color="primary"
+								size="large"
+								startIcon={<Replay />}
+							>
+								Try again
+							</Button>
+						</Box>
+					</Container>
+				</Box>
+			</Main>
 		</>
 	);
-}
+};
+
+export default NotFound;

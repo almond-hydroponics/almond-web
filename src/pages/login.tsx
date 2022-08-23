@@ -1,20 +1,15 @@
 import { GoogleIcon } from '@components/atoms';
 import Container from '@components/Container';
-import { authOptions } from '@lib/auth';
 import { Button, Grid, SvgIcon } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
-import { unstable_getServerSession } from 'next-auth/next';
-import { getProviders, signIn } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import Head from 'next/head';
 
 import { Minimal } from '../layouts';
 
-const Login = ({
-	providers,
-}: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element => {
+const Login = (): JSX.Element => {
 	const theme = useTheme();
 	const isMd = useMediaQuery(theme.breakpoints.up('md'), {
 		defaultMatches: true,
@@ -54,47 +49,34 @@ const Login = ({
 				>
 					<Container maxWidth={400}>
 						<Grid container spacing={4}>
-							{Object.values(providers!).map((provider) => (
-								<Grid key={provider.id} item xs={12}>
-									<Button
-										size="large"
-										variant="outlined"
-										fullWidth
-										startIcon={buttonIcon[provider.id]}
-										onClick={() => signIn(provider.id)}
-									>
-										Sign in with {provider.name}
-									</Button>
-								</Grid>
-							))}
+							<Grid item xs={12}>
+								<Button
+									size="large"
+									variant="outlined"
+									fullWidth
+									startIcon={buttonIcon['google']}
+									onClick={() => signIn('google')}
+								>
+									Sign in with Google
+								</Button>
+							</Grid>
+							<Grid item xs={12}>
+								<Button
+									size="large"
+									variant="outlined"
+									fullWidth
+									startIcon={buttonIcon['github']}
+									onClick={() => signIn('github')}
+								>
+									Sign in with Github
+								</Button>
+							</Grid>
 						</Grid>
 					</Container>
 				</Box>
 			</Minimal>
 		</>
 	);
-};
-
-export const getServerSideProps = async ({
-	req,
-	res,
-}: GetServerSidePropsContext) => {
-	const session = await unstable_getServerSession(req, res, authOptions);
-	const providers = await getProviders();
-
-	if (session?.user) {
-		return {
-			redirect: {
-				permanent: false,
-				destination: '/',
-			},
-			props: { providers },
-		};
-	}
-
-	return {
-		props: { providers },
-	};
 };
 
 export default Login;

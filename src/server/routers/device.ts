@@ -11,6 +11,46 @@ export const deviceRouter = createProtectedRouter()
 			})
 			.optional(),
 		async resolve({ input, ctx }) {
+			if (!ctx.isUserAdmin) {
+				throw new TRPCError({ code: 'FORBIDDEN' });
+			}
+
+			const devices = await ctx.prisma.device.findMany({
+				orderBy: {
+					createdAt: 'desc',
+				},
+				select: {
+					id: true,
+					identifier: true,
+					name: true,
+					verified: true,
+					active: true,
+					createdAt: true,
+					user: {
+						select: {
+							id: true,
+							name: true,
+							image: true,
+						},
+					},
+				},
+			});
+
+			const deviceCount = await ctx.prisma.device.count();
+
+			return {
+				devices,
+				deviceCount,
+			};
+		},
+	})
+	.query('userDevices', {
+		input: z
+			.object({
+				userId: z.string().optional(),
+			})
+			.optional(),
+		async resolve({ input, ctx }) {
 			const where = {
 				userId: input?.userId,
 			};
@@ -95,12 +135,13 @@ export const deviceRouter = createProtectedRouter()
 	})
 	.mutation('add', {
 		input: z.object({
-			name: z.string().min(1).max(8),
+			identifier: z.string().min(1).max(8),
 		}),
 		async resolve({ ctx, input }) {
 			return await ctx.prisma.device.create({
 				data: {
-					name: input.name,
+					identifier: input.identifier,
+					name: input.identifier,
 				},
 			});
 		},
@@ -146,18 +187,26 @@ export const deviceRouter = createProtectedRouter()
 	})
 	.mutation('verify', {
 		input: z.object({
-			name: z.string(),
+			identifier: z.string(),
 		}),
 		async resolve({ ctx, input }) {
-			const { name } = input;
+			const { identifier } = input;
 
 			const device = await ctx.prisma.device.findUnique({
-				where: { name },
+				where: { identifier },
 				select: {
 					id: true,
 					verified: true,
 				},
 			});
+
+			if (!device) {
+				throw new TRPCError({
+					code: 'NOT_FOUND',
+					message:
+						'Device does not exist. Kindly confirm your ID to continue or contact support for provisioning.',
+				});
+			}
 
 			const deviceHasBeenTaken = device?.verified === true;
 

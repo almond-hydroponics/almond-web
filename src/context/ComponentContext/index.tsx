@@ -1,3 +1,4 @@
+import { useSession } from 'next-auth/react';
 import { MouseEvent, SyntheticEvent, createContext, useState } from 'react';
 
 import { ComponentContextProps, ComponentContextState } from './interfaces';
@@ -39,6 +40,8 @@ const ComponentContext = createContext({
 	csrfToken: '',
 	setCsrfToken: (_csrfToken: string) => {},
 	currentRoleBasedAccess: currentRoleBasedAccess || 'USER',
+	isAdmin: false,
+	isDeveloper: false,
 });
 
 const ComponentProvider = ({
@@ -67,6 +70,12 @@ const ComponentProvider = ({
 				? 'USER'
 				: (window.localStorage.getItem('currentRoleBasedAccess') as string),
 	});
+
+	const { data: session } = useSession();
+	const role = session?.user?.role || 'USER';
+	const isAdmin = state.currentRoleBasedAccess === 'ADMIN' && role === 'ADMIN';
+	const isDeveloper =
+		state.currentRoleBasedAccess === 'DEVELOPER' && role === 'DEVELOPER';
 
 	const setMenuOpen = (isOpen: boolean) =>
 		setState((prevState) => ({ ...prevState, isMenuOpen: isOpen }));
@@ -185,6 +194,8 @@ const ComponentProvider = ({
 				setCsrfToken,
 				setCurrentRoleBasedAccess,
 				currentRoleBasedAccess,
+				isAdmin,
+				isDeveloper,
 				...props,
 			}}
 		>

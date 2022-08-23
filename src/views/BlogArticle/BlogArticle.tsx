@@ -1,6 +1,6 @@
+import { Main } from '@layouts/index';
 import { Box, Typography } from '@mui/material';
 import Container from 'components/Container';
-import Main from 'layouts/Main';
 import { MDXRemote } from 'next-mdx-remote';
 
 import { FooterNewsletter, Hero } from './components';

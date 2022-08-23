@@ -1,7 +1,7 @@
+import { Main } from '@layouts/index';
 import Box from '@mui/material/Box';
 import { alpha, useTheme } from '@mui/material/styles';
 import Container from 'components/Container';
-import Main from 'layouts/Main';
 
 import {
 	Categories,
