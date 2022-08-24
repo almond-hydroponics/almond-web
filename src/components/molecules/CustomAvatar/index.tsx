@@ -120,6 +120,7 @@ const CustomAvatar = (): JSX.Element => {
 								aria-controls="menu-popover"
 								aria-haspopup="true"
 								typeof="button"
+								referrer-policy="no-referrer"
 							/>
 						}
 					/>

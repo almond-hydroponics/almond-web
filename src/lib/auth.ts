@@ -22,10 +22,12 @@ export const authOptions: NextAuthOptions = {
 		async signIn({ user, account, profile }) {
 			return !profile.notAllowed;
 		},
+		// @ts-expect-error
 		async session({ session, user }) {
-			const devices = await prisma.device.findMany({
+			const device = await prisma.device.findFirst({
 				where: {
-					user: { id: user?.id },
+					userId: user?.id,
+					active: true,
 				},
 				select: {
 					id: true,
@@ -34,11 +36,12 @@ export const authOptions: NextAuthOptions = {
 					identifier: true,
 				},
 			});
+
 			return {
 				...session,
 				user: {
 					...session.user,
-					devices: devices || [],
+					device: device || {},
 					id: user.id || '',
 					role: user.role || Role.USER,
 				},
@@ -60,7 +63,7 @@ declare module 'next-auth' {
 			email: string;
 			image?: string | null;
 			role: Role;
-			devices: Pick<Device, 'id' | 'name' | 'active' | 'identifier'>[];
+			device: Pick<Device, 'id' | 'name' | 'active' | 'identifier'>;
 		};
 	}
 

@@ -1,7 +1,15 @@
 // next.config.js
-const withPWA = require('next-pwa');
 const runtimeCaching = require('next-pwa/cache');
 const crypto = require('crypto');
+const withPWA = require('next-pwa')({
+	dest: 'public',
+	disable: process.env.NODE_ENV === 'development',
+	runtimeCaching,
+	fallbacks: {
+		// image: '/static/images/fallback.png',
+		font: '/static/font/fallback.woff2',
+	},
+});
 
 const prod = process.env.NODE_ENV === 'production';
 
@@ -47,21 +55,13 @@ module.exports = withPWA({
 	output: 'standalone',
 	swcMinify: true,
 	reactStrictMode: true,
-	pwa: {
-		dest: 'public',
-		disable: process.env.NODE_ENV === 'development',
-		runtimeCaching,
-		fallbacks: {
-			// image: '/static/images/fallback.png',
-			font: '/static/font/fallback.woff2',
-		},
-	},
 	images: {
 		// disableStaticImages: true,
 		domains: [
 			'static.almondhydroponics.com',
 			'res.cloudinary.com',
 			'avatars.githubusercontent.com',
+			'lh3.googleusercontent.com',
 		],
 	},
 	eslint: {

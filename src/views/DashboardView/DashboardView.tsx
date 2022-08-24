@@ -3,40 +3,42 @@ import { BlankContent, Modal, TabPanel } from '@components/atoms';
 import Container from '@components/Container';
 import { AdminMenus, UserMenus } from '@components/molecules/MenuRoutes';
 import { ComponentContext } from '@context/ComponentContext';
-import { AllOutTwoTone, Close } from '@mui/icons-material';
+import { trpc } from '@lib/trpc';
+import { Add, Close } from '@mui/icons-material';
 // import { useSubscription } from '@hooks/mqtt';
 import {
 	Box,
+	Button,
 	IconButton,
-	InputAdornment,
 	List,
 	ListItem,
 	ListItemText,
-	MenuItem,
 	Stack,
 	SwipeableDrawer,
-	TextField,
+	Theme,
 	Typography,
+	useMediaQuery,
 } from '@mui/material';
 import { alpha, useTheme } from '@mui/material/styles';
-import { Device } from '@prisma/client';
+import { displaySnackMessage } from '@store/slices/snack';
 import arrayIsEmpty from '@utils/arrayIsEmpty';
 import dayjs from '@utils/dayjsTime';
 // interfaces
 import { IClientSubscribeOptions } from 'mqtt';
-import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import {
 	ChangeEvent,
+	createContext,
 	createElement,
 	useContext,
 	useEffect,
 	useRef,
 	useState,
 } from 'react';
+import { useDispatch } from 'react-redux';
 
 import Dashboard from '../../layouts/Dashboard';
-import { DashboardContainerState } from './interfaces';
+import { DeviceTabs } from './components';
 
 // third-party libraries
 
@@ -73,30 +75,19 @@ const useMounted = () => {
 	return mounted;
 };
 
+export const DashboardContext = createContext({
+	handleDeviceSelect: (_id: string) => {},
+});
+
 const DashboardView = (): JSX.Element => {
-	const theme = useTheme();
-	const [state, setState] = useState<DashboardContainerState>({
-		isOpen: false,
-		isLoading: true,
-		isFeedbackMenuOpen: false,
-		isFeedbackModal: false,
-		isProfileMenuOpen: false,
-		device: '',
-		action: '',
-		fields: {},
-		feedback: '',
-		anchorEl: null,
-		roleSelected: '',
-		roleId: '',
-	});
-
-	const { currentRoleBasedAccess, isAdmin } = useContext(ComponentContext);
-
 	const history = useRouter();
-
-	const isMounted = useMounted();
-
+	const dispatch = useDispatch();
+	const [deviceId, setDeviceId] = useState<string>('');
+	const { currentRoleBasedAccess, isAdmin } = useContext(ComponentContext);
 	const mounted = useRef(false);
+
+	const theme = useTheme();
+	const isSm = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
 	useEffect(() => {
 		mounted.current = true;
@@ -105,9 +96,6 @@ const DashboardView = (): JSX.Element => {
 			mounted.current = false;
 		};
 	}, []);
-
-	const { data: session } = useSession();
-	const devices = session?.user?.devices || ([] as Device[]);
 
 	const {
 		selectedIndex,
@@ -120,6 +108,17 @@ const DashboardView = (): JSX.Element => {
 		toggleActivityDrawer,
 		isActivityDrawerOpen,
 	} = useContext(ComponentContext);
+
+	const activateDeviceMutation = trpc.useMutation('device.activate', {
+		onError: (error) => {
+			dispatch(
+				displaySnackMessage({
+					message: error.message,
+					severity: 'error',
+				})
+			);
+		},
+	});
 
 	const subscribeOptions: IClientSubscribeOptions = {
 		qos: 2,
@@ -153,10 +152,15 @@ const DashboardView = (): JSX.Element => {
 	// 	}));
 	// }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+	const handleDeviceSelect = (id: string) => setDeviceId(id);
+
 	const handleSelectDevice = async () => {
 		// const deviceId = devices.filter((device) => device.id === state.device);
 		// await dispatch(activateDevice(deviceId[0]._id));
 		// dispatch(getUserDetails());
+		activateDeviceMutation.mutate({
+			id: deviceId,
+		});
 		handleSelectDeviceModal();
 		if (typeof window !== 'undefined') {
 			window.location.reload();
@@ -166,47 +170,41 @@ const DashboardView = (): JSX.Element => {
 	const handleDeviceInputChange = (event: ChangeEvent<HTMLInputElement>) => {
 		event.preventDefault();
 		const { value } = event.target;
-		setState((prevState) => ({ ...prevState, device: value }));
+	};
+
+	const handleAddDeviceRedirect = async () => {
+		await history.push('/account');
+		handleSelectDeviceModal();
 	};
 
 	const renderSelectDeviceContent = () => (
-		<TextField
-			id="device"
-			select
-			variant="outlined"
-			label="device"
-			fullWidth
-			size="small"
-			value={state.device}
-			onChange={handleDeviceInputChange}
-			InputProps={{
-				startAdornment: (
-					<InputAdornment position="start">
-						<AllOutTwoTone
-							sx={{ color: (theme) => theme.palette.primary.main }}
-						/>
-					</InputAdornment>
-				),
-			}}
-		>
-			{devices?.map((device) => (
-				<MenuItem key={device.id} value={device.identifier}>
-					<Typography fontSize={14} variant="body1">
-						{device.name}
-					</Typography>
-				</MenuItem>
-			))}
-		</TextField>
+		<>
+			<Button
+				size="small"
+				onClick={handleAddDeviceRedirect}
+				startIcon={<Add />}
+			>
+				Add device
+			</Button>
+			<DeviceTabs />
+		</>
 	);
 
 	const renderSelectDeviceModal = (): JSX.Element => (
 		<Modal
+			maxWidth="sm"
+			fullScreen={isSm}
 			isModalOpen={isSelectDeviceModalOpen}
-			renderDialogText="Select the device you want to use."
-			renderHeader="Select the device ID"
+			renderDialogText={
+				<Typography variant="body2">
+					The device will allow you to control your environment and get
+					different metrics for them.
+				</Typography>
+			}
+			renderHeader="Select a device"
 			renderContent={renderSelectDeviceContent()}
 			onClose={handleSelectDeviceModal}
-			submitButtonName="Select Device"
+			submitButtonName="Open"
 			onSubmit={handleSelectDevice}
 			onDismiss={handleCloseDeviceModal}
 		/>
@@ -329,34 +327,36 @@ const DashboardView = (): JSX.Element => {
 	};
 
 	return (
-		<Box
-			sx={{ overflowX: 'hidden', background: theme.palette.alternate.main }}
-		>
-			<Dashboard>
-				<Container
-					sx={{ position: 'relative' }}
-					maxWidth={{
-						sm: 720,
-						md: '100%',
-					}} // Replace md with 1440px if it doesn't work
-					width={1}
-					paddingY={1}
-					paddingX={{ xs: 1 }}
-				>
-					<TabPanel index={selectedIndex} value={selectedIndex}>
-						{createElement(
-							displayMenusByRoleBase[currentRoleBasedAccess][selectedIndex]
-								.component,
-							{
-								history,
-							}
-						)}
-					</TabPanel>
-					{renderSelectDeviceModal()}
-					{renderActivityDrawer()}
-				</Container>
-			</Dashboard>
-		</Box>
+		<DashboardContext.Provider value={{ handleDeviceSelect }}>
+			<Box
+				sx={{ overflowX: 'hidden', background: theme.palette.alternate.main }}
+			>
+				<Dashboard>
+					<Container
+						sx={{ position: 'relative' }}
+						maxWidth={{
+							sm: 720,
+							md: '100%',
+						}} // Replace md with 1440px if it doesn't work
+						width={1}
+						paddingY={1}
+						paddingX={{ xs: 1 }}
+					>
+						<TabPanel index={selectedIndex} value={selectedIndex}>
+							{createElement(
+								displayMenusByRoleBase[currentRoleBasedAccess][selectedIndex]
+									.component,
+								{
+									history,
+								}
+							)}
+						</TabPanel>
+						{renderSelectDeviceModal()}
+						{renderActivityDrawer()}
+					</Container>
+				</Dashboard>
+			</Box>
+		</DashboardContext.Provider>
 	);
 };
 

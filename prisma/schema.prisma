@@ -67,12 +67,14 @@ model VerificationToken {
 
 model Device {
   id         String     @id @default(cuid())
-  identifier String     @unique @db.VarChar(255)
+  identifier String     @db.VarChar(255)
   name       String
   user       User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId     String?
   verified   Boolean?   @default(false)
   active     Boolean?   @default(false)
+  online     Boolean?   @default(false)
+  starred    Boolean?   @default(false)
   createdAt  DateTime?  @default(now())
   updatedAt  DateTime?  @updatedAt
   schedule   Schedule[]

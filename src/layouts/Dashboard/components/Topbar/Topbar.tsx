@@ -16,7 +16,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
 import { Device } from '@prisma/client';
-import arrayIsEmpty from '@utils/arrayIsEmpty';
+import objectIsEmpty from '@utils/objectIsEmpty';
 import { useSession } from 'next-auth/react';
 import { useContext } from 'react';
 
@@ -34,10 +34,10 @@ const Topbar = (): JSX.Element => {
 		currentRoleBasedAccess,
 		isAdmin,
 	} = useContext(ComponentContext);
-	const connectionStatus = 'Connected';
+	const connectionStatus = 'Reconnecting';
 
 	const { data: session } = useSession();
-	const devices = session?.user?.devices || ([] as Device[]);
+	const device = session?.user?.device || ({} as Device);
 
 	const theme = useTheme();
 	const { mode } = theme.palette;
@@ -104,7 +104,7 @@ const Topbar = (): JSX.Element => {
 				<Chip
 					size="medium"
 					label={`Device: ${
-						arrayIsEmpty(devices) ? 'No device' : devices[0].name
+						objectIsEmpty(device) ? 'No device' : device.name
 					}`}
 					variant="outlined"
 					color="primary"

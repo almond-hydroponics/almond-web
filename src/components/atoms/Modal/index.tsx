@@ -9,6 +9,7 @@ import {
 	DialogContentText,
 	DialogTitle,
 	IconButton,
+	Typography,
 	styled,
 } from '@mui/material';
 import { alpha } from '@mui/material/styles';
@@ -41,25 +42,29 @@ const BootstrapDialogTitle = ({
 	<DialogTitle
 		sx={{
 			m: 0,
-			p: 2,
+			p: 1,
+			paddingX: 3,
 			backgroundColor: (theme) => alpha(theme.palette.primary.main, 0.1),
 			color: (theme) => theme.palette.primary.main,
 		}}
 		{...other}
 	>
-		{children}
+		<Typography variant="body1" fontWeight={500}>
+			{children}
+		</Typography>
 		{onClose ? (
 			<IconButton
 				aria-label="close"
 				onClick={onClose}
 				sx={{
 					position: 'absolute',
+					p: 0,
 					right: 8,
 					top: 8,
 					color: (theme) => theme.palette.grey[500],
 				}}
 			>
-				<Close />
+				<Close fontSize="small" />
 			</IconButton>
 		) : null}
 	</DialogTitle>
@@ -87,6 +92,9 @@ const Modal = ({
 			open={isModalOpen}
 			fullScreen={fullScreen}
 			maxWidth={maxWidth}
+			sx={{
+				zIndex: (theme) => theme.zIndex.drawer + 10,
+			}}
 		>
 			<BootstrapDialogTitle id="modal-dialog-title" onClose={onClose}>
 				{renderHeader}

@@ -84,6 +84,17 @@ const Form = ({ handleNext }: FormProps): JSX.Element => {
 		},
 	});
 
+	const activateDeviceMutation = trpc.useMutation('device.activate', {
+		onError: (error) => {
+			dispatch(
+				displaySnackMessage({
+					message: error.message,
+					severity: 'error',
+				})
+			);
+		},
+	});
+
 	const {
 		handleSubmit,
 		control,
@@ -98,6 +109,12 @@ const Form = ({ handleNext }: FormProps): JSX.Element => {
 		verifyDeviceMutation.mutate({
 			identifier: identifier.split(' ').join(''),
 		});
+
+		if (location.pathname === '/setup-device') {
+			activateDeviceMutation.mutate({
+				id: identifier.split(' ').join(''),
+			});
+		}
 	};
 
 	// const onSubmit = (e) => {

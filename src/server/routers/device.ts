@@ -25,12 +25,49 @@ export const deviceRouter = createProtectedRouter()
 					name: true,
 					verified: true,
 					active: true,
+					starred: true,
+					online: true,
 					createdAt: true,
 					user: {
 						select: {
 							id: true,
 							name: true,
-							image: true,
+						},
+					},
+				},
+			});
+
+			const deviceCount = await ctx.prisma.device.count();
+
+			return {
+				devices,
+				deviceCount,
+			};
+		},
+	})
+	.query('mine', {
+		input: z.object({
+			userId: z.string(),
+		}),
+		async resolve({ input, ctx }) {
+			const devices = await ctx.prisma.device.findMany({
+				orderBy: {
+					createdAt: 'desc',
+				},
+				where: { userId: input.userId },
+				select: {
+					id: true,
+					identifier: true,
+					name: true,
+					verified: true,
+					active: true,
+					starred: true,
+					online: true,
+					createdAt: true,
+					user: {
+						select: {
+							id: true,
+							name: true,
 						},
 					},
 				},
@@ -150,9 +187,10 @@ export const deviceRouter = createProtectedRouter()
 		input: z.object({
 			id: z.string(),
 			data: z.object({
-				name: z.string().min(1).max(8),
-				verified: z.boolean(),
-				active: z.boolean(),
+				name: z.string().min(1).max(8).optional(),
+				verified: z.boolean().optional(),
+				active: z.boolean().optional(),
+				starred: z.boolean().optional(),
 			}),
 		}),
 		async resolve({ ctx, input }) {
@@ -169,9 +207,15 @@ export const deviceRouter = createProtectedRouter()
 				},
 			});
 
+			if (!device) {
+				throw new TRPCError({
+					code: 'NOT_FOUND',
+					message: 'Device not found',
+				});
+			}
 			const deviceBelongsToUser = device?.user?.id === ctx.session.user.id;
 
-			if (!deviceBelongsToUser) {
+			if (!deviceBelongsToUser && !ctx.isUserAdmin) {
 				throw new TRPCError({ code: 'FORBIDDEN' });
 			}
 
@@ -181,6 +225,7 @@ export const deviceRouter = createProtectedRouter()
 					name: data.name,
 					verified: data.verified,
 					active: data.active,
+					starred: data.starred,
 				},
 			});
 		},
@@ -221,8 +266,61 @@ export const deviceRouter = createProtectedRouter()
 				where: { id: device?.id },
 				data: {
 					verified: true,
-					active: true,
 					userId: ctx.session.user.id,
+				},
+			});
+		},
+	})
+	.mutation('activate', {
+		input: z.object({
+			id: z.string().optional(),
+			identifier: z.string().optional(),
+		}),
+		async resolve({ ctx, input }) {
+			const { id, identifier } = input;
+
+			const device = await ctx.prisma.device.findFirstOrThrow({
+				where: {
+					OR: [
+						{
+							id,
+						},
+						{
+							identifier,
+						},
+					],
+				},
+				select: {
+					id: true,
+					active: true,
+					userId: true,
+				},
+			});
+
+			if (device?.userId !== ctx.session.user.id) {
+				throw new TRPCError({
+					code: 'FORBIDDEN',
+					message: 'You can only activate your own device.',
+				});
+			}
+
+			if (device?.active) return;
+
+			await ctx.prisma.device.update({
+				where: { id },
+				data: {
+					active: true,
+				},
+			});
+
+			return await ctx.prisma.device.updateMany({
+				where: {
+					id: {
+						not: id,
+					},
+				},
+				data: {
+					active: false,
 				},
 			});
 		},

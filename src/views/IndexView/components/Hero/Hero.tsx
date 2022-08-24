@@ -1,13 +1,12 @@
 import { Link } from '@components/atoms';
 import Container from '@components/Container';
 import { Box, Button, Typography } from '@mui/material';
-import { Device } from '@prisma/client';
-import arrayIsEmpty from '@utils/arrayIsEmpty';
+import objectIsEmpty from '@utils/objectIsEmpty';
 import { useSession } from 'next-auth/react';
 
 const Hero = (): JSX.Element => {
 	const { data: session, status } = useSession();
-	const devices = session?.user?.devices || [];
+	const device = session?.user?.device || {};
 
 	const LeftSide = () => (
 		<>
@@ -57,11 +56,7 @@ const Hero = (): JSX.Element => {
 						variant="outlined"
 						color="primary"
 						size="large"
-						href={`${
-							arrayIsEmpty(devices as Array<Device>)
-								? '/setup-device'
-								: '/dashboard'
-						}`}
+						href={`${objectIsEmpty(device) ? '/setup-device' : '/dashboard'}`}
 						marginTop={{ xs: 2, sm: 0 }}
 						marginLeft={{ sm: 2 }}
 						sx={{
@@ -71,9 +66,7 @@ const Hero = (): JSX.Element => {
 							},
 						}}
 					>
-						{arrayIsEmpty(devices as Array<Device>)
-							? 'Setup new device'
-							: 'Go to dashboard'}
+						{objectIsEmpty(device) ? 'Setup new device' : 'Go to dashboard'}
 					</Button>
 				) : null}
 			</Box>
