@@ -176,7 +176,7 @@ const Topbar = ({
 				</Box>
 
 				<Box marginLeft={4}>
-					<Link href="/blog" noLinkStyle>
+					<Link href="/news" noLinkStyle>
 						<Typography
 							color="primary"
 							sx={{

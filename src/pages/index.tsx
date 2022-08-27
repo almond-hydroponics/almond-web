@@ -1,24 +1,28 @@
-import prisma from '@lib/prisma';
-import { GetServerSideProps } from 'next';
-import IndexView from 'views/IndexView';
+import { Main } from '@layouts/index';
+import { ReactElement } from 'react';
+import HomeView from 'views/HomeView';
 
-const IndexPage = ({ posts }): JSX.Element => {
-	return <IndexView posts={posts} />;
+const HomePage = (): JSX.Element => {
+	return <HomeView />;
 };
 
-export default IndexPage;
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-	const posts = await prisma.post.findMany({
-		where: { published: true },
-		include: {
-			author: true,
-		},
-	});
-
-	return {
-		props: {
-			posts: JSON.parse(JSON.stringify(posts)),
-		},
-	};
+HomePage.getLayout = function getLayout(page: ReactElement) {
+	return <Main>{page}</Main>;
 };
+
+export default HomePage;
+
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+// 	const posts = await prisma.post.findMany({
+// 		where: { published: true },
+// 		include: {
+// 			author: true,
+// 		},
+// 	});
+//
+// 	return {
+// 		props: {
+// 			posts: JSON.parse(JSON.stringify(posts)),
+// 		},
+// 	};
+// };

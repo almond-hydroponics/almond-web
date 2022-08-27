@@ -5,7 +5,7 @@ import { z } from 'zod';
 import { createProtectedRouter } from '../create-protected-router';
 
 export const postRouter = createProtectedRouter()
-	.query('all', {
+	.query('feed', {
 		input: z
 			.object({
 				take: z.number().min(1).max(50).optional(),
@@ -34,6 +34,7 @@ export const postRouter = createProtectedRouter()
 					contentHtml: true,
 					createdAt: true,
 					published: true,
+					thumbnailUrl: true,
 					author: {
 						select: {
 							id: true,

@@ -6,9 +6,8 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Paper from '@mui/material/Paper';
 import { ThemeProvider } from '@mui/material/styles';
 import { RootState } from '@store/index';
-import { displaySnackMessage } from '@store/slices/snack';
 import AOS from 'aos';
-import { signIn, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { ReactNode, createContext, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -46,26 +45,18 @@ const Page = ({ children }: Props): JSX.Element => {
 		});
 	}, []);
 
-	const routerPaths = ['/setup-device', '/dashboard', '/settings'];
-
-	useEffect(() => {
-		if (status === 'unauthenticated' && routerPaths.includes(pathname)) {
-			push('/');
-		}
-	}, [status, pathname]);
-
-	useEffect(() => {
-		if (session?.error === 'RefreshAccessTokenError') {
-			// Force sign in to hopefully resolve error
-			signIn().then(() =>
-				dispatch(
-					displaySnackMessage({
-						message: 'Your token has expired. Kindly login to continue.',
-					})
-				)
-			);
-		}
-	}, [session]);
+	// useEffect(() => {
+	// 	if (session?.error === 'RefreshAccessTokenError') {
+	// 		// Force sign in to hopefully resolve error
+	// 		signIn().then(() =>
+	// 			dispatch(
+	// 				displaySnackMessage({
+	// 					message: 'Your token has expired. Kindly login to continue.',
+	// 				})
+	// 			)
+	// 		);
+	// 	}
+	// }, [session]);
 
 	const colorMode = useMemo(
 		() => ({

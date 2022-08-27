@@ -2,19 +2,17 @@ import Box from '@mui/material/Box';
 import { alpha, useTheme } from '@mui/material/styles';
 import Container from 'components/Container';
 
-import { Main } from '../../layouts';
-import { News } from '../StoreView/components';
 import { Hero, Places, Services } from './components';
 
 interface Props {
-	posts: any;
+	posts?: any;
 }
 
-const IndexView = ({ posts }: Props): JSX.Element => {
+const HomeView = ({ posts }: Props): JSX.Element => {
 	const theme = useTheme();
 
 	return (
-		<Main>
+		<>
 			<Box
 				bgcolor={'alternate.main'}
 				sx={{
@@ -73,13 +71,13 @@ const IndexView = ({ posts }: Props): JSX.Element => {
 			{/*<Container>*/}
 			{/*	<GetStarted />*/}
 			{/*</Container>*/}
-			<Box>
-				<Container>
-					<News posts={posts} />
-				</Container>
-			</Box>
-		</Main>
+			{/*<Box>*/}
+			{/*	<Container>*/}
+			{/*		<News posts={posts} />*/}
+			{/*	</Container>*/}
+			{/*</Box>*/}
+		</>
 	);
 };
 
-export default IndexView;
+export default HomeView;

@@ -9,21 +9,23 @@ import 'assets/css/fonts.css';
 import { ErrorBoundary } from '@components/molecules/ErrorBoundary';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import { transformer } from '@lib/trpc';
+import { NextPageWithAuthAndLayout } from '@lib/types';
 import { AppRouter } from '@server/routers/_app';
 import store from '@store/index';
+import { displaySnackMessage } from '@store/slices/snack';
 import { httpBatchLink } from '@trpc/client/links/httpBatchLink';
 import { loggerLink } from '@trpc/client/links/loggerLink';
 import { withTRPC } from '@trpc/next';
 import { TRPCError } from '@trpc/server';
 import { pageview } from '@utils/gtag';
-import { SessionProvider } from 'next-auth/react';
+import { SessionProvider, useSession } from 'next-auth/react';
 import { DefaultSeo } from 'next-seo';
 import { AppProps } from 'next/app';
 /* eslint-disable react/prop-types */
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
-import { Provider } from 'react-redux';
+import { ReactNode, useEffect } from 'react';
+import { Provider, useDispatch } from 'react-redux';
 
 // components
 import Page from '../components/Page';
@@ -32,6 +34,7 @@ import ErrorBoundaryPage from '../views/ErrorBoundaryPage';
 
 interface Props extends AppProps {
 	emotionCache?: EmotionCache;
+	Component: NextPageWithAuthAndLayout;
 }
 
 // Client-side cache, shared for the whole session of the user in the browser.
@@ -40,10 +43,11 @@ const clientSideEmotionCache = createEmotionCache();
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const App = ({
 	Component,
-	pageProps,
+	pageProps: { session, ...pageProps },
 	emotionCache = clientSideEmotionCache,
 }: Props): JSX.Element => {
 	const router = useRouter();
+	const getLayout = Component.getLayout ?? ((page) => page);
 
 	useEffect(() => {
 		const handleRouteChange = (url: URL) => {
@@ -71,14 +75,18 @@ const App = ({
 					<title>Almond | growing your plants smart</title>
 				</Head>
 				<Provider store={store}>
-					<SessionProvider session={pageProps.session}>
+					<SessionProvider session={session} refetchOnWindowFocus={false}>
 						<DefaultSeo
 							defaultTitle="Almond Hydroponics"
 							titleTemplate="%s • almond"
 							description="We design sustainable solutions for hydroponic farmers, empowering them to grow fresh, clean, and local food in their communities around the globe."
 						/>
 						<Page>
-							<Component {...pageProps} />
+							{Component.auth ? (
+								<Auth>{getLayout(<Component {...pageProps} />)}</Auth>
+							) : (
+								getLayout(<Component {...pageProps} />)
+							)}
 						</Page>
 					</SessionProvider>
 				</Provider>
@@ -87,7 +95,31 @@ const App = ({
 	);
 };
 
-// export default wrapper.withRedux(App);
+const Auth = ({ children }: { children: ReactNode }) => {
+	const { push } = useRouter();
+	const dispatch = useDispatch();
+	const { data: session, status } = useSession();
+	const isUser = !!session?.user;
+
+	useEffect(() => {
+		if (status === 'loading') return; // Do nothing while loading
+		if (!isUser) {
+			push('/').then(() =>
+				dispatch(
+					displaySnackMessage({
+						message: 'Your token has expired. Kindly login to continue.',
+					})
+				)
+			);
+		}
+	}, [isUser, status]);
+
+	if (isUser) {
+		return <>{children}</>;
+	}
+
+	return null;
+};
 
 const getBaseUrl = () => {
 	if (typeof window !== 'undefined') {

@@ -1,13 +1,16 @@
+import Container from '@components/Container';
 import { Main } from '@layouts/index';
 import Box from '@mui/material/Box';
-import { useTheme } from '@mui/material/styles';
-import Container from 'components/Container';
+import { ReactElement } from 'react';
+import NewsroomView from 'views/NewsroomView';
 
-import { FooterNewsletter, Hero, MostViewedArticles } from './components';
+import { FooterNewsletter, Hero } from '../views/NewsroomView/components';
 
-export default function BlogNewsroom({ posts }) {
-	const theme = useTheme();
+export default function NewsroomPage(): JSX.Element {
+	return <NewsroomView />;
+}
 
+NewsroomPage.getLayout = function getLayout(page: ReactElement) {
 	return (
 		<Main>
 			<Box
@@ -35,15 +38,7 @@ export default function BlogNewsroom({ posts }) {
 					<Hero />
 				</Box>
 			</Box>
-			<Container maxWidth={{ sm: 720, md: 960 }}>
-				<MostViewedArticles posts={posts} />
-			</Container>
-			{/*<Container maxWidth={800}>*/}
-			{/*	<Tags />*/}
-			{/*</Container>*/}
-			{/*<Container maxWidth={800} paddingY={'0 !important'}>*/}
-			{/*	<Divider />*/}
-			{/*</Container>*/}
+			<Container maxWidth={{ sm: 720, md: 960 }}>{page}</Container>
 			<Box bgcolor={'alternate.main'}>
 				<Container>
 					<FooterNewsletter />
@@ -51,4 +46,19 @@ export default function BlogNewsroom({ posts }) {
 			</Box>
 		</Main>
 	);
-}
+};
+
+// export const getStaticProps: GetStaticProps = async () => {
+// 	const posts = await prisma.post.findMany({
+// 		where: { published: true },
+// 		include: {
+// 			author: true,
+// 		},
+// 	});
+//
+// 	return {
+// 		props: {
+// 			posts: JSON.parse(JSON.stringify(posts)),
+// 		},
+// 	};
+// };
