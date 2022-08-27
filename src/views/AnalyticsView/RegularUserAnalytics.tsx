@@ -24,11 +24,9 @@ const RegularUserAnalytics = (): JSX.Element => {
 	const [nextTimeSchedule, setNextTimeSchedule] = useState('00:00');
 
 	const { data: session } = useSession();
-	const devices = (session?.user?.devices as Device[]) || [
-		{
-			name: '',
-		},
-	];
+	const device = (session?.user?.device as Device) || {
+		name: '',
+	};
 
 	// useEffectAsync(async () => {
 	// 	dispatch(
@@ -67,7 +65,7 @@ const RegularUserAnalytics = (): JSX.Element => {
 				Welcome to Almond Hydroponics!
 			</Typography>
 			<Typography marginTop={1} marginBottom={2} variant="body1" align="left">
-				Your current device is {devices[0]?.name}.
+				Your current device is {device?.name}.
 			</Typography>
 			<Divider />
 			<Typography marginTop={2} variant="body1" align="left">

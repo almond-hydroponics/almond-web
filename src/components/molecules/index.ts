@@ -12,3 +12,4 @@ export { default as AnalyticsCard } from './AnalyticsCard';
 export { default as Notifications } from './Notifications';
 export { default as DataTable } from './DataTable';
 export { default as SkeletonLoader } from './SkeletonLoader';
+export { default as DonutDisplay } from './DonutDisplay';

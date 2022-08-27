@@ -55,7 +55,7 @@ const DataTable = ({
 	};
 
 	return (
-		<div style={{ height: '85vh', width: '100%', padding: '12px' }}>
+		<div style={{ height: '60vh', width: '100%', padding: '12px' }}>
 			<div style={{ display: 'flex', height: '100%' }}>
 				<div style={{ flexGrow: 1 }} className={classes.root}>
 					<DataGrid

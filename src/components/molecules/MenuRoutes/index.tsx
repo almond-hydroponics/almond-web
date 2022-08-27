@@ -20,7 +20,7 @@ import DeviceManagementView from 'views/DeviceManagementView';
 // import PeopleView from 'views/PeopleView';
 // import SupportView from 'views/SupportView';
 // import UserRolesView from 'views/UserRolesView';
-// import WaterCyclesView from 'views/WaterCyclesView';
+import WaterCycleView from 'views/WaterCycleView';
 
 export const UserMenus: MenuComponentProps[] = [
 	{
@@ -32,7 +32,7 @@ export const UserMenus: MenuComponentProps[] = [
 	{
 		icon: <Opacity />,
 		primaryText: 'Water Cycles',
-		component: AnalyticsView,
+		component: WaterCycleView,
 		id: 'water-cycles',
 	},
 	{

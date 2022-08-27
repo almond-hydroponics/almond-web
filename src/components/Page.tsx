@@ -6,11 +6,12 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Paper from '@mui/material/Paper';
 import { ThemeProvider } from '@mui/material/styles';
 import { RootState } from '@store/index';
+import { displaySnackMessage } from '@store/slices/snack';
 import AOS from 'aos';
-import { useSession } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { ReactNode, createContext, useEffect, useMemo, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import getTheme from 'theme';
 
 import ErrorBoundaryPage from '../views/ErrorBoundaryPage';
@@ -26,8 +27,9 @@ interface Props {
 const Page = ({ children }: Props): JSX.Element => {
 	const [mode, setMode] = useState<'light' | 'dark'>('light');
 
+	const dispatch = useDispatch();
 	const { push, pathname } = useRouter();
-	const { status } = useSession();
+	const { status, data: session } = useSession();
 
 	useEffect(() => {
 		// Remove the server-side injected CSS.
@@ -51,6 +53,19 @@ const Page = ({ children }: Props): JSX.Element => {
 			push('/');
 		}
 	}, [status, pathname]);
+
+	useEffect(() => {
+		if (session?.error === 'RefreshAccessTokenError') {
+			// Force sign in to hopefully resolve error
+			signIn().then(() =>
+				dispatch(
+					displaySnackMessage({
+						message: 'Your token has expired. Kindly login to continue.',
+					})
+				)
+			);
+		}
+	}, [session]);
 
 	const colorMode = useMemo(
 		() => ({
