@@ -1,7 +1,16 @@
 import { Link, MarkdownIcon } from '@components/atoms';
 import { MarkdownEditor } from '@components/molecules';
 import { useLeaveConfirm } from '@lib/form';
-import { Box, Button, Stack, TextField } from '@mui/material';
+import { PhotoOutlined } from '@mui/icons-material';
+import {
+	Box,
+	Button,
+	Grid,
+	Stack,
+	TextField,
+	Typography,
+	styled,
+} from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { useEffect } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
@@ -9,6 +18,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 type FormData = {
 	title: string;
 	content: string;
+	thumbnailUrl: string;
 };
 
 type PostFormProps = {
@@ -16,13 +26,21 @@ type PostFormProps = {
 	isSubmitting?: boolean;
 	backTo: string;
 	onSubmit: SubmitHandler<FormData>;
+	handleUploadThumbnail: (e?) => void;
+	thumbnailImageName: string;
 };
+
+const Input = styled('input')({
+	display: 'none',
+});
 
 const PostForm = ({
 	defaultValues,
 	isSubmitting,
 	backTo,
 	onSubmit,
+	handleUploadThumbnail,
+	thumbnailImageName,
 }: PostFormProps) => {
 	const theme = useTheme();
 	const { control, register, formState, getValues, reset, handleSubmit } =
@@ -43,14 +61,43 @@ const PostForm = ({
 	return (
 		<Box width={1}>
 			<form onSubmit={handleSubmit(onSubmit)}>
-				<TextField
-					{...register('title', { required: true })}
-					label="Title"
-					autoFocus
-					required
-					size="medium"
-					fullWidth
-				/>
+				<Grid
+					container
+					direction="row"
+					justifyContent="space-between"
+					alignItems="center"
+					spacing={2}
+				>
+					<Grid item xs={9}>
+						<TextField
+							{...register('title', { required: true })}
+							label="Title"
+							autoFocus
+							multiline
+							required
+							size="small"
+							fullWidth
+						/>
+					</Grid>
+					<Grid item xs={3}>
+						<Button
+							component="label"
+							variant="outlined"
+							fullWidth
+							startIcon={<PhotoOutlined />}
+						>
+							{thumbnailImageName}
+							<input
+								name="thumbnailUrl"
+								id="upload-thumbnail"
+								hidden
+								accept=".jpg, .jpeg, .png, .gif"
+								type="file"
+								onChange={handleUploadThumbnail}
+							/>
+						</Button>
+					</Grid>
+				</Grid>
 
 				<Controller
 					name="content"
@@ -64,9 +111,10 @@ const PostForm = ({
 							required
 							style={{
 								marginTop: '8px',
-								width: '100%',
-								border: `1px solid ${theme.palette.divider}`,
-								borderRadius: '8px',
+								maxWidth: '100%',
+								minWidth: '100%',
+								borderColor: theme.palette.divider,
+								borderRadius: '5px',
 								padding: '12px',
 								fontFamily: 'CircularStd,Helvetica,Arial,sans-serif',
 								color: theme.palette.text.secondary,
@@ -81,19 +129,14 @@ const PostForm = ({
 					justifyContent="space-between"
 					alignItems="center"
 					spacing={2}
+					border={`1px solid ${theme.palette.divider}`}
+					borderRadius={'5px'}
+					paddingY={1}
+					marginBottom={2}
 				>
-					<Box>
-						<Button
-							type="submit"
-							// isLoading={isSubmitting}
-							// loadingChildren={`${defaultValues ? 'Saving' : 'Publishing'}`}
-						>
-							{defaultValues?.title ? 'Save' : 'Publish'}
-						</Button>
-						<Button component={Link} href={backTo} variant="text">
-							Cancel
-						</Button>
-					</Box>
+					<Typography paddingLeft={2} variant="body2" color="text.secondary">
+						Attach files by dragging & dropping, selecting or pasting them.
+					</Typography>
 					{!isSubmitting && (
 						<Button
 							component={Link}
@@ -101,10 +144,26 @@ const PostForm = ({
 							href="https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax"
 							target="_blank"
 							rel="noreferrer"
-						>
-							Markdown supported
-						</Button>
+						/>
 					)}
+				</Stack>
+				<Stack
+					direction="row"
+					justifyContent="flex-end"
+					alignItems="flex-end"
+					spacing={2}
+				>
+					<Button component={Link} variant="outlined" href={backTo}>
+						Cancel
+					</Button>
+					<Button
+						variant="contained"
+						type="submit"
+						// isLoading={isSubmitting}
+						// loadingChildren={`${defaultValues ? 'Saving' : 'Publishing'}`}
+					>
+						{defaultValues?.title ? 'Save' : 'Publish'}
+					</Button>
 				</Stack>
 			</form>
 		</Box>

@@ -7,7 +7,16 @@ import {
 } from '@lib/editor';
 import { trpc } from '@lib/trpc';
 import { FormatBold, FormatItalic, Link, List } from '@mui/icons-material';
-import { Box, Button, ButtonGroup, Stack, Tab, Tabs } from '@mui/material';
+import {
+	Box,
+	Button,
+	ButtonGroup,
+	Chip,
+	Stack,
+	Tab,
+	Tabs,
+} from '@mui/material';
+import { styled, useTheme } from '@mui/material/styles';
 import { matchSorter } from 'match-sorter';
 import {
 	ReactNode,
@@ -33,6 +42,10 @@ interface TabPanelProps {
 	children?: ReactNode;
 	index: number;
 	value: number;
+}
+
+interface MarkDownTabProps {
+	label: string;
 }
 
 type MarkdownEditorProps = {
@@ -108,41 +121,40 @@ const suggestionReducer = (
 const TOOLBAR_ITEMS = [
 	{
 		commandTrigger: 'bold',
-		icon: <FormatBold style={{ width: '16px', height: '16px' }} />,
+		icon: <FormatBold style={{ width: '20px', height: '20px' }} />,
 		name: 'Bold',
 	},
 	{
 		commandTrigger: 'italic',
-		icon: <FormatItalic style={{ width: '16px', height: '16px' }} />,
+		icon: <FormatItalic style={{ width: '20px', height: '20px' }} />,
 		name: 'Italic',
 	},
 	{
 		commandTrigger: 'unordered-list',
-		icon: <List style={{ width: '16px', height: '16px' }} />,
+		icon: <List style={{ width: '20px', height: '20px' }} />,
 		name: 'Unordered List',
 	},
 	{
 		commandTrigger: 'link',
-		icon: <Link style={{ width: '16px', height: '16px' }} />,
+		icon: <Link style={{ width: '20px', height: '20px' }} />,
 		name: 'Link',
 	},
 ];
 
 const MarkdownPreview = ({ markdown }: { markdown: string }) => {
+	const theme = useTheme();
 	return (
 		<Box
-			sx={{
-				borderColor: 'divider',
-				marginTop: 1,
-				marginBottom: '4px',
-				width: 1,
-				minHeight: '326px',
-				border: (theme) => `1px solid ${theme.palette.divider}`,
-				borderRadius: '8px',
+			style={{
+				marginTop: '8px',
+				width: '100%',
+				border: `1px solid ${theme.palette.divider}`,
+				borderRadius: '5px',
 				padding: '12px',
 				fontFamily: 'CircularStd,Helvetica,Arial,sans-serif',
-				color: (theme) => theme.palette.text.secondary,
+				color: theme.palette.text.secondary,
 				fontSize: '16px',
+				minHeight: '326px',
 			}}
 		>
 			{markdown ? (
@@ -169,6 +181,25 @@ const TabPanel = (props: TabPanelProps) => {
 		</div>
 	);
 };
+
+const MarkdownTab = styled((props: MarkDownTabProps) => (
+	<Tab disableRipple {...props} />
+))(({ theme }) => ({
+	textTransform: 'none',
+	'&:focus': {
+		color: theme.palette.primary.main,
+		fontWeight: 500,
+	},
+}));
+
+const MarkdownTabs = styled(Tabs)(({ theme }) => ({
+	marginTop: '8px',
+	borderRadius: '5px',
+	border: `1px solid ${theme.palette.divider}`,
+	'& .MuiTabs-indicator': {
+		display: 'none',
+	},
+}));
 
 const a11yProps = (index: number) => {
 	return {
@@ -207,7 +238,6 @@ const MarkdownEditor = ({
 
 	return (
 		<Box sx={{ width: '100%' }}>
-			{/*<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>*/}
 			<Stack
 				direction="row"
 				justifyContent="space-between"
@@ -215,35 +245,37 @@ const MarkdownEditor = ({
 				spacing={2}
 				paddingY={0}
 			>
-				<Tabs
+				<MarkdownTabs
 					value={tabValue}
 					onChange={handleChange}
+					visibleScrollbar={false}
 					aria-label="markdown tabs"
 				>
-					<Tab label="Write" {...a11yProps(0)} />
-					<Tab label="Preview" {...a11yProps(1)} />
-				</Tabs>
-				<ButtonGroup
-					variant="outlined"
-					size="small"
-					aria-label="outlined button group"
-				>
-					{TOOLBAR_ITEMS.map((toolbarItem) => (
-						<Button
-							key={toolbarItem.commandTrigger}
-							type="button"
-							onClick={() => {
-								textareaMarkdownRef.current?.trigger(
-									toolbarItem.commandTrigger
-								);
-							}}
-							disabled={showPreview}
-							title={toolbarItem.name}
-						>
-							{toolbarItem.icon}
-						</Button>
-					))}
-				</ButtonGroup>
+					<MarkdownTab label="Write" {...a11yProps(0)} />
+					<MarkdownTab label="Preview" {...a11yProps(1)} />
+				</MarkdownTabs>
+				{!showPreview ? (
+					<ButtonGroup
+						variant="outlined"
+						size="small"
+						aria-label="outlined button group"
+					>
+						{TOOLBAR_ITEMS.map((toolbarItem) => (
+							<Button
+								key={toolbarItem.commandTrigger}
+								type="button"
+								onClick={() => {
+									textareaMarkdownRef.current?.trigger(
+										toolbarItem.commandTrigger
+									);
+								}}
+								title={toolbarItem.name}
+							>
+								{toolbarItem.icon}
+							</Button>
+						))}
+					</ButtonGroup>
+				) : null}
 			</Stack>
 			<TabPanel value={tabValue} index={0}>
 				<>
@@ -404,6 +436,50 @@ const MarkdownEditor = ({
 	);
 };
 
+const SuggestionResult = ({
+	useItem,
+	suggestionResult,
+}: {
+	useItem: ({ ref, text, value, disabled }: ItemOptions) => {
+		id: string;
+		index: number;
+		highlight: () => void;
+		select: () => void;
+		selected: any;
+		useHighlighted: () => Boolean;
+	};
+	suggestionResult: SuggestionResult;
+}) => {
+	const ref = useRef(null);
+	const { id, index, highlight, select, useHighlighted } = useItem({
+		ref,
+		value: suggestionResult,
+	});
+	const highlighted = useHighlighted();
+
+	return (
+		<Chip
+			ref={ref}
+			id={id}
+			role="option"
+			onClick={select}
+			onMouseEnter={highlight}
+			label={suggestionResult.label}
+			aria-selected={highlighted ? 'true' : 'false'}
+		/>
+		// <li
+		// 	ref={ref}
+		// 	id={id}
+		// 	onMouseEnter={highlight}
+		// 	onClick={select}
+		// 	role="option"
+		// 	aria-selected={highlighted ? 'true' : 'false'}
+		// >
+		// 	{suggestionResult.label}
+		// </li>
+	);
+};
+
 const Suggestion = ({
 	state,
 	onSelect,
@@ -524,7 +600,7 @@ const SuggestionList = ({
 				left: position.left,
 			}}
 		>
-			<ul role="listbox">
+			<Stack direction="row" spacing={1} role="listbox">
 				{suggestionList.map((suggestionResult) => (
 					<SuggestionResult
 						key={suggestionResult.value}
@@ -532,43 +608,8 @@ const SuggestionList = ({
 						suggestionResult={suggestionResult}
 					/>
 				))}
-			</ul>
+			</Stack>
 		</div>
-	);
-};
-
-const SuggestionResult = ({
-	useItem,
-	suggestionResult,
-}: {
-	useItem: ({ ref, text, value, disabled }: ItemOptions) => {
-		id: string;
-		index: number;
-		highlight: () => void;
-		select: () => void;
-		selected: any;
-		useHighlighted: () => Boolean;
-	};
-	suggestionResult: SuggestionResult;
-}) => {
-	const ref = useRef<HTMLLIElement>(null);
-	const { id, index, highlight, select, useHighlighted } = useItem({
-		ref,
-		value: suggestionResult,
-	});
-	const highlighted = useHighlighted();
-
-	return (
-		<li
-			ref={ref}
-			id={id}
-			onMouseEnter={highlight}
-			onClick={select}
-			role="option"
-			aria-selected={highlighted ? 'true' : 'false'}
-		>
-			{suggestionResult.label}
-		</li>
 	);
 };
 

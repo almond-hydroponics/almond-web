@@ -9,6 +9,7 @@ export const postRouter = createProtectedRouter()
 		input: z.object({
 			title: z.string().min(1),
 			content: z.string().min(1),
+			thumbnailUrl: z.string().min(1),
 		}),
 		async resolve({ ctx, input }) {
 			return await ctx.prisma.post.create({
@@ -16,7 +17,7 @@ export const postRouter = createProtectedRouter()
 					title: input.title,
 					content: input.content,
 					contentHtml: markdownToHtml(input.content),
-					thumbnailUrl: '/img/hydroponics.webp',
+					thumbnailUrl: input.thumbnailUrl,
 					author: {
 						connect: {
 							id: ctx.session.user.id,

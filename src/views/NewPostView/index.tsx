@@ -1,19 +1,72 @@
 import Container from '@components/Container';
 import { PostForm } from '@components/molecules';
+import { browserEnv } from '@env/browser';
+import { uploadImage } from '@lib/cloudinary';
 import { trpc } from '@lib/trpc';
-import { Add, ArrowBackRounded } from '@mui/icons-material';
-import { Button, IconButton, Stack, Typography } from '@mui/material';
+import { ArrowBackRounded } from '@mui/icons-material';
+import { IconButton, Stack, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 import { displaySnackMessage } from '@store/slices/snack';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 const NewPostView = (): JSX.Element => {
 	const router = useRouter();
 	const theme = useTheme();
 	const dispatch = useDispatch();
+
+	const [uploadedThumbnailImage, setUploadedThumbnailImage] = useState('');
+	const [thumbnailImageName, setThumbnailImageName] =
+		useState('Select thumbnail');
+
+	const handleUploadThumbnail = async (event) => {
+		if (browserEnv.NEXT_PUBLIC_ENABLE_IMAGE_UPLOAD) {
+			const files = event.target.files;
+
+			if (files && files.length > 0) {
+				const file = files[0];
+				if (file.size > 5242880) {
+					dispatch(
+						displaySnackMessage({
+							message: 'Thumbnail image is bigger than 5MB',
+							severity: 'error',
+						})
+					);
+					return;
+				}
+
+				const imageFiles: any[] = Array.from(files).filter((file: any) =>
+					/image/i.test(file.type)
+				);
+
+				if (imageFiles.length === 0) {
+					return;
+				}
+
+				try {
+					const uploadedImage = await uploadImage(imageFiles[0]);
+					setUploadedThumbnailImage(uploadedImage.url);
+					setThumbnailImageName(uploadedImage.originalFilename);
+					dispatch(
+						displaySnackMessage({
+							message: 'Thumbnail uploaded successfully.',
+						})
+					);
+				} catch (error: any) {
+					dispatch(
+						displaySnackMessage({
+							message: `Error uploading image: ${error.message}`,
+							severity: 'error',
+						})
+					);
+				}
+			}
+		}
+	};
+
 	const addPostMutation = trpc.useMutation('post.add', {
 		onError: (error) => {
 			dispatch(
@@ -60,13 +113,6 @@ const NewPostView = (): JSX.Element => {
 							Back
 						</Typography>
 					</Box>
-					<Button
-						variant="outlined"
-						startIcon={<Add />}
-						sx={{ paddingY: 0.5 }}
-					>
-						Save
-					</Button>
 				</Stack>
 
 				<Box
@@ -82,16 +128,23 @@ const NewPostView = (): JSX.Element => {
 						defaultValues={{
 							title: '',
 							content: '',
+							thumbnailUrl: '',
 						}}
 						backTo="/news"
 						onSubmit={(values) => {
 							addPostMutation.mutate(
-								{ title: values.title, content: values.content },
+								{
+									title: values.title,
+									content: values.content,
+									thumbnailUrl: uploadedThumbnailImage,
+								},
 								{
 									onSuccess: (data) => router.push(`/news/${data.id}`),
 								}
 							);
 						}}
+						handleUploadThumbnail={handleUploadThumbnail}
+						thumbnailImageName={thumbnailImageName}
 					/>
 				</Box>
 			</Container>
