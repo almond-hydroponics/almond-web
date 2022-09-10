@@ -36,20 +36,6 @@ const Newsroom = () => {
 					<div>There are no published news to show yet.</div>
 				) : (
 					<MostViewedArticles posts={feedQuery.data.posts} />
-					// <Box>
-					// 	<Box
-					// 		display={'flex'}
-					// 		justifyContent={'space-between'}
-					// 		alignItems={{ xs: 'flex-start', sm: 'center' }}
-					// 		flexDirection={{ xs: 'column', sm: 'row' }}
-					// 		marginBottom={4}
-					// 	/>
-					// 	<Grid container spacing={4}>
-					// 		{feedQuery.data.posts.map((post) => (
-					// 			<NewsSummary key={post.id} post={post} />
-					// 		))}
-					// 	</Grid>
-					// </Box>
 				)}
 			</>
 		);

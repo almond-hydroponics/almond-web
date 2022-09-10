@@ -1,26 +1,126 @@
 import { HtmlView } from '@components/atoms';
-import { InferQueryOutput } from '@lib/trpc';
+import { getQueryPaginationInput } from '@components/molecules/Pagination';
+import { InferQueryOutput, InferQueryPathAndInput, trpc } from '@lib/trpc';
+import { BookmarkAddTwoTone, Delete, EditTwoTone } from '@mui/icons-material';
 import {
 	Box,
 	Button,
 	Card,
 	CardContent,
 	Chip,
+	ClickAwayListener,
 	Grid,
+	IconButton,
+	Paper,
+	Popper,
+	PopperPlacementType,
 	Stack,
+	Tooltip,
 	Typography,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+import { animated, useSpring } from '@react-spring/web';
+import { displaySnackMessage } from '@store/slices/snack';
 import dayjsTime from '@utils/dayjsTime';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { MouseEvent, ReactElement, forwardRef, useState } from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { useDispatch } from 'react-redux';
+
+const POSTS_PER_PAGE = 20;
 
 interface Props {
 	posts: InferQueryOutput<'news.feed'>['posts'];
 }
 
+interface FadeProps {
+	children?: ReactElement;
+	in?: boolean;
+	onEnter?: () => void;
+	onExited?: () => void;
+}
+
+const Fade = forwardRef<HTMLDivElement, FadeProps>(function Fade(props, ref) {
+	const { in: open, children, onEnter, onExited, ...other } = props;
+	const style = useSpring({
+		from: { opacity: 0 },
+		to: { opacity: open ? 1 : 0 },
+		onStart: () => {
+			if (open && onEnter) {
+				onEnter();
+			}
+		},
+		onRest: () => {
+			if (!open && onExited) {
+				onExited();
+			}
+		},
+	});
+
+	return (
+		<animated.div ref={ref} style={style} {...other}>
+			{children}
+		</animated.div>
+	);
+});
+
 const MostViewedArticles = ({ posts }: Props): JSX.Element => {
+	const utils = trpc.useContext();
+	const router = useRouter();
 	const theme = useTheme();
+	const dispatch = useDispatch();
+	const [isConfirmDeleteDialogOpen, setIsConfirmDeleteDialogOpen] =
+		useState(false);
+	const [placement, setPlacement] = useState<PopperPlacementType>();
+	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+	const currentPageNumber = router.query.page ? Number(router.query.page) : 1;
+	const feedQueryPathAndInput: InferQueryPathAndInput<'news.feed'> = [
+		'news.feed',
+		getQueryPaginationInput(POSTS_PER_PAGE, currentPageNumber),
+	];
+
+	const handleClick =
+		(newPlacement: PopperPlacementType) =>
+		(event: MouseEvent<HTMLButtonElement>) => {
+			setAnchorEl(event.currentTarget);
+			setIsConfirmDeleteDialogOpen(
+				(prev) => placement !== newPlacement || !prev
+			);
+			setPlacement(newPlacement);
+		};
+
+	const handleClickAway = () => {
+		setIsConfirmDeleteDialogOpen(false);
+	};
+
+	const deletePostMutation = trpc.useMutation('post.delete', {
+		onSuccess: () => {
+			return utils.invalidateQueries(feedQueryPathAndInput);
+		},
+		onError: (error) => {
+			dispatch(
+				displaySnackMessage({
+					message: `Something went wrong: ${error.message}`,
+					severity: 'error',
+				})
+			);
+		},
+	});
+
+	const handleDeletePost = (event) => {
+		const { id } = event.target;
+		deletePostMutation.mutate(id, {
+			onSuccess: () => {
+				dispatch(
+					displaySnackMessage({
+						message: 'Post deleted successfully.',
+					})
+				);
+			},
+		});
+	};
 
 	return (
 		<Box>
@@ -32,13 +132,13 @@ const MostViewedArticles = ({ posts }: Props): JSX.Element => {
 				marginBottom={4}
 			/>
 			<Grid container spacing={4}>
-				{posts.map((post, i) => {
+				{posts.map((post) => {
 					const { id, title, contentHtml, thumbnailUrl, createdAt, author } =
 						post;
 					const tag = 'Blah';
 
 					return (
-						<Grid item xs={12} key={i}>
+						<Grid item xs={12} key={id}>
 							<Box
 								component={Card}
 								width={1}
@@ -59,24 +159,6 @@ const MostViewedArticles = ({ posts }: Props): JSX.Element => {
 											},
 										}}
 									>
-										{/*<Box*/}
-										{/*	component={'img'}*/}
-										{/*	src={thumbnailUrl}*/}
-										{/*	srcSet={`${thumbnailUrl} 2x`}*/}
-										{/*	alt="..."*/}
-										{/*	height={1}*/}
-										{/*	width={1}*/}
-										{/*	sx={{*/}
-										{/*		borderRadius: 2,*/}
-										{/*		objectFit: 'cover',*/}
-										{/*		maxHeight: 200,*/}
-										{/*		cursor: 'pointer',*/}
-										{/*		filter:*/}
-										{/*			theme.palette.mode === 'dark'*/}
-										{/*				? 'brightness(0.7)'*/}
-										{/*				: 'none',*/}
-										{/*	}}*/}
-										{/*/>*/}
 										<Box
 											component={LazyLoadImage}
 											height={1}
@@ -139,7 +221,65 @@ const MostViewedArticles = ({ posts }: Props): JSX.Element => {
 													size={'small'}
 												/>
 											</div>
-											{/*<BookmarkAddOutlined sx={{ cursor: 'pointer' }} />*/}
+											<Box>
+												<Tooltip title="Bookmark" placement="top">
+													<IconButton aria-label="bookmark" color="primary">
+														<BookmarkAddTwoTone />
+													</IconButton>
+												</Tooltip>
+
+												<Tooltip title="Edit" placement="top">
+													<IconButton aria-label="edit" color="secondary">
+														<EditTwoTone />
+													</IconButton>
+												</Tooltip>
+
+												<ClickAwayListener
+													mouseEvent="onMouseDown"
+													touchEvent="onTouchStart"
+													onClickAway={handleClickAway}
+												>
+													<IconButton
+														onClick={handleClick('right')}
+														aria-label="delete"
+														color="error"
+														aria-controls={
+															isConfirmDeleteDialogOpen
+																? 'delete-menu'
+																: undefined
+														}
+														aria-haspopup="true"
+														aria-expanded={
+															isConfirmDeleteDialogOpen ? 'true' : undefined
+														}
+													>
+														<Tooltip title="Remove" placement="top">
+															<Delete />
+														</Tooltip>
+														<Popper
+															open={isConfirmDeleteDialogOpen}
+															anchorEl={anchorEl}
+															placement={placement}
+															transition
+														>
+															{({ TransitionProps }) => (
+																<Fade {...TransitionProps}>
+																	<Paper variant="outlined">
+																		<Button
+																			id={id}
+																			color="error"
+																			onClick={handleDeletePost}
+																		>
+																			Delete
+																		</Button>
+																		<Button>Cancel</Button>
+																	</Paper>
+																</Fade>
+															)}
+														</Popper>
+													</IconButton>
+												</ClickAwayListener>
+											</Box>
 										</Stack>
 									</Box>
 									<HtmlView html={contentHtml} />

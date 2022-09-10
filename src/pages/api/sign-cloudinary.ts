@@ -26,7 +26,6 @@ cloudinary.config({
 const cloudName = cloudinary.config().cloud_name!;
 const apiSecret = cloudinary.config().api_secret!;
 const apiKey = cloudinary.config().api_key!;
-const folder = 'beam';
 
 export default async function handler(
 	req: NextApiRequest,
@@ -46,6 +45,7 @@ export default async function handler(
 	}
 
 	const timestamp = Math.round(new Date().getTime() / 1000);
+	const folder = session?.user.email || 'almond';
 	const signature = cloudinary.utils.api_sign_request(
 		{
 			timestamp,

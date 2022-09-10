@@ -52,10 +52,15 @@ NewsroomPage.getLayout = function getLayout(page: ReactElement) {
 					alignItems="center"
 					spacing={2}
 				>
-					<Typography variant="h6" align="left" fontWeight={500}>
+					<Typography variant="h5" align="left" fontWeight={500}>
 						Latest news
 					</Typography>
-					<Button component={Link} href={'/new-post'} startIcon={<Add />}>
+					<Button
+						variant="outlined"
+						component={Link}
+						href={'/new-post'}
+						startIcon={<Add />}
+					>
 						Add post
 					</Button>
 				</Stack>

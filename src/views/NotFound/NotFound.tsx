@@ -30,7 +30,7 @@ const NotFound = (): JSX.Element => {
 						Oops!
 					</Typography>
 					<Typography variant="h3" align="center">
-						You broke the internet.
+						This is most likely not where you wanted to be.
 					</Typography>
 					<Box marginTop={4} display={'flex'} justifyContent="center">
 						<Button
