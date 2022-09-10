@@ -1,25 +1,39 @@
-const pages = [
+const sideLayoutNavigation = [
 	{
-		groupTitle: 'Services',
-		pages: [
-			{
-				title: 'Resources',
-				href: '/resources',
-			},
-			{
-				title: 'Portfolio',
-				href: '/portfolio',
-			},
-			{
-				title: 'Latest news',
-				href: '/blog',
-			},
-			{
-				title: 'Settings',
-				href: '/account',
-			},
-		],
+		title: 'Resources',
+		href: '/resources',
+	},
+	{
+		title: 'Portfolio',
+		href: '/portfolio',
+	},
+	{
+		title: 'Latest news',
+		href: '/blog',
+	},
+	{
+		title: 'Settings',
+		href: '/account',
 	},
 ];
 
-export default pages;
+const mainLayoutNavigation = [
+	{
+		title: 'Resources',
+		href: '/resources',
+	},
+	{
+		title: 'Store',
+		href: '/store',
+	},
+	{
+		title: 'Our Latest',
+		href: '/news',
+	},
+	{
+		title: 'Contact',
+		href: '/contact',
+	},
+];
+
+export { sideLayoutNavigation, mainLayoutNavigation };

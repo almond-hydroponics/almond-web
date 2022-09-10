@@ -16,7 +16,7 @@ import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 
 import packageJson from '../../../../../../../package.json';
-import pages from '../../../../../navigation';
+import sideNavPages from '../../../../../navigation';
 import NavItem from './components/NavItem';
 
 interface Props {
@@ -110,7 +110,7 @@ const SidebarNav = ({ onClose, handleContactModal }: Props): JSX.Element => {
 				<Box>
 					<NavItem
 						title={''}
-						items={pages}
+						items={sideNavPages}
 						handleContactModal={handleContactModal}
 					/>
 				</Box>

@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 
-import pages from '../../../../../navigation';
+import sideNavPages from '../../../../../navigation';
 import NavItem from './components/NavItem';
 
 interface Props {
@@ -26,7 +26,7 @@ const SidebarNav = ({ onClose }: Props): JSX.Element => {
 			</Box>
 			<Box paddingX={2} paddingBottom={2}>
 				<Box>
-					<NavItem title={'Landings'} items={pages} />
+					<NavItem title={'Landings'} items={sideNavPages} />
 				</Box>
 				<Divider sx={{ marginBottom: 2 }} />
 				<Box marginTop={1}>
