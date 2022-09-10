@@ -6,6 +6,7 @@ import {
 	Box,
 	Button,
 	Grid,
+	Skeleton,
 	Stack,
 	TextField,
 	Typography,
@@ -28,6 +29,7 @@ type PostFormProps = {
 	onSubmit: SubmitHandler<FormData>;
 	handleUploadThumbnail: (e?) => void;
 	thumbnailImageName: string;
+	uploadingImage: boolean;
 };
 
 const Input = styled('input')({
@@ -41,6 +43,7 @@ const PostForm = ({
 	onSubmit,
 	handleUploadThumbnail,
 	thumbnailImageName,
+	uploadingImage,
 }: PostFormProps) => {
 	const theme = useTheme();
 	const { control, register, formState, getValues, reset, handleSubmit } =
@@ -86,8 +89,8 @@ const PostForm = ({
 							fullWidth
 							startIcon={<PhotoOutlined />}
 						>
-							{thumbnailImageName}
-							<input
+							{uploadingImage ? <Skeleton width={124} /> : thumbnailImageName}
+							<Input
 								name="thumbnailUrl"
 								id="upload-thumbnail"
 								hidden

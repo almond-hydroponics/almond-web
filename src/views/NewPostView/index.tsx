@@ -21,6 +21,7 @@ const NewPostView = (): JSX.Element => {
 	const [uploadedThumbnailImage, setUploadedThumbnailImage] = useState('');
 	const [thumbnailImageName, setThumbnailImageName] =
 		useState('Select thumbnail');
+	const [uploadingImage, setUploadingImage] = useState<boolean>(false);
 
 	const handleUploadThumbnail = async (event) => {
 		if (browserEnv.NEXT_PUBLIC_ENABLE_IMAGE_UPLOAD) {
@@ -47,6 +48,7 @@ const NewPostView = (): JSX.Element => {
 				}
 
 				try {
+					setUploadingImage((prevState) => !prevState);
 					const uploadedImage = await uploadImage(imageFiles[0]);
 					setUploadedThumbnailImage(uploadedImage.url);
 					setThumbnailImageName(uploadedImage.originalFilename);
@@ -55,6 +57,7 @@ const NewPostView = (): JSX.Element => {
 							message: 'Thumbnail uploaded successfully.',
 						})
 					);
+					setUploadingImage((prevState) => !prevState);
 				} catch (error: any) {
 					dispatch(
 						displaySnackMessage({
@@ -131,6 +134,9 @@ const NewPostView = (): JSX.Element => {
 							thumbnailUrl: '',
 						}}
 						backTo="/news"
+						handleUploadThumbnail={handleUploadThumbnail}
+						thumbnailImageName={thumbnailImageName}
+						uploadingImage={uploadingImage}
 						onSubmit={(values) => {
 							addPostMutation.mutate(
 								{
@@ -143,8 +149,6 @@ const NewPostView = (): JSX.Element => {
 								}
 							);
 						}}
-						handleUploadThumbnail={handleUploadThumbnail}
-						thumbnailImageName={thumbnailImageName}
 					/>
 				</Box>
 			</Container>
