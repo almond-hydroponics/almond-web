@@ -55,4 +55,17 @@ export const userRouter = createProtectedRouter()
 				},
 			});
 		},
+	})
+	.query('mentionList', {
+		async resolve({ ctx }) {
+			return await ctx.prisma.user.findMany({
+				select: {
+					id: true,
+					name: true,
+				},
+				orderBy: {
+					name: 'asc',
+				},
+			});
+		},
 	});

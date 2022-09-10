@@ -1,3 +1,5 @@
+import { HtmlView } from '@components/atoms';
+import { InferQueryOutput } from '@lib/trpc';
 import {
 	Box,
 	Button,
@@ -9,16 +11,15 @@ import {
 	Typography,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { Post } from '@prisma/client';
 import dayjsTime from '@utils/dayjsTime';
 import Link from 'next/link';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 interface Props {
-	posts: Post[];
+	posts: InferQueryOutput<'news.feed'>['posts'];
 }
 
-const MostViewedArticles = ({ posts }): JSX.Element => {
+const MostViewedArticles = ({ posts }: Props): JSX.Element => {
 	const theme = useTheme();
 
 	return (
@@ -32,10 +33,9 @@ const MostViewedArticles = ({ posts }): JSX.Element => {
 			/>
 			<Grid container spacing={4}>
 				{posts.map((post, i) => {
-					const { title, description, thumbnailUrl, createdAt, author } = post;
-					// const formattedDate = dayjs(date).fromNow();
+					const { id, title, contentHtml, thumbnailUrl, createdAt, author } =
+						post;
 					const tag = 'Blah';
-					const slug = 'blah';
 
 					return (
 						<Grid item xs={12} key={i}>
@@ -49,7 +49,7 @@ const MostViewedArticles = ({ posts }): JSX.Element => {
 								flexDirection={{ xs: 'column', md: 'row' }}
 								sx={{ backgroundImage: 'none', bgcolor: 'transparent' }}
 							>
-								<Link href={`/blog/${slug}`}>
+								<Link href={`/news/${id}`}>
 									<Box
 										sx={{
 											width: { xs: 1, md: '30%' },
@@ -106,7 +106,7 @@ const MostViewedArticles = ({ posts }): JSX.Element => {
 										padding: { xs: 0, md: 1 },
 									}}
 								>
-									<Link href={`/blog/${slug}`}>
+									<Link href={`/news/${id}`}>
 										<Typography
 											fontWeight={500}
 											marginTop={{ xs: 1, md: 0 }}
@@ -128,8 +128,7 @@ const MostViewedArticles = ({ posts }): JSX.Element => {
 													color={'text.secondary'}
 													// component={'i'}
 												>
-													{author.name} -{' '}
-													{dayjsTime(createdAt).format('MMMM D, YYYY')}
+													{author?.name} - {dayjsTime(createdAt).fromNow()}
 												</Typography>
 												<Chip
 													component={'a'}
@@ -143,8 +142,8 @@ const MostViewedArticles = ({ posts }): JSX.Element => {
 											{/*<BookmarkAddOutlined sx={{ cursor: 'pointer' }} />*/}
 										</Stack>
 									</Box>
-									<Typography color="text.secondary">{description}</Typography>
-									<Link href={`/blog/${slug}`}>
+									<HtmlView html={contentHtml} />
+									<Link href={`/news/${id}`}>
 										<Box
 											marginTop={2}
 											display={'flex'}

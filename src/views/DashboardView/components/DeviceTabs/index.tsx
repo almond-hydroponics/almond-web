@@ -11,7 +11,7 @@ interface TabPanelProps {
 	value: number;
 }
 
-function TabPanel(props: TabPanelProps) {
+const TabPanel = (props: TabPanelProps) => {
 	const { children, value, index, ...other } = props;
 
 	return (
@@ -25,14 +25,14 @@ function TabPanel(props: TabPanelProps) {
 			{value === index && <Box sx={{ p: 0 }}>{children}</Box>}
 		</div>
 	);
-}
+};
 
-function a11yProps(index: number) {
+const a11yProps = (index: number) => {
 	return {
-		id: `simple-tab-${index}`,
-		'aria-controls': `simple-tabpanel-${index}`,
+		id: `device-tab-${index}`,
+		'aria-controls': `device-tabpanel-${index}`,
 	};
-}
+};
 
 const getDevicesQueryPathAndInput = (
 	userId: string

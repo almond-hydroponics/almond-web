@@ -1,8 +1,6 @@
 import { Main } from '@layouts/index';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
+import { Box, Grid, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
 import Container from 'components/Container';
 
 import { ContactCard, Content } from './components';
@@ -13,9 +11,13 @@ const CompanyTerms = (): JSX.Element => {
 	return (
 		<Main>
 			<Container>
-				<Box boxShadow={4} borderRadius={2}>
+				<Box
+					borderRadius={2}
+					boxShadow={0}
+					border={`1px solid ${theme.palette.divider}`}
+				>
 					<Box bgcolor={theme.palette.primary.main} borderRadius={2}>
-						<Container paddingX={{ xs: 2, sm: 4 }}>
+						<Container paddingX={{ xs: 2, sm: 4 }} marginBottom={2}>
 							<Typography
 								variant={'h4'}
 								gutterBottom
@@ -35,21 +37,6 @@ const CompanyTerms = (): JSX.Element => {
 								Last modified on <strong>23 Aug, 2021</strong>
 							</Typography>
 						</Container>
-						<Box
-							component={'svg'}
-							preserveAspectRatio="none"
-							xmlns="http://www.w3.org/2000/svg"
-							x="0px"
-							y="0px"
-							viewBox="0 0 1920 100.1"
-							width={1}
-							marginBottom={-1}
-						>
-							<path
-								fill={theme.palette.background.paper}
-								d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"
-							></path>
-						</Box>
 					</Box>
 					<Container
 						paddingTop={'0 !important'}

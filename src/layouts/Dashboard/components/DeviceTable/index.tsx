@@ -183,7 +183,7 @@ const DeviceTable = ({ headers, data }: Props): JSX.Element => {
 									<FiberManualRecord
 										fontSize="small"
 										sx={{
-											color: row.online ? '#76ff03' : '#ff1744',
+											color: row.online ? '#35A839' : '#E62634',
 										}}
 									/>
 								</Tooltip>

@@ -1,5 +1,6 @@
 import { createRouter } from '@server/create-router';
 import { deviceRouter } from '@server/routers/device';
+import { newsRouter } from '@server/routers/news';
 import { postRouter } from '@server/routers/post';
 import { scheduleRouter } from '@server/routers/schedule';
 import { userRouter } from '@server/routers/user';
@@ -10,6 +11,7 @@ export const appRouter = createRouter()
 	.merge('device.', deviceRouter)
 	.merge('schedule.', scheduleRouter)
 	.merge('user.', userRouter)
-	.merge('post.', postRouter);
+	.merge('post.', postRouter)
+	.merge('news.', newsRouter);
 
 export type AppRouter = typeof appRouter;

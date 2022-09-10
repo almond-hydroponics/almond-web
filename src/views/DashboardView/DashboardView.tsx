@@ -343,13 +343,9 @@ const DashboardView = (): JSX.Element => {
 						paddingX={{ xs: 1 }}
 					>
 						<TabPanel index={selectedIndex} value={selectedIndex}>
-							{createElement(
-								displayMenusByRoleBase[currentRoleBasedAccess][selectedIndex]
-									.component,
-								{
-									history,
-								}
-							)}
+							{createElement(UserMenus[selectedIndex].component, {
+								history,
+							})}
 						</TabPanel>
 						{renderSelectDeviceModal()}
 						{renderActivityDrawer()}

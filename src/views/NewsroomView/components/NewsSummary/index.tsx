@@ -1,4 +1,4 @@
-import { Link } from '@components/atoms';
+import { HtmlView, Link } from '@components/atoms';
 import { summarize } from '@lib/text';
 import { InferQueryOutput } from '@lib/trpc';
 import {
@@ -18,7 +18,7 @@ import { useMemo } from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 export interface NewsSummaryProps {
-	post: InferQueryOutput<'post.feed'>['posts'][number];
+	post: InferQueryOutput<'news.feed'>['posts'][number];
 }
 
 const NewsSummary = ({ post }: NewsSummaryProps): JSX.Element => {
@@ -43,7 +43,7 @@ const NewsSummary = ({ post }: NewsSummaryProps): JSX.Element => {
 				<Link href={`/news/${post.id}`}>
 					<Box
 						sx={{
-							width: { xs: 1, md: '30%' },
+							// width: { xs: 1, md: '30%' },
 							'& .lazy-load-image-loaded': {
 								height: 1,
 								display: 'flex !important',
@@ -95,11 +95,12 @@ const NewsSummary = ({ post }: NewsSummaryProps): JSX.Element => {
 						padding: { xs: 0, md: 1 },
 					}}
 				>
-					<Link href={`/news/${post.id}`}>
+					<Link noLinkStyle href={`/news/${post.id}`}>
 						<Typography
 							fontWeight={500}
 							marginTop={{ xs: 1, md: 0 }}
 							sx={{ cursor: 'pointer' }}
+							color="text.primary"
 						>
 							{post.title}
 						</Typography>
@@ -117,8 +118,7 @@ const NewsSummary = ({ post }: NewsSummaryProps): JSX.Element => {
 									color={'text.secondary'}
 									// component={'i'}
 								>
-									{post.author?.name} -{' '}
-									{dayjsTime(post.createdAt).format('MMMM D, YYYY')}
+									{post.author?.name} - {dayjsTime(post.createdAt).fromNow()}
 								</Typography>
 								<Chip
 									component={'a'}
@@ -132,8 +132,8 @@ const NewsSummary = ({ post }: NewsSummaryProps): JSX.Element => {
 							{/*<BookmarkAddOutlined sx={{ cursor: 'pointer' }} />*/}
 						</Stack>
 					</Box>
-					<Typography color="text.secondary">{summary}</Typography>
-					<Link href={`/news/${post.id}`}>
+					<HtmlView html={summary} />
+					<Link noLinkStyle href={`/news/${post.id}`}>
 						<Box marginTop={2} display={'flex'} justifyContent={'flex-end'}>
 							<Button
 								endIcon={

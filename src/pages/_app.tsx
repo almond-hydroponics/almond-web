@@ -107,7 +107,7 @@ const Auth = ({ children }: { children: ReactNode }) => {
 			push('/').then(() =>
 				dispatch(
 					displaySnackMessage({
-						message: 'Your token has expired. Kindly login to continue.',
+						message: 'Kindly login to view this page.',
 					})
 				)
 			);

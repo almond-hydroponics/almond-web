@@ -1,6 +1,8 @@
 import { uploadImage } from '@lib/cloudinary';
+import { displaySnackMessage } from '@store/slices/snack';
 import DOMPurify from 'isomorphic-dompurify';
 import { marked } from 'marked';
+import { AnyAction, Dispatch } from 'redux';
 import { Cursor } from 'textarea-markdown-editor';
 
 const markdownToHtml = (markdown: string) => {
@@ -12,20 +14,23 @@ const replacePlaceholder = (
 	placeholder: string,
 	replaceWith: string
 ) => {
-	cursor.selection?.text.replace(placeholder, replaceWith);
+	cursor.setText(cursor.getText().replace(placeholder, replaceWith));
 };
 
 const handleUploadImages = (
 	textareaEl: HTMLTextAreaElement,
-	files: File[]
+	files: File[],
+	dispatch: Dispatch<AnyAction>
 ) => {
 	const cursor = new Cursor(textareaEl);
-	const currentLineNumber = cursor.position.line.lineNumber;
+	const currentLineNumber = cursor.getCurrentPosition().lineNumber;
 
 	files.forEach(async (file, idx) => {
 		const placeholder = `![Uploading ${file.name}...]()`;
 
-		cursor.insert(`${Cursor.MARKER}${placeholder}${Cursor.MARKER}`);
+		cursor.spliceContent(Cursor.raw`${placeholder}${Cursor.$}`, {
+			startLineNumber: currentLineNumber + idx,
+		});
 
 		try {
 			const uploadedImage = await uploadImage(file);
@@ -41,7 +46,12 @@ const handleUploadImages = (
 			);
 		} catch (error: any) {
 			replacePlaceholder(cursor, placeholder, '');
-			// toast.error(`Error uploading image: ${error.message}`);
+			dispatch(
+				displaySnackMessage({
+					message: `Error uploading image: ${error.message}`,
+					severity: 'error',
+				})
+			);
 		}
 	});
 };

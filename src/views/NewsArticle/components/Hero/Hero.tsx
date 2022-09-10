@@ -1,6 +1,8 @@
+import { Avatar, ListItemText } from '@mui/material';
 import Box from '@mui/material/Box';
 import { alpha } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
+import dayjsTime from '@utils/dayjsTime';
 import Container from 'components/Container';
 import { useEffect } from 'react';
 
@@ -84,24 +86,24 @@ const Hero = ({
 					>
 						{title}
 					</Typography>
-					{/*<Box display={'flex'} alignItems={'center'}>*/}
-					{/*	<Avatar*/}
-					{/*		sx={{ width: 60, height: 60, marginRight: 2 }}*/}
-					{/*		src={avatar}*/}
-					{/*	/>*/}
-					{/*	<ListItemText*/}
-					{/*		sx={{ margin: 0 }}*/}
-					{/*		primary={fullName}*/}
-					{/*		secondary={date}*/}
-					{/*		primaryTypographyProps={{*/}
-					{/*			variant: 'h6',*/}
-					{/*			sx: { color: 'common.white' },*/}
-					{/*		}}*/}
-					{/*		secondaryTypographyProps={{*/}
-					{/*			sx: { color: alpha('#ffffff', 0.8) },*/}
-					{/*		}}*/}
-					{/*	/>*/}
-					{/*</Box>*/}
+					<Box display={'flex'} alignItems={'center'}>
+						<Avatar
+							sx={{ width: 60, height: 60, marginRight: 2 }}
+							src={avatar}
+						/>
+						<ListItemText
+							sx={{ margin: 0 }}
+							primary={fullName}
+							secondary={dayjsTime(date).format('MMMM D, YYYY')}
+							primaryTypographyProps={{
+								variant: 'h6',
+								sx: { color: 'common.white' },
+							}}
+							secondaryTypographyProps={{
+								sx: { color: alpha('#ffffff', 0.8) },
+							}}
+						/>
+					</Box>
 				</Box>
 			</Container>
 		</Box>

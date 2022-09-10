@@ -20,3 +20,5 @@ export {
 } from './DataGridComponents';
 export { default as RenderCellExpand } from './RenderCellExpand';
 export { default as NoDataToDisplay } from './NoDataToDisplay';
+export { default as HtmlView } from './HtmlView';
+export * from './Icons';

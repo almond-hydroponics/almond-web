@@ -56,7 +56,6 @@ module.exports = withPWA({
 	swcMinify: true,
 	reactStrictMode: true,
 	images: {
-		// disableStaticImages: true,
 		domains: [
 			'static.almondhydroponics.com',
 			'res.cloudinary.com',

@@ -1,11 +1,11 @@
 import { getQueryPaginationInput } from '@components/molecules/Pagination';
 import { InferQueryPathAndInput, trpc } from '@lib/trpc';
-import { NextPageWithAuthAndLayout } from '@lib/types';
 import { useTheme } from '@mui/material/styles';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
+import { MostViewedArticles } from './components';
 import { NewsSummaryProps } from './components/NewsSummary';
 
 const NewsSummary = dynamic<NewsSummaryProps>(
@@ -15,12 +15,12 @@ const NewsSummary = dynamic<NewsSummaryProps>(
 
 const POSTS_PER_PAGE = 20;
 
-const Newsroom: NextPageWithAuthAndLayout = () => {
+const Newsroom = () => {
 	const theme = useTheme();
 	const router = useRouter();
 	const currentPageNumber = router.query.page ? Number(router.query.page) : 1;
-	const feedQueryPathAndInput: InferQueryPathAndInput<'post.feed'> = [
-		'post.feed',
+	const feedQueryPathAndInput: InferQueryPathAndInput<'news.feed'> = [
+		'news.feed',
 		getQueryPaginationInput(POSTS_PER_PAGE, currentPageNumber),
 	];
 	const feedQuery = trpc.useQuery(feedQueryPathAndInput);
@@ -35,9 +35,21 @@ const Newsroom: NextPageWithAuthAndLayout = () => {
 				{feedQuery.data.postCount === 0 ? (
 					<div>There are no published news to show yet.</div>
 				) : (
-					feedQuery.data.posts.map((post) => (
-						<NewsSummary key={post.id} post={post} />
-					))
+					<MostViewedArticles posts={feedQuery.data.posts} />
+					// <Box>
+					// 	<Box
+					// 		display={'flex'}
+					// 		justifyContent={'space-between'}
+					// 		alignItems={{ xs: 'flex-start', sm: 'center' }}
+					// 		flexDirection={{ xs: 'column', sm: 'row' }}
+					// 		marginBottom={4}
+					// 	/>
+					// 	<Grid container spacing={4}>
+					// 		{feedQuery.data.posts.map((post) => (
+					// 			<NewsSummary key={post.id} post={post} />
+					// 		))}
+					// 	</Grid>
+					// </Box>
 				)}
 			</>
 		);

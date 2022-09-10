@@ -68,3 +68,27 @@ const PageBottomNavigation = (): JSX.Element => {
 };
 
 export default PageBottomNavigation;
+
+// -webkit-border-radius: 22px;
+// border-radius: 22px;
+// height: 30px;
+// margin-bottom: 2px;
+// margin-left: 12px;
+// position: relative;
+// width: 44px;
+//
+// -webkit-font-smoothing: antialiased;
+// font-family: "Google Sans",Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
+// font-size: .875rem;
+// letter-spacing: normal;
+// -webkit-border-radius: 0;
+// border-radius: 0;
+// color: #202124;
+// display: -webkit-box;
+// display: -webkit-flex;
+// display: flex;
+// font-weight: 500;
+// height: 40px;
+// padding-left: 0;
+// padding-right: 16px;
+// text-shadow: none;

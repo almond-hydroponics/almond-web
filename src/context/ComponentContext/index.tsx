@@ -16,7 +16,7 @@ const currentRoleBasedAccess =
 
 const ComponentContext = createContext({
 	isMenuOpen: false,
-	selectedIndex: selectedIndex || 0,
+	selectedIndex: selectedIndex ?? 0,
 	isSelectDeviceModalOpen: false,
 	isActivityDrawerOpen: false,
 	isChangeRoleDialogOpen: false,
@@ -70,6 +70,12 @@ const ComponentProvider = ({
 				? 'USER'
 				: (window.localStorage.getItem('currentRoleBasedAccess') as string),
 	});
+
+	// useEffect(() => {
+	// 	if (typeof window.localStorage.getItem('selectedIndex') === 'undefined') {
+	// 		window.localStorage.setItem('selectedIndex', '0');
+	// 	}
+	// }, []);
 
 	const { data: session } = useSession();
 	const role = session?.user?.role || 'USER';

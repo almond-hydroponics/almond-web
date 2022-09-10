@@ -5,96 +5,6 @@ import { z } from 'zod';
 import { createProtectedRouter } from '../create-protected-router';
 
 export const postRouter = createProtectedRouter()
-	.query('feed', {
-		input: z
-			.object({
-				take: z.number().min(1).max(50).optional(),
-				skip: z.number().min(1).optional(),
-				authorId: z.string().optional(),
-			})
-			.optional(),
-		async resolve({ input, ctx }) {
-			const take = input?.take ?? 50;
-			const skip = input?.skip;
-			const where = {
-				published: ctx.isUserAdmin ? undefined : false,
-				authorId: input?.authorId,
-			};
-
-			const posts = await ctx.prisma.post.findMany({
-				take,
-				skip,
-				orderBy: {
-					createdAt: 'desc',
-				},
-				where,
-				select: {
-					id: true,
-					title: true,
-					contentHtml: true,
-					createdAt: true,
-					published: true,
-					thumbnailUrl: true,
-					author: {
-						select: {
-							id: true,
-							name: true,
-							image: true,
-						},
-					},
-				},
-			});
-
-			const postCount = await ctx.prisma.post.count({
-				where,
-			});
-
-			return {
-				posts,
-				postCount,
-			};
-		},
-	})
-	.query('detail', {
-		input: z.object({
-			id: z.string(),
-		}),
-		async resolve({ ctx, input }) {
-			const { id } = input;
-			const post = await ctx.prisma.post.findUnique({
-				where: { id },
-				select: {
-					id: true,
-					title: true,
-					content: true,
-					contentHtml: true,
-					createdAt: true,
-					published: true,
-					author: {
-						select: {
-							id: true,
-							name: true,
-							image: true,
-						},
-					},
-				},
-			});
-
-			const postBelongsToUser = post?.author?.id === ctx.session.user.id;
-
-			if (
-				!post ||
-				(post.published && !postBelongsToUser && !ctx.isUserAdmin)
-			) {
-				throw new TRPCError({
-					code: 'NOT_FOUND',
-					message: `No post with id '${id}'`,
-				});
-			}
-
-			return post;
-		},
-	})
 	.mutation('add', {
 		input: z.object({
 			title: z.string().min(1),
@@ -106,6 +16,7 @@ export const postRouter = createProtectedRouter()
 					title: input.title,
 					content: input.content,
 					contentHtml: markdownToHtml(input.content),
+					thumbnailUrl: '/img/hydroponics.webp',
 					author: {
 						connect: {
 							id: ctx.session.user.id,
