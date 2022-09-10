@@ -1,5 +1,6 @@
 import { HtmlView } from '@components/atoms';
 import { getQueryPaginationInput } from '@components/molecules/Pagination';
+import { summarize } from '@lib/text';
 import { InferQueryOutput, InferQueryPathAndInput, trpc } from '@lib/trpc';
 import { BookmarkAddTwoTone, Delete, EditTwoTone } from '@mui/icons-material';
 import {
@@ -22,6 +23,7 @@ import { useTheme } from '@mui/material/styles';
 import { animated, useSpring } from '@react-spring/web';
 import { displaySnackMessage } from '@store/slices/snack';
 import dayjsTime from '@utils/dayjsTime';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { MouseEvent, ReactElement, forwardRef, useState } from 'react';
@@ -66,12 +68,13 @@ const Fade = forwardRef<HTMLDivElement, FadeProps>(function Fade(props, ref) {
 });
 
 const MostViewedArticles = ({ posts }: Props): JSX.Element => {
+	const { data: session } = useSession();
 	const utils = trpc.useContext();
 	const router = useRouter();
 	const theme = useTheme();
 	const dispatch = useDispatch();
 	const [isConfirmDeleteDialogOpen, setIsConfirmDeleteDialogOpen] =
-		useState(false);
+		useState<boolean>(false);
 	const [placement, setPlacement] = useState<PopperPlacementType>();
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -80,6 +83,8 @@ const MostViewedArticles = ({ posts }: Props): JSX.Element => {
 		'news.feed',
 		getQueryPaginationInput(POSTS_PER_PAGE, currentPageNumber),
 	];
+
+	const isUserAdmin = session?.user.role === 'ADMIN';
 
 	const handleClick =
 		(newPlacement: PopperPlacementType) =>
@@ -137,8 +142,10 @@ const MostViewedArticles = ({ posts }: Props): JSX.Element => {
 						post;
 					const tag = 'Blah';
 
+					const summary = summarize(contentHtml);
+
 					return (
-						<Grid item xs={12} key={id}>
+						<Grid item xs={12} key={id} id={id}>
 							<Box
 								component={Card}
 								width={1}
@@ -228,61 +235,65 @@ const MostViewedArticles = ({ posts }: Props): JSX.Element => {
 													</IconButton>
 												</Tooltip>
 
-												<Tooltip title="Edit" placement="top">
-													<IconButton aria-label="edit" color="secondary">
-														<EditTwoTone />
-													</IconButton>
-												</Tooltip>
+												{!!session && isUserAdmin ? (
+													<Tooltip title="Edit" placement="top">
+														<IconButton aria-label="edit" color="secondary">
+															<EditTwoTone />
+														</IconButton>
+													</Tooltip>
+												) : null}
 
-												<ClickAwayListener
-													mouseEvent="onMouseDown"
-													touchEvent="onTouchStart"
-													onClickAway={handleClickAway}
-												>
-													<IconButton
-														onClick={handleClick('right')}
-														aria-label="delete"
-														color="error"
-														aria-controls={
-															isConfirmDeleteDialogOpen
-																? 'delete-menu'
-																: undefined
-														}
-														aria-haspopup="true"
-														aria-expanded={
-															isConfirmDeleteDialogOpen ? 'true' : undefined
-														}
+												{!!session && isUserAdmin ? (
+													<ClickAwayListener
+														mouseEvent="onMouseDown"
+														touchEvent="onTouchStart"
+														onClickAway={handleClickAway}
 													>
-														<Tooltip title="Remove" placement="top">
-															<Delete />
-														</Tooltip>
-														<Popper
-															open={isConfirmDeleteDialogOpen}
-															anchorEl={anchorEl}
-															placement={placement}
-															transition
+														<IconButton
+															onClick={handleClick('right')}
+															aria-label="delete"
+															color="error"
+															aria-controls={
+																isConfirmDeleteDialogOpen
+																	? 'delete-menu'
+																	: undefined
+															}
+															aria-haspopup="true"
+															aria-expanded={
+																isConfirmDeleteDialogOpen ? 'true' : undefined
+															}
 														>
-															{({ TransitionProps }) => (
-																<Fade {...TransitionProps}>
-																	<Paper variant="outlined">
-																		<Button
-																			id={id}
-																			color="error"
-																			onClick={handleDeletePost}
-																		>
-																			Delete
-																		</Button>
-																		<Button>Cancel</Button>
-																	</Paper>
-																</Fade>
-															)}
-														</Popper>
-													</IconButton>
-												</ClickAwayListener>
+															<Tooltip title="Remove" placement="top">
+																<Delete />
+															</Tooltip>
+															<Popper
+																open={isConfirmDeleteDialogOpen}
+																anchorEl={anchorEl}
+																placement={placement}
+																transition
+															>
+																{({ TransitionProps }) => (
+																	<Fade {...TransitionProps}>
+																		<Paper variant="outlined">
+																			<Button
+																				id={id}
+																				color="error"
+																				onClick={handleDeletePost}
+																			>
+																				Delete
+																			</Button>
+																			<Button>Cancel</Button>
+																		</Paper>
+																	</Fade>
+																)}
+															</Popper>
+														</IconButton>
+													</ClickAwayListener>
+												) : null}
 											</Box>
 										</Stack>
 									</Box>
-									<HtmlView html={contentHtml} />
+									<HtmlView html={summary} />
 									<Link href={`/news/${id}`}>
 										<Box
 											marginTop={2}

@@ -1,3 +1,5 @@
+import { HtmlView } from '@components/atoms';
+import Container from '@components/Container';
 import { Main } from '@layouts/index';
 import { InferQueryPathAndInput, trpc } from '@lib/trpc';
 import { Box, Typography } from '@mui/material';
@@ -43,15 +45,10 @@ const NewsArticle = (): JSX.Element => {
 						title={postQuery.data?.title}
 						featuredImage={postQuery.data?.thumbnailUrl}
 					/>
-					{/*<Container maxWidth={{ sm: 720, md: 960 }}>*/}
-					{/*	<MDXRemote {...mdxSource} components={components} />*/}
-					{/*</Container>*/}
+					<Container maxWidth={{ sm: 720, md: 960 }}>
+						<HtmlView html={postQuery?.data?.contentHtml as string} />
+					</Container>
 				</Box>
-				{/*<Box bgcolor={'alternate.main'}>*/}
-				{/*	<Container>*/}
-				{/*		<FooterNewsletter />*/}
-				{/*	</Container>*/}
-				{/*</Box>*/}
 			</Main>
 		</>
 	);
