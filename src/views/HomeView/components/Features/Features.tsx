@@ -1,3 +1,18 @@
+import {
+	ApiRounded,
+	CalendarToday,
+	Dry,
+	EmojiNature,
+	Fastfood,
+} from '@mui/icons-material';
+import {
+	Timeline,
+	TimelineConnector,
+	TimelineContent,
+	TimelineDot,
+	TimelineItem,
+	TimelineSeparator,
+} from '@mui/lab';
 import { Button, Card } from '@mui/material';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -303,99 +318,109 @@ const Features = (): JSX.Element => {
 						display: 'flex',
 					}}
 				>
-					{/*<Timeline position="alternate">*/}
-					{/*	<TimelineItem>*/}
-					{/*		<TimelineOppositeContent*/}
-					{/*			sx={{ m: 'auto 0' }}*/}
-					{/*			align="right"*/}
-					{/*			variant="body2"*/}
-					{/*			color="text.secondary"*/}
-					{/*		>*/}
-					{/*			Prepare*/}
-					{/*		</TimelineOppositeContent>*/}
-					{/*		<TimelineSeparator>*/}
-					{/*			<TimelineConnector />*/}
-					{/*			<TimelineDot>*/}
-					{/*				<CalendarToday />*/}
-					{/*			</TimelineDot>*/}
-					{/*			<TimelineConnector />*/}
-					{/*		</TimelineSeparator>*/}
-					{/*		<TimelineContent sx={{ py: '12px', px: 2 }}>*/}
-					{/*			<Typography variant="h6" component="span" color="primary">*/}
-					{/*				Start*/}
-					{/*			</Typography>*/}
-					{/*			<Typography>Select your produce</Typography>*/}
-					{/*		</TimelineContent>*/}
-					{/*	</TimelineItem>*/}
-					{/*	<TimelineItem>*/}
-					{/*		<TimelineOppositeContent*/}
-					{/*			sx={{ m: 'auto 0' }}*/}
-					{/*			variant="body2"*/}
-					{/*			color="text.secondary"*/}
-					{/*		>*/}
-					{/*			Day 1*/}
-					{/*		</TimelineOppositeContent>*/}
-					{/*		<TimelineSeparator>*/}
-					{/*			<TimelineConnector />*/}
-					{/*			<TimelineDot color="primary">*/}
-					{/*				<Dry />*/}
-					{/*			</TimelineDot>*/}
-					{/*			<TimelineConnector />*/}
-					{/*		</TimelineSeparator>*/}
-					{/*		<TimelineContent sx={{ py: '12px', px: 2 }}>*/}
-					{/*			<Typography variant="h6" component="span" color="primary">*/}
-					{/*				Plant*/}
-					{/*			</Typography>*/}
-					{/*			<Typography>Add your seeds to the pod</Typography>*/}
-					{/*		</TimelineContent>*/}
-					{/*	</TimelineItem>*/}
-					{/*	<TimelineItem>*/}
-					{/*		<TimelineSeparator>*/}
-					{/*			<TimelineConnector />*/}
-					{/*			<TimelineDot color="primary" variant="outlined">*/}
-					{/*				<EmojiNature />*/}
-					{/*			</TimelineDot>*/}
-					{/*			<TimelineConnector sx={{ bgcolor: 'secondary.main' }} />*/}
-					{/*		</TimelineSeparator>*/}
-					{/*		<TimelineContent sx={{ py: '12px', px: 2 }}>*/}
-					{/*			<Typography variant="h6" component="span" color="primary">*/}
-					{/*				Care*/}
-					{/*			</Typography>*/}
-					{/*			<Typography>Add nutrients every few weeks</Typography>*/}
-					{/*		</TimelineContent>*/}
-					{/*	</TimelineItem>*/}
-					{/*	<TimelineItem>*/}
-					{/*		<TimelineSeparator>*/}
-					{/*			<TimelineConnector sx={{ bgcolor: 'secondary.main' }} />*/}
-					{/*			<TimelineDot color="secondary">*/}
-					{/*				<ApiRounded />*/}
-					{/*			</TimelineDot>*/}
-					{/*			<TimelineConnector />*/}
-					{/*		</TimelineSeparator>*/}
-					{/*		<TimelineContent sx={{ py: '12px', px: 2 }}>*/}
-					{/*			<Typography variant="h6" component="span" color="primary">*/}
-					{/*				Reap*/}
-					{/*			</Typography>*/}
-					{/*			<Typography>Harvest only what you need</Typography>*/}
-					{/*		</TimelineContent>*/}
-					{/*	</TimelineItem>*/}
-					{/*	<TimelineItem>*/}
-					{/*		<TimelineSeparator>*/}
-					{/*			<TimelineConnector />*/}
-					{/*			<TimelineDot color="primary" variant="outlined">*/}
-					{/*				<Fastfood />*/}
-					{/*			</TimelineDot>*/}
-					{/*			<TimelineConnector />*/}
-					{/*		</TimelineSeparator>*/}
-					{/*		<TimelineContent sx={{ py: '12px', px: 2 }}>*/}
-					{/*			<Typography variant="h6" component="span" color="primary">*/}
-					{/*				Feast*/}
-					{/*			</Typography>*/}
-					{/*			<Typography>Yummy! Eat and enjoy</Typography>*/}
-					{/*		</TimelineContent>*/}
-					{/*	</TimelineItem>*/}
-					{/*</Timeline>*/}
-					<LeftSide />
+					<Timeline position="alternate">
+						<TimelineItem>
+							{/*<TimelineOppositeContent*/}
+							{/*	sx={{ m: 'auto 0' }}*/}
+							{/*	align="right"*/}
+							{/*	variant="body2"*/}
+							{/*	color="text.secondary"*/}
+							{/*>*/}
+							{/*	Prepare*/}
+							{/*</TimelineOppositeContent>*/}
+							<TimelineSeparator>
+								{/*<TimelineConnector />*/}
+								<TimelineDot>
+									<CalendarToday />
+								</TimelineDot>
+								<TimelineConnector />
+							</TimelineSeparator>
+							<TimelineContent sx={{ py: '16px', px: 2 }}>
+								<Typography variant="body1" component="span" color="primary">
+									Start
+								</Typography>
+								<Typography variant="body2">Select your produce</Typography>
+							</TimelineContent>
+						</TimelineItem>
+
+						<TimelineItem>
+							{/*<TimelineOppositeContent*/}
+							{/*	sx={{ m: 'auto 0' }}*/}
+							{/*	variant="body2"*/}
+							{/*	color="text.secondary"*/}
+							{/*>*/}
+							{/*	Day 1*/}
+							{/*</TimelineOppositeContent>*/}
+							<TimelineSeparator>
+								<TimelineConnector />
+								<TimelineDot color="primary">
+									<Dry />
+								</TimelineDot>
+								<TimelineConnector />
+							</TimelineSeparator>
+							<TimelineContent sx={{ py: '16px', px: 2 }}>
+								<Typography variant="body1" component="span" color="primary">
+									Plant
+								</Typography>
+								<Typography variant="body2">
+									Add your seeds to the pod
+								</Typography>
+							</TimelineContent>
+						</TimelineItem>
+
+						<TimelineItem>
+							<TimelineSeparator>
+								<TimelineConnector />
+								<TimelineDot color="primary" variant="outlined">
+									<EmojiNature />
+								</TimelineDot>
+								<TimelineConnector sx={{ bgcolor: 'secondary.main' }} />
+							</TimelineSeparator>
+							<TimelineContent sx={{ py: '16px', px: 2 }}>
+								<Typography variant="body1" component="span" color="primary">
+									Care
+								</Typography>
+								<Typography variant="body2">
+									Add nutrients every few weeks
+								</Typography>
+							</TimelineContent>
+						</TimelineItem>
+
+						<TimelineItem>
+							<TimelineSeparator>
+								<TimelineConnector sx={{ bgcolor: 'secondary.main' }} />
+								<TimelineDot color="secondary">
+									<ApiRounded />
+								</TimelineDot>
+								<TimelineConnector />
+							</TimelineSeparator>
+							<TimelineContent sx={{ py: '16px', px: 2 }}>
+								<Typography variant="body1" component="span" color="primary">
+									Reap
+								</Typography>
+								<Typography variant="body2">
+									Harvest only what you need
+								</Typography>
+							</TimelineContent>
+						</TimelineItem>
+
+						<TimelineItem>
+							<TimelineSeparator>
+								<TimelineConnector />
+								<TimelineDot color="primary" variant="outlined">
+									<Fastfood />
+								</TimelineDot>
+								{/*<TimelineConnector />*/}
+							</TimelineSeparator>
+							<TimelineContent sx={{ py: '16px', px: 2 }}>
+								<Typography variant="body1" component="span" color="primary">
+									Feast
+								</Typography>
+								<Typography variant="body2">Yummy! Eat and enjoy</Typography>
+							</TimelineContent>
+						</TimelineItem>
+					</Timeline>
+					{/*<LeftSide />*/}
 				</Grid>
 			</Grid>
 		</Box>

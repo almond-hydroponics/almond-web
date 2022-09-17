@@ -3,6 +3,7 @@ import {
 	skeletonColumns,
 	skeletonRows,
 } from '@components/molecules/SkeletonLoader';
+import useNextSchedule from '@hooks/useNextSchedule';
 import { InferQueryPathAndInput, trpc } from '@lib/trpc';
 import { Add, KeyboardArrowDown } from '@mui/icons-material';
 import { Box, Button, Grid, Stack, Typography } from '@mui/material';
@@ -23,6 +24,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import AddEditScheduleModal from './components/AddEditScheduleModal';
+import DeleteScheduleModal from './components/DeleteScheduleModal';
 import WaterTable from './components/WaterTable';
 
 const getDevicesQueryPathAndInput = (
@@ -39,6 +41,8 @@ export const getSchedulesQueryPathAndInput = (
 
 export const WaterScheduleView = (): JSX.Element => {
 	const [isScheduleModalVisible, setScheduleModalVisibility] =
+		useState<boolean>(false);
+	const [isDeleteScheduleModalVisible, setDeleteScheduleModalVisibility] =
 		useState<boolean>(false);
 	const [isEditMode, setEditScheduleMode] = useState<boolean>(false);
 	const [scheduleId, setScheduleId] = useState<string>('');
@@ -68,6 +72,24 @@ export const WaterScheduleView = (): JSX.Element => {
 	const devicesQuery = trpc.useQuery(devicesQueryAndPath);
 	const devices = devicesQuery.data?.devices || [];
 
+	const deleteScheduleMutation = trpc.useMutation('schedule.delete', {
+		onSuccess: () => {
+			return utils.invalidateQueries(
+				getSchedulesQueryPathAndInput(String(device?.id))
+			);
+		},
+		onError: (error) => {
+			dispatch(
+				displaySnackMessage({
+					message: `Something went wrong: ${error.message}`,
+					severity: 'error',
+				})
+			);
+		},
+	});
+
+	const { nextTimeSchedule } = useNextSchedule(schedules);
+
 	const addScheduleMutation = trpc.useMutation('schedule.add', {
 		onSuccess: () => {
 			return utils.invalidateQueries(
@@ -84,53 +106,6 @@ export const WaterScheduleView = (): JSX.Element => {
 		},
 	});
 
-	const columns: GridColDef[] = [
-		{
-			field: 'id',
-			headerName: 'Device ID',
-			minWidth: 250,
-		},
-		{
-			field: 'name',
-			headerName: 'Name',
-			minWidth: 150,
-		},
-		{
-			field: 'user',
-			headerName: 'User',
-			minWidth: 200,
-		},
-		{
-			field: 'status',
-			headerName: 'Status',
-			minWidth: 150,
-			cellClassName: ({ value }: GridCellParams<string>) => {
-				return clsx('data-cell-grid', {
-					verify: value === 'not-verified',
-					inactive: value === 'inactive',
-					active: value === 'active',
-				});
-			},
-		},
-	];
-
-	const serializeDeviceStatus = (
-		device: Pick<Device, 'verified' | 'active'>
-	) => {
-		const { verified, active } = device;
-		if (!verified) return 'not-verified';
-		if (!active) return 'inactive';
-		return 'active';
-	};
-
-	const rows = devices.map((device) => ({
-		id: device?.id ?? 'No ID',
-		name: device?.name ?? 'No device',
-		user: device?.user?.name ?? 'Not assigned',
-		status: serializeDeviceStatus(device),
-	}));
-
-	const headers = ['', 'Schedule', 'Actions'];
 	// const data = [
 	// 	{
 	// 		id: '1',
@@ -264,6 +239,65 @@ export const WaterScheduleView = (): JSX.Element => {
 		// isLoading === false && closeScheduleModal();
 	};
 
+	const toggleDeleteScheduleModal = () =>
+		setDeleteScheduleModalVisibility((prevState) => !prevState);
+
+	const handleSetScheduleToDelete = (value) => setScheduleId(() => value);
+
+	const handleDeleteSchedule = () => {
+		deleteScheduleMutation.mutate(scheduleId, {
+			onSuccess: toggleDeleteScheduleModal,
+		});
+	};
+
+	const columns: GridColDef[] = [
+		{
+			field: 'id',
+			headerName: 'Device ID',
+			minWidth: 250,
+		},
+		{
+			field: 'name',
+			headerName: 'Name',
+			minWidth: 150,
+		},
+		{
+			field: 'user',
+			headerName: 'User',
+			minWidth: 200,
+		},
+		{
+			field: 'status',
+			headerName: 'Status',
+			minWidth: 150,
+			cellClassName: ({ value }: GridCellParams<string>) => {
+				return clsx('data-cell-grid', {
+					verify: value === 'not-verified',
+					inactive: value === 'inactive',
+					active: value === 'active',
+				});
+			},
+		},
+	];
+
+	const serializeDeviceStatus = (
+		device: Pick<Device, 'verified' | 'active'>
+	) => {
+		const { verified, active } = device;
+		if (!verified) return 'not-verified';
+		if (!active) return 'inactive';
+		return 'active';
+	};
+
+	const rows = devices.map((device) => ({
+		id: device?.id ?? 'No ID',
+		name: device?.name ?? 'No device',
+		user: device?.user?.name ?? 'Not assigned',
+		status: serializeDeviceStatus(device),
+	}));
+
+	const headers = ['', 'Schedule', 'Actions'];
+
 	return (
 		<Box sx={{ flexGrow: 1 }}>
 			<Stack
@@ -310,9 +344,14 @@ export const WaterScheduleView = (): JSX.Element => {
 							Next schedule
 						</Typography>
 						<Typography paddingX={2} variant="h4">
-							21:00am
+							{nextTimeSchedule}
 						</Typography>
-						<WaterTable headers={headers} data={schedules} />
+						<WaterTable
+							headers={headers}
+							data={schedules}
+							onDeleteModalVisibility={toggleDeleteScheduleModal}
+							handleSetScheduleToDelete={handleSetScheduleToDelete}
+						/>
 					</Box>
 				</Grid>
 				<Grid item xs={12} sm={3}>
@@ -368,6 +407,11 @@ export const WaterScheduleView = (): JSX.Element => {
 				onSubmit={onAddEditScheduleSubmit}
 				onChange={isEditMode ? handleEditTimeChange : handleAddTimeSchedule}
 				value={isEditMode ? scheduleToEdit : selectedTimeSchedule}
+			/>
+			<DeleteScheduleModal
+				isOpen={isDeleteScheduleModalVisible}
+				onDismiss={toggleDeleteScheduleModal}
+				onSubmit={handleDeleteSchedule}
 			/>
 		</Box>
 	);

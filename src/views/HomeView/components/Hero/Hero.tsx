@@ -3,6 +3,9 @@ import Container from '@components/Container';
 import { Box, Button, Typography } from '@mui/material';
 import objectIsEmpty from '@utils/objectIsEmpty';
 import { useSession } from 'next-auth/react';
+import Image from 'next/future/image';
+
+import homepagePic from '../../../../../public/img/hydroponics.webp';
 
 const Hero = (): JSX.Element => {
 	const { data: session, status } = useSession();
@@ -166,7 +169,7 @@ const Hero = (): JSX.Element => {
 										},
 									}}
 								>
-									<RightSide />
+									<Image fill src={homepagePic} alt="home-image" />
 								</Box>
 							</Box>
 						</Box>

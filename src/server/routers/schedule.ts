@@ -113,7 +113,7 @@ export const scheduleRouter = createProtectedRouter()
 				throw new TRPCError({ code: 'FORBIDDEN' });
 			}
 
-			await ctx.prisma.device.delete({ where: { id } });
+			await ctx.prisma.schedule.delete({ where: { id } });
 			return id;
 		},
 	});

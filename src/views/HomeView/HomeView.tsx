@@ -2,7 +2,14 @@ import Box from '@mui/material/Box';
 import { alpha, useTheme } from '@mui/material/styles';
 import Container from 'components/Container';
 
-import { Hero, Places, Services } from './components';
+import {
+	About,
+	Features,
+	GetStarted,
+	Hero,
+	Places,
+	Services,
+} from './components';
 
 interface Props {
 	posts?: any;
@@ -54,23 +61,23 @@ const HomeView = ({ posts }: Props): JSX.Element => {
 				{/*<Container>*/}
 				{/*	<QuickStart />*/}
 				{/*</Container>*/}
-				{/*<Container>*/}
-				{/*	<Features />*/}
-				{/*</Container>*/}
-				{/*<Box paddingTop={{ md: 8 }}>*/}
-				{/*	<Box bgcolor={'alternate.main'}>*/}
-				{/*		<Container>*/}
-				{/*			<About />*/}
-				{/*		</Container>*/}
-				{/*	</Box>*/}
-				{/*</Box>*/}
+				<Container>
+					<Features />
+				</Container>
+				<Box paddingTop={{ md: 8 }}>
+					<Box bgcolor={'alternate.main'}>
+						<Container>
+							<About />
+						</Container>
+					</Box>
+				</Box>
 				<Container>
 					<Places />
 				</Container>
 			</Box>
-			{/*<Container>*/}
-			{/*	<GetStarted />*/}
-			{/*</Container>*/}
+			<Container>
+				<GetStarted />
+			</Container>
 			{/*<Box>*/}
 			{/*	<Container>*/}
 			{/*		<News posts={posts} />*/}

@@ -33,6 +33,8 @@ import { DashboardContext } from '../../../DashboardView/DashboardView';
 interface Props {
 	headers: any[];
 	data: Schedule[];
+	onDeleteModalVisibility: () => void;
+	handleSetScheduleToDelete: (e) => void;
 }
 
 interface StarredProps {
@@ -64,10 +66,16 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 	},
 }));
 
-const WaterTable = ({ headers, data }: Props): JSX.Element => {
+const WaterTable = ({
+	headers,
+	data,
+	onDeleteModalVisibility,
+	handleSetScheduleToDelete,
+}: Props): JSX.Element => {
 	const [activeRow, setActiveRow] = useState('');
 	const dispatch = useDispatch();
 	const { handleDeviceSelect } = useContext(DashboardContext);
+	const utils = trpc.useContext();
 
 	const isSm = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
@@ -82,21 +90,17 @@ const WaterTable = ({ headers, data }: Props): JSX.Element => {
 		},
 	});
 
-	const handleStarringDevices = ({ id, starred }: StarredProps) => {
-		editDeviceMutation.mutate({
-			id,
-			data: {
-				starred: !starred,
-			},
-		});
-	};
-
 	const handleDeviceSelectionFromRow = (id: string) => {
 		setActiveRow(id);
 		handleDeviceSelect(id);
 	};
 
 	const renderActionButtons = (id: string): JSX.Element => {
+		const handleDeleteModalSelection = () => {
+			handleSetScheduleToDelete(id);
+			onDeleteModalVisibility();
+		};
+
 		return (
 			<Stack direction="row" spacing={1} key={id}>
 				<Typography
@@ -113,8 +117,8 @@ const WaterTable = ({ headers, data }: Props): JSX.Element => {
 					style={{ cursor: 'pointer', color: red[900] }}
 					id={id}
 					variant="body2"
-					// onClick={handleDelete}
-					// onKeyDown={handleDelete}
+					onClick={handleDeleteModalSelection}
+					onKeyDown={handleDeleteModalSelection}
 				>
 					Delete
 				</Typography>
@@ -172,7 +176,7 @@ const WaterTable = ({ headers, data }: Props): JSX.Element => {
 										? (theme) => alpha(theme.palette.primary.main, 0.1)
 										: 'inherit',
 							}}
-							onClick={() => handleDeviceSelectionFromRow(row.id)}
+							// onClick={() => handleDeviceSelectionFromRow(row.id)}
 						>
 							<StyledTableCell align="right" component="th" scope="row">
 								<Tooltip title={row.enabled ? 'Active' : 'Off'}>

@@ -108,7 +108,7 @@ const Modal = ({
 				</Button>
 				{submitButtonName ? (
 					<LoadingButton
-						autoFocus
+						// autoFocus
 						variant="contained"
 						color="primary"
 						onClick={onSubmit}

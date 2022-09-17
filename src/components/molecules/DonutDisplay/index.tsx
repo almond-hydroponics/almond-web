@@ -1,5 +1,5 @@
 import { alpha } from '@mui/material/styles';
-import { ArcElement, Chart as ChartJS, Legend, Tooltip } from 'chart.js';
+import { ArcElement, Chart as ChartJS } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 
 // const plugin = {
@@ -125,7 +125,7 @@ import { Doughnut } from 'react-chartjs-2';
 // 	},
 // ];
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(ArcElement);
 
 // ChartJS.register({
 // 	beforeDraw: function (chart) {
@@ -614,10 +614,21 @@ const plugins = [
 // 	},
 // })
 
-const DonutDisplay = ({ waterLevel = 69 }) => {
+const DonutDisplay = ({ waterLevel = 42 }) => {
 	const options = {
 		responsive: true,
 		cutout: 150,
+		hoverOffset: 4,
+		animateRotate: true,
+		animateScale: false,
+		maintainAspectRatio: true,
+		segmentShowStroke: true,
+		segmentStrokeColor: '#fff',
+		segmentStrokeWidth: 2,
+		percentageInnerCutout: 50,
+		animationSteps: 100,
+		animationEasing: 'easeOutBounce',
+		showScale: true,
 		legend: {
 			display: false,
 		},

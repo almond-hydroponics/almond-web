@@ -1,6 +1,6 @@
 import prisma from '@lib/prisma';
 import { GetServerSideProps } from 'next';
-import IndexView from 'views/IndexView';
+import IndexView from 'views/HomeView';
 
 interface Props {
 	posts: any;
