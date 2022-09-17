@@ -6,26 +6,26 @@ import 'aos/dist/aos.css';
 import 'assets/css/index.css';
 import 'assets/css/fonts.css';
 
+import Auth from '@components/Auth';
 import { ErrorBoundary } from '@components/molecules/ErrorBoundary';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import { transformer } from '@lib/trpc';
 import { NextPageWithAuthAndLayout } from '@lib/types';
 import { AppRouter } from '@server/routers/_app';
 import store from '@store/index';
-import { displaySnackMessage } from '@store/slices/snack';
 import { httpBatchLink } from '@trpc/client/links/httpBatchLink';
 import { loggerLink } from '@trpc/client/links/loggerLink';
 import { withTRPC } from '@trpc/next';
 import { TRPCError } from '@trpc/server';
 import { pageview } from '@utils/gtag';
-import { SessionProvider, useSession } from 'next-auth/react';
+import { SessionProvider } from 'next-auth/react';
 import { DefaultSeo } from 'next-seo';
 import { AppProps } from 'next/app';
 /* eslint-disable react/prop-types */
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { ReactNode, useEffect } from 'react';
-import { Provider, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { Provider } from 'react-redux';
 
 // components
 import Page from '../components/Page';
@@ -43,6 +43,7 @@ const clientSideEmotionCache = createEmotionCache();
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const App = ({
 	Component,
+	// @ts-expect-error
 	pageProps: { session, ...pageProps },
 	emotionCache = clientSideEmotionCache,
 }: Props): JSX.Element => {
@@ -93,32 +94,6 @@ const App = ({
 			</CacheProvider>
 		</ErrorBoundary>
 	);
-};
-
-const Auth = ({ children }: { children: ReactNode }) => {
-	const { push } = useRouter();
-	const dispatch = useDispatch();
-	const { data: session, status } = useSession();
-	const isUser = !!session?.user;
-
-	useEffect(() => {
-		if (status === 'loading') return; // Do nothing while loading
-		if (!isUser) {
-			push('/').then(() =>
-				dispatch(
-					displaySnackMessage({
-						message: 'Kindly login to view this page.',
-					})
-				)
-			);
-		}
-	}, [isUser, status]);
-
-	if (isUser) {
-		return <>{children}</>;
-	}
-
-	return null;
 };
 
 const getBaseUrl = () => {

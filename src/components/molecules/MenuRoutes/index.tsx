@@ -14,8 +14,9 @@ import {
 	Spa,
 	WidgetsRounded,
 } from '@mui/icons-material';
-import AnalyticsView from 'views/AnalyticsView';
+import AdminAnalyticsView from 'views/AdminAnalyticsView';
 import DeviceManagementView from 'views/DeviceManagementView';
+import UserAnalyticsView from 'views/UserAnalyticsView';
 // import EnvironmentControlView from 'views/EnvironmentControlView';
 // import PeopleView from 'views/PeopleView';
 // import SupportView from 'views/SupportView';
@@ -26,7 +27,7 @@ export const UserMenus: MenuComponentProps[] = [
 	{
 		icon: <WidgetsRounded />,
 		primaryText: 'Analytics',
-		component: AnalyticsView,
+		component: UserAnalyticsView,
 		id: 'analytics',
 	},
 	{
@@ -38,25 +39,25 @@ export const UserMenus: MenuComponentProps[] = [
 	{
 		icon: <ControlCamera />,
 		primaryText: 'Environment',
-		component: AnalyticsView,
+		component: UserAnalyticsView,
 		id: 'environment',
 	},
 	{
 		icon: <Security />,
 		primaryText: 'Quality Control',
-		component: AnalyticsView,
+		component: UserAnalyticsView,
 		id: 'quality-control',
 	},
 	{
 		icon: <Memory />,
 		primaryText: 'Energy Usage',
-		component: AnalyticsView,
+		component: UserAnalyticsView,
 		id: 'energy-usage',
 	},
 	{
 		icon: <LocalFlorist />,
 		primaryText: 'Support',
-		component: AnalyticsView,
+		component: UserAnalyticsView,
 		id: 'support',
 	},
 ];
@@ -65,7 +66,7 @@ export const AdminMenus: MenuComponentProps[] = [
 	{
 		icon: <WidgetsRounded />,
 		primaryText: 'Analytics',
-		component: AnalyticsView,
+		component: AdminAnalyticsView,
 		id: 'analytics',
 	},
 	{
@@ -77,19 +78,19 @@ export const AdminMenus: MenuComponentProps[] = [
 	{
 		icon: <People />,
 		primaryText: 'People',
-		component: AnalyticsView,
+		component: AdminAnalyticsView,
 		id: 'people',
 	},
 	{
 		icon: <BubbleChart />,
 		primaryText: 'Roles',
-		component: AnalyticsView,
+		component: AdminAnalyticsView,
 		id: 'roles',
 	},
 	{
 		icon: <Spa />,
 		primaryText: 'Support',
-		component: AnalyticsView,
+		component: AdminAnalyticsView,
 		id: 'support',
 	},
 ];

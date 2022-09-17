@@ -15,7 +15,7 @@ import { useContext } from 'react';
 
 const background = '/img/background_illustration.svg';
 
-const AdminAnalytics = (): JSX.Element => {
+const AdminAnalyticsView = (): JSX.Element => {
 	const users = 69;
 	const devices = 420;
 
@@ -90,4 +90,4 @@ const AdminAnalytics = (): JSX.Element => {
 	);
 };
 
-export default AdminAnalytics;
+export default AdminAnalyticsView;

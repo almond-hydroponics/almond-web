@@ -1,7 +1,7 @@
 // components;
 import { BlankContent, Modal, TabPanel } from '@components/atoms';
 import Container from '@components/Container';
-import { AdminMenus, UserMenus } from '@components/molecules/MenuRoutes';
+import { UserMenus } from '@components/molecules/MenuRoutes';
 import { ComponentContext } from '@context/ComponentContext';
 import { trpc } from '@lib/trpc';
 import { Add, Close } from '@mui/icons-material';
@@ -195,12 +195,8 @@ const DashboardView = (): JSX.Element => {
 			maxWidth="sm"
 			fullScreen={isSm}
 			isModalOpen={isSelectDeviceModalOpen}
-			renderDialogText={
-				<Typography variant="body2">
-					The device will allow you to control your environment and get
-					different metrics for them.
-				</Typography>
-			}
+			renderDialogText="The device will allow you to control your environment and get
+					different metrics for them."
 			renderHeader="Select a device"
 			renderContent={renderSelectDeviceContent()}
 			onClose={handleSelectDeviceModal}
@@ -243,7 +239,7 @@ const DashboardView = (): JSX.Element => {
 			}}
 		>
 			<Box
-				sx={{ minWidth: 300, maxWidth: 400 }}
+				sx={{ minWidth: 450, maxWidth: 500 }}
 				role="presentation"
 				onClick={handleActivityDrawer('close')}
 				onKeyDown={handleActivityDrawer('close')}
@@ -301,6 +297,7 @@ const DashboardView = (): JSX.Element => {
 						justifyContent="center"
 						alignItems="center"
 						spacing={3}
+						marginTop={5}
 					>
 						<p
 							aria-hidden="true"
@@ -319,12 +316,6 @@ const DashboardView = (): JSX.Element => {
 			</Box>
 		</SwipeableDrawer>
 	);
-
-	const displayMenusByRoleBase = {
-		USER: UserMenus,
-		ADMIN: isAdmin ? AdminMenus : UserMenus,
-		DEVELOPER: UserMenus,
-	};
 
 	return (
 		<DashboardContext.Provider value={{ handleDeviceSelect }}>

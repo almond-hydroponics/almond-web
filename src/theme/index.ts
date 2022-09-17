@@ -32,6 +32,9 @@ const getTheme = (mode: PaletteMode): Theme =>
 				},
 				MuiDialog: {
 					styleOverrides: {
+						root: {
+							zIndex: 1310,
+						},
 						paperFullScreen: {
 							borderRadius: '0 !important',
 						},

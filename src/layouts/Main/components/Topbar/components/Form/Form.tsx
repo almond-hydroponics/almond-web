@@ -3,8 +3,14 @@ import { Box, Button, Grid, SvgIcon } from '@mui/material';
 import { signIn } from 'next-auth/react';
 
 const Form = (): JSX.Element => {
-	const handleGoogleLogin = async () => await signIn('google');
-	const handleGithubLogin = async () => await signIn('github');
+	const handleGoogleLogin = async (e) => {
+		e.preventDefault();
+		await signIn('google');
+	};
+	const handleGithubLogin = async (e) => {
+		e.preventDefault();
+		await signIn('github');
+	};
 
 	return (
 		<Box>

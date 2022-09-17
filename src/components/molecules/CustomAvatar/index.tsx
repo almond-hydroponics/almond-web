@@ -33,8 +33,11 @@ const CustomAvatar = (): JSX.Element => {
 	const isSm = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const { data: session } = useSession();
-	const { setCurrentRoleBasedAccess, currentRoleBasedAccess, isAdmin } =
-		useContext(ComponentContext);
+	const {
+		setCurrentRoleBasedAccess,
+		currentRoleBasedAccess = 'USER',
+		isAdmin,
+	} = useContext(ComponentContext);
 
 	const { name, image, role } = session?.user || {
 		name: 'Anonymous User',
@@ -69,7 +72,22 @@ const CustomAvatar = (): JSX.Element => {
 		{ name: 'DEVELOPER', icon: <CodeTwoTone fontSize="small" /> },
 	];
 
+	const roleSwitch = (role: string) => {
+		switch (role) {
+			case 'USER':
+				return '/dashboard';
+			case 'ADMIN':
+				return '/admin';
+			case 'DEVELOPER':
+				return '/admin';
+			default:
+				return '/dashboard';
+		}
+	};
+
 	const open = Boolean(anchorEl);
+
+	const authedRoutes = router.pathname.includes('/dashboard' || '/admin');
 
 	let menuItems = [
 		{
@@ -166,7 +184,7 @@ const CustomAvatar = (): JSX.Element => {
 				transformOrigin={{ horizontal: 'right', vertical: 'top' }}
 				anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
 			>
-				{router.pathname === '/dashboard' && role === 'ADMIN' && (
+				{role === 'ADMIN' && (
 					<MenuItem
 						key={fancyId()}
 						sx={{
@@ -184,7 +202,11 @@ const CustomAvatar = (): JSX.Element => {
 							{almondRoles.map((role) => (
 								<Tooltip key={role.name} title={role.name.toLowerCase()}>
 									<Button
-										onClick={() => setCurrentRoleBasedAccess(role.name)}
+										onClick={() => {
+											router
+												.push(roleSwitch(role.name))
+												.then(() => setCurrentRoleBasedAccess(role.name));
+										}}
 										variant={
 											currentRoleBasedAccess === role.name && role.name
 												? 'contained'

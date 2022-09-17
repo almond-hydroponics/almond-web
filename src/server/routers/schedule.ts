@@ -4,6 +4,36 @@ import { z } from 'zod';
 import { createProtectedRouter } from '../create-protected-router';
 
 export const scheduleRouter = createProtectedRouter()
+	.query('all', {
+		input: z.object({
+			deviceId: z.string(),
+		}),
+		async resolve({ input, ctx }) {
+			const schedules = await ctx.prisma.schedule.findMany({
+				orderBy: {
+					createdAt: 'desc',
+				},
+				where: {
+					deviceId: input.deviceId,
+				},
+				select: {
+					id: true,
+					schedule: true,
+					enabled: true,
+					deviceId: true,
+					createdAt: true,
+					updatedAt: true,
+				},
+			});
+
+			const scheduleCount = await ctx.prisma.schedule.count();
+
+			return {
+				schedules,
+				scheduleCount,
+			};
+		},
+	})
 	.mutation('add', {
 		input: z.object({
 			deviceId: z.string(),

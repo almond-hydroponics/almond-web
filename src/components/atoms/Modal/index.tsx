@@ -42,7 +42,7 @@ const BootstrapDialogTitle = ({
 	<DialogTitle
 		sx={{
 			m: 0,
-			p: 1,
+			p: 2,
 			paddingX: 3,
 			backgroundColor: (theme) => alpha(theme.palette.primary.main, 0.1),
 			color: (theme) => theme.palette.primary.main,
@@ -58,7 +58,7 @@ const BootstrapDialogTitle = ({
 				onClick={onClose}
 				sx={{
 					position: 'absolute',
-					p: 0,
+					p: 1,
 					right: 8,
 					top: 8,
 					color: (theme) => theme.palette.grey[500],
@@ -92,15 +92,12 @@ const Modal = ({
 			open={isModalOpen}
 			fullScreen={fullScreen}
 			maxWidth={maxWidth}
-			sx={{
-				zIndex: (theme) => theme.zIndex.drawer + 10,
-			}}
 		>
 			<BootstrapDialogTitle id="modal-dialog-title" onClose={onClose}>
 				{renderHeader}
 			</BootstrapDialogTitle>
 			<DialogContent>
-				<DialogContentText sx={{ paddingY: 2 }} gutterBottom>
+				<DialogContentText variant="body2" sx={{ paddingY: 2 }} gutterBottom>
 					{renderDialogText}
 				</DialogContentText>
 				{renderContent}

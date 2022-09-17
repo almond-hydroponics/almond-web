@@ -1,15 +1,12 @@
-import { HtmlView } from '@components/atoms';
 import Container from '@components/Container';
 import { Main } from '@layouts/index';
 import { InferQueryPathAndInput, trpc } from '@lib/trpc';
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { useSession } from 'next-auth/react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-import { Hero } from './components';
-
-const components = { Typography };
+import { Content, Hero } from './components';
 
 function getPostQueryPathAndInput(
 	id: string
@@ -46,7 +43,13 @@ const NewsArticle = (): JSX.Element => {
 						featuredImage={postQuery.data?.thumbnailUrl}
 					/>
 					<Container maxWidth={{ sm: 720, md: 960 }}>
-						<HtmlView html={postQuery?.data?.contentHtml as string} />
+						{/*<HtmlView html={postQuery?.data?.contentHtml as string} />*/}
+						<Content
+							content={postQuery?.data?.contentHtml as string}
+							avatar={postQuery?.data?.author?.image}
+							fullName={postQuery.data?.author?.name}
+							date={postQuery.data?.createdAt}
+						/>
 					</Container>
 				</Box>
 			</Main>

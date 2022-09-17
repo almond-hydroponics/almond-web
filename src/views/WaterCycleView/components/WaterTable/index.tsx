@@ -1,6 +1,10 @@
 import { trpc } from '@lib/trpc';
-import { FiberManualRecord } from '@mui/icons-material';
+import { Error, FiberManualRecord } from '@mui/icons-material';
 import {
+	List,
+	ListItem,
+	ListItemIcon,
+	ListItemText,
 	Stack,
 	Table,
 	TableBody,
@@ -19,6 +23,7 @@ import { red } from '@mui/material/colors';
 import { alpha } from '@mui/material/styles';
 import { Schedule } from '@prisma/client';
 import { displaySnackMessage } from '@store/slices/snack';
+import arrayIsEmpty from '@utils/arrayIsEmpty';
 import fancyId from '@utils/fancyId';
 import { useContext, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -117,28 +122,28 @@ const WaterTable = ({ headers, data }: Props): JSX.Element => {
 		);
 	};
 
-	// if (arrayIsEmpty(data)) {
-	// 	return (
-	// 		<TableContainer
-	// 			sx={{
-	// 				minHeight: isSm ? 'unset' : '50vh',
-	// 				maxHeight: isSm ? 'unset' : '50vh',
-	// 			}}
-	// 		>
-	// 			<List sx={{ backgroundColor: 'alternate.main' }}>
-	// 				<ListItem>
-	// 					<ListItemIcon>
-	// 						<Error fontSize="small" />
-	// 					</ListItemIcon>
-	// 					<ListItemText
-	// 						color="alternate.main"
-	// 						primary="You do not have any schedules yet."
-	// 					/>
-	// 				</ListItem>
-	// 			</List>
-	// 		</TableContainer>
-	// 	);
-	// }
+	if (arrayIsEmpty(data)) {
+		return (
+			<TableContainer
+				sx={{
+					minHeight: isSm ? 'unset' : '50vh',
+					maxHeight: isSm ? 'unset' : '50vh',
+				}}
+			>
+				<List sx={{ backgroundColor: 'alternate.main' }}>
+					<ListItem>
+						<ListItemIcon>
+							<Error fontSize="small" />
+						</ListItemIcon>
+						<ListItemText
+							color="alternate.main"
+							primary="You do not have any schedules yet."
+						/>
+					</ListItem>
+				</List>
+			</TableContainer>
+		);
+	}
 
 	return (
 		<TableContainer
@@ -180,7 +185,7 @@ const WaterTable = ({ headers, data }: Props): JSX.Element => {
 								</Tooltip>
 							</StyledTableCell>
 							<StyledTableCell>
-								<Typography variant="body1">{row.schedule}</Typography>
+								<Typography variant="body2">{row.schedule}</Typography>
 							</StyledTableCell>
 							<StyledTableCell component="th" scope="row">
 								{renderActionButtons(row.id)}

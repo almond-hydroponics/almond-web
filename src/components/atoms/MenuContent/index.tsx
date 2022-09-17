@@ -2,16 +2,25 @@ import { MenuTab, MenuTabs } from '@components/atoms';
 // components
 import { AdminMenus, UserMenus } from '@components/molecules/MenuRoutes';
 import { ComponentContext } from '@context/ComponentContext';
+import { useRouter } from 'next/router';
 import { ChangeEvent, useContext } from 'react';
 
 const MenuContent = (): JSX.Element => {
-	const { selectedIndex, setSelectedIndex, currentRoleBasedAccess, isAdmin } =
-		useContext(ComponentContext);
+	const { selectedIndex, setSelectedIndex } = useContext(ComponentContext);
 
-	const displayMenusByRoleBase = {
-		USER: UserMenus,
-		ADMIN: isAdmin ? AdminMenus : UserMenus,
-		DEVELOPER: UserMenus,
+	const { pathname } = useRouter();
+
+	const switchUserMenus = (pathname: string) => {
+		switch (pathname) {
+			case '/dashboard':
+				return UserMenus;
+			case '/admin':
+				return AdminMenus;
+			case '/developer':
+				return AdminMenus;
+			default:
+				return UserMenus;
+		}
 	};
 
 	const handleOnChange = (
@@ -40,7 +49,7 @@ const MenuContent = (): JSX.Element => {
 			aria-label="menu tabs"
 			visibleScrollbar={false}
 		>
-			{displayMenusByRoleBase[currentRoleBasedAccess].map((item) => (
+			{switchUserMenus(pathname).map((item) => (
 				<MenuTab
 					key={item.primaryText}
 					label={item.primaryText}

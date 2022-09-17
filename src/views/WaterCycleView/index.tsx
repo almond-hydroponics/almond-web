@@ -11,9 +11,18 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 // components
 import { GridCellParams, GridColDef } from '@mui/x-data-grid';
 import { Device } from '@prisma/client';
+import { displaySnackMessage } from '@store/slices/snack';
+import dayjs from '@utils/dayjsTime';
+import {
+	validateEditOneHourTime,
+	validateNewOneHourTime,
+} from '@utils/validateTimeOneHour';
 import clsx from 'clsx';
 import { useSession } from 'next-auth/react';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
+import AddEditScheduleModal from './components/AddEditScheduleModal';
 import WaterTable from './components/WaterTable';
 
 const getDevicesQueryPathAndInput = (
@@ -22,18 +31,58 @@ const getDevicesQueryPathAndInput = (
 	return ['device.all', { userId }];
 };
 
+export const getSchedulesQueryPathAndInput = (
+	deviceId: string
+): InferQueryPathAndInput<'schedule.all'> => {
+	return ['schedule.all', { deviceId }];
+};
+
 export const WaterScheduleView = (): JSX.Element => {
+	const [isScheduleModalVisible, setScheduleModalVisibility] =
+		useState<boolean>(false);
+	const [isEditMode, setEditScheduleMode] = useState<boolean>(false);
+	const [scheduleId, setScheduleId] = useState<string>('');
+	const [scheduleToEdit, setScheduleToEdit] = useState<string>('');
+	const [hasError, setScheduleError] = useState<boolean>(false);
+	const [selectedTimeSchedule, setSelectedTimeSchedule] = useState<any>(
+		dayjs()
+	);
+
 	const theme = useTheme();
+	const dispatch = useDispatch();
 	const isSm = useMediaQuery(theme.breakpoints.down('sm'), {
 		defaultMatches: true,
 	});
 
 	const { data: session } = useSession();
-	const { id } = session?.user || {};
+	const { id, device } = session?.user || {};
+	const utils = trpc.useContext();
+
+	const schedulesQueryAndPath = getSchedulesQueryPathAndInput(
+		String(device?.id)
+	);
+	const schedulesQuery = trpc.useQuery(schedulesQueryAndPath);
+	const schedules = schedulesQuery.data?.schedules || [];
 
 	const devicesQueryAndPath = getDevicesQueryPathAndInput(String(id));
 	const devicesQuery = trpc.useQuery(devicesQueryAndPath);
 	const devices = devicesQuery.data?.devices || [];
+
+	const addScheduleMutation = trpc.useMutation('schedule.add', {
+		onSuccess: () => {
+			return utils.invalidateQueries(
+				getSchedulesQueryPathAndInput(String(device?.id))
+			);
+		},
+		onError: (error) => {
+			dispatch(
+				displaySnackMessage({
+					message: `Something went wrong: ${error.message}`,
+					severity: 'error',
+				})
+			);
+		},
+	});
 
 	const columns: GridColDef[] = [
 		{
@@ -82,32 +131,138 @@ export const WaterScheduleView = (): JSX.Element => {
 	}));
 
 	const headers = ['', 'Schedule', 'Actions'];
-	const data = [
-		{
-			id: '1',
-			schedule: '12.00pm',
-			enabled: true,
-			deviceId: 'blah',
-			createdAt: '12.00pm',
-			updatedAt: '12.00pm',
-		},
-		{
-			id: '2',
-			schedule: '12.00pm',
-			enabled: true,
-			deviceId: 'blah',
-			createdAt: '12.00pm',
-			updatedAt: '12.00pm',
-		},
-		{
-			id: '3',
-			schedule: '12.00pm',
-			enabled: false,
-			deviceId: 'blah',
-			createdAt: '12.00pm',
-			updatedAt: '12.00pm',
-		},
-	];
+	// const data = [
+	// 	{
+	// 		id: '1',
+	// 		schedule: '12.00pm',
+	// 		enabled: true,
+	// 		deviceId: 'blah',
+	// 		createdAt: '12.00pm',
+	// 		updatedAt: '12.00pm',
+	// 	},
+	// 	{
+	// 		id: '2',
+	// 		schedule: '12.00pm',
+	// 		enabled: true,
+	// 		deviceId: 'blah',
+	// 		createdAt: '12.00pm',
+	// 		updatedAt: '12.00pm',
+	// 	},
+	// 	{
+	// 		id: '3',
+	// 		schedule: '12.00pm',
+	// 		enabled: false,
+	// 		deviceId: 'blah',
+	// 		createdAt: '12.00pm',
+	// 		updatedAt: '12.00pm',
+	// 	},
+	// ];
+
+	const validateAddEditTime = (value) => {
+		let scheduleIsNotWithinHour;
+		const timeSchedules = schedules.map((schedule) => schedule?.schedule);
+
+		if (isEditMode) {
+			scheduleIsNotWithinHour = validateEditOneHourTime(
+				schedules,
+				scheduleId,
+				value
+			);
+		} else {
+			scheduleIsNotWithinHour = validateNewOneHourTime(timeSchedules, value);
+		}
+		setScheduleError(() => !scheduleIsNotWithinHour);
+	};
+
+	const validateScheduleOnOpen = (): void => {
+		validateAddEditTime('Edit');
+	};
+
+	const handleAddTimeSchedule = (value) => {
+		validateAddEditTime(value);
+		setSelectedTimeSchedule(() => value);
+	};
+
+	const handleEditTimeChange = (value): void => {
+		setScheduleToEdit(() => value);
+		validateAddEditTime(value);
+	};
+
+	const showScheduleModal =
+		(mode: string) =>
+		(event): void => {
+			event.preventDefault();
+			const { id } = event.target;
+			const schedule = schedules.filter((obj) => obj.id === id);
+			const setEditTimeValue = (time) => {
+				const [hour, minute] = time.split(':');
+				return dayjs().hour(hour).minute(minute).format();
+			};
+
+			switch (mode) {
+				case 'Add':
+					setScheduleModalVisibility((prevState) => !prevState);
+					setEditScheduleMode(false);
+					break;
+				case 'Edit':
+					setScheduleId(() => id);
+					setScheduleModalVisibility((prevState) => !prevState);
+					setEditScheduleMode(false);
+					setScheduleToEdit(() => setEditTimeValue(schedule[0].schedule));
+					break;
+				default:
+					setScheduleId(() => '');
+			}
+			validateScheduleOnOpen();
+		};
+
+	// onSubmit={(values) => {
+	// 	addPostMutation.mutate(
+	// 		{
+	// 			title: values.title,
+	// 			content: values.content,
+	// 			thumbnailUrl: uploadedThumbnailImage,
+	// 		},
+	// 		{
+	// 			onSuccess: (data) => router.push(`/news/${data.id}`),
+	// 		}
+	// 	);
+	// }}
+
+	const closeScheduleModal = (): void => {
+		setScheduleModalVisibility((prevState) => !prevState);
+
+		setTimeout(() => {
+			setSelectedTimeSchedule(() => dayjs());
+			setScheduleError(() => false);
+			setEditScheduleMode(() => false);
+			setScheduleId(() => '');
+		}, 1000);
+	};
+
+	const onAddEditScheduleSubmit = (event): void => {
+		event.preventDefault();
+		const timeValueString = (value) => dayjs(value).format('HH:mm');
+
+		const schedule = {
+			schedule: isEditMode
+				? timeValueString(scheduleToEdit)
+				: timeValueString(selectedTimeSchedule),
+			deviceId: device?.id as string,
+		};
+
+		addScheduleMutation.mutate(schedule, {
+			onSuccess: () => closeScheduleModal(),
+		});
+
+		// dispatch(
+		// 	isEditMode
+		// 		? editSchedule(scheduleId, schedule)
+		// 		: addNewSchedule(schedule),
+		// );
+
+		// isLoading === false && closeScheduleModal();
+	};
 
 	return (
 		<Box sx={{ flexGrow: 1 }}>
@@ -122,7 +277,11 @@ export const WaterScheduleView = (): JSX.Element => {
 				</Typography>
 				<Button endIcon={<KeyboardArrowDown />}>27 Jul - 23 Aug 2022</Button>
 			</Stack>
-			<Button startIcon={<Add />} sx={{ paddingX: 0 }}>
+			<Button
+				startIcon={<Add />}
+				sx={{ paddingX: 0 }}
+				onClick={showScheduleModal('Add')}
+			>
 				Add schedule
 			</Button>
 			<Grid
@@ -153,8 +312,7 @@ export const WaterScheduleView = (): JSX.Element => {
 						<Typography paddingX={2} variant="h4">
 							21:00am
 						</Typography>
-						{/*  @ts-expect-error */}
-						<WaterTable headers={headers} data={data} />
+						<WaterTable headers={headers} data={schedules} />
 					</Box>
 				</Grid>
 				<Grid item xs={12} sm={3}>
@@ -176,8 +334,10 @@ export const WaterScheduleView = (): JSX.Element => {
 						>
 							Water level
 						</Typography>
-						<Typography paddingX={2} variant="h4">
-							46%
+						<Typography paddingX={2} variant="body2" color="text.secondary">
+							This shows how much you are remaining on the plant consumption of
+							nutrients and water. You may need to keep it at slightly above
+							20% to last for about a week or two.
 						</Typography>
 						<DonutDisplay />
 						{/*<DonutHigh />*/}
@@ -199,6 +359,16 @@ export const WaterScheduleView = (): JSX.Element => {
 					</Box>
 				</Grid>
 			</Grid>
+			<AddEditScheduleModal
+				isOpen={isScheduleModalVisible}
+				isLoading={false}
+				hasError={hasError}
+				onDismiss={closeScheduleModal}
+				isEditMode={isEditMode}
+				onSubmit={onAddEditScheduleSubmit}
+				onChange={isEditMode ? handleEditTimeChange : handleAddTimeSchedule}
+				value={isEditMode ? scheduleToEdit : selectedTimeSchedule}
+			/>
 		</Box>
 	);
 };

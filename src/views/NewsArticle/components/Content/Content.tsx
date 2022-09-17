@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import dayjsTime from '@utils/dayjsTime';
 
 const Content = ({ content, avatar, fullName, date }): JSX.Element => {
 	return (
@@ -33,7 +34,9 @@ const Content = ({ content, avatar, fullName, date }): JSX.Element => {
 					/>
 					<Box>
 						<Typography fontWeight={600}>{fullName}</Typography>
-						<Typography color={'text.secondary'}>{date}</Typography>
+						<Typography color={'text.secondary'}>
+							{dayjsTime(date).format('MMMM D, YYYY')}
+						</Typography>
 					</Box>
 				</Box>
 				<Box display={'flex'} alignItems={'center'}>
