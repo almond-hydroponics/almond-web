@@ -1,53 +1,36 @@
 import { Link } from '@components/atoms';
 import { ChevronLeft, ChevronRight } from '@mui/icons-material';
 import { Button } from '@mui/material';
-import { useRouter } from 'next/router';
 
 type PaginationProps = {
-	itemCount: number;
-	itemsPerPage: number;
-	currentPageNumber: number;
+	totalPages: number;
+	currentPage: number;
+	type?: 'posts';
 };
 
-export function getQueryPaginationInput(
-	itemsPerPage: number,
-	currentPageNumber: number
-) {
-	return {
-		take: itemsPerPage,
-		skip:
-			currentPageNumber === 1
-				? undefined
-				: itemsPerPage * (currentPageNumber - 1),
-	};
-}
-
 export function Pagination({
-	itemCount,
-	itemsPerPage,
-	currentPageNumber,
+	totalPages,
+	currentPage,
+	type = 'posts',
 }: PaginationProps) {
-	const router = useRouter();
-
-	const totalPages = Math.ceil(itemCount / itemsPerPage);
-
 	if (totalPages <= 1) {
 		return null;
 	}
+
+	const prevPage = currentPage - 1 > 0;
+	const nextPage = currentPage + 1 <= totalPages;
 
 	return (
 		<div className="flex justify-center gap-4 mt-12">
 			<Button
 				component={Link}
-				// @ts-expect-error
-				href={{
-					pathname: router.pathname,
-					query: { ...router.query, page: currentPageNumber - 1 },
-				}}
-				variant="text"
-				className={
-					currentPageNumber === 1 ? 'pointer-events-none opacity-50' : ''
+				disabled={!prevPage}
+				href={
+					currentPage - 1 === 1
+						? `/${type}/`
+						: `/${type}/page/${currentPage - 1}`
 				}
+				variant="text"
 			>
 				<span className="mr-1">
 					<ChevronLeft />
@@ -56,17 +39,9 @@ export function Pagination({
 			</Button>
 			<Button
 				component={Link}
-				// @ts-expect-error
-				href={{
-					pathname: router.pathname,
-					query: { ...router.query, page: currentPageNumber + 1 },
-				}}
+				disabled={!nextPage}
+				href={`/${type}/page/${currentPage + 1}`}
 				variant="text"
-				className={
-					currentPageNumber === totalPages
-						? 'pointer-events-none opacity-50'
-						: ''
-				}
 			>
 				Older posts{' '}
 				<span className="ml-1">
