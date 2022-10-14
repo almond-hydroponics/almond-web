@@ -1,59 +1,44 @@
-import Container from '@components/Container';
+import { Pre, TOCInline } from '@components/atoms';
 import { Main } from '@layouts/index';
-import { InferQueryPathAndInput, trpc } from '@lib/trpc';
-import { Box } from '@mui/material';
-import { useSession } from 'next-auth/react';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
+import { ComponentMap, getMDXComponent } from 'mdx-bundler/client';
+import dynamic from 'next/dynamic';
+import Image from 'next/image';
+import { ComponentType, useMemo } from 'react';
 
-import { Content, Hero } from './components';
+import { CustomLink } from './components';
 
-function getPostQueryPathAndInput(
-	id: string
-): InferQueryPathAndInput<'news.detail'> {
-	return [
-		'news.detail',
-		{
-			id,
-		},
-	];
+const Wrapper: ComponentType<{ layout: string }> = ({ layout, ...rest }) => {
+	const Layout = dynamic(() => import(`../../layouts/${layout}`), {
+		ssr: false,
+	});
+	return <Layout {...rest} />;
+};
+
+const CustomP = () => <p style={{ fontSize: '10px' }} />;
+
+export const MDXComponents: ComponentMap = {
+	Image,
+	TOCInline,
+	a: CustomLink,
+	p: CustomP,
+	// @ts-expect-error
+	pre: Pre,
+	wrapper: Wrapper,
+};
+
+interface Props {
+	mdxSource: string;
+
+	[key: string]: unknown;
 }
 
-const NewsArticle = (): JSX.Element => {
-	const { data: session } = useSession();
-	const router = useRouter();
-	const utils = trpc.useContext();
-	const postQueryPathAndInput = getPostQueryPathAndInput(
-		router.query?.id as string
-	);
-	const postQuery = trpc.useQuery(postQueryPathAndInput);
+const NewsArticle = ({ layout, mdxSource, ...rest }: Props): JSX.Element => {
+	const MdxComponent = useMemo(() => getMDXComponent(mdxSource), [mdxSource]);
 
 	return (
-		<>
-			<Head>
-				<title>{postQuery.data?.title}</title>
-			</Head>
-			<Main>
-				<Box position={'relative'} zIndex={3}>
-					<Hero
-						avatar={postQuery?.data?.author?.image}
-						fullName={postQuery.data?.author?.name}
-						date={postQuery.data?.createdAt}
-						title={postQuery.data?.title}
-						featuredImage={postQuery.data?.thumbnailUrl}
-					/>
-					<Container maxWidth={{ sm: 720, md: 960 }}>
-						{/*<HtmlView html={postQuery?.data?.contentHtml as string} />*/}
-						<Content
-							content={postQuery?.data?.contentHtml as string}
-							avatar={postQuery?.data?.author?.image}
-							fullName={postQuery.data?.author?.name}
-							date={postQuery.data?.createdAt}
-						/>
-					</Container>
-				</Box>
-			</Main>
-		</>
+		<Main>
+			<MdxComponent layout={layout} components={MDXComponents} {...rest} />
+		</Main>
 	);
 };
 

@@ -22,3 +22,5 @@ export { default as RenderCellExpand } from './RenderCellExpand';
 export { default as NoDataToDisplay } from './NoDataToDisplay';
 export { default as HtmlView } from './HtmlView';
 export * from './Icons';
+export { default as TOCInline } from './TOCInline';
+export { default as Pre } from './Pre';

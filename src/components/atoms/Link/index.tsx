@@ -91,7 +91,7 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
 	}
 
 	const linkAs = linkAsProp || as;
-	const nextjsProps = {
+	const nextJsProps = {
 		to: href,
 		linkAs,
 		replace,
@@ -106,7 +106,7 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
 			<NextLinkComposed
 				className={className}
 				ref={ref}
-				{...nextjsProps}
+				{...nextJsProps}
 				{...other}
 			/>
 		);
@@ -117,7 +117,7 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
 			component={NextLinkComposed}
 			className={className}
 			ref={ref}
-			{...nextjsProps}
+			{...nextJsProps}
 			{...other}
 		/>
 	);

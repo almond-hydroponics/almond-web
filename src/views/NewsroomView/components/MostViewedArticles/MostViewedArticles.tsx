@@ -1,39 +1,23 @@
-import { HtmlView } from '@components/atoms';
-import { getQueryPaginationInput } from '@components/molecules/Pagination';
-import { summarize } from '@lib/text';
-import { InferQueryOutput, InferQueryPathAndInput, trpc } from '@lib/trpc';
-import { BookmarkAddTwoTone, Delete, EditTwoTone } from '@mui/icons-material';
 import {
 	Box,
 	Button,
 	Card,
 	CardContent,
 	Chip,
-	ClickAwayListener,
 	Grid,
-	IconButton,
-	Paper,
-	Popper,
-	PopperPlacementType,
 	Stack,
-	Tooltip,
 	Typography,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { animated, useSpring } from '@react-spring/web';
-import { displaySnackMessage } from '@store/slices/snack';
 import dayjsTime from '@utils/dayjsTime';
-import { useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { MouseEvent, ReactElement, forwardRef, useState } from 'react';
+import { ReactElement, forwardRef } from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import { useDispatch } from 'react-redux';
-
-const POSTS_PER_PAGE = 20;
+import { PostFrontMatter } from 'types/PostFrontMatter';
 
 interface Props {
-	posts: InferQueryOutput<'news.feed'>['posts'];
+	posts: PostFrontMatter[];
 }
 
 interface FadeProps {
@@ -68,64 +52,7 @@ const Fade = forwardRef<HTMLDivElement, FadeProps>(function Fade(props, ref) {
 });
 
 const MostViewedArticles = ({ posts }: Props): JSX.Element => {
-	const { data: session } = useSession();
-	const utils = trpc.useContext();
-	const router = useRouter();
 	const theme = useTheme();
-	const dispatch = useDispatch();
-	const [isConfirmDeleteDialogOpen, setIsConfirmDeleteDialogOpen] =
-		useState<boolean>(false);
-	const [placement, setPlacement] = useState<PopperPlacementType>();
-	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
-	const currentPageNumber = router.query.page ? Number(router.query.page) : 1;
-	const feedQueryPathAndInput: InferQueryPathAndInput<'news.feed'> = [
-		'news.feed',
-		getQueryPaginationInput(POSTS_PER_PAGE, currentPageNumber),
-	];
-
-	const isUserAdmin = session?.user.role === 'ADMIN';
-
-	const handleClick =
-		(newPlacement: PopperPlacementType) =>
-		(event: MouseEvent<HTMLButtonElement>) => {
-			setAnchorEl(event.currentTarget);
-			setIsConfirmDeleteDialogOpen(
-				(prev) => placement !== newPlacement || !prev
-			);
-			setPlacement(newPlacement);
-		};
-
-	const handleClickAway = () => {
-		setIsConfirmDeleteDialogOpen(false);
-	};
-
-	const deletePostMutation = trpc.useMutation('post.delete', {
-		onSuccess: () => {
-			return utils.invalidateQueries(feedQueryPathAndInput);
-		},
-		onError: (error) => {
-			dispatch(
-				displaySnackMessage({
-					message: `Something went wrong: ${error.message}`,
-					severity: 'error',
-				})
-			);
-		},
-	});
-
-	const handleDeletePost = (event) => {
-		const { id } = event.target;
-		deletePostMutation.mutate(id, {
-			onSuccess: () => {
-				dispatch(
-					displaySnackMessage({
-						message: 'Post deleted successfully.',
-					})
-				);
-			},
-		});
-	};
 
 	return (
 		<Box>
@@ -138,14 +65,11 @@ const MostViewedArticles = ({ posts }: Props): JSX.Element => {
 			/>
 			<Grid container spacing={4}>
 				{posts.map((post) => {
-					const { id, title, contentHtml, thumbnailUrl, createdAt, author } =
+					const { slug, date, title, summary, tags, thumbnailUrl, authors } =
 						post;
-					const tag = 'Blah';
-
-					const summary = summarize(contentHtml);
 
 					return (
-						<Grid item xs={12} key={id} id={id}>
+						<Grid item xs={12} key={slug} id={slug}>
 							<Box
 								component={Card}
 								width={1}
@@ -156,7 +80,7 @@ const MostViewedArticles = ({ posts }: Props): JSX.Element => {
 								flexDirection={{ xs: 'column', md: 'row' }}
 								sx={{ backgroundImage: 'none', bgcolor: 'transparent' }}
 							>
-								<Link href={`/news/${id}`}>
+								<Link href={`/news/${slug}`}>
 									<Box
 										sx={{
 											width: { xs: 1, md: '30%' },
@@ -195,7 +119,7 @@ const MostViewedArticles = ({ posts }: Props): JSX.Element => {
 										padding: { xs: 0, md: 1 },
 									}}
 								>
-									<Link href={`/news/${id}`}>
+									<Link href={`/news/${slug}`}>
 										<Typography
 											fontWeight={500}
 											marginTop={{ xs: 1, md: 0 }}
@@ -217,84 +141,22 @@ const MostViewedArticles = ({ posts }: Props): JSX.Element => {
 													color={'text.secondary'}
 													// component={'i'}
 												>
-													{author?.name} - {dayjsTime(createdAt).fromNow()}
+													{authors ? authors : [0]} -{' '}
+													{dayjsTime(date).fromNow()}
 												</Typography>
 												<Chip
 													component={'a'}
 													href={''}
-													label={tag}
+													label={tags[0]}
 													clickable
 													sx={{ margin: 0.5, fontSize: 12 }}
 													size={'small'}
 												/>
 											</div>
-											<Box>
-												<Tooltip title="Bookmark" placement="top">
-													<IconButton aria-label="bookmark" color="primary">
-														<BookmarkAddTwoTone />
-													</IconButton>
-												</Tooltip>
-
-												{!!session && isUserAdmin ? (
-													<Tooltip title="Edit" placement="top">
-														<IconButton aria-label="edit" color="secondary">
-															<EditTwoTone />
-														</IconButton>
-													</Tooltip>
-												) : null}
-
-												{!!session && isUserAdmin ? (
-													<ClickAwayListener
-														mouseEvent="onMouseDown"
-														touchEvent="onTouchStart"
-														onClickAway={handleClickAway}
-													>
-														<IconButton
-															onClick={handleClick('right')}
-															aria-label="delete"
-															color="error"
-															aria-controls={
-																isConfirmDeleteDialogOpen
-																	? 'delete-menu'
-																	: undefined
-															}
-															aria-haspopup="true"
-															aria-expanded={
-																isConfirmDeleteDialogOpen ? 'true' : undefined
-															}
-														>
-															<Tooltip title="Remove" placement="top">
-																<Delete />
-															</Tooltip>
-															<Popper
-																open={isConfirmDeleteDialogOpen}
-																anchorEl={anchorEl}
-																placement={placement}
-																transition
-															>
-																{({ TransitionProps }) => (
-																	<Fade {...TransitionProps}>
-																		<Paper variant="outlined">
-																			<Button
-																				id={id}
-																				color="error"
-																				onClick={handleDeletePost}
-																			>
-																				Delete
-																			</Button>
-																			<Button>Cancel</Button>
-																		</Paper>
-																	</Fade>
-																)}
-															</Popper>
-														</IconButton>
-													</ClickAwayListener>
-												) : null}
-											</Box>
 										</Stack>
 									</Box>
-									<HtmlView html={summary} />
-									<Link href={`/news/${id}`}>
+									<Typography color="text.secondary">{summary}</Typography>
+									<Link href={`/news/${slug}`}>
 										<Box
 											marginTop={2}
 											display={'flex'}
