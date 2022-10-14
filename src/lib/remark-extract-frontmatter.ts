@@ -6,7 +6,7 @@ import { VFile } from 'vfile';
 export default function extractFrontmatter() {
 	return (tree: Parent, file: VFile) => {
 		visit(tree, 'yaml', (node: Parent) => {
-			//@ts-ignore
+			//@ts-expect-error
 			file.data.frontmatter = load(node.value);
 		});
 	};

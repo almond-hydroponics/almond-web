@@ -5,6 +5,8 @@ import 'slick-carousel/slick/slick-theme.css';
 import 'aos/dist/aos.css';
 import 'assets/css/index.css';
 import 'assets/css/fonts.css';
+import 'assets/css/prism.css';
+import 'katex/dist/katex.css';
 
 import Auth from '@components/Auth';
 import { ErrorBoundary } from '@components/molecules/ErrorBoundary';

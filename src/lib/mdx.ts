@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
+import remarkImgToJsx from '@lib/remark-img-to-jsx';
 import matter from 'gray-matter';
 import { bundleMDX } from 'mdx-bundler';
 import readingTime from 'reading-time';
@@ -21,14 +22,13 @@ import { Toc } from 'types/Toc';
 
 import remarkCodeTitles from './remark-code-title';
 import remarkExtractFrontmatter from './remark-extract-frontmatter';
-import remarkImgToJsx from './remark-img-to-jsx';
 import remarkTocHeadings from './remark-toc-headings';
 import getAllFilesRecursively from './utils/files';
 
 const root = process.cwd();
 
-export function getFiles(type: 'blog' | 'authors') {
-	const prefixPaths = path.join(root, 'src', 'data', type);
+export function getFiles(type: 'posts' | 'authors') {
+	const prefixPaths = path.join(root, 'data', type);
 	const files = getAllFilesRecursively(prefixPaths);
 	// Only want to return blog/path and ignore root, replace is needed to work on Windows
 	return files.map((file) =>
@@ -47,11 +47,11 @@ export function dateSortDesc(a: string, b: string) {
 }
 
 export async function getFileBySlug<T>(
-	type: 'authors' | 'blog',
+	type: 'authors' | 'posts',
 	slug: string | string[]
 ) {
-	const mdxPath = path.join(root, 'src', 'data', type, `${slug}.mdx`);
-	const mdPath = path.join(root, 'src', 'data', type, `${slug}.md`);
+	const mdxPath = path.join(root, 'data', type, `${slug}.mdx`);
+	const mdPath = path.join(root, 'data', type, `${slug}.md`);
 	const source = fs.existsSync(mdxPath)
 		? fs.readFileSync(mdxPath, 'utf8')
 		: fs.readFileSync(mdPath, 'utf8');
@@ -79,7 +79,7 @@ export async function getFileBySlug<T>(
 	const { code, frontmatter } = await bundleMDX({
 		source,
 		// mdx imports can be automatically source from the components directory
-		cwd: path.join(root, 'src', 'components'),
+		cwd: path.join(root, 'src', 'views'),
 		mdxOptions(options, frontmatter) {
 			// this is the recommended way to add custom remark/rehype plugins:
 			// The syntax might look weird, but it protects you in case we add/remove
@@ -94,6 +94,7 @@ export async function getFileBySlug<T>(
 				remarkMath,
 				remarkImgToJsx,
 			];
+
 			options.rehypePlugins = [
 				...(options.rehypePlugins ?? []),
 				rehypeSlug,
@@ -103,6 +104,7 @@ export async function getFileBySlug<T>(
 				[rehypePrismPlus, { ignoreMissing: true }],
 				rehypePresetMinify,
 			];
+
 			return options;
 		},
 		esbuildOptions: (options) => {
