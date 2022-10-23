@@ -25,7 +25,7 @@ import { alpha, useTheme } from '@mui/material/styles';
 import fancyId from '@utils/fancyId';
 import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { MouseEvent, useContext, useState } from 'react';
+import { Fragment, MouseEvent, useContext, useState } from 'react';
 
 const CustomAvatar = (): JSX.Element => {
 	const router = useRouter();
@@ -111,7 +111,7 @@ const CustomAvatar = (): JSX.Element => {
 	];
 
 	return (
-		<>
+		<Fragment>
 			<Tooltip title={name ?? 'Anonymous User'}>
 				{isSm ? (
 					<Avatar
@@ -277,7 +277,7 @@ const CustomAvatar = (): JSX.Element => {
 					<ListItemText primary="Logout" secondary="Heading back home" />
 				</MenuItem>
 			</Menu>
-		</>
+		</Fragment>
 	);
 };
 

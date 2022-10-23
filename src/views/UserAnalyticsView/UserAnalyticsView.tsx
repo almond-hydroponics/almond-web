@@ -1,6 +1,7 @@
 import { AnalyticsCard } from '@components/molecules';
 import { ComponentContext } from '@context/ComponentContext';
 import useNextSchedule from '@hooks/useNextSchedule';
+import { useRandomColorPair } from '@hooks/useRandomColorPair';
 import { trpc } from '@lib/trpc';
 import {
 	BlurOn,
@@ -16,11 +17,14 @@ import { Device } from '@prisma/client';
 import formatWaterLevelData from '@utils/formatWaterLevel';
 import { useSession } from 'next-auth/react';
 import { useContext } from 'react';
+import { RoughNotation } from 'react-rough-notation';
 
 import { getSchedulesQueryPathAndInput } from '../WaterCycleView';
 
 const UserAnalyticsView = (): JSX.Element => {
 	const { setSelectedIndex } = useContext(ComponentContext);
+	const [deviceColor] = useRandomColorPair();
+
 	const temperature = 27;
 	const humidity = 50;
 	const waterLevel = 400;
@@ -55,7 +59,17 @@ const UserAnalyticsView = (): JSX.Element => {
 				Welcome to Almond Hydroponics!
 			</Typography>
 			<Typography marginTop={1} marginBottom={2} variant="body1" align="left">
-				Your current device is {device?.name}.
+				Your current device is{' '}
+				<RoughNotation
+					show
+					type="highlight"
+					animationDelay={250}
+					animationDuration={2000}
+					color={deviceColor}
+				>
+					{' '}
+					{device?.name}
+				</RoughNotation>
 			</Typography>
 			<Divider />
 			<Typography marginTop={2} variant="body1" align="left">

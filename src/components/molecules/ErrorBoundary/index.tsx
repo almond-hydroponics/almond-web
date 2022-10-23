@@ -1,6 +1,7 @@
 import {
 	Component,
 	ComponentType,
+	ErrorInfo,
 	FunctionComponent,
 	PropsWithChildren,
 	PropsWithRef,
@@ -91,7 +92,7 @@ class ErrorBoundary extends Component<
 		this.setState(initialState);
 	}
 
-	componentDidCatch(error: Error, info: React.ErrorInfo) {
+	componentDidCatch(error: Error, info: ErrorInfo) {
 		this.props.onError?.(error, info);
 	}
 
@@ -153,6 +154,7 @@ function withErrorBoundary<P>(
 	const Wrapped: ComponentType<P> = (props) => {
 		return (
 			<ErrorBoundary {...errorBoundaryProps}>
+				{/*@ts-expect-error*/}
 				<Component {...props} />
 			</ErrorBoundary>
 		);

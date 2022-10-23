@@ -41,7 +41,7 @@ const TOCInline = ({
 	asDisclosure = false,
 	exclude = '',
 }: TOCInlineProps) => {
-	const [open, setOpen] = useState<boolean>(false);
+	const [open, setOpen] = useState<boolean>(true);
 	const handleClick = (): void => setOpen((prevState) => !prevState);
 
 	const re = Array.isArray(exclude)

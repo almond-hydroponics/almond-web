@@ -18,8 +18,8 @@ ENV NODE_ENV production
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
 
-# You only need to copy next.config.js if you are NOT using the default configuration
-# COPY --from=builder /app/next.config.js ./
+# You only need to copy next.config.cjs if you are NOT using the default configuration
+# COPY --from=builder /app/next.config.cjs ./
 COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
@@ -72,8 +72,8 @@ CMD ["yarn", "start"]
 #RUN addgroup -g 1001 -S nodejs
 #RUN adduser -S nextjs -u 1001
 #
-## You only need to copy next.config.js if you are NOT using the default configuration
-## COPY --from=builder /app/next.config.js ./
+## You only need to copy next.config.cjs if you are NOT using the default configuration
+## COPY --from=builder /app/next.config.cjs ./
 #COPY --from=builder /app/public ./public
 #COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
 #COPY --from=builder /app/node_modules ./node_modules

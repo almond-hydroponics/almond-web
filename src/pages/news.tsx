@@ -2,7 +2,6 @@ import { PageSEO } from '@components/atoms/SEO';
 import Container from '@components/Container';
 import { Main } from '@layouts/index';
 import { getAllFilesFrontMatter } from '@lib/mdx';
-//import { NextPageWithAuthAndLayout } from '@lib/types';
 import { POSTS_PER_PAGE } from 'config';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { ComponentProps, ReactElement } from 'react';

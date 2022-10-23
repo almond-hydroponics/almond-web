@@ -15,17 +15,11 @@ const Auth = ({ children }: { children: ReactNode }) => {
 		if (status === 'loading') return; // Do nothing while loading
 		if (status === 'unauthenticated') {
 			push('/');
-			// 	.then(() =>
-			// 	dispatch(
-			// 		displaySnackMessage({
-			// 			message: 'Kindly login to view this page.',
-			// 		})
-			// 	)
-			// );
 		}
 	}, [isUser, status]);
 
 	useEffect(() => {
+		// @ts-expect-error
 		if (session?.error === 'RefreshAccessTokenError') {
 			signOut().then(() => {
 				dispatch(

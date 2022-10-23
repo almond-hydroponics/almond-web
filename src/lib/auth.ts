@@ -58,6 +58,7 @@ export const authOptions: NextAuthOptions = {
 	],
 	callbacks: {
 		async signIn({ user, account, profile }) {
+			// @ts-expect-error
 			return !profile.notAllowed;
 		},
 		// async jwt({ token, user, account }) {
@@ -92,10 +93,6 @@ export const authOptions: NextAuthOptions = {
 					identifier: true,
 				},
 			});
-
-			// session.user = token.user
-			// session.accessToken = token.accessToken;
-			// session.error = token.error;
 
 			return {
 				...session,

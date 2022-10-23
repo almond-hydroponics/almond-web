@@ -1,5 +1,6 @@
 import { Pre, TOCInline } from '@components/atoms';
 import { Main } from '@layouts/index';
+import { Typography } from '@mui/material';
 import { ComponentMap, getMDXComponent } from 'mdx-bundler/client';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
@@ -20,7 +21,7 @@ export const MDXComponents: ComponentMap = {
 	Image,
 	TOCInline,
 	a: CustomLink,
-	p: CustomP,
+	Typography,
 	// @ts-expect-error
 	pre: Pre,
 	wrapper: Wrapper,

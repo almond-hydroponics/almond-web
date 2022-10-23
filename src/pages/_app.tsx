@@ -11,14 +11,9 @@ import 'katex/dist/katex.css';
 import Auth from '@components/Auth';
 import { ErrorBoundary } from '@components/molecules/ErrorBoundary';
 import { CacheProvider, EmotionCache } from '@emotion/react';
-import { transformer } from '@lib/trpc';
+import { trpc } from '@lib/trpc';
 import { NextPageWithAuthAndLayout } from '@lib/types';
-import { AppRouter } from '@server/routers/_app';
 import store from '@store/index';
-import { httpBatchLink } from '@trpc/client/links/httpBatchLink';
-import { loggerLink } from '@trpc/client/links/loggerLink';
-import { withTRPC } from '@trpc/next';
-import { TRPCError } from '@trpc/server';
 import { pageview } from '@utils/gtag';
 import { SessionProvider } from 'next-auth/react';
 import { DefaultSeo } from 'next-seo';
@@ -45,7 +40,6 @@ const clientSideEmotionCache = createEmotionCache();
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const App = ({
 	Component,
-	// @ts-expect-error
 	pageProps: { session, ...pageProps },
 	emotionCache = clientSideEmotionCache,
 }: Props): JSX.Element => {
@@ -99,44 +93,20 @@ const App = ({
 };
 
 const getBaseUrl = () => {
-	if (typeof window !== 'undefined') {
+	if (typeof window !== 'undefined')
+		// browser should use relative path
 		return '';
-	}
 
-	if (process.env.VERCEL_URL) {
+	if (process.env.VERCEL_URL)
+		// reference for vercel.com
 		return `https://${process.env.VERCEL_URL}`;
-	}
 
+	if (process.env.RENDER_INTERNAL_HOSTNAME)
+		// reference for render.com
+		return `http://${process.env.RENDER_INTERNAL_HOSTNAME}:${process.env.PORT}`;
+
+	// assume localhost
 	return `http://localhost:${process.env.PORT ?? 3000}`;
 };
 
-export default withTRPC<AppRouter>({
-	config() {
-		return {
-			links: [
-				loggerLink({
-					enabled: (opts) =>
-						process.env.NODE_ENV === 'development' ||
-						(opts.direction === 'down' && opts.result instanceof Error),
-				}),
-				httpBatchLink({
-					url: `${getBaseUrl()}/api/trpc`,
-				}),
-			],
-			transformer,
-			queryClientConfig: {
-				defaultOptions: {
-					queries: {
-						retry: (failureCount, error: any) => {
-							const trpcErrorCode = error?.data?.code as TRPCError['code'];
-							if (trpcErrorCode === 'NOT_FOUND') {
-								return false;
-							}
-							return failureCount < 3;
-						},
-					},
-				},
-			},
-		};
-	},
-})(App);
+export default trpc.withTRPC(App);

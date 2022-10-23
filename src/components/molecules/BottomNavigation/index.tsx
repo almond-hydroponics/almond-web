@@ -14,18 +14,28 @@ import {
 	Paper,
 } from '@mui/material';
 import { alpha, useTheme } from '@mui/material/styles';
+import { useRouter } from 'next/router';
 import { useContext } from 'react';
 
 const PageBottomNavigation = (): JSX.Element => {
 	const { selectedIndex, setSelectedIndex, currentRoleBasedAccess } =
 		useContext(ComponentContext);
+	const { pathname } = useRouter();
+
 	const { isAdmin } = useContext(UserContext);
 	const theme = useTheme();
 
-	const displayNavigationByRoleBase = {
-		USER: BottomNavigationMenus,
-		ADMIN: AdminBottomNavigationMenus,
-		DEVELOPER: BottomNavigationMenus,
+	const switchUserNavigation = (pathname: string) => {
+		switch (pathname) {
+			case '/dashboard':
+				return BottomNavigationMenus;
+			case '/admin':
+				return AdminBottomNavigationMenus;
+			case '/developer':
+				return AdminBottomNavigationMenus;
+			default:
+				return BottomNavigationMenus;
+		}
 	};
 
 	const handleChange = (event, newValue) => setSelectedIndex(newValue);
@@ -50,17 +60,15 @@ const PageBottomNavigation = (): JSX.Element => {
 					onChange={handleChange}
 					showLabels
 				>
-					{displayNavigationByRoleBase[currentRoleBasedAccess].map(
-						(menuNav, index) => (
-							<BottomNavigationAction
-								// sx={{ fontSize: 10 }}
-								key={menuNav.label}
-								label={menuNav.label}
-								icon={menuNav.icon}
-								value={index}
-							/>
-						)
-					)}
+					{switchUserNavigation(pathname).map((menuNav, index) => (
+						<BottomNavigationAction
+							// sx={{ fontSize: 10 }}
+							key={menuNav.label}
+							label={menuNav.label}
+							icon={menuNav.icon}
+							value={index}
+						/>
+					))}
 				</BottomNavigation>
 			</Paper>
 		</Box>
