@@ -7,37 +7,27 @@
       <language>en-us</language>
       <managingEditor>contact@francismasha.com (Francis Masha)</managingEditor>
       <webMaster>contact@francismasha.com (Francis Masha)</webMaster>
-      <lastBuildDate>Sat, 25 Sep 2021 00:00:00 GMT</lastBuildDate>
+      <lastBuildDate>Fri, 28 Oct 2022 00:00:00 GMT</lastBuildDate>
       <atom:link href='https://francismasha.com/feed.xml' rel='self' type='application/rss+xml'/>
       
   <item>
-    <guid>https://francismasha.com/blog/exposing-resources-cloudflare-argo-tunnel</guid>
-    <title>Exposing resources securely with Argo Tunnel</title>
-    <link>https://francismasha.com/blog/exposing-resources-cloudflare-argo-tunnel</link>
-    <description>Exposing resources securely with Cloudflare Argo Tunnel</description>
-    <pubDate>Sat, 25 Sep 2021 00:00:00 GMT</pubDate>
-    <author>contact@francismasha.com (Francis Masha)</author>
-    <category>aws</category><category>terraform</category>
-  </item>
-
-  <item>
-    <guid>https://francismasha.com/blog/build-rest-api-go</guid>
-    <title>Build a REST API with Go - For Beginners</title>
-    <link>https://francismasha.com/blog/build-rest-api-go</link>
-    <description>Learn how to build a REST API with Go</description>
-    <pubDate>Wed, 01 Sep 2021 00:00:00 GMT</pubDate>
-    <author>contact@francismasha.com (Francis Masha)</author>
-    <category>go</category><category>beginners</category><category>tutorial</category>
-  </item>
-
-  <item>
-    <guid>https://francismasha.com/blog/blazing-typescript-webpack-esbuild</guid>
-    <title>Blazing fast TypeScript with Webpack and ESBuild</title>
-    <link>https://francismasha.com/blog/blazing-typescript-webpack-esbuild</link>
+    <guid>https://francismasha.com/blog/hydroponics-a-better-way-to-grow-food</guid>
+    <title>Hydroponics: A Better Way to Grow Food</title>
+    <link>https://francismasha.com/blog/hydroponics-a-better-way-to-grow-food</link>
     <description>Learn how to improve your TypeScript projects with webpack and esbuild</description>
-    <pubDate>Mon, 28 Jun 2021 00:00:00 GMT</pubDate>
+    <pubDate>Fri, 28 Oct 2022 00:00:00 GMT</pubDate>
     <author>contact@francismasha.com (Francis Masha)</author>
     <category>typescript</category><category>node</category><category>webpack</category>
+  </item>
+
+  <item>
+    <guid>https://francismasha.com/blog/arduino-hydroponics-sensor-dashboard-online</guid>
+    <title>Arduino hydroponics, how to build a sensor station with an online dashboard</title>
+    <link>https://francismasha.com/blog/arduino-hydroponics-sensor-dashboard-online</link>
+    <description>For this build, we are going to use an Arduino Wifi Rev2 and an LCD shield from DFRobot</description>
+    <pubDate>Thu, 20 Oct 2022 00:00:00 GMT</pubDate>
+    <author>contact@francismasha.com (Francis Masha)</author>
+    <category>arduino</category>
   </item>
 
     </channel>
