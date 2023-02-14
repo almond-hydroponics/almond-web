@@ -91,7 +91,7 @@
     "js-cookie": "^3.0.1",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
-    "luxon": "^3.1.0",
+    "luxon": "^3.2.1",
     "marked": "^4.2.3",
     "mdx-bundler": "^9.0.1",
     "mqtt": "^4.3.7",
