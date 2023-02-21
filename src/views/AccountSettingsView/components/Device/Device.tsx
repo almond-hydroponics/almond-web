@@ -1,4 +1,4 @@
-import { InferQueryPathAndInput, trpc } from '@lib/trpc';
+import { trpc } from '@/lib/trpc';
 import {
 	Avatar,
 	Box,
@@ -13,12 +13,6 @@ import { useSession } from 'next-auth/react';
 
 import { Form } from '../../../EnterDeviceIdView/components';
 
-const getProfileQueryPathAndInput = (
-	id: string
-): InferQueryPathAndInput<'user.profile'> => {
-	return ['user.profile', { id }];
-};
-
 const Device = (): JSX.Element => {
 	const theme = useTheme();
 	const isMd = useMediaQuery(theme.breakpoints.up('md'), {
@@ -29,7 +23,7 @@ const Device = (): JSX.Element => {
 	const { id } = session?.user || {};
 
 	const profileQueryPathAndInput = getProfileQueryPathAndInput(String(id));
-	const profileQuery = trpc.useQuery(profileQueryPathAndInput);
+	const profileQuery = trpc.user.useQuery(profileQueryPathAndInput);
 
 	const devices = profileQuery?.data?.devices || [];
 

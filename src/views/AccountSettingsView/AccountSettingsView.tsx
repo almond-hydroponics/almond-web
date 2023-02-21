@@ -1,6 +1,6 @@
-import { MenuTab, MenuTabs, TabPanel } from '@components/atoms';
-import Container from '@components/Container';
-import { MenuComponentProps } from '@components/molecules/MenuRoutes/interfaces';
+import { MenuTab, MenuTabs, TabPanel } from '@/components/atoms';
+import Container from '@/components/Container';
+import { MenuComponentProps } from '@/components/molecules/MenuRoutes/interfaces';
 import { AllOut, NotificationsNone } from '@mui/icons-material';
 import { Box, Card, Grid, Typography, useMediaQuery } from '@mui/material';
 import { alpha, useTheme } from '@mui/material/styles';

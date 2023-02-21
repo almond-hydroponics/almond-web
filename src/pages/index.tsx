@@ -1,6 +1,6 @@
-import { Main } from '@layouts/index';
+import { Main } from '@/layouts/index';
 import { ReactElement } from 'react';
-import HomeView from 'views/HomeView';
+import HomeView from '@/views/HomeView';
 
 const HomePage = (): JSX.Element => {
 	return <HomeView />;

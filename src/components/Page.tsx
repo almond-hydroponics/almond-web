@@ -1,19 +1,19 @@
-import SnackBar from '@components/atoms/SnackBar';
-import { ErrorBoundary } from '@components/molecules/ErrorBoundary';
-import { ComponentProvider } from '@context/ComponentContext';
+import SnackBar from '@/components/atoms/SnackBar';
+import { ErrorBoundary } from '@/components/molecules/ErrorBoundary';
+import { ComponentProvider } from '@/context/ComponentContext';
 import { PaletteMode } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import Paper from '@mui/material/Paper';
 import { ThemeProvider } from '@mui/material/styles';
-import { RootState } from '@store/index';
 import AOS from 'aos';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { ReactNode, createContext, useEffect, useMemo, useState } from 'react';
+import { createContext, ReactNode, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import getTheme from 'theme';
 
 import ErrorBoundaryPage from '../views/ErrorBoundaryPage';
+import { RootState } from '@/store';
+import getTheme from '@/theme';
 
 export const ColorModeContext = createContext({
 	toggleColorMode: () => {},

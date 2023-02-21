@@ -1,4 +1,4 @@
-import AccountSettingsView from 'views/AccountSettingsView';
+import AccountSettingsView from '@/views/AccountSettingsView';
 
 const AccountSettingsPage = (): JSX.Element => {
 	return <AccountSettingsView />;

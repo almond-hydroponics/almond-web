@@ -1,5 +1,4 @@
-import { DeviceTable } from '@layouts/Dashboard/components';
-import { InferQueryPathAndInput, trpc } from '@lib/trpc';
+import { DeviceTable } from '@/layouts/Dashboard/components';
 import { Box, Tab, Tabs } from '@mui/material';
 import { Device } from '@prisma/client';
 import { useSession } from 'next-auth/react';
@@ -34,12 +33,6 @@ const a11yProps = (index: number) => {
 	};
 };
 
-const getDevicesQueryPathAndInput = (
-	userId: string
-): InferQueryPathAndInput<'device.mine'> => {
-	return ['device.mine', { userId }];
-};
-
 const DeviceTabs = (): JSX.Element => {
 	const [value, setValue] = useState(0);
 
@@ -50,9 +43,9 @@ const DeviceTabs = (): JSX.Element => {
 	const { data: session } = useSession();
 	const { id } = session?.user || {};
 
-	const devicesQueryAndPath = getDevicesQueryPathAndInput(String(id));
-	const devicesQuery = trpc.useQuery(devicesQueryAndPath);
-	const devices = devicesQuery.data?.devices || [];
+	// const devicesQueryAndPath = getDevicesQueryPathAndInput(String(id));
+	// const devicesQuery = trpc.device.useQuery(devicesQueryAndPath);
+	const devices = [];
 
 	const serializeDeviceStatus = (
 		device: Pick<Device, 'verified' | 'active'>
@@ -78,12 +71,12 @@ const DeviceTabs = (): JSX.Element => {
 				<DeviceTable headers={headers} data={devices as unknown as Device[]} />
 			</TabPanel>
 			<TabPanel value={value} index={1}>
-				<DeviceTable
-					headers={headers}
-					data={
-						devices.filter((device) => device.starred) as unknown as Device[]
-					}
-				/>
+				{/*<DeviceTable*/}
+				{/*	headers={headers}*/}
+				{/*	data={*/}
+				{/*		devices.filter((device) => device.starred) as unknown as Device[]*/}
+				{/*	}*/}
+				{/*/>*/}
 			</TabPanel>
 			<TabPanel value={value} index={2}>
 				<DeviceTable headers={headers} data={devices as unknown as Device[]} />

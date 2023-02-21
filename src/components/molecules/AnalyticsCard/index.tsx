@@ -110,7 +110,7 @@ const AnalyticsCard = ({
 					</Typography>
 				</Box>
 				<Box
-					classes={classes.content}
+					// classes={classes.content}
 					padding={2}
 					display={'flex'}
 					alignItems={'center'}

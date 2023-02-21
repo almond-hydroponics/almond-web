@@ -1,4 +1,4 @@
-import StoreView from 'views/StoreView';
+import StoreView from '@/views/StoreView';
 
 const StorePage = (): JSX.Element => {
 	return <StoreView />;

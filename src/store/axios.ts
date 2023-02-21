@@ -1,4 +1,4 @@
-import environment from '@lib/environment';
+import environment from '@/lib/environment';
 import axios from 'axios';
 
 // Create axios instance.

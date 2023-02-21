@@ -53,7 +53,6 @@ model User {
   accounts      Account[]
   sessions      Session[]
   devices       Device[]
-  post          Post[]
   role          Role      @default(USER)
 }
 
@@ -78,21 +77,6 @@ model Device {
   createdAt  DateTime?  @default(now())
   updatedAt  DateTime?  @updatedAt
   schedule   Schedule[]
-}
-
-model Post {
-  id           String   @id @default(cuid())
-  title        String   @db.VarChar(255)
-  content      String   @db.Text
-  contentHtml  String   @db.Text
-  thumbnailUrl String
-  published    Boolean  @default(false)
-  author       User?    @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  authorId     String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  @@index([authorId])
 }
 
 model Schedule {

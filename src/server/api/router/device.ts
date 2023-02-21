@@ -1,12 +1,12 @@
 import {
 	adminProcedure,
+	createTRPCRouter,
 	protectedProcedure,
-	router,
-} from '@/server/trpc/trpc';
+} from '@/server/api/trpc';
 import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
 
-export const deviceRouter = router({
+export const deviceRouter = createTRPCRouter({
 	all: adminProcedure
 		.input(
 			z

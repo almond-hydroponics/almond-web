@@ -1,7 +1,7 @@
-import { authRouter } from '@server/api/router/auth';
-import { deviceRouter } from '@server/api/router/device';
-import { scheduleRouter } from '@server/api/router/schedule';
-import { userRouter } from '@server/api/router/user';
+import { authRouter } from '@/server/api/router/auth';
+import { deviceRouter } from '@/server/api/router/device';
+import { scheduleRouter } from '@/server/api/router/schedule';
+import { userRouter } from '@/server/api/router/user';
 
 import { createTRPCRouter } from './trpc';
 

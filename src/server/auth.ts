@@ -2,7 +2,7 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import type { Device } from '@prisma/client';
 import { Role } from '@prisma/client';
 import type { GetServerSidePropsContext } from 'next';
-import { NextAuthOptions, getServerSession } from 'next-auth';
+import { getServerSession, NextAuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 
 import { env } from '../env.mjs';
@@ -17,7 +17,6 @@ import { prisma } from './db';
  **/
 declare module 'next-auth' {
 	interface Session {
-		// @ts-expect-error
 		user: {
 			id: string;
 			name: string;

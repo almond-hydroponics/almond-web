@@ -1,5 +1,5 @@
-import { displaySnackMessage } from '@store/slices/snack';
-import isBrowser from '@utils/isBrowser';
+import { displaySnackMessage } from '@/store/slices/snack';
+import isBrowser from '@/utils/isBrowser';
 import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { ReactNode, useEffect } from 'react';

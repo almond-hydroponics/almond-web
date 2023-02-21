@@ -1,7 +1,7 @@
-import { Main } from '@layouts/index';
+import { Main } from '@/layouts/index';
 import { Box, Grid, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import Container from 'components/Container';
+import Container from '@/components/Container';
 
 import { ContactCard, Content } from './components';
 

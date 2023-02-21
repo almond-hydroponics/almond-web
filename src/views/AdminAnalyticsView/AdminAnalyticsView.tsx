@@ -1,6 +1,6 @@
-import { AnalyticsCard } from '@components/molecules';
+import { AnalyticsCard } from '@/components/molecules';
 // components
-import { ComponentContext } from '@context/ComponentContext';
+import { ComponentContext } from '@/context/ComponentContext';
 import {
 	AccountBalanceTwoTone,
 	AllOutTwoTone,

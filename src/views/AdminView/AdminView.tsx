@@ -1,7 +1,7 @@
-import { TabPanel } from '@components/atoms';
-import Container from '@components/Container';
-import { AdminMenus } from '@components/molecules/MenuRoutes';
-import { ComponentContext } from '@context/ComponentContext';
+import { TabPanel } from '@/components/atoms';
+import Container from '@/components/Container';
+import { AdminMenus } from '@/components/molecules/MenuRoutes';
+import { ComponentContext } from '@/context/ComponentContext';
 import { Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { useRouter } from 'next/router';

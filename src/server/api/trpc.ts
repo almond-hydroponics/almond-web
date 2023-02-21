@@ -13,7 +13,7 @@
  * This is where the tRPC API is initialized, connecting the context and
  * transformer.
  */
-import { TRPCError, initTRPC } from '@trpc/server';
+import { initTRPC, TRPCError } from '@trpc/server';
 /**
  * 1. CONTEXT
  *
@@ -114,6 +114,22 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
 });
 
 /**
+ * Reusable middleware to ensure
+ * users are admin and authed
+ */
+const enforceUserIsAdminAndAuthed = t.middleware(({ ctx, next }) => {
+	if (!ctx.session || ctx.session.user.role !== 'ADMIN') {
+		throw new TRPCError({ code: 'UNAUTHORIZED' });
+	}
+	return next({
+		ctx: {
+			// infers the `session` as non-nullable
+			session: { ...ctx.session, user: ctx.session.user },
+		},
+	});
+});
+
+/**
  * Protected (authenticated) procedure
  *
  * If you want a query or mutation to ONLY be accessible to logged in users, use
@@ -123,3 +139,8 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
  * @see https://trpc.io/docs/procedures
  */
 export const protectedProcedure = t.procedure.use(enforceUserIsAuthed);
+
+/**
+ * Protected admin procedure
+ **/
+export const adminProcedure = t.procedure.use(enforceUserIsAdminAndAuthed);

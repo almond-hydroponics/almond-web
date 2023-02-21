@@ -2,7 +2,7 @@
 import crypto from 'crypto';
 
 import createEmotionServer from '@emotion/server/create-instance';
-import { GA_TRACKING_ID } from '@utils/gtag';
+import { GA_TRACKING_ID } from '@/utils/gtag';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 import Script from 'next/script';
 

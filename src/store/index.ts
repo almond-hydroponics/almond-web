@@ -1,6 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { notificationsSlice } from '@store/slices/notifications';
-import { snackSlice } from '@store/slices/snack';
+import { notificationsSlice } from '@/store/slices/notifications';
+import { snackSlice } from '@/store/slices/snack';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import logger from 'redux-logger';
 

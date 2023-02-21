@@ -1,5 +1,5 @@
-import { GoogleIcon } from '@components/atoms';
-import Container from '@components/Container';
+import { GoogleIcon } from '@/components/atoms';
+import Container from '@/components/Container';
 import { Button, Grid, SvgIcon } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';

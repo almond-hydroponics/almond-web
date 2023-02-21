@@ -1,4 +1,4 @@
-import CompanyTerms from 'views/CompanyTerms';
+import CompanyTerms from '@/views/CompanyTerms';
 
 const CompanyTermsPage = (): JSX.Element => {
 	return <CompanyTerms />;

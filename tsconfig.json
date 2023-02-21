@@ -26,19 +26,8 @@
 		"incremental": true,
 		"noFallthroughCasesInSwitch": true,
 		"outDir": "./dist",
-		"baseUrl": "src",
 		"paths": {
-			"@lib/*": ["lib/*"],
-			"@components/*": ["components/*"],
-			"@utils/*": ["utils/*"],
-			"@modules/*": ["store/modules/*"],
-			"@hooks/*": ["hooks/*"],
-			"@context/*": ["context/*"],
-			"@svg/*": ["svg/*"],
-			"@store/*": ["store/*"],
-			"@server/*": ["server/*"],
-			"@env/*": ["env/*"],
-			"@layouts/*": ["layouts/*"]
+      "@/*": ["./src/*"]
 		}
 	},
 	"ts-node": {

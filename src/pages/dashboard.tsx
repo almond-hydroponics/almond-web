@@ -1,5 +1,5 @@
-import { NextPageWithAuthAndLayout } from '@lib/types';
-import DashboardView from 'views/DashboardView';
+import { NextPageWithAuthAndLayout } from '@/lib/types';
+import DashboardView from '@/views/DashboardView';
 
 const DashboardPage: NextPageWithAuthAndLayout = (): JSX.Element => {
 	return <DashboardView />;

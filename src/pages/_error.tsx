@@ -1,4 +1,4 @@
-import ServerError from 'views/ServerError';
+import ServerError from '@/views/ServerError';
 
 const ErrorPage = (): JSX.Element => {
 	return <ServerError />;

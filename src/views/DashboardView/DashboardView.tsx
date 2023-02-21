@@ -1,9 +1,9 @@
 // components;
-import { BlankContent, Modal, TabPanel } from '@components/atoms';
-import Container from '@components/Container';
-import { UserMenus } from '@components/molecules/MenuRoutes';
-import { ComponentContext } from '@context/ComponentContext';
-import { trpc } from '@lib/trpc';
+import { BlankContent, Modal, TabPanel } from '@/components/atoms';
+import Container from '@/components/Container';
+import { UserMenus } from '@/components/molecules/MenuRoutes';
+import { ComponentContext } from '@/context/ComponentContext';
+import { trpc } from '@/lib/trpc';
 import { Add, Close } from '@mui/icons-material';
 // import { useSubscription } from '@hooks/mqtt';
 import {
@@ -20,9 +20,9 @@ import {
 	useMediaQuery,
 } from '@mui/material';
 import { alpha, useTheme } from '@mui/material/styles';
-import { displaySnackMessage } from '@store/slices/snack';
-import arrayIsEmpty from '@utils/arrayIsEmpty';
-import dayjs from '@utils/dayjsTime';
+import { displaySnackMessage } from '@/store/slices/snack';
+import arrayIsEmpty from '@/utils/arrayIsEmpty';
+import dayjs from '@/utils/dayjsTime';
 // interfaces
 import { IClientSubscribeOptions } from 'mqtt';
 import { useRouter } from 'next/router';
@@ -109,7 +109,7 @@ const DashboardView = (): JSX.Element => {
 		isActivityDrawerOpen,
 	} = useContext(ComponentContext);
 
-	const activateDeviceMutation = trpc.useMutation('device.activate', {
+	const activateDeviceMutation = trpc.device.activate.useMutation({
 		onError: (error) => {
 			dispatch(
 				displaySnackMessage({

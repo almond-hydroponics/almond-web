@@ -1,5 +1,5 @@
-import { NextPageWithAuthAndLayout } from '@lib/types';
-import AdminView from 'views/AdminView';
+import { NextPageWithAuthAndLayout } from '@/lib/types';
+import AdminView from '@/views/AdminView';
 
 const AdminPage: NextPageWithAuthAndLayout = (): JSX.Element => {
 	return <AdminView />;

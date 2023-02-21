@@ -1,4 +1,4 @@
-import CartView from 'views/CartView';
+import CartView from '@/views/CartView';
 
 const CartPage = (): JSX.Element => {
 	return <CartView />;

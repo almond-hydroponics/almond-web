@@ -1,8 +1,8 @@
-import { protectedProcedure, router } from '@/server/trpc/trpc';
+import { createTRPCRouter, protectedProcedure } from '@/server/api/trpc';
 import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
 
-export const scheduleRouter = router({
+export const scheduleRouter = createTRPCRouter({
 	all: protectedProcedure
 		.input(
 			z.object({

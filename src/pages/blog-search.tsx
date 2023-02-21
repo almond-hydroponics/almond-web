@@ -1,4 +1,4 @@
-import BlogSearch from 'views/BlogSearch';
+import BlogSearch from '@/views/BlogSearch';
 
 const BlogSearchPage = (): JSX.Element => {
 	return <BlogSearch />;

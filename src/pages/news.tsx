@@ -1,14 +1,14 @@
-import { PageSEO } from '@components/atoms/SEO';
-import Container from '@components/Container';
-import { Main } from '@layouts/index';
-import { getAllFilesFrontMatter } from '@lib/mdx';
-import { POSTS_PER_PAGE } from 'config';
+import { PageSEO } from '@/components/atoms/SEO';
+import Container from '@/components/Container';
+import { Main } from '@/layouts/index';
+import { getAllFilesFrontMatter } from '@/lib/mdx';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { ComponentProps, ReactElement } from 'react';
-import NewsroomView from 'views/NewsroomView';
-import Newsroom from 'views/NewsroomView';
+import NewsroomView from '@/views/NewsroomView';
+import Newsroom from '@/views/NewsroomView';
 
 import siteMetadata from '../../data/siteMetadata';
+import { POSTS_PER_PAGE } from '@/config';
 
 export const getStaticProps: GetStaticProps<{
 	posts: ComponentProps<typeof Newsroom>['posts'];

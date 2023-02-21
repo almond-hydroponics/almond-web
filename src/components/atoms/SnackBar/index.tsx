@@ -2,9 +2,9 @@ import { AlertProps, Snackbar, useMediaQuery } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 // third-party libraries
 import { useTheme } from '@mui/material/styles';
-import { reset } from '@store/slices/snack';
+import { reset } from '@/store/slices/snack';
 // react libraries
-import { SyntheticEvent, forwardRef, useEffect, useState } from 'react';
+import { forwardRef, SyntheticEvent, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 // interfaces
